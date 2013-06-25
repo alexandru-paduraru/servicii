@@ -1,0 +1,2 @@
+class SalesmanController < ApplicationController
+end
