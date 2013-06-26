@@ -3,12 +3,16 @@ Services::Application.routes.draw do
 resources :user, :only => [:login]
 resources :admin, :only => [:signup] 
 
-match '/login', to: 'user#login', :as => "login"  
+match '/login', to: 'session#login', :as => "login"  
 match '/signup', to: 'admin#signup', :as => "signup"
+
+match '/salesman', to: 'salesman#index', :as => "salesman"
+match '/accountant', to: 'accountant#index', :as => "accountant"
+match '/collector', to: 'collector#index', :as => "collector"
 
 match '/admin_create', to: 'admin#create', :as => "admin_create"
 
-root :to => 'user#login'
+root :to => 'session#login'
 
 
 
