@@ -10,14 +10,19 @@
  <header class="navbar navbar-inverse navbar-fixed-top">
       <nav class="navbar-inner">
         <div class="container">
-              <ul class="nav">
               <% if current_user %>
+              <ul class="nav">
               	  <li class="active"><a href="#">Account</a></li>
 	              <li><a href="#">Clients</a></li>
 	              <li><a href="#">Statistics</a></li>
+              </ul>
+              <ul class="nav pull-right">
 	              <li><a href="/logout">Logout</a></li>
+              </ul>
               <% else %>
+              <ul class="nav pull-right">
               	<li><a href="#">Login</a></li>
+              </ul>
               <% end %>
               
 	           </ul>
@@ -28,10 +33,10 @@
       <div class="container">
         <div class="content">
            <div class="row">
-            <div class="span12">
+            
             
             <%= yield %>
-			 </div>
+			 
           </div>
           <footer>
           </footer>
