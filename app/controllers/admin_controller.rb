@@ -7,5 +7,9 @@ class AdminController < ApplicationController
 	
 	def create
 	# render text: params[:post].inspect
+	@admin = User.new(admin_params)
+ 
+	@admin.save
+	redirect_to @post
 	end
 end
