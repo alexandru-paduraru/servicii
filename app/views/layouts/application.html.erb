@@ -7,8 +7,36 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+ <header class="navbar navbar-inverse navbar-fixed-top">
+      <nav class="navbar-inner">
+        <div class="container">
+              <ul class="nav">
+              <% if current_user %>
+              	  <li class="active"><a href="#">Account</a></li>
+	              <li><a href="#">Clients</a></li>
+	              <li><a href="#">Statistics</a></li>
+	              <li><a href="/logout">Logout</a></li>
+              <% else %>
+              	<li><a href="#">Login</a></li>
+              <% end %>
+              
+	           </ul>
+        </div>
+      </nav>
+    </header>
+    <div id="main" role="main">
+      <div class="container">
+        <div class="content">
+           <div class="row">
+            <div class="span12">
+            
+            <%= yield %>
+			 </div>
+          </div>
+          <footer>
+          </footer>
+        </div>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
 </body>
 </html>
