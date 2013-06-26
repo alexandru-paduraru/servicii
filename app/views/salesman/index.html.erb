@@ -1,2 +1,80 @@
-<h1>Index salesman</h1>
 
+
+  <div class="input-append">
+    <input class="span5" id="appendedInputButtons" type="text">
+    <button class="btn" type="button">Search</button>
+    <button class="modalButton btn" type="button" id="1">Add</button>
+    
+    <!-- 
+    <button class = "btn" type = "button">Date</button>
+    <button class = "btn" type = "button">Name</button>
+    -->
+  </div>
+   
+<table class="table table-hover">
+  
+  <tr>
+  <th>#</th>
+  <th>First name</th>
+  <th>Last name </th>
+  <th>Account number</th>
+  <th>Details</th>
+  </tr>
+  <a href = "#">
+  <tr onclick = "document.location = 'detalii';">
+  <td> 1</td>
+  <td> Cristina </td>
+  <td> Conacel </td>
+  <td> 12334 </td>
+  <td></td>
+  </tr>
+  </a>
+</table>
+<div class="clearfix">
+</div>
+
+<div class="modal hide fade" id="modal1">
+  <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Add client</h3>
+      
+      <form class="form-horizontal">
+	      <div class="control-group">
+		      <label class="control-label" for="inputFirstName">First name</label>
+		      <div class="controls">
+			   <input type="text" id="inputFirstName" placeholder="">
+              </div>
+          </div>
+          
+	      <div class="control-group">
+		      <label class="control-label" for="inputLastName">Last name</label>
+		      <div class="controls">
+			   <input type="text" id="inputLastName" placeholder="">
+              </div>
+          </div>
+          
+          
+	      <div class="control-group">
+		      <label class="control-label" for="inputAccount">Account</label>
+		      <div class="controls">
+			   <input type="text" id="inputAccount" placeholder="">
+              </div>
+          </div>
+      </form>
+            
+  </div>
+  
+  <div class="modal-footer">
+      <button type="button" class="btn span2 pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <button type="button" class="btn span2 pull-right" data-dismiss="modal" aria-hidden="true">Add</button>
+  </div>
+  
+</div>
+
+<script type="text/javascript">
+      $(".modalButton").click(function(){
+        var id = this.id;
+        var modalNou = '#modal' + id;
+      $(modalNou).modal('show');
+      });
+</script>
