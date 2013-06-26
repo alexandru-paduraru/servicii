@@ -4,6 +4,7 @@ resources :user, :only => [:login]
 resources :admin, :only => [:signup] 
 
 match '/login', to: 'session#login', :as => "login" 
+match '/logout', to: 'session#destroy_user', :as => "logout"
 match '/login_user', to: 'session#login_user', :as => "login_user" 
 match '/signup', to: 'admin#signup', :as => "signup"
 

@@ -16,7 +16,7 @@ class AdminController < ApplicationController
 		user.password_hash = pass[:password_hash]
 		user.first_name = object[:first_name]
 		user.last_name = object[:last_name]
-		user.type = 1
+		user.job = 1
 		
 		respond_to do |format|
 			if user.save 
@@ -30,6 +30,8 @@ class AdminController < ApplicationController
 	end
 	
 	def index
-		render 'index'
+		respond_to do |format|
+		 format.html { render 'index'}
+		 end
 	end
 end
