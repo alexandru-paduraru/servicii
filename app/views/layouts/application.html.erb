@@ -5,6 +5,11 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <style>
+	  .container-login{
+		  width:270px;
+	  }
+  </style>
 </head>
 <body>
  <header class="navbar navbar-inverse navbar-fixed-top">
@@ -30,7 +35,11 @@
       </nav>
     </header>
     <div id="main" role="main">
+    <% if current_user %>
       <div class="container">
+    <% else %>  
+      <div class="container container-login">
+    <% end %>
         <div class="content">
            <div class="row">
             

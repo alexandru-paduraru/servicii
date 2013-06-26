@@ -24,8 +24,7 @@ class SessionController < ApplicationController
 	    end
     else
 	#render text: params[:user].inspect
-        flash.now.alert = "Invalid email or password"
-        format.html {render 'login'}
+	 render text: "combinatia user/parola incorecta"
 	end
  
  end

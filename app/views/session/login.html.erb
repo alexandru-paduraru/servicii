@@ -1,13 +1,14 @@
-<h1>Log in</h1>
+<div class="span3">
+<h2>Log in</h2>
 <%= form_for :user, url: 'login_user' do |f|%>
 <p>
-<%= f.label :email %> <br />
-<%= f.text_field :email %>
+<%= f.text_field :email, :class => "input-block-level", :placeholder => "Email" %>
 </p>
 <p>
-<%= f.label :password %> <br />
-<%= f.password_field :password %>
+<%= f.password_field :password, :class => "input-block-level", :placeholder => "Password" %>
 </p>
 <p class ="button">
-<%= submit_tag("Login", :class => "btn btn-primary") %></p>
+<%= submit_tag("Login", :class => "btn btn-info btn-large") %></p>
+<a href="/signup" class="">Signup</a>
 <% end	%>
+</div>
