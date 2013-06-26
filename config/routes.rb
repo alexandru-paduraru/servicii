@@ -15,7 +15,8 @@ match '/collector', to: 'collector#index', :as => "collector"
 match '/admin', to: 'admin#index', :as => "admin"
 
 #create users
-match '/salesman/new', to: 'salesman#new', :as =>"salesman/new"
+match '/salesman_new', to: 'salesman#new', :as =>"salesman_new"
+match '/salesman_create', to: 'salesman#create', :as =>"salesman_create"
 match '/admin_create', to: 'admin#create', :as => "admin_create"
 
 root :to => 'session#login'
