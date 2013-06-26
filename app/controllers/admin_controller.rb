@@ -1,13 +1,11 @@
 class AdminController < ApplicationController
-	def login
-	  	
-	  respond_to do |format|
-      	format.html { render signup.html.erb }
-      	format.json { render json: @admin }
-      end
+	def new
+		respond_to do |format|
+			format.html {render 'signup'}
+		end
 	end
 	
-	def signin
-		
+	def create
+	# render text: params[:post].inspect
 	end
 end

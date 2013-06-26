@@ -6,6 +6,8 @@ resources :admin, :only => [:signup]
 match '/login', to: 'user#login', :as => "login"  
 match '/signup', to: 'admin#signup', :as => "signup"
 
+match '/admin_create', to: 'admin#create', :as => "admin_create"
+
 root :to => 'user#login'
 
 
