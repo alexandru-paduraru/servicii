@@ -4,15 +4,19 @@
 <div class = "span12">
 
   <div class="input-append">
-    <input class="span5" id="appendedInputButtons" type="text">
-    <button class="btn" type="button">Search</button>
-    <button class="modalButton btn" type="button" id="1">Add</button>
     
-    <!-- 
+    <%= form_tag salesman_path, :method => 'get' do %>
+    <%= text_field_tag :search, params[:search], :class => "span5" %>
+    <%= submit_tag("Search", :class => "btn") %>   
+    <% end %>
+    
+    <button class="modalButton btn" type="button" id="1">Add</button>
     <button class = "btn" type = "button">Date</button>
     <button class = "btn" type = "button">Name</button>
-    -->
+
+
   </div>
+
    
 <table class="table table-hover">
   
@@ -74,6 +78,23 @@
   <td></td>
   </tr>
   
+  <% index = 6 %>
+  <% @customers.each do |customer| %>
+  	<% if customer.balance < 0 %>
+  		<tr onclick = "document.location = 'detalii';" class = "error">
+	<% else %>
+		<tr onclick = "document.location = 'detalii';" >
+	<% end %>
+  
+  <td><%= index = index + 1 %> </td>
+  <td><%= customer.first_name %></td>
+  <td><%= customer.last_name %></td>
+  <td><%= customer.id %></td>
+  <td><%= customer.balance %> $ </td>
+  <td> </td>
+  </tr>
+  <% end %>
+  
 </table>
 
 </div>
@@ -83,20 +104,20 @@
 <div class="modal hide fade" id="modal1">
   <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h3>Add client</h3>
+      <h3>Add customer</h3>
       
       <form class="form-horizontal">
 	      <div class="control-group">
 		      <label class="control-label" for="inputFirstName">First name</label>
 		      <div class="controls">
-			   <input type="text" id="inputFirstName" placeholder="">
+			   <input type="text" id="inputFirstName" placeholder="First name">
               </div>
           </div>
           
 	      <div class="control-group">
 		      <label class="control-label" for="inputLastName">Last name</label>
 		      <div class="controls">
-			   <input type="text" id="inputLastName" placeholder="">
+			   <input type="text" id="inputLastName" placeholder="Last name">
               </div>
           </div>
           
