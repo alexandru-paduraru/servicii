@@ -28,6 +28,7 @@
   <th>Payment</th>
   <th>Actions</th>
   </tr>
+<!--
 
   <tr onclick = "document.location = 'detalii';">
   <td> 1</td>
@@ -78,7 +79,8 @@
   <td></td>
   </tr>
   
-  <% index = 6 %>
+-->
+  <% index = 0 %>
   <% @customers.each do |customer| %>
   	<% if customer.balance < 0 %>
   		<tr onclick = "document.location = 'detalii';" class = "error">
@@ -103,52 +105,43 @@
 
 
 <div class="modal hide fade" id="modal1">
-
-  <%= form_for :user, url: 'login_user', :class => "form-horizontal" do |f|%>
+<div class="form-horizontal">
+  <%= form_for :customer, url: 'customer_create', :class => "form-horizontal" do |f|%>
 
   <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       <h4>Add customer</h4>
-    
-	      
-          <div class="control-group">
-		      <label class="control-label" for="inputFirstName">First name</label>
-		      <div class="controls">
-			   <input type="text" id="inputFirstName" placeholder="First name">
-              </div>
-          </div>
-          <!--
-	      <div class="control-group">
-		      <label class="control-label" for="inputLastName">Last name</label>
-		      <div class="controls">
-			   <input type="text" id="inputLastName" placeholder="Last name">
-              </div>
-          </div>
           
+           <div class="control-group">
+	          <%= f.label :first_name, :class => "control-label" %>
+	          <div class="controls">
+		          <%= f.text_field :first_name, :class => "input-xlarge", :placeholder => "First Name" %>
+		      </div>
+		  </div>
           
           <div class="control-group">
-		      <label class="control-label" for="inputAccount">Email</label>
-		      <div class="controls">
-			   <input type="text" id="inputAccount" placeholder="Email">
-              </div>
-          </div>
+	          <%= f.label :last_name, :class => "control-label" %>
+	          <div class="controls">
+		          <%= f.text_field :last_name, :class => "input-xlarge", :placeholder => "Last Name" %>
+		      </div>
+		  </div>
           
-          <div class="control-group">
-		      <label class="control-label" for="inputAccount">Phone</label>
-		      <div class="controls">
-			   <input type="text" id="inputAccount" placeholder="Phone">
-              </div>
-          </div>
+           <div class="control-group">
+	          <%= f.label :phone, :class => "control-label" %>
+	          <div class="controls">
+		          <%= f.text_field :phone, :class => "input-xlarge", :placeholder => "Phone" %>
+		      </div>
+		  </div>
           
-          <div class="control-group">
-		      <label class="control-label" for="inputAccount">Billing address</label>
-		      <div class="controls">
-			   <input type="text" id="inputAccount" placeholder="Billing address">
-              </div>
-          </div>
+           <div class="control-group">
+	          <%= f.label :email, :class => "control-label" %>
+	          <div class="controls">
+		          <%= f.text_field :email, :class => "input-xlarge", :placeholder => "Email" %>
+		      </div>
+		  </div>
+          
+          
 
-            
--->
   </div>
   
   <div class="modal-footer">
@@ -160,7 +153,7 @@
   
   <% end %>  <!-- #form end -->
 </div>
-
+</div>
 <script type="text/javascript">
       $(".modalButton").click(function(){
         var id = this.id;

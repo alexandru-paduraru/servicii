@@ -54,7 +54,7 @@ class UserController < ApplicationController
 		end
 	end
 	
-	def show
+	def show 
 		@users_details = []
 		@users = User.all
 		
@@ -70,5 +70,21 @@ class UserController < ApplicationController
 			@user_details = User.details(current_user.id)
 			render 'index' 
 		end
+	end
+	
+	def customer_create
+		_post = params[:customer]
+		customer = Customer.new
+        customer[:first_name] = _post[:first_name]
+        customer[:last_name] = _post[:last_name]
+        customer[:phone] = _post[:phone]
+        customer[:email] = _post[:email]
+        customer[:balance] = 0
+        if customer.save
+           redirect_to salesman_path
+        else
+           redirect_to salesman_path
+        end
+		
 	end
 end
