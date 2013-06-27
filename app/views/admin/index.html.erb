@@ -87,6 +87,8 @@
 	<th>Actions</th>
 </tr>
 <% vector = ["Salesman", "Accountant", "Collector"] %>
+
+<% if (@users_details)%>
 <% @users_details.each do |user_details| %>
 <tr>
 	<td><%= user_details[:id] %></td>
@@ -105,7 +107,9 @@
 	<td><a href="#">Edit</a></td>
 </tr>
 <% end %>
-
+<% else %>
+	<p>No employees in database</p>
+<% end %>
 </table>
     
 </div>
