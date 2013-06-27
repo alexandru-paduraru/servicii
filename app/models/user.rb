@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   
 #  belongs_to :user_type
   belongs_to :company
-
+  has_many :worksons, :foreign_key => "user_id"
+  
   validates_uniqueness_of :email
 
   def self.authenticate(email, password)

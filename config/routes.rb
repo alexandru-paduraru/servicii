@@ -13,15 +13,16 @@ get '/salesman', to: 'salesman#index', :as => "salesman"
 get '/accountant', to: 'accountant#index', :as => "accountant"
 get '/collector', to: 'collector#index', :as => "collector"
 get '/admin', to: 'admin#index', :as => "admin"
+get '/employee_new', to: 'user#new', :as => "employee_new"
+
 
 #create users
 get '/salesman_new', to: 'salesman#new', :as =>"salesman_new"
 post '/salesman_create', to: 'salesman#create', :as =>"salesman_create"
 post '/admin_create', to: 'admin#create', :as => "admin_create"
+post '/employee_create', to: 'user#create', :as => "employee_create"
 
 root :to => 'session#login'
-
-
 
 
 
