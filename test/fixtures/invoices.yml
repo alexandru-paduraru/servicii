@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2013-06-27
+  number: 1
+  due_date: 2013-06-27
+  amount: 1.5
+  current_balance: 1.5
+  company_id: 
+  customer_id: 
+
+two:
+  date: 2013-06-27
+  number: 1
+  due_date: 2013-06-27
+  amount: 1.5
+  current_balance: 1.5
+  company_id: 
+  customer_id: 
