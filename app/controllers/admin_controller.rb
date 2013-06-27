@@ -17,13 +17,12 @@ class AdminController < ApplicationController
 		user.first_name = object[:first_name]
 		user.last_name = object[:last_name]
 		user.job = 1
-		
-		respond_to do |format|
+
 			if user.save 
 				session[:user_id] = user[:id]
-				format.html {render 'index'}
+				redirect_to 'index'
 			else 
-				format.html { render 'signup'}
+				render 'signup'
 			end
 		end
 		#redirect_to 'index'
