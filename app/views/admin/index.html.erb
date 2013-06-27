@@ -1,5 +1,16 @@
 <div class="span3">
 	
+
+            <ul class="well nav nav-list">
+             <li class="nav-header">Admin menu</li>
+              <li><a href="employee_new">Add employee</a></li>
+              
+              <li><a href="#">Clients list</a></li>
+              <li><a href="#">Statistics</a></li>
+              <li><a href="#">Edit company</a></li>
+            </ul>
+          
+       
 	<h4>Company details</h4>
 	
 	<address>
@@ -20,7 +31,7 @@
 
 
 </div>
-<div class="span9">
+<div class="span9"><!--
 <ul class="thumbnails">
     <li class="span3">
     	 <div class="thumbnail">
@@ -47,41 +58,38 @@
     	 </div>
     </li>
     
-</ul>
+</ul> -->
 
- <div class="input-append">
-   <input class="span5" id="appendedInputButtons" type="text">
-   <button class="btn" type="button">Search</button>
-   <button class="modalButton btn" type="button" id="1">Add</button>
-   
-   <!-- 
-   <button class = "btn" type = "button">Date</button>
-   <button class = "btn" type = "button">Name</button>
-   -->
- </div>
-
-<table class="table table-hover">
+ <h4>Employees</h4>
+<table class="table table-striped">
 <tr>
 	<th>#</th>
 	<th>First Name</th>
 	<th>Last Name</th>
-	<th>Job</th>
+	<th>Email</th>
+	<th>Jobs</th>
 	<th>Actions</th>
 </tr>
+<% vector = ["Salesman", "Accountant", "Collector"] %>
+<% @users_details.each do |user_details| %>
 <tr>
-	<td>1</td>
-	<td>Andrei</td>
-	<td>Popescu</td>
-	<td>Salesman</td>
+	<td><%= user_details[:id] %></td>
+	<td><%= user_details[:first_name] %></td>
+	<td><%= user_details[:last_name] %></td>
+	<td><%= user_details[:email] %></td>
+	<td>
+		<ul>
+		<% user_details[:job].each do |job|%>
+		<li>
+			<%= vector[job[:job_id]-2] %>
+		</li>
+		<% end %>
+		</ul>
+	</td>
 	<td><a href="#">Edit</a></td>
 </tr>
-<tr>
-	<td>2</td>
-	<td>Bogdan</td>
-	<td>Ionescu</td>
-	<td>Accountant</td>
-	<td><a href="#">Edit</a></td>
-</tr>
+<% end %>
+
 </table>
     
 </div>

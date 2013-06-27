@@ -30,8 +30,13 @@ class AdminController < ApplicationController
 	end
 	
 	def index
-		respond_to do |format|
-		 format.html { render 'index'}
-		 end
+		@users_details = []
+		@users = User.all
+		
+		@users.each do |user|
+			@user_details = User.details(user.id)
+			@users_details.append(@user_details)
+		end
+		 render 'index'
 	end
 end

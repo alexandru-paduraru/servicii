@@ -25,4 +25,16 @@ class User < ActiveRecord::Base
     pass
   end
 
+  def self.details(id)
+    details = {}
+  	user = User.find(id)
+  	works_on = Workson.all(:conditions => { :user_id => id })
+  	details[:id] = user.id
+  	details[:first_name] = user.first_name
+  	details[:last_name] = user.last_name
+  	details[:email] = user.email
+  	details[:job] = works_on
+  	details
+  end
+  
 end

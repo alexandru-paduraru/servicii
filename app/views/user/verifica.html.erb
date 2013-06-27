@@ -1,0 +1,12 @@
+<% @users_details.each do |user_details| %>
+  <%= user_details[:id] %>
+  <%= user_details[:first_name] %>
+  <%= user_details[:last_name] %>
+  <%= user_details[:email] %>
+  
+  <% user_details[:job].each do |user_det| %>
+  		<%= user_det.job_id %>
+  		
+  <% end %>
+  <br>
+<% end %>

@@ -22,6 +22,7 @@ post '/salesman_create', to: 'salesman#create', :as =>"salesman_create"
 post '/admin_create', to: 'admin#create', :as => "admin_create"
 post '/employee_create', to: 'user#create', :as => "employee_create"
 
+get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#login'
 
 
