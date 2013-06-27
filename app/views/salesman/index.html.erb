@@ -10,12 +10,12 @@
     <%= submit_tag("Search", :class => "btn") %>   
     <% end %>
     
-    <button class="modalButton btn" type="button" id="1">Add</button>
-    <button class = "btn" type = "button">Date</button>
-    <button class = "btn" type = "button">Name</button>
-
-
   </div>
+  <br>
+   	<button class = "btn" type = "button">Date</button>
+   	<button class = "btn" type = "button">Name</button>
+   	<button class="modalButton btn" type="button" id="1">Add</button>
+  <br>
 
    
 <table class="table table-hover">
@@ -101,19 +101,23 @@
 <div class="clearfix">
 </div>
 
+
 <div class="modal hide fade" id="modal1">
+
+  <%= form_for :user, url: 'login_user', :class => "form-horizontal" do |f|%>
+
   <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h3>Add customer</h3>
-      
-      <form class="form-horizontal">
-	      <div class="control-group">
+      <h4>Add customer</h4>
+    
+	      
+          <div class="control-group">
 		      <label class="control-label" for="inputFirstName">First name</label>
 		      <div class="controls">
 			   <input type="text" id="inputFirstName" placeholder="First name">
               </div>
           </div>
-          
+          <!--
 	      <div class="control-group">
 		      <label class="control-label" for="inputLastName">Last name</label>
 		      <div class="controls">
@@ -122,21 +126,39 @@
           </div>
           
           
-	      <div class="control-group">
-		      <label class="control-label" for="inputAccount">Account</label>
+          <div class="control-group">
+		      <label class="control-label" for="inputAccount">Email</label>
 		      <div class="controls">
-			   <input type="text" id="inputAccount" placeholder="">
+			   <input type="text" id="inputAccount" placeholder="Email">
               </div>
           </div>
-      </form>
+          
+          <div class="control-group">
+		      <label class="control-label" for="inputAccount">Phone</label>
+		      <div class="controls">
+			   <input type="text" id="inputAccount" placeholder="Phone">
+              </div>
+          </div>
+          
+          <div class="control-group">
+		      <label class="control-label" for="inputAccount">Billing address</label>
+		      <div class="controls">
+			   <input type="text" id="inputAccount" placeholder="Billing address">
+              </div>
+          </div>
+
             
+-->
   </div>
   
   <div class="modal-footer">
-      <button type="button" class="btn span2 pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      <button type="button" class="btn span2 pull-right" data-dismiss="modal" aria-hidden="true">Add</button>
+      <button type="button" class="btn btn-danger span2 pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <%= submit_tag("Add", :class => "btn btn-info span2 pull-right") %>
+     <!--  <button type="button" class="btn btn-info span2 pull-right" data-dismiss="modal" aria-hidden="true">Add</button>
+      -->
   </div>
   
+  <% end %>  <!-- #form end -->
 </div>
 
 <script type="text/javascript">
