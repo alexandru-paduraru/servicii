@@ -13,6 +13,7 @@ get '/salesman', to: 'salesman#index', :as => "salesman"
 get '/accountant', to: 'accountant#index', :as => "accountant"
 get '/collector', to: 'collector#index', :as => "collector"
 get '/admin', to: 'admin#index', :as => "admin"
+get '/user', to: 'user#index', :as => "user"
 get '/employee_new', to: 'user#new', :as => "employee_new"
 
 

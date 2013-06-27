@@ -64,4 +64,11 @@ class UserController < ApplicationController
 		end
 		render 'verifica'
 	end
+	
+	def index
+		if(current_user)
+			@user_details = User.details(current_user.id)
+			render 'index' 
+		end
+	end
 end

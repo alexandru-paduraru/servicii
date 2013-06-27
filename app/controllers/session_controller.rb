@@ -26,9 +26,17 @@ class SessionController < ApplicationController
 # 	#render text: params[:user].inspect
 # 	 render text: "combinatia user/parola incorecta"
 # 	end
-	if user 
+	object = params[:user]
+	user = User.authenticate(object[:email], object[:password])
+	
+	if(user) 
  		session[:user_id] = user[:id]
- 		redirect_to admin_path
+ 		if(user[:job] == 1)
+ 			redirect_to admin_path
+ 			#render text: user[:job].inspect
+ 		else 
+ 			redirect_to user_path
+ 		end
  	end
  end
 
