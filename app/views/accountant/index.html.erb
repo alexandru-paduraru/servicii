@@ -1,2 +1,45 @@
 <h1>Index accountant</h1>
+<div class = "span12">
 
+  <div class="input-append">
+    
+    <%= form_tag accountant_path, :method => 'get' do %>
+    <%= text_field_tag :search, params[:search], :class => "span5" %>
+    <%= submit_tag("Search", :class => "btn") %>   
+    <% end %>
+    
+  </div>
+
+<table class="table table-hover">
+  
+  <tr>
+  <th>#</th>
+  <th>Invoice_id</th>
+  <th>Customer_id</th>
+  <th>Account number</th>
+  <th>Payment</th>
+  </tr>
+  
+  <% index = 0 %>
+  <% @customers.each do |customer| %>
+  	<% if customer.balance < 0 %>
+  		<tr onclick = "document.location = 'detalii';" class = "error">
+	<% else %>
+		<tr onclick = "document.location = 'detalii';" >
+	<% end %>
+  
+  <td><%= index = index + 1 %> </td>
+  <td><%= customer.first_name %></td>
+  <td><%= customer.last_name %></td>
+  <td><%= customer.id %></td>
+  <td><%= customer.balance %> $ </td>
+  <td> </td>
+  </tr>
+  <% end %>
+  
+</table>
+</div>
+
+</div>
+<div class="clearfix">
+</div>
