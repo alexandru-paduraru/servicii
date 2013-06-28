@@ -1,5 +1,5 @@
-@import "bootstrap";
-@import "bootstrap-responsive";
+//@import "bootstrap";
+//@import "bootstrap-responsive";
 body { 
 	background:url('bg02.png');
 	
@@ -24,3 +24,10 @@ body {
 .nav-list{
 	margin-bottom: 20px;
 }
+.navbar .navbar-inner{
+	border-radius: 0;
+}
+.navbar.navbar-inverse .navbar-inner{
+	border-radius: 0;
+}
+

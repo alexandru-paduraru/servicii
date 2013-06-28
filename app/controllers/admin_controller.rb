@@ -24,7 +24,7 @@ class AdminController < ApplicationController
 			else 
 				render 'signup'
 			end
-		end
+	
 		#redirect_to 'index'
 	end
 	

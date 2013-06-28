@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <style>
 	  .container-login{
 		  width:270px;
@@ -12,12 +13,12 @@
   </style>
 </head>
 <body>
- <header class="navbar navbar-inverse navbar-fixed-top">
+ <div class="navbar navbar-inverse navbar-fixed-top">
       <nav class="navbar-inner">
         <div class="container">
               <% if current_user %>
               <ul class="nav">
-              	  <li class="active"><a href="#">Admin</a></li>
+              	  <li><a href="#">Admin</a></li>
 	              
               </ul>
               <ul class="nav pull-right">
@@ -32,7 +33,7 @@
 	           </ul>
         </div>
       </nav>
-    </header>
+    </div>
     <div id="main" role="main">
     <% if current_user %>
       <div class="container">

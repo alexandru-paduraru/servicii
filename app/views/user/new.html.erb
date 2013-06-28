@@ -38,18 +38,24 @@
 	<%= check_box("user", "salesman") %> Salesman <br>
 	<%= check_box("user", "accountant") %> accountant<br>
 	<%= check_box("user", "collector") %> collector
-	
+	<label class="checkbox inline" for="check">
+
   <p>
     <%= submit_tag("Create account", :class => "btn btn-info pull-right")%>
   </p>
 <% end %>
 
-
-
-
 <!-- Text input-->
-
-
 </fieldset>
 </form>
 </div>
+<div class="span4 offset1">
+				<input type="checkbox" name="optionsCheckbox" id="optionsCheckbox1" value="option1" checked>
+				<label class="checkbox inline" for="optionsCheckbox1"><span></span>Option 1</label>
+
+				<input type="checkbox" name="optionsCheckbox" id="optionsCheckbox2" value="option2">
+				<label class="checkbox inline" for="optionsCheckbox2"><span></span>Option 2</label>
+
+				<input type="checkbox" name="optionsCheckbox" id="optionsCheckbox3" value="option3">
+				<label class="checkbox inline" for="optionsCheckbox3"><span></span>Option 3</label>
+			</div>
