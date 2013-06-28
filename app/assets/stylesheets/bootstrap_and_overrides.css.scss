@@ -22,7 +22,10 @@ body {
 }
 
 .nav-list{
-	margin-bottom: 20px;
+	margin-bottom: 5px;
+}
+.sidebar-nav ul:last-child{
+	margin-bottom: 0;
 }
 .navbar .navbar-inner{
 	border-radius: 0;
