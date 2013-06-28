@@ -1,0 +1,75 @@
+
+
+<div class="span3">
+<% #@job[0].job_id %>
+           <!--
+ <ul class="well nav nav-list">
+             <%# if(@job[:job_id] == 2)%>
+              <li class="nav-header">Salesman</li>
+              <li><a href="#">Add client</a></li>
+              <li><a href="#">Import clients</a></li>
+            <%# end %>
+            <%# if(@job[:job_id] == 3)%> 
+              <li class="nav-header">Accountant</li>
+              <li><a href="employee_new">Create invoice</a></li>
+              <li><a href="#">Clients list</a></li>
+              <li><a href="#">Statistics</a></li>
+              <li><a href="#">Edit company</a></li>
+           <%# end %>
+           <%# if(@job[:job_id] == 4)%>
+              <li class="nav-header">Collector</li>
+              <li><a href="employee_new">Create invoice</a></li>
+              <li><a href="#">Clients list</a></li>
+              <li><a href="#">Statistics</a></li>
+              <li><a href="#">Edit company</a></li>
+            <%# end %>
+            </ul>
+-->
+		<div class="well sidebar-nav">
+            <ul class=" nav nav-list left-menu">
+             <li class="nav-header">Admin</li>
+              <li><a href="/employee_new">Add employee</a></li>
+              
+              <li><a href="#">Clients list</a></li>
+              <li><a href="#">Statistics</a></li>
+              <li><a href="#">Edit company</a></li>
+            
+              <li class="nav-header">Salesman</li>
+              <li><a href="#">Add client</a></li>
+              <li><a href="#">Import clients</a></li>
+            
+              <li class="nav-header">Accountant</li>
+              <li><a href="/employee_new">Create invoice</a></li>
+              <li><a href="#">Clients list</a></li>
+              <li><a href="#">Statistics</a></li>
+              <li><a href="#">Edit company</a></li>
+           
+              <li class="nav-header">Collector</li>
+              <li><a href="/employee_new">Create invoice</a></li>
+              <li><a href="#" data-icon="&#xe000"> Clients list</a></li>
+              <li><a href="#"><i class="icon-ml-search"></i>Statistics</a></li>
+              <li><a href="#"><i class="icon-ml-align-right"></i>Edit company</a></li>
+            </ul>
+          </div>
+       
+	<h4>Company details</h4>
+	
+	<address>
+	<strong>Name</strong><br>
+    Twitter Inc.<br>
+    <strong>Street</strong><br>
+    795 Folsom Ave, Suite 600<br>
+    San Francisco, CA 94107<br>
+    <strong>Phone</strong>
+    <abbr title="Phone">P:</abbr> (123) 456-7890
+    </address>
+     
+    <address>
+    <strong>Full Name</strong><br>
+    <a href="mailto:#">first.last@example.com</a>
+    </address>
+    <a href="#">Edit</a>
+    <br> user curent -> 
+<%= current_user[:id] %>
+<%= current_user[:first_name] %>
+</div>

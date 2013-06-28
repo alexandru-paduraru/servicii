@@ -18,7 +18,7 @@
         <div class="container">
               <% if current_user %>
               <ul class="nav">
-              	  <li><a href="#">Admin</a></li>
+              	  <li><a href="/admin">Admin</a></li>
 	              
               </ul>
               <ul class="nav pull-right">
@@ -42,8 +42,9 @@
     <% end %>
         <div class="content">
            <div class="row">
-            
-            
+            <% if current_user %>
+            <%= render 'layouts/left_menu' %>
+            <% end %>
             <%= yield %>
 			 
           </div>
