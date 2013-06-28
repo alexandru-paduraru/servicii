@@ -332,7 +332,11 @@ input[type=checkbox]:checked + label span:after {
 }
 
 .left-menu li{
-	background: -moz-linear-gradient(center bottom , #32353A 0%, #36393F 100%) repeat scroll 0 0 #32353A;
+	background-image: linear-gradient(bottom, rgb(50,53,58) 0%, rgb(54,57,63) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(50,53,58) 0%, rgb(54,57,63) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(50,53,58) 0%, rgb(54,57,63) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(50,53,58) 0%, rgb(54,57,63) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(50,53,58) 0%, rgb(54,57,63) 100%);
     border-bottom: 1px solid #42464D;
     line-height: 40px;
 }
