@@ -1,4 +1,4 @@
-<div class="span5">
+<div class="span6">
 
 
 <%= form_for :user, url: 'employee_create', html: {class: "form-horizontal"} do |f| %>
@@ -35,9 +35,15 @@
 		<%= f.text_field :first_confirmation, :class => "input-xlarge", :placeholder => "Password Confirmation" %>
 	</div>
 </div>
-	<%= check_box("user", "salesman") %> Salesman <br>
-	<%= check_box("user", "accountant") %> accountant<br>
-	<%= check_box("user", "collector") %> collector
+<div class="control-group">
+	<%= f.label :available_jobs, :class => "control-label"%>
+	<div class="controls">
+	<%= f.check_box :salesman %><label class="checkbox inline" for="user_salesman"><span></span>Salesman</label>
+	<%= f.check_box :accountant %><label class="checkbox inline" for="user_accountant"><span></span>Accountant</label> 
+	<%= f.check_box :collector %> <label class="checkbox inline" for="user_collector"><span></span>Collector</label>
+	</div>
+</div>
+	
 	<label class="checkbox inline" for="check">
 
   <p>
@@ -49,13 +55,3 @@
 </fieldset>
 </form>
 </div>
-<div class="span4 offset1">
-				<input type="checkbox" name="optionsCheckbox" id="optionsCheckbox1" value="option1" checked>
-				<label class="checkbox inline" for="optionsCheckbox1"><span></span>Option 1</label>
-
-				<input type="checkbox" name="optionsCheckbox" id="optionsCheckbox2" value="option2">
-				<label class="checkbox inline" for="optionsCheckbox2"><span></span>Option 2</label>
-
-				<input type="checkbox" name="optionsCheckbox" id="optionsCheckbox3" value="option3">
-				<label class="checkbox inline" for="optionsCheckbox3"><span></span>Option 3</label>
-			</div>
