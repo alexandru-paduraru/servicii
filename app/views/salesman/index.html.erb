@@ -1,8 +1,16 @@
-
+<style type="text/css">
+.plain_table{
+	border-top: 0px;
+}
+.plain_table td{
+	border-top: 0px;
+}
+</style>
 		
 
 <div class = "span12">
-
+<table class="table plain_table">
+<tr><td>
   <div class="input-append">
     
     <%= form_tag salesman_path, :method => 'get' do %>
@@ -11,10 +19,15 @@
     <% end %>
     
   </div>
-
+  </td>
+  <td>
    	<button class="modalButton btn" type="button" id="1">Add customer</button>
+  </td>
+  <td>
 	<button class="btn" type="button">Import customers</button>
- 
+  </td>
+</tr>
+</table>
 <table class="table table-hover table-striped">
   
   <tr>
@@ -39,7 +52,7 @@
   <td><%= customer.last_name %></td>
   <td><%= customer.id %></td>
   <td><%= customer.balance %> $ </td>
-  <td> <a href="customer_details?customer_id=<%= customer.id %>" class = "btn btn-small" >Details</a></td>
+  <td> <a href="customer_details?customer_id=<%= customer.id %>" class = "btn" >Details</a></td>
   </tr>
   <% end %>
   

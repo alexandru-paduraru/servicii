@@ -28,6 +28,11 @@ post '/customer_create', to: 'user#customer_create', :as => "customer_create"
 
 #customer details
 get '/customer_details', to: 'salesman#customer_details', :as => "customer_details"
+
+#invoice details
+get '/invoice_details', to: 'accountant#invoice_details', :as => "invoice_details"
+
+#for testing
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#login'
 

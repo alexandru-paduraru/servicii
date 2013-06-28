@@ -1,6 +1,16 @@
+<style type="text/css">
+.plain_table{
+	border-top: 0px;
+}
+.plain_table td{
+	border-top: 0px;
+}
+</style>
 
 <div class = "span12">
-
+<table class="table plain_table">
+<tr>
+ <td>
   <div class="input-append">
     
     <%= form_tag accountant_path, :method => 'get' do %>
@@ -9,36 +19,41 @@
     <% end %>
     
   </div>
+ </td>
+ <td>
   <label class = "strong">Download: </label>
-  <button class="btn btn-info">Incasari</button>
-  <button class="btn btn-info">Invoices</button>
-
+ </td>
+ <td>
+  <button class="btn">Incasari</button>
+  <button class="btn">Invoices</button>
+ </td>
+</tr>
+</table>
 <table class="table table-hover table-striped">
   
   <tr>
   <th>Invoice number</th>
-  <th>Date</th>
-  <th>Due date</th>
   <th>Amount</th>
   <th>Current balance</th>
   <th>Customer id </th>
+  <th>Details</th>
   </tr>
   
   <% index = 0 %>
   <% @invoices.each do |invoice| %>
   	<% if invoice.current_balance < 0 %>
-  		<tr onclick = "document.location = 'detalii';" class = "error">
+  		<tr class = "error">
 	<% else %>
-		<tr onclick = "document.location = 'detalii';" >
+		<tr >
 	<% end %>
   
   <% index = index + 1 %>
   <td><%= invoice.number %></td>
-  <td><%= invoice.date %></td>
-  <td><%= invoice.due_date %></td>
   <td><%= invoice.amount %> $ </td>
   <td><%= invoice.current_balance %></td>
   <td><%= invoice.customer_id %></td>
+    <td> <a href="invoice_details?invoice_id=<%= invoice.id %>" class = "btn" >Details</a></td>
+
   </tr>
   <% end %>
   
