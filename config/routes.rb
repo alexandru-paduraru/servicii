@@ -26,6 +26,8 @@ post '/employee_create', to: 'user#create', :as => "employee_create"
 #create customers
 post '/customer_create', to: 'user#customer_create', :as => "customer_create"
 
+#customer details
+get '/customer_details', to: 'salesman#customer_details', :as => "customer_details"
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#login'
 

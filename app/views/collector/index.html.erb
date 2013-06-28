@@ -1,2 +1,53 @@
-<h1>Index collector</h1>
+
+<div class = "span12">
+
+  <div class="input-append">
+    
+    <%= form_tag collector_path, :method => 'get' do %>
+    <%= text_field_tag :search, params[:search], :class => "span5" %>
+    <%= submit_tag("Search", :class => "btn") %>   
+    <% end %>
+    
+  </div>
+
+
+   
+<table class="table table-hover table-striped">
+  
+  <tr>
+  <th>#</th>
+  <th>First name</th>
+  <th>Last name </th>
+  <th>Customer id</th>
+  <th>Payment</th>
+  <th>Actions</th>
+  <th>Response</th>
+  </tr>
+  
+  <% index = 0 %>
+  <% @customers.each do |customer| %>
+  	<% if customer.balance < 0 %>
+		<tr onclick = "document.location = 'detalii';" >
+
+  
+  <td><%= index = index + 1 %> </td>
+  <td><%= customer.first_name %></td>
+  <td><%= customer.last_name %></td>
+  <td><%= customer.id %></td>
+  <td><%= customer.balance %> $ </td>
+  <td> 
+	  <button class="btn btn-info btn-small">SMS</button>
+	  <button class="btn btn-success btn-small">Call</button>
+	  <button class="btn btn-primary btn-small">Email</button>
+  </td>
+  <td> </td>
+  </tr>
+  <% end %>
+<% end %>  
+</table>
+
+</div>
+<div class="clearfix">
+</div>
+
 

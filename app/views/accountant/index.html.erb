@@ -1,4 +1,4 @@
-<h1>Index accountant</h1>
+
 <div class = "span12">
 
   <div class="input-append">
@@ -9,31 +9,36 @@
     <% end %>
     
   </div>
+  <label class = "strong">Download: </label>
+  <button class="btn btn-info">Incasari</button>
+  <button class="btn btn-info">Invoices</button>
 
-<table class="table table-hover">
+<table class="table table-hover table-striped">
   
   <tr>
-  <th>#</th>
-  <th>Invoice_id</th>
-  <th>Customer_id</th>
-  <th>Account number</th>
-  <th>Payment</th>
+  <th>Invoice number</th>
+  <th>Date</th>
+  <th>Due date</th>
+  <th>Amount</th>
+  <th>Current balance</th>
+  <th>Customer id </th>
   </tr>
   
   <% index = 0 %>
-  <% @customers.each do |customer| %>
-  	<% if customer.balance < 0 %>
+  <% @invoices.each do |invoice| %>
+  	<% if invoice.current_balance < 0 %>
   		<tr onclick = "document.location = 'detalii';" class = "error">
 	<% else %>
 		<tr onclick = "document.location = 'detalii';" >
 	<% end %>
   
-  <td><%= index = index + 1 %> </td>
-  <td><%= customer.first_name %></td>
-  <td><%= customer.last_name %></td>
-  <td><%= customer.id %></td>
-  <td><%= customer.balance %> $ </td>
-  <td> </td>
+  <% index = index + 1 %>
+  <td><%= invoice.number %></td>
+  <td><%= invoice.date %></td>
+  <td><%= invoice.due_date %></td>
+  <td><%= invoice.amount %> $ </td>
+  <td><%= invoice.current_balance %></td>
+  <td><%= invoice.customer_id %></td>
   </tr>
   <% end %>
   

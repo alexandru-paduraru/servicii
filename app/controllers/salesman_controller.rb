@@ -25,4 +25,14 @@ class SalesmanController < ApplicationController
 	
 
 	end
+	
+	def customer_details
+	 @customer_id = params[:customer_id]
+	 @customer = Customer.find(@customer_id)
+	 
+	 respond_to do |format|
+	 	format.html {render 'customer_details'}
+	 end
+	
+	end
 end

@@ -11,14 +11,11 @@
     <% end %>
     
   </div>
-  <br>
-   	<button class = "btn" type = "button">Date</button>
-   	<button class = "btn" type = "button">Name</button>
-   	<button class="modalButton btn" type="button" id="1">Add</button>
-  <br>
 
-   
-<table class="table table-hover">
+   	<button class="modalButton btn" type="button" id="1">Add customer</button>
+	<button class="btn" type="button">Import customers</button>
+ 
+<table class="table table-hover table-striped">
   
   <tr>
   <th>#</th>
@@ -28,64 +25,13 @@
   <th>Payment</th>
   <th>Actions</th>
   </tr>
-<!--
-
-  <tr onclick = "document.location = 'detalii';">
-  <td> 1</td>
-  <td> Alex</td>
-  <td> Alex </td>
-  <td> 12334 </td>
-  <td class="text-right">  25,00 $</td>
-  <td></td>
-  </tr>
-    <tr onclick = "document.location = 'detalii';" class="error">
-  <td> 2</td>
-  <td> Cristina </td>
-  <td> Conacel </td>
-  <td> 12334 </td>
-  <td class="text-right"> -25,00 $</td>
-  <td></td>
-  </tr>
-    <tr onclick = "document.location = 'detalii';" class="error">
-  <td> 3</td>
-  <td> A </td>
-  <td> A </td>
-  <td> 12354 </td>
-  <td class = "text-right"> -25,00 $</td>
-  <td></td>
-  </tr>
-      <tr onclick = "document.location = 'detalii';">
-  <td> 4</td>
-  <td> B </td>
-  <td> B </td>
-  <td> 12354 </td>
-  <td class = "text-right" > 0,00 $</td>
-  <td></td>
-  </tr>
-      <tr onclick = "document.location = 'detalii';">
-  <td> 5</td>
-  <td> C</td>
-  <td> C </td>
-  <td> 12354 </td>
-  <td class = "text-right"> 0,00 $</td>
-  <td></td>
-  </tr>
-   <tr onclick = "document.location = 'detalii';" class="error">
-  <td> 6</td>
-  <td> D </td>
-  <td> D </td>
-  <td> 12354 </td>
-  <td class = "text-right table_text_right"> -25,00 $</td>
-  <td></td>
-  </tr>
   
--->
   <% index = 0 %>
   <% @customers.each do |customer| %>
   	<% if customer.balance < 0 %>
-  		<tr onclick = "document.location = 'detalii';" class = "error">
+  		<tr class = "error">
 	<% else %>
-		<tr onclick = "document.location = 'detalii';" >
+		<tr>
 	<% end %>
   
   <td><%= index = index + 1 %> </td>
@@ -93,7 +39,7 @@
   <td><%= customer.last_name %></td>
   <td><%= customer.id %></td>
   <td><%= customer.balance %> $ </td>
-  <td> </td>
+  <td> <a href="customer_details?customer_id=<%= customer.id %>" class = "btn btn-small" >Details</a></td>
   </tr>
   <% end %>
   
