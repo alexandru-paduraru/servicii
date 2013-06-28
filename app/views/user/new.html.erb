@@ -1,4 +1,4 @@
-<div class="span6">
+<div class="span5">
 
 
 <%= form_for :user, url: 'employee_create', html: {class: "form-horizontal"} do |f| %>
@@ -38,18 +38,14 @@
 <div class="control-group">
 	<%= f.label :available_jobs, :class => "control-label"%>
 	<div class="controls">
-	<%= f.check_box :salesman %><label class="checkbox inline" for="user_salesman"><span></span>Salesman</label>
-	<%= f.check_box :accountant %><label class="checkbox inline" for="user_accountant"><span></span>Accountant</label> 
+	<%= f.check_box :salesman %><label class="checkbox inline" for="user_salesman"><span></span>Salesman</label><br>
+	<%= f.check_box :accountant %><label class="checkbox inline" for="user_accountant"><span></span>Accountant</label><br> 
 	<%= f.check_box :collector %> <label class="checkbox inline" for="user_collector"><span></span>Collector</label>
 	</div>
 </div>
-	
-	<label class="checkbox inline" for="check">
-
-  <p>
+  
     <%= submit_tag("Create account", :class => "btn btn-info pull-right")%>
-  </p>
-<% end %>
+  <% end %>
 
 <!-- Text input-->
 </fieldset>
