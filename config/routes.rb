@@ -3,10 +3,10 @@ Services::Application.routes.draw do
 resources :user, :only => [:login]
 resources :admin, :only => [:signup] 
 
-get '/login', to: 'session#login', :as => "login" 
-get '/logout', to: 'session#destroy_user', :as => "logout"
-post '/login_user', to: 'session#login_user', :as => "login_user" 
+get '/logout', to: 'session#destroy_user', :as => "logout" 
 get '/signup', to: 'admin#signup', :as => "signup"
+post '/login_user', to: 'session#login_user', :as => "login_user"
+get '/login', to: 'session#login', :as =>"login"
 
 #index for users
 get '/salesman', to: 'salesman#index', :as => "salesman"

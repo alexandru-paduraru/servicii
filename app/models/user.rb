@@ -1,5 +1,8 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
   attr_accessible :company_id, :email, :first_name, :last_name, :password_hash, :password_salt, :type
+  include BCrypt
   
 #  belongs_to :user_type
   belongs_to :company
@@ -7,22 +10,29 @@ class User < ActiveRecord::Base
   
   validates_uniqueness_of :email
 
-  def self.authenticate(email, password)
-   user = find_by_email(email)
- 	if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
- 		user
- 	else
- 		nil
-    end
+  def password
+      @password ||= Password.new(password_hash)
   end
 
-  def self.encrypt_password(password)
-    pass = {}
-      if password
-      pass[:password_salt] = BCrypt::Engine.generate_salt
-      pass[:password_hash] = BCrypt::Engine.hash_secret(password, pass[:password_salt])
-      end
-    pass
+  def password=(new_password)
+      @password = Password.create(new_password)
+      self.password_hash = @password
+  end
+    
+  def self.authenticate(email_param, password_param)
+   if @user = find_by_email(email_param)
+   		p '****************************** user gasit ************************************'
+	   if @user.password == password_param
+	   	p '****************************** parola buna ************************************'
+	   		@user
+	   	else
+	   	p '****************************** PAROLA GREGISTA ************************************'
+	   	    nil
+	   end
+	else
+		p '****************************** nu exista user ************************************'
+	   nil
+   end
   end
 
   def self.details(id)

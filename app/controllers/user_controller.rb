@@ -12,12 +12,11 @@ class UserController < ApplicationController
 		_post = params[:user]
 		user = User.new
 		ok = 0
-		pass = User.encrypt_password(_post[:password])
 		user.email = _post[:email]
-		user.password_hash = pass[:password_hash]
-		user.password_salt = pass[:password_salt]
+		user.password = _post[:password]
 		user.first_name = _post[:first_name]
 		user.last_name = _post[:last_name]
+		
 		 if user.save
  			if _post[:salesman].to_i == 1
  				workson = Workson.new

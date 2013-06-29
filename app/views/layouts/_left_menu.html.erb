@@ -1,6 +1,13 @@
 
 
 <div class="span3">
+
+
+<%= @user_details = User.details(current_user[:id])%>
+<%= @user_jobs = @user_details[:job] %>
+<% if(@user_jobs) %>
+<% #@user_job = @user_jobs[0].job_id %>
+<% end %>
 <% #@job[0].job_id %>
            <!--
  <ul class="well nav nav-list">
@@ -77,7 +84,5 @@
     </address>
     <a href="#">Edit</a>
     </div>
-    <br> user curent -> 
-<%= current_user[:id] %>
-<%= current_user[:first_name] %>
+ 
 </div>
