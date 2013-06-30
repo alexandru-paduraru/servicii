@@ -10,17 +10,19 @@ class UserController < ApplicationController
 	def create
 		pass = {}
 		_post = params[:user]
-		user = User.new
+		@user = User.new
 		ok = 0
-		user.email = _post[:email]
-		user.password = _post[:password]
-		user.first_name = _post[:first_name]
-		user.last_name = _post[:last_name]
+		@user.email = _post[:email]
+		@user.password = _post[:password]
+		@user.first_name = _post[:first_name]
+		@user.last_name = _post[:last_name]
+		@user.job = 0
 		
-		 if user.save
+		#render 'verifica'
+		 if @user.save
  			if _post[:salesman].to_i == 1
  				workson = Workson.new
- 				workson.user_id = user[:id]
+ 				workson.user_id = @user[:id]
  				workson.job_id = 2
  				if workson.save
  					ok = 1
@@ -29,7 +31,7 @@ class UserController < ApplicationController
  			end
 			if _post[:accountant].to_i == 1
 				workson = Workson.new
-				workson.user_id = user[:id]
+				workson.user_id = @user[:id]
 				workson.job_id = 3
 				if workson.save
 					ok = 1
@@ -38,18 +40,18 @@ class UserController < ApplicationController
 			end
 			if _post[:collector].to_i == 1
 				workson = Workson.new
-				workson.user_id = user[:id]
+				workson.user_id = @user[:id]
 				workson.job_id = 4
 				if workson.save
 					ok = 1
 				else ok = 0
 				end
 			end
-			if ok == 1
-				render text: "user inregistrat cu succes verifica baza de date"
-			else render text: "eroare la adaugarea job-ului"
-			end
-		else render text: "eroare la adaugare user in baza"
+ 			if ok == 1
+ 				render text: "user inregistrat cu succes verifica baza de date"
+ 			else render text: "eroare la adaugarea job-ului"
+ 			end
+ 		else render text: "eroare la adaugare user in baza"
 		end
 	end
 	

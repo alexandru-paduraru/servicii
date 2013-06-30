@@ -13,7 +13,7 @@ class SessionController < ApplicationController
  		if(user[:job] == 1)
  			redirect_to admin_path
  		else 
- 			render text: 'logat ca employee'
+ 			redirect_to user_path
  		end
  	else
  	render text: 'nu exista user'
