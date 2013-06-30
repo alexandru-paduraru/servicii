@@ -13,7 +13,7 @@ class SessionController < ApplicationController
  		if(user[:job] == 1)
  			redirect_to admin_path
  		else 
- 			redirect_to user_path
+ 			redirect_to users_path
  		end
  	else
  		 flash.now.alert = "Invalid email or password"

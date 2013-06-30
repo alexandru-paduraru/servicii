@@ -52,7 +52,7 @@ class UserController < ApplicationController
 				end
 			end
  			if ok == 1
- 				render text: "user inregistrat cu succes verifica baza de date"
+ 				redirect_to admin_path, :notice => "Employee was created."
  			else render text: "eroare la adaugarea job-ului"
  			end
  		else 
