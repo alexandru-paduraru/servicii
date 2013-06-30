@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+
+<div class = "span9">
+
+>>>>>>> fa76f2047da29a4ed8f740248c9a7ce12700d66a
   <div class="input-append">
     
     <%= form_tag collector_path, :method => 'get' do %>
@@ -17,8 +23,8 @@
   <th>Last name </th>
   <th>Customer id</th>
   <th>Payment</th>
-  <th>Actions</th>
   <th>Response</th>
+  <th></th>
   </tr>
   
   <% index = 0 %>
@@ -31,13 +37,9 @@
   <td><%= customer.first_name %></td>
   <td><%= customer.last_name %></td>
   <td><%= customer.id %></td>
-  <td><%= customer.balance %> $ </td>
-  <td> 
-	  <button class="btn btn-info">SMS</button>
-	  <button class="btn btn-success">Call</button>
-	  <button class="btn btn-primary">Email</button>
-  </td>
+  <td>$<%= customer.balance %></td>
   <td> </td>
+  <td> <a href="customer_details/<%= customer.id %>" class = "btn" >Details</a></td>
   </tr>
   <% end %>
 <% end %>  
