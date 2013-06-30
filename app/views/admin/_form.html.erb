@@ -1,4 +1,4 @@
-<%= form_for @user, url: 'admin_create' do |f| %>
+<%= form_for @user, url: '/admins' do |f| %>
  <% if @user.errors.any? %>
  <div class="alert alert-error">   
 	<h4>Errors:</h4>
@@ -10,22 +10,22 @@
    </div>
 <% end %>
   <p>
-    <%= f.label :first_name %><br>
+    <%= f.label :first_name %>
     <%= f.text_field :first_name %>
   </p>
   <p>
-    <%= f.label :last_name %><br>
+    <%= f.label :last_name %>
     <%= f.text_field :last_name %>
   </p>
   <p>
-    <%= f.label :email %><br>
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </p>
   <p>
-    <%= f.label :password %><br>
+    <%= f.label :password %>
     <%= f.password_field :password %>
   </p>
-  	<%= f.label :password_confirmation %><br>
+  	<%= f.label :password_confirmation %>
   	<%= f.password_field :password_confirmation %>
   <p>
     <%= submit_tag("Create account", :class => "btn btn-primary")%>

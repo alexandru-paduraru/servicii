@@ -20,7 +20,7 @@ get '/employees/new', to: 'user#new', :as => "user_new"
 #create users
 get '/salesman_new', to: 'salesman#new', :as =>"salesman_new"
 post '/salesman_create', to: 'salesman#create', :as =>"salesman_create"
-post '/admin_create', to: 'admin#create', :as => "admin_create"
+post '/admins', to: 'admin#create', :as => "admin_create"
 post '/employees', to: 'user#create', :as => "user_create"
 
 #create customers
