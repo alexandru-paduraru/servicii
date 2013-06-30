@@ -5,7 +5,7 @@
         <div class="span4">
         <table class="table plain_table">
           <tr>
-            <td><h4><%= @customer.first_name %><%= @customer.last_name %></h4></td>
+            <td><h3><%= @customer.first_name %><%= @customer.last_name %></h3></td>
           </tr>
           <tr>
             <td><%= @customer.id %></td>
@@ -25,10 +25,10 @@
         </table>
       </div>
   
-      <div class="span5">
+      <div class="span4">
       <table class="table plain_table">
       <tr>
-      <td><h4>Invoice</h4></td>
+      <td><h3>Invoice</h3></td>
       </tr>
       <tr>
       <td></td>
@@ -37,13 +37,21 @@
       </div>
      </div>
    </div>
+<div class="span9">
+<div class="row">
+<a href="#" class="btn btn-large span1">Email</a>
+<a href="#" class="btn btn-success btn-large span1">Call</a>
+<a href="#" class="btn btn-info btn-large span1">Message</a>
+</div>
+</div>
+
 	
-  <div class="span9">
+  <div class="span9 acordeon">
 <div class="accordion" id="accordion2">
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        <h4>Services</h4>
+        <h4>Invoices</h4>
       </a>
     </div>
     <div id="collapseOne" class="accordion-body collapse">
@@ -55,7 +63,7 @@
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-      <h4>History</h4>
+      <h4>Timeline</h4>
       </a>
     </div>
     <div id="collapseTwo" class="accordion-body collapse">
