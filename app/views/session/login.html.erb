@@ -1,6 +1,10 @@
 <div class="span3">
 <h2>Log in</h2>
-<%= form_for :user, url: 'login_user' do |f|%>
+<% flash.each do |name, msg| %>
+	<%= content_tag :div, msg, :id => "flash_#{name}", :class=> "alert alert-error" %>
+<% end %>
+			    
+<%= form_for :user, url: 'login' do |f|%>
 <p>
 <%= f.text_field :email, :class => "input-block-level", :placeholder => "Email" %>
 </p>

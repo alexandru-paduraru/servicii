@@ -1,5 +1,14 @@
-<%= form_for :admin, url: 'admin_create' do |f| %>
-  
+<%= form_for @user, url: 'admin_create' do |f| %>
+ <% if @user.errors.any? %>
+ <div class="alert alert-error">   
+	<h4>Errors:</h4>
+	<ul>
+		<% @user.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+   </div>
+<% end %>
   <p>
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>

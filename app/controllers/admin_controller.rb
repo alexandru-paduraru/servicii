@@ -5,26 +5,27 @@ class AdminController < ApplicationController
 		end
 	end
 	
+	def signup
+		@user = User.new
+	end
+
 	def create
 		# render text: params[:post].inspect
 		pass = {}
-		object = params[:admin]
-		user = User.new
-		pass = User.encrypt_password(object[:password])
-		user.email = object[:email]
-		user.password_salt = pass[:password_salt]
-		user.password_hash = pass[:password_hash]
-		user.first_name = object[:first_name]
-		user.last_name = object[:last_name]
-		user.job = 1
-
-			if user.save 
-				session[:user_id] = user[:id]
-				redirect_to 'index'
+		object = params[:user]
+		@user = User.new
+		@user.email = object[:email]
+		@user.password = object[:password] 
+		@user.first_name = object[:first_name]
+		@user.last_name = object[:last_name]
+		@user.job = 1
+		
+			if @user.save 
+				session[:user_id] = @user[:id]
+				redirect_to admin_path
 			else 
 				render 'signup'
 			end
-	
 		#redirect_to 'index'
 	end
 	

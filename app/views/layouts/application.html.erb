@@ -18,8 +18,11 @@
         <div class="container">
               <% if current_user %>
               <ul class="nav">
-              	  <li><a href="/admin">Admin</a></li>
-	              
+              	  <% if current_user[:job] == 1 %>
+              	  <li><a href="/admin">Services - admin</a></li>
+	              <% else%>
+	              <li><a href="/user">Services - employee</a></li>
+	              <% end %>
               </ul>
               <ul class="nav pull-right">
 	              <li><a href="/logout">Logout</a></li>
