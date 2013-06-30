@@ -1,13 +1,15 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  attr_accessible :company_id, :email, :first_name, :last_name, :password_hash, :password_salt, :type
+  attr_accessible :company_id, :email, :first_name, :last_name, :password_hash, :password_salt, :type, :job
   include BCrypt
   
 #  belongs_to :user_type
   belongs_to :company
   has_many :worksons, :foreign_key => "user_id"
   
+  validates :first_name, :last_name, :email, :job, :presence => true
+  validates :email, :length => { :minimum => 4 } 
   validates_uniqueness_of :email
 
   def password
@@ -21,16 +23,12 @@ class User < ActiveRecord::Base
     
   def self.authenticate(email_param, password_param)
    if @user = find_by_email(email_param)
-   		p '****************************** user gasit ************************************'
 	   if @user.password == password_param
-	   	p '****************************** parola buna ************************************'
 	   		@user
 	   	else
-	   	p '****************************** PAROLA GREGISTA ************************************'
 	   	    nil
 	   end
 	else
-		p '****************************** nu exista user ************************************'
 	   nil
    end
   end

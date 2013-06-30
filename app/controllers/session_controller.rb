@@ -16,14 +16,15 @@ class SessionController < ApplicationController
  			redirect_to user_path
  		end
  	else
- 	render text: 'nu exista user'
+ 		 flash.now.alert = "Invalid email or password"
+ 		 render 'login'
  	end
  	
  end
 
  def destroy_user
   session[:user_id] = nil
-  redirect_to login_path
+  redirect_to root_path
  end
 
 end

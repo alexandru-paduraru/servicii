@@ -1,69 +1,31 @@
 
-
 <div class="span3">
 
+<% @user_details = User.details(current_user[:id])%>
 
-<%= @user_details = User.details(current_user[:id])%>
-<%= @user_jobs = @user_details[:job] %>
-<% if(@user_jobs) %>
-<% #@user_job = @user_jobs[0].job_id %>
-<% end %>
-<% #@job[0].job_id %>
-           <!--
- <ul class="well nav nav-list">
-             <%# if(@job[:job_id] == 2)%>
-              <li class="nav-header">Salesman</li>
-              <li><a href="#">Add client</a></li>
-              <li><a href="#">Import clients</a></li>
-            <%# end %>
-            <%# if(@job[:job_id] == 3)%> 
-              <li class="nav-header">Accountant</li>
-              <li><a href="employee_new">Create invoice</a></li>
-              <li><a href="#">Clients list</a></li>
-              <li><a href="#">Statistics</a></li>
-              <li><a href="#">Edit company</a></li>
-           <%# end %>
-           <%# if(@job[:job_id] == 4)%>
-              <li class="nav-header">Collector</li>
-              <li><a href="employee_new">Create invoice</a></li>
-              <li><a href="#">Clients list</a></li>
-              <li><a href="#">Statistics</a></li>
-              <li><a href="#">Edit company</a></li>
-            <%# end %>
-            </ul>
--->
+
 		<div class="well sidebar-nav">
-            <ul class=" nav nav-list left-menu">
-             <li class="nav-header">Admin</li>
-             <li><a href="/admin"><i class="icon-ml-home"></i> Home</a></li>
-              <li><a href="/employee_new"><i class="icon-ml-add"></i> Add employee</a></li>
-              <li><a href="#"><i class="icon-ml-align-justify"></i> Clients list</a></li>
-              <li><a href="#"><i class="icon-ml-align-left"></i> Statistics</a></li>
-              <li><a href="#"><i class="icon-ml-settings"></i> Company settings</a></li>
-            </ul>
-            <ul class=" nav nav-list left-menu">
-              <li class="nav-header">Salesman</li>
-              <li><a href="/salesman"><i class="icon-ml-home"></i> Home</a></li>
-              <li><a href="#"><i class="icon-ml-add"></i> Add client</a></li>
-              <li><a href="#"><i class="icon-ml-arrow-down"></i> Import clients</a></li>
-              <li><a href="#"><i class="icon-ml-arrow-up"></i> Export clients</a></li>
-            </ul>
-            <ul class=" nav nav-list left-menu">
-              <li class="nav-header">Accountant</li>
-              <li><a href="/accountant"><i class="icon-ml-home"></i> Home</a></li>
-              <li><a href="/employee_new">Lorem ipsum</a></li>
-              <li><a href="#">Lorem ipsum</a></li>
-              <li><a href="#">Lorem ipsum</a></li>
-              <li><a href="#">Lorem ipsum</a></li>
-            </ul>
-            <ul class=" nav nav-list left-menu">
-              <li class="nav-header">Collector</li>
-              <li><a href="#"><i class="icon-ml-home"></i> Home</a></li>
-              <li><a href="/employee_new">Lorem ipsum</a></li>
-              <li><a href="#" data-icon="&#xe000"> Lorem ipsum</a></li>
-              <li><a href="#"><i class="icon-ml-search"></i>Lorem ipsum</a></li>
-              <li><a href="#"><i class="icon-ml-align-right"></i>Lorem ipsum</a></li>
-            </ul>
+			<% is_admin = current_user[:job] %>
+            <% if is_admin == 1 %>
+            	<%= render 'layouts/admin_menu' %>
+            	<%= render 'layouts/salesman_menu'%>
+            	<%= render 'layouts/accountant_menu'%>
+            	<%= render 'layouts/collector_menu'%>
+            <% end %>
+            <% @user_jobs = @user_details[:job]%>
+            <% if @user_jobs %>
+	            <% @user_jobs.each do |user_job|%>
+		            <% if user_job.job_id == 2 %>
+			          <%=  render 'layouts/salesman_menu' %>
+		            <% end %>
+		            <% if user_job.job_id == 3 %>
+			            <%= render 'layouts/accountant_menu' %>
+		            <% end %>
+		            <% if user_job.job_id == 4 %>
+			            <%= render 'layouts/collector_menu' %>
+		            <% end %>
+	            <% end %>
+            <% end %>
           </div>
     <div class="well">
 	<h4>Company details</h4>

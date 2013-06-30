@@ -5,7 +5,7 @@ resources :admin, :only => [:signup]
 
 get '/logout', to: 'session#destroy_user', :as => "logout" 
 get '/signup', to: 'admin#signup', :as => "signup"
-post '/login_user', to: 'session#login_user', :as => "login_user"
+post '/login', to: 'session#login_user', :as => "login_user"
 get '/login', to: 'session#login', :as =>"login"
 
 #index for users

@@ -1,11 +1,18 @@
-
 <div class="span5 well">
 
-
-<%= form_for :user, url: 'employee_create', html: {class: "form-horizontal"} do |f| %>
+<%= form_for @user, url: 'employee_create', html: {class: "form-horizontal"} do |f| %>
 <fieldset>
 <legend>Create employee account</legend>  
-
+<% if @user.errors.any? %>
+	<div class="alert alert-error">
+	<h4>Errors:</h4>
+	<ul>
+		<% @user.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+	</div>
+<% end %>
 <div class="control-group">
 	<%= f.label :first_name, :class => "control-label" %>
 	<div class="controls">
@@ -27,7 +34,7 @@
 <div class="control-group">
 	<%= f.label :password, :class => "control-label" %>
 	<div class="controls">
-		<%= f.password_field :password, :class => "input-xlarge", :placeholder => "Password" %>
+		<%= f.password_field :password , :class => "input-xlarge", :placeholder => "Password" %>
 	</div>
 </div>
 <div class="control-group">
@@ -37,11 +44,13 @@
 	</div>
 </div>
 <div class="control-group">
-	<%= f.label :available_jobs, :class => "control-label"%>
+	<%= f.label :available_jobs, :class => "control-label" %>
 	<div class="controls">
-	<%= f.check_box :salesman %><label class="checkbox inline" for="user_salesman"><span></span>Salesman</label><br>
-	<%= f.check_box :accountant %><label class="checkbox inline" for="user_accountant"><span></span>Accountant</label><br> 
-	<%= f.check_box :collector %> <label class="checkbox inline" for="user_collector"><span></span>Collector</label>
+	<%= f.fields_for :workson do |f| %>
+		<%= f.check_box :salesman %><label class="checkbox inline" for="user_workson_salesman"><span></span>Salesman</label><br>
+		<%= f.check_box :accountant %><label class="checkbox inline" for="user_workson_accountant"><span></span>Accountant</label><br> 
+		<%= f.check_box :collector %> <label class="checkbox inline" for="user_workson_collector"><span></span>Collector</label>
+	<% end %>
 	</div>
 </div>
   

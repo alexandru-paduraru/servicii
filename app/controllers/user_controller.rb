@@ -7,6 +7,10 @@ class UserController < ApplicationController
       end
 	end
 	
+	def new
+		@user = User.new
+	end
+	
 	def create
 		pass = {}
 		_post = params[:user]
@@ -20,7 +24,7 @@ class UserController < ApplicationController
 		
 		#render 'verifica'
 		 if @user.save
- 			if _post[:salesman].to_i == 1
+ 			if _post[:workson][:salesman].to_i == 1
  				workson = Workson.new
  				workson.user_id = @user[:id]
  				workson.job_id = 2
@@ -29,7 +33,7 @@ class UserController < ApplicationController
  				else ok = 0
  				end
  			end
-			if _post[:accountant].to_i == 1
+			if _post[:workson][:accountant].to_i == 1
 				workson = Workson.new
 				workson.user_id = @user[:id]
 				workson.job_id = 3
@@ -38,7 +42,7 @@ class UserController < ApplicationController
 				else ok = 0
 				end
 			end
-			if _post[:collector].to_i == 1
+			if _post[:workson][:collector].to_i == 1
 				workson = Workson.new
 				workson.user_id = @user[:id]
 				workson.job_id = 4
@@ -51,7 +55,8 @@ class UserController < ApplicationController
  				render text: "user inregistrat cu succes verifica baza de date"
  			else render text: "eroare la adaugarea job-ului"
  			end
- 		else render text: "eroare la adaugare user in baza"
+ 		else 
+ 			render 'new'
 		end
 	end
 	
