@@ -19,6 +19,7 @@ class AdminController < ApplicationController
 		@user.first_name = object[:first_name]
 		@user.last_name = object[:last_name]
 		@user.job = 1
+		@user.company_id = 0
 		
 			if @user.save 
 				session[:user_id] = @user[:id]

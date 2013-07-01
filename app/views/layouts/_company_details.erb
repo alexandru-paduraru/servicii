@@ -1,5 +1,6 @@
 <div class="well">
-	<% @company = Company.find(current_user.company_id) %>
+	<% if current_user.company_id != 0 %>
+	<% if @company = Company.find(current_user.company_id) %>
 	<h4>Company details</h4>
 	<address>
 	<strong>Name</strong><br>
@@ -12,8 +13,12 @@
      
     <address>
     <strong>Current user</strong><br>
-
-    <a href="mailto:#">first.last@example.com</a>
+    <%= current_user.id %>,
+    <%= current_user.first_name %><br>
     </address>
     <a href="#">Edit</a>
+    <% end %>
+    <% else %>
+     No company created
+    <% end %>
     </div>
