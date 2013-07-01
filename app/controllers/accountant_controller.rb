@@ -26,8 +26,29 @@ class AccountantController < ApplicationController
  end
  
  
- def invoice_create
+   def invoice_create
+        _post = params[:invoice]
+		invoice = Invoice.new
+        invoice[:amount] = _post[:amount]
+        invoice[:due_date] = _post[:due_date]
+        invoice[:customer_id] = _post[:customer_id]
+        invoice[:current_balance] = 0
+        invoice[:date] = Time.now
+        invoice[:number] = 11111 #algorithm for generating the invoice number?
+        
+        
+        if current_user.company_id
+        	invoice[:company_id] = current_user.company_id
+        else
+        	invoice[:company_id] = 0 
+        end
+        
+        if invoice.save
+           redirect_to accountant_path
+        else
+           redirect_to accountant_path
+        end
  
- end
+   end
  
 end

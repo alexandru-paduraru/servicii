@@ -16,10 +16,11 @@
 <% end %>
 
 
-<div class="control-group">
+<div class="input-prepend control-group">
 	<%= f.label :amount, :class => "control-label" %>
 	<div class="controls">
-		<%= f.text_field :amount, :class => "input-xlarge", :placeholder => "Amount" %>
+	    <span class="add-on">$</span>
+		<%= f.text_field :amount, :class => "input-xlarge amount", :placeholder => "Amount" %>
 	</div>
 </div>
 
