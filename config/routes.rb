@@ -20,7 +20,7 @@ get '/employees/new', to: 'user#new', :as => "user_new"
 #create users
 get '/salesman_new', to: 'salesman#new', :as =>"salesman_new"
 post '/salesman_create', to: 'salesman#create', :as =>"salesman_create"
-post '/admins', to: 'admin#create', :as => "admin_create"
+post '/signup', to: 'admin#create', :as => "admin_create"
 post '/employees', to: 'user#create', :as => "user_create"
 
 #create customers
@@ -31,6 +31,10 @@ get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "c
 
 #invoice details
 get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
+
+#company details
+get '/company_new', to: 'admin#company_new', :as => "company_new"
+post '/company_new', to: 'admin#company_create', :as => "company_create"
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"

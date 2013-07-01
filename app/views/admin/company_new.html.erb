@@ -1,0 +1,39 @@
+<div class="row">
+<div class="span3">
+<h4> Some details for your company </h4>
+<%= form_for @company, url: '/company_new' do |f| %>
+ <% if @company.errors.any? %>
+ <div class="alert alert-error">   
+	<h4>Errors:</h4>
+	<ul>
+		<% @company.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+   </div>
+<% end %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => 'input-block-level' %>
+  </p>
+  <p>
+    <%= f.label :address %>
+    <%= f.text_field :address, :class => 'input-block-level' %>
+  </p>
+  <p>
+    <%= f.label :city %>
+    <%= f.text_field :city, :class => 'input-block-level' %>
+  </p>
+  <p>
+    <%= f.label :country %>
+    <%= f.password_field :country, :class => 'input-block-level' %>
+  </p>
+  	<%= f.label :zip_code %>
+  	<%= f.password_field :zip_code, :class => 'input-block-level' %>
+  <p>
+    <%= submit_tag("Save company details", :class => "btn btn-success btn-large btn-block")%>
+  </p>
+
+<% end %>
+</div>
+</div>
