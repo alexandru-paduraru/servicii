@@ -1,0 +1,96 @@
+<h3>Invoice # <%= @invoice.number %></h3>
+<div class="row">
+        <div class="span4">
+        <table class="table plain_table">
+          <tr>
+            <td><h4>Customer info </h4></td>
+          </tr>
+          <tr>
+          <td><%= @customer.first_name %> &nbsp <%= @customer.last_name %></td>
+          </tr>
+          <tr>
+            <td><%= @customer.id %></td>
+          </tr>
+          <tr>
+            <td><%= @customer.email %></td>
+          </tr>
+          <tr>
+            <td><%= @customer.phone %></td>
+          </tr>
+          <tr>
+            <td><%= @customer.billing_address %></td>
+          </tr>
+          <tr>
+            <td><%= @customer.description %></td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div class="span4">
+
+	      <table class="table plain_table">
+		      <tr>
+			  <h4>Invoice status</h4>
+			  </tr>
+			  <tr>
+			  	<td>Date:</td>
+			  	<td><%= @invoice.date %></td>
+              </tr>
+              <tr>
+	              <td>Due date:</td>
+	              <td><%= @invoice.due_date %></td>
+	          </tr> 
+	          <tr>
+		          <td>Amount:</td>
+		          <td><%= @invoice.amount %></td>
+		      </tr>
+		      <tr>
+			      <td>Current balance:</td>
+			      <td><%= @invoice.current_balance %></td>
+			  </tr>
+
+	   </table> 
+	  </div>
+</div>
+
+
+<div class="row">
+<a href="#" class="btn btn-large span1">Email</a>
+<a href="#" class="btn btn-success btn-large span1">Call</a>
+<a href="#" class="btn btn-info btn-large span1">Message</a>
+</div>
+
+
+<div class="acordeon">
+<div class="accordion" id="accordion2">
+
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+      <h4>Timeline</h4>
+      </a>
+    </div>
+    <div id="collapseTwo" class="accordion-body collapse">
+      <div class="accordion-inner">
+        Information about sms, email, message.
+      </div>
+    </div>
+  </div>
+  
+    <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+      <h4>Future actions</h4>
+      </a>
+    </div>
+    <div id="collapseThree" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <p>Message on ... </p>
+        <p>Email in ... </p>
+      </div>
+    </div>
+  </div>
+  
+</div>
+  </div>

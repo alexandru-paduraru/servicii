@@ -17,4 +17,16 @@ class AccountantController < ApplicationController
 	 end
  end
  
+ def invoice_new
+ @invoice = Invoice.new
+ respond_to do |format|
+      	format.html  {render 'invoice_new'}
+      	format.json { render json: @invoice }
+ end
+ end
+ 
+ 
+ def invoice_create
+ end
+ 
 end

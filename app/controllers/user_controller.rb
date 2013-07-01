@@ -78,6 +78,14 @@ class UserController < ApplicationController
 		end
 	end
 	
+	def customer_new
+	 @customer = Customer.new
+	 respond_to do |format|
+      	format.html  {render 'customer_new'}
+      	format.json { render json: @customer }
+     end
+	end
+	
 	def customer_create
 		_post = params[:customer]
 		customer = Customer.new
@@ -85,6 +93,7 @@ class UserController < ApplicationController
         customer[:last_name] = _post[:last_name]
         customer[:phone] = _post[:phone]
         customer[:email] = _post[:email]
+        customer[:billing_address] = _post[:billing_address]
         customer[:balance] = 0
         if customer.save
            redirect_to salesman_path

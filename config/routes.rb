@@ -25,9 +25,14 @@ post '/employees', to: 'user#create', :as => "user_create"
 
 #create customers
 post '/customer_create', to: 'user#customer_create', :as => "customer_create"
+get '/customers/new', to: 'user#customer_new', :as => "customer_new"
 
 #customer details
 get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "customer_details"
+
+#create invoice
+get '/invoices/new', to: 'accountant#invoice_new', :as => "invoice_new"
+post '/invoicee_create', to: 'accountant#invoice_create', :as => "invoice_create"
 
 #invoice details
 get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
