@@ -30,8 +30,20 @@
       <td><h4>Account</h4></td>
       </tr>
       <tr>
+      <td>Due amount: &nbsp<%= @total_due_amount %> </td>
       <td></td>
       </tr>
+      <% if @open_invoices %>
+	      <tr>
+	      <td>Open invoices: </td>
+	      </tr>
+	      <% @open_invoices.each do |invoice| %>
+	      <tr>
+	      <td> $<%= invoice.due_amount %> </td>
+	      <td> <%= invoice.number %></td>
+	      </tr>
+	      <% end %>
+      <% end %>
       </table>
       </div>
       

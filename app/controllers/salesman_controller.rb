@@ -31,6 +31,23 @@ class SalesmanController < ApplicationController
 	 @customer = Customer.find(@customer_id)
 	 
 	 @invoices = @customer.invoices
+	 @open_invoices = []
+	 
+	 @invoices.each do |invoice|
+	 	if invoice.current_balance < 0
+	 	       open_invoice = {}
+	 	       open_invoice[:due_amount] = invoice.current_balance
+	 	       open_invoice[:number] = invoice.number
+	 	       @open_invoices.append(open_invoice)
+		end
+	 end
+	 
+	 @total_due_amount = 0
+	 
+	 @open_invoices.each do |invoice|
+	 	@total_due_amount += invoice[:due_amount]
+	 end
+	 
 	 
 	 respond_to do |format|
 	 	format.html {render 'customer_details'}
