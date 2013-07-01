@@ -22,7 +22,7 @@ class AdminController < ApplicationController
 		
 			if @user.save 
 				session[:user_id] = @user[:id]
-				redirect_to company_setup_path 
+				redirect_to company_new_path 
 			else 
 				render 'signup'
 			end
@@ -37,7 +37,7 @@ class AdminController < ApplicationController
 		@company = Company.new(params[:company])
 		if @company.save
 			@admin = current_user
-			@admin.update_attribute(:company_id => @company[:id])
+			@admin.update_attribute(:company_id, @company[:id])
 			redirect_to admin_path
 		else render 'company_new'
 		end
