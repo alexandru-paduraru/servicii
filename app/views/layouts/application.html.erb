@@ -47,15 +47,15 @@
            <div class="row">
            <div class="span3">
             <% if current_user && current_user.company_id != 0 %>
-            <%= render 'layouts/left_menu' %>
-           <% end %> 
+            <%= render 'layouts/left_menu' %>           
            </div>
            <div class="span9">
-           <% flash.each do |key, value| %>
-           		<div class="alert alert-success">
-	           		<button type="button" class="close" data-dismiss="alert">&times;</button>
-	           		<strong>Success!</strong> <%= value %>
-	           	</div>
+	           <% flash.each do |key, value| %>
+	           		<div class="alert alert-success">
+		           		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		           		<strong>Success!</strong> <%= value %>
+		           	</div>
+	            <% end %>
             <% end %>
             <%= yield %>
            </div>           

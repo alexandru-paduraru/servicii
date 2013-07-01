@@ -1,6 +1,5 @@
 
 <% @user_details = User.details(current_user[:id])%>
-<%= render 'layouts/company_details' %>
 		<div class="well sidebar-nav">
 			<% is_admin = current_user[:job] %>
             <% if is_admin == 1 %>
@@ -24,6 +23,7 @@
 	            <% end %>
             <% end %>
           </div>
+          <%= render 'layouts/company_details' %>
     
     
     
