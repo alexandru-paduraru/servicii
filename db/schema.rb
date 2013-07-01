@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20130701112005) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.string   "phone" 
+    t.string   "phone"
     t.float    "balance"
     t.text     "billing_address"
     t.text     "description"

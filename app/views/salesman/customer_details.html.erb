@@ -39,8 +39,8 @@
 	      </tr>
 	      <% @open_invoices.each do |invoice| %>
 	      <tr>
-	      <td> $<%= invoice.due_amount %> </td>
-	      <td> <%= invoice.number %></td>
+	      <td> $<%= invoice[:due_amount] %> </td>
+	      <td> <%= invoice[:number] %></td>
 	      </tr>
 	      <% end %>
       <% end %>

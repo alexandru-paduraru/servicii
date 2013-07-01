@@ -32,7 +32,7 @@ class AccountantController < ApplicationController
         invoice[:amount] = _post[:amount]
         invoice[:due_date] = _post[:due_date]
         invoice[:customer_id] = _post[:customer_id]
-        invoice[:current_balance] = 0
+        invoice[:current_balance] = -_post[:amount].to_i
         invoice[:date] = Time.now
         invoice[:number] = 11111 #algorithm for generating the invoice number?
         
