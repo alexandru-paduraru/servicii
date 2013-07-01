@@ -32,7 +32,7 @@ get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "c
 
 #create invoice
 get '/invoices/new', to: 'accountant#invoice_new', :as => "invoice_new"
-post '/invoices_create', to: 'accountant#invoice_create', :as => "invoice_create"
+post '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"
 
 #invoice details
 get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
