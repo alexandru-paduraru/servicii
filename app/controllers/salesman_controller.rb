@@ -30,6 +30,8 @@ class SalesmanController < ApplicationController
 	 @customer_id = params[:customer_id]
 	 @customer = Customer.find(@customer_id)
 	 
+	 @invoices = @customer.invoices
+	 
 	 respond_to do |format|
 	 	format.html {render 'customer_details'}
 	 end

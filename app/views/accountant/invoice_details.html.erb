@@ -1,8 +1,12 @@
+<h3>Invoice # <%= @invoice.number %></h3>
 <div class="row">
         <div class="span4">
         <table class="table plain_table">
           <tr>
-            <td><h3><%= @customer.first_name %><%= @customer.last_name %></h3></td>
+            <td><h4>Customer info </h4></td>
+          </tr>
+          <tr>
+          <td><%= @customer.first_name %> &nbsp <%= @customer.last_name %></td>
           </tr>
           <tr>
             <td><%= @customer.id %></td>
@@ -23,47 +27,42 @@
       </div>
 
 
+      <div class="span4">
 
-<div class="span4">
+	      <table class="table plain_table">
+		      <tr>
+			  <h4>Invoice status</h4>
+			  </tr>
+			  <tr>
+			  	<td>Date:</td>
+			  	<td><%= @invoice.date %></td>
+              </tr>
+              <tr>
+	              <td>Due date:</td>
+	              <td><%= @invoice.due_date %></td>
+	          </tr> 
+	          <tr>
+		          <td>Amount:</td>
+		          <td><%= @invoice.amount %></td>
+		      </tr>
+		      <tr>
+			      <td>Current balance:</td>
+			      <td><%= @invoice.current_balance %></td>
+			  </tr>
 
-<table class="table plain_table">
-<tr>
-<h4>Invoice # <%= @invoice.id %></h4>
-</tr>
-<tr>
-  <td>Date:</td>
-  <td><%= @invoice.date %></td>
-</tr>
-<tr>
-  <td>Due date:</td>
-  <td><%= @invoice.due_date %></td>
-</tr> 
-<tr>
-  <td>Amount:</td>
-  <td><%= @invoice.amount %></td>
-</tr>
-<tr>
-  <td>Current balance:</td>
-  <td><%= @invoice.current_balance %></td>
-</tr>
-<tr>
-  <td>Customer id:</td>
-  <td><%= @invoice.customer_id%></td>
-</tr> 
-</table> 
- 
-</div>
+	   </table> 
+	  </div>
 </div>
 
-<div class="span8">
+
 <div class="row">
 <a href="#" class="btn btn-large span1">Email</a>
 <a href="#" class="btn btn-success btn-large span1">Call</a>
 <a href="#" class="btn btn-info btn-large span1">Message</a>
 </div>
-</div>
 
-  <div class="span8 acordeon">
+
+<div class="acordeon">
 <div class="accordion" id="accordion2">
 
   <div class="accordion-group">
@@ -87,7 +86,8 @@
     </div>
     <div id="collapseThree" class="accordion-body collapse">
       <div class="accordion-inner">
-        Anim pariatur cliche...
+        <p>Message on ... </p>
+        <p>Email in ... </p>
       </div>
     </div>
   </div>
