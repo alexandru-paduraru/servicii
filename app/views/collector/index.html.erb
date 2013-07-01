@@ -7,7 +7,7 @@
     <% end %>
   </div>
    
-<table class="table table-hover table-striped">
+<table class="table table-bordered table-hover table-striped">
   
   <tr>
   <th>#</th>
@@ -22,7 +22,7 @@
   <% index = 0 %>
   <% @customers.each do |customer| %>
   	<% if customer.balance < 0 %>
-		<tr onclick = "document.location = 'detalii';" >
+		<tr>
 
   
   <td><%= index = index + 1 %> </td>

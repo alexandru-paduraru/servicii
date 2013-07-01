@@ -20,7 +20,7 @@
  </td>
 </tr>
 </table>
-<table class="table table-hover table-striped">
+<table class="table table-bordered table-hover table-striped">
   
   <tr>
   <th>Invoice number</th>
@@ -43,7 +43,7 @@
   <td><%= invoice.amount %> $ </td>
   <td><%= invoice.current_balance %></td>
   <td><%= invoice.customer_id %></td>
-    <td> <a href="invoice_details?invoice_id=<%= invoice.id %>" class = "btn" >Details</a></td>
+    <td> <a href="invoice_details/<%= invoice.id %>" class = "btn" >Details</a></td>
 
   </tr>
   <% end %>

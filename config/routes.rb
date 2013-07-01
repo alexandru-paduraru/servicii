@@ -30,7 +30,7 @@ post '/customer_create', to: 'user#customer_create', :as => "customer_create"
 get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "customer_details"
 
 #invoice details
-get '/invoice_details', to: 'accountant#invoice_details', :as => "invoice_details"
+get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
