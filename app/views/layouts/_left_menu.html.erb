@@ -1,6 +1,6 @@
 
 <% @user_details = User.details(current_user[:id])%>
-
+<%= render 'layouts/company_details' %>
 		<div class="well sidebar-nav">
 			<% is_admin = current_user[:job] %>
             <% if is_admin == 1 %>
@@ -24,22 +24,6 @@
 	            <% end %>
             <% end %>
           </div>
-    <div class="well">
-	<h4>Company details</h4>
-	
-	<address>
-	<strong>Name</strong><br>
-    Twitter Inc.<br>
-    <strong>Street</strong><br>
-    795 Folsom Ave, Suite 600<br>
-    San Francisco, CA 94107<br>
-    <strong>Phone</strong>
-    <abbr title="Phone">P:</abbr> (123) 456-7890
-    </address>
-     
-    <address>
-    <strong>Full Name</strong><br>
-    <a href="mailto:#">first.last@example.com</a>
-    </address>
-    <a href="#">Edit</a>
-    </div>
+    
+    
+    

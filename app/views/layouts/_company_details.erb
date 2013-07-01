@@ -1,0 +1,19 @@
+<div class="well">
+	<% @company = Company.find(current_user.company_id) %>
+	<h4>Company details</h4>
+	<address>
+	<strong>Name</strong><br>
+    <%= @company.name %><br>
+    <strong>Address</strong><br>
+    <%= @company.address %>,
+    <%= @company.country %>,
+    <%= @company.zip_code %><br>
+    </address>
+     
+    <address>
+    <strong>Current user</strong><br>
+
+    <a href="mailto:#">first.last@example.com</a>
+    </address>
+    <a href="#">Edit</a>
+    </div>
