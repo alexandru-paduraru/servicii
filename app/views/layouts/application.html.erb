@@ -16,7 +16,7 @@
  <div class="navbar navbar-inverse navbar-fixed-top">
       <nav class="navbar-inner">
         <div class="container">
-              <% if current_user %>
+              <% if current_user && current_user.company_id != 0 %>
               <ul class="nav">
               	  <% if current_user[:job] == 1 %>
               	  <li><a href="/admin">Services - admin</a></li>
@@ -38,7 +38,7 @@
       </nav>
     </div>
     <div id="main" role="main">
-    <% if current_user %>
+    <% if current_user && current_user.company_id != 0 %>
       <div class="container">
     <% else %>  
       <div class="container container-login">
@@ -46,9 +46,9 @@
         <div class="content">
            <div class="row">
            <div class="span3">
-            <% if current_user %>
+            <% if current_user && current_user.company_id != 0 %>
             <%= render 'layouts/left_menu' %>
-            <% end %>
+           <% end %> 
            </div>
            <div class="span9">
            <% flash.each do |key, value| %>
@@ -56,9 +56,9 @@
 	           		<button type="button" class="close" data-dismiss="alert">&times;</button>
 	           		<strong>Success!</strong> <%= value %>
 	           	</div>
-           <% end %>
+            <% end %>
             <%= yield %>
-           </div>
+           </div>           
           </div>
           <footer>
           </footer>

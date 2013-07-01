@@ -1,3 +1,7 @@
+<div class="row">
+<div class="span3">
+<h4> Register</h4>
+
 <%= form_for @user, url: '/signup' do |f| %>
  <% if @user.errors.any? %>
  <div class="alert alert-error">   
@@ -31,3 +35,6 @@
     <%= submit_tag("Create account", :class => "btn btn-success btn-large btn-block")%>
   </p>
 <% end %>
+
+</div>
+</div>
