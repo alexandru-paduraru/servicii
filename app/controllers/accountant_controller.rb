@@ -27,6 +27,7 @@ class AccountantController < ApplicationController
  
  
  def invoice_create
+ 
  end
  
 end
