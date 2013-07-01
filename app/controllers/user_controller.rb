@@ -21,6 +21,7 @@ class UserController < ApplicationController
 		@user.first_name = _post[:first_name]
 		@user.last_name = _post[:last_name]
 		@user.job = 0
+		@user.company_id = current_user.company_id
 		
 		#render 'verifica'
 		 if @user.save
@@ -95,6 +96,7 @@ class UserController < ApplicationController
         customer[:email] = _post[:email]
         customer[:billing_address] = _post[:billing_address]
         customer[:balance] = 0
+        customer[:company_id] = current_user[:company_id]
         if customer.save
            redirect_to salesman_path
         else
