@@ -1,2 +1,4 @@
-
-  $('[data-behaviour~=datepicker]').datepicker();
+$(document).ready(function() {
+	$('[data-behaviour~=datepicker]').datepicker();
+});
+  
