@@ -16,7 +16,7 @@
     <%= current_user.id %>,
     <%= current_user.first_name %><br>
     </address>
-    
+    <%= link_to 'Edit company', company_edit_path(current_user[:company_id]) %>
     <% end %>
     <% else %>
      No company created

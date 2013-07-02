@@ -30,6 +30,7 @@ class AdminController < ApplicationController
 		#redirect_to company_new_path
 	end
 	
+########### Company ###################
 	def company_new
 		@company = Company.new 
 	end
@@ -42,9 +43,21 @@ class AdminController < ApplicationController
 			redirect_to admin_path
 		else render 'company_new'
 		end
-		
 	end
 	
+	def company_edit
+		@company = Company.find(params[:id])
+	end
+	
+	def company_update
+		@company = Company.find(params[:id])
+		if @company.update_attributes(params[:company])
+		 	redirect_to admin_path
+		else 
+			render 'company_edit'
+		end
+	end
+############ End Company ###############
 	def index
 		@users_details = []
 		@users = User.all
