@@ -14,8 +14,13 @@
   <td>
    	<button class="modalButton btn" type="button" id="1">Add customer</button>
   </td>
+</tr>
+<tr>
   <td>
-	<button class="btn" type="button">Import customers</button>
+    <%= form_tag import_customers_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag("Import customers", :class => "btn") %>
+    <% end %>
   </td>
 </tr>
 </table>
@@ -26,18 +31,12 @@
   <th>First name</th>
   <th>Last name </th>
   <th>Account number</th>
-  <th>Payment</th>
   <th>Actions</th>
   </tr>
   
   <% index = 0 %>
   <% @customers.each do |customer| %>
-  	<% if customer.balance < 0 %>
-  		<tr class = "error">
-	<% else %>
-		<tr>
-	<% end %>
-  
+  <tr>
   <td><%= index = index + 1 %> </td>
   <td><%= customer.first_name %></td>
   <td><%= customer.last_name %></td>

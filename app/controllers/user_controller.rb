@@ -95,7 +95,6 @@ class UserController < ApplicationController
         customer[:phone] = _post[:phone]
         customer[:email] = _post[:email]
         customer[:billing_address] = _post[:billing_address]
-        customer[:balance] = 0
         customer[:company_id] = current_user[:company_id]
         if customer.save
            redirect_to salesman_path
