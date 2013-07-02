@@ -10,4 +10,12 @@ class Customer < ActiveRecord::Base
     	find(:all)
     end
   end
+  
+  def self.import(file)
+  	CSV.foreach(file.path, headers: true) do |row|
+  		a = Customer.new(row.to_hash)
+  		a.company_id = current_user[:company_id]
+  		a.save
+  	end
+  end
 end

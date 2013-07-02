@@ -30,6 +30,9 @@ get '/customers/new', to: 'user#customer_new', :as => "customer_new"
 #customer details
 get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "customer_details"
 
+#customer import
+post '/customer_import', to: 'user#customer_import', :as => "import_customers"
+
 #create invoice
 get '/invoices/new', to: 'accountant#invoice_new', :as => "invoice_new"
 post '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"
