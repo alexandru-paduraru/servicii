@@ -51,19 +51,13 @@
            </div>
            <div class="span9">
 	           <% flash.each do |name, msg| %>
-	           <strong><%= name %></strong> <%= msg %>
-	           		<% if name == "Error" %>
-	           		<div class="alert alert-danger">
+	            <% if msg.is_a?(String )%>
+	           		<div class="alert alert-<%= name == :notice ? "success" : "error" %>">
 		           		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		           		<strong><%= key %></strong> <%= value %>
-		           	</div>
-		           	<% end %>
-	           		<% if msg == "Success" %>
-	           		<div class="alert alert-success">
-		           		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		           		<strong><%= key %></strong> <%= value %>
-		           	</div>
-		           	<% end %>
+		           		<%= msg %>
+		           	</div> 	
+	           		<% end %>
+           		
 	            <% end %>
             <% end %>
             <%= yield %>

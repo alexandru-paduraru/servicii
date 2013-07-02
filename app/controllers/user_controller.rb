@@ -72,7 +72,7 @@ class UserController < ApplicationController
 				end
 			end
  			if ok == 1
- 				redirect_to admin_path, :Success => "Employee was created."
+ 				redirect_to admin_path, :notice => "Employee was created."
  			else render text: "eroare la adaugarea job-ului"
  			end
  		else 
@@ -86,9 +86,11 @@ class UserController < ApplicationController
 		if @user
 			if @user.company_id == current_user.company_id
 				@user
-			end
+			else 
+				redirect_to admin_path, :notice => "Error! User not available for your company"
+			end	
 		else 
-			redirect_to admin_path, :error => "User not available for your company"
+				redirect_to admin_path, :notice => "Error! User not available for your company"
 		end
 	end
 	
@@ -134,11 +136,11 @@ class UserController < ApplicationController
 				end
 			end
  			if ok == 1
- 				redirect_to admin_path, :Success => "Employee updated successfully"
+ 				redirect_to admin_path, :notice => "Employee updated successfully"
  			else render text: "eroare la adaugarea job-ului"
  			end
 		else
-			render 'edit', :Error => "There was an error, please try again"
+			render 'edit', :notice => "There was an error, please try again"
 		end
 	end
 	
