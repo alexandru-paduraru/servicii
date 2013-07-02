@@ -23,14 +23,31 @@ class Customer < ActiveRecord::Base
   	CSV.foreach(file.path, headers: true) do |row|
 # 	  	if a = find(:all, :conditions => ['email', row["email"]])
         if customer = find_by_email(row["email"])
-	  			customer.company_id = current_user[:company_id]
-	  			customer.update_attributes(row.to_hash)
+# 	  			customer.company_id = current_user[:company_id]
+# 	  			customer.update_attributes(row.to_hash)
 	  	else
 	  		customer = Customer.new(row.to_hash)
+	  	end
+	  	    customer.first_name = row["first_name"]
+	  	    customer.last_name = row["last_name"]
+	  	    customer.email = row["email"]
+	  	    customer.phone = row["phone"]
+	  	    customer.billing_address = row["billing_address"]
+	  	    customer.description = row["description"]
 	  		customer.company_id = current_user[:company_id]
 	  		customer.save
- 	  	end
 	 end
+	 
+  end
+  
+  def self.to_csv(customers)
+  
+    CSV.generate do |csv|
+  		csv << column_names
+  		customers.each do |customer|
+  			csv << customer.attributes.values_at(*column_names)
+  		end
+  	end
   end
   
 end

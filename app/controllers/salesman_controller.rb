@@ -1,8 +1,12 @@
 class SalesmanController < ApplicationController
 
 	def index
+	
 	    @customers = Customer.search(params[:search])
-		render 'index'
+	    respond_to do |format|
+		    format.html {render 'index'}
+		    format.csv  {render text: Customer.to_csv(@customers) }
+	    end
 	end
 	
 	def create
