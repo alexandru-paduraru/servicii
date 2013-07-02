@@ -40,6 +40,8 @@ get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "in
 #company details
 get '/company_new', to: 'admin#company_new', :as => "company_new"
 post '/company_new', to: 'admin#company_create', :as => "company_create"
+get '/company/:id/edit', to: 'admin#company_edit', :as => "company_edit"
+patch '/company/:id', to: 'admin#company_update', :as => "company_update"
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
