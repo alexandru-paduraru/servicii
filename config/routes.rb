@@ -25,6 +25,7 @@ post '/employees', to: 'user#create', :as => "user_create"
 
 #edit users
 get '/employee/:id/edit', to: 'user#edit', :as => "user_edit"
+patch '/employee/:id', to: 'user#update', :as => "user_update"
 
 
 #create customers

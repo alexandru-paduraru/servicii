@@ -72,7 +72,7 @@ class UserController < ApplicationController
 				end
 			end
  			if ok == 1
- 				redirect_to admin_path, :notice => "Employee was created."
+ 				redirect_to admin_path, :Success => "Employee was created."
  			else render text: "eroare la adaugarea job-ului"
  			end
  		else 
@@ -81,11 +81,65 @@ class UserController < ApplicationController
 	end
 	
 	def edit
-		@user = User.find(params[:id])
+		#@user = User.find(params[:id])
+		@user = User.find(:first, :conditions => 'id='+ params[:id]) 
+		if @user
+			if @user.company_id == current_user.company_id
+				@user
+			end
+		else 
+			redirect_to admin_path, :error => "User not available for your company"
+		end
 	end
 	
 	def update
-	
+		@user = User.find(params[:id])
+		_post = params[:user]
+		ok = 0
+		@user.email = _post[:email]
+		@user.password = _post[:password]
+		@user.first_name = _post[:first_name]
+		@user.last_name = _post[:last_name]
+		
+		if @user.save
+			@worksons = Workson.all(:conditions => { :user_id => params[:id] })
+			@worksons.each do |job|
+				job.destroy
+			end
+			if _post[:workson][:salesman].to_i == 1
+ 				workson = Workson.new
+ 				workson.user_id = @user[:id]
+ 				workson.job_id = 2
+ 				if workson.save
+ 					ok = 1
+ 				else ok = 0
+ 				end
+ 			end
+			if _post[:workson][:accountant].to_i == 1
+				workson = Workson.new
+				workson.user_id = @user[:id]
+				workson.job_id = 3
+				if workson.save
+					ok = 1
+				else ok = 0
+				end
+			end
+			if _post[:workson][:collector].to_i == 1
+				workson = Workson.new
+				workson.user_id = @user[:id]
+				workson.job_id = 4
+				if workson.save
+					ok = 1
+				else ok = 0
+				end
+			end
+ 			if ok == 1
+ 				redirect_to admin_path, :Success => "Employee updated successfully"
+ 			else render text: "eroare la adaugarea job-ului"
+ 			end
+		else
+			render 'edit', :Error => "There was an error, please try again"
+		end
 	end
 	
 #################### End Employee ##########################
