@@ -55,11 +55,11 @@ class AdminController < ApplicationController
 	
 	def company_update
 		@company = Company.find(params[:id])
-		if @company.update_attributes(params[:company])
-		 	redirect_to admin_path
-		else 
+		 if @company.update_attributes(params[:company])
+ 		 	redirect_to admin_path, :notice => "Company updated successfully"
+ 		else 
 			render 'company_edit'
-		end
+ 		end
 	end
 ############ End Company ###############
 	def index

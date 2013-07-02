@@ -23,6 +23,10 @@ post '/salesman_create', to: 'salesman#create', :as =>"salesman_create"
 post '/signup', to: 'admin#create', :as => "admin_create"
 post '/employees', to: 'user#create', :as => "user_create"
 
+#edit users
+get '/employee/:id/edit', to: 'user#edit', :as => "user_edit"
+
+
 #create customers
 post '/customer_create', to: 'user#customer_create', :as => "customer_create"
 get '/customers/new', to: 'user#customer_new', :as => "customer_new"

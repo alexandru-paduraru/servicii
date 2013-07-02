@@ -7,6 +7,25 @@ class UserController < ApplicationController
       end
 	end
 	
+	def show 
+		@users_details = []
+		@users = User.all
+		
+		@users.each do |user|
+			@user_detail = User.details(user.id)
+			@users_details.append(@user_detail)
+		end
+		render 'verifica'
+	end
+	
+	def index
+		if(current_user)
+			@user_details = User.details(current_user.id)
+			render 'index' 
+		end
+	end
+
+#################### Employee ##########################
 	def new
 		@user = User.new
 	end
@@ -61,23 +80,17 @@ class UserController < ApplicationController
 		end
 	end
 	
-	def show 
-		@users_details = []
-		@users = User.all
-		
-		@users.each do |user|
-			@user_detail = User.details(user.id)
-			@users_details.append(@user_detail)
-		end
-		render 'verifica'
+	def edit
+		@user = User.find(params[:id])
 	end
 	
-	def index
-		if(current_user)
-			@user_details = User.details(current_user.id)
-			render 'index' 
-		end
+	def update
+	
 	end
+	
+#################### End Employee ##########################
+	
+#################### Customer ##########################	
 	
 	def customer_new
 	 @customer = Customer.new
@@ -109,4 +122,5 @@ class UserController < ApplicationController
 	 	redirect_to salesman_path, :notice => "Customers imported."
 	end
 	
+#################### End Customer ##########################
 end

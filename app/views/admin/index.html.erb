@@ -54,7 +54,7 @@
 		<% end %>
 		</ul>
 	</td>
-	<td><a href="#">Edit</a></td>
+	<td><%= link_to 'Edit', user_edit_path(user_details[:id]) %> </td>
 </tr>
 <% end %>
 <% else %>
