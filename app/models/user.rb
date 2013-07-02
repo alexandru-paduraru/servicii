@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :email, :job, :presence => true
   validates :email, :length => { :minimum => 4 } 
   validates_uniqueness_of :email
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+
 
   def password
       @password ||= Password.new(password_hash)

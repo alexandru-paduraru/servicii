@@ -105,7 +105,7 @@ class UserController < ApplicationController
 	end
 	
 	def customer_import
-	 	Customer.import(params[:file])
+	 	Customer.import(params[:file], current_user)
 	 	redirect_to salesman_path, :notice => "Customers imported."
 	end
 	
