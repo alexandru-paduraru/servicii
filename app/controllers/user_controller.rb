@@ -144,6 +144,12 @@ class UserController < ApplicationController
 		end
 	end
 	
+	def email
+		respond_to do |format|
+		 format.html{ render 'email'}
+		end
+	end
+	
 #################### End Employee ##########################
 	
 #################### Customer ##########################	
@@ -173,13 +179,33 @@ class UserController < ApplicationController
 		
 	end
 	
+	def customers_import_export
+	@error_at_import = []
+		respond_to do |format|
+		format.html {render 'customers_import_export'}
+		end
+	end
+	
 	def customer_import
+	    @error_at_import = []
+	    
 	    if(params[:file])
-	 		Customer.import(params[:file], current_user)
-	 		redirect_to salesman_path, :notice => "Customers imported."
+	 		@error_at_import = Customer.import(params[:file], current_user)
+	    end
+	    
+	    if @error_at_import != []
+	 		redirect_to customers_import_export_path, :notice => "error"+@error_at_import.to_s
 	 	else
-	 	 	redirect_to salesman_path
+	 	 	redirect_to customers_import_export_path, :notice => "Customers imported."
 	 	end
+	end
+	
+	def customer_export
+	    @customers = Customer.all
+		    respond_to do |format|
+			    format.html {render 'customers_import_export'}
+			    format.csv  {send_data Customer.to_csv(@customers) }
+		    end
 	end
 	
 #################### End Customer ##########################

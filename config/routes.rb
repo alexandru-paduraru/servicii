@@ -38,6 +38,7 @@ get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "c
 
 #customer import
 post '/customer_import', to: 'user#customer_import', :as => "import_customers"
+get '/customer_export', to: 'user#customer_export', :as => "export_customers"
 get '/customers/import_export', to: 'user#customers_import_export', :as => "customers_import_export"
 
 #create invoice
@@ -52,6 +53,9 @@ get '/company_new', to: 'admin#company_new', :as => "company_new"
 post '/company_new', to: 'admin#company_create', :as => "company_create"
 get '/company/:id/edit', to: 'admin#company_edit', :as => "company_edit"
 patch '/company/:id', to: 'admin#company_update', :as => "company_update"
+
+#sending emails
+get '/email', to: 'user#email', :as => "email"
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"

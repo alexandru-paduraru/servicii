@@ -1,0 +1,38 @@
+
+<script type="text/javascript" src="https://bitbucket.org/mailchimp/mandrill-api-js/raw/437ee6411ecb3353eceac50d696440136ab9af86/mandrill.min.js"></script>
+
+<script type="text/javascript">
+	// Create a function to log the response from the Mandrill API
+function log(obj) {
+    $('#response').text(JSON.stringify(obj));
+}
+
+// create a new instance of the Mandrill class with your API key
+var m = new mandrill.Mandrill('Y7j0n5TAhHrqV1PdUCbTuw');
+
+// create a variable for the API call parameters
+var params = {
+    "message": {
+        "from_email":"conacel.elena@gmail.com",
+        "to":[{"email":"conacel.elena@gmail.com"}],
+        "subject": "Sending a text email from the Mandrill API",
+        "text": "I'm learning the Mandrill API at Codecademy."
+    }
+};
+
+function sendTheMail() {
+// Send the email!
+
+    m.messages.send(params, function(res) {
+        log(res);
+    }, function(err) {
+        log(err);
+    });
+}
+	
+	
+</script>
+<title>Send a Text Email via Mandrill</title>
+
+<button onclick="sendTheMail(); return false;">Send the Mail</button>
+<pre id="response"></pre>

@@ -5,7 +5,7 @@ class SalesmanController < ApplicationController
 	    @customers = Customer.search(params[:search])
 	    respond_to do |format|
 		    format.html {render 'index'}
-		    format.csv  {render text: Customer.to_csv(@customers) }
+# 		    format.csv  {render text: Customer.to_csv(@customers) }
 	    end
 	end
 	
