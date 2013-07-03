@@ -32,11 +32,13 @@ patch '/employee/:id', to: 'user#update', :as => "user_update"
 post '/customer_create', to: 'user#customer_create', :as => "customer_create"
 get '/customers/new', to: 'user#customer_new', :as => "customer_new"
 
+
 #customer details
 get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "customer_details"
 
 #customer import
 post '/customer_import', to: 'user#customer_import', :as => "import_customers"
+get '/customers/import_export', to: 'user#customers_import_export', :as => "customers_import_export"
 
 #create invoice
 get '/invoices/new', to: 'accountant#invoice_new', :as => "invoice_new"

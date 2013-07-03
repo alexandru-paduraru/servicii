@@ -17,14 +17,25 @@
       <nav class="navbar-inner">
         <div class="container">
               <% if current_user && current_user.company_id != 0 %>
-              <ul class="nav">
-              	  <% if current_user[:job] == 1 %>
-              	  <li><a href="/admin">Services - admin</a></li>
-	              <% else%>
-	              <li><a href="/user">Services - employee</a></li>
-	              <% end %>
-              </ul>
+              <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</a>
+              
+			<a class="brand" href="">Services</a>
+              
+             <div class="nav-collapse collapse">
+		         <ul class="nav">   
+		             <%= render 'layouts/top_menu' %>
+		         </ul>
               <ul class="nav pull-right">
+	              <% if current_user[:job] == 1 %>
+              	  <li><a href="/admin">Admin</a></li>
+	              <% else%>
+	              <li><a href="/user">Employee</a></li>
+	              <% end %>
 	              <li><a href="/logout">Logout</a></li>
               </ul>
               <% else %>
@@ -34,6 +45,9 @@
               <% end %>
               
 	           </ul>
+
+			</div>
+              
         </div>
       </nav>
     </div>
@@ -45,19 +59,15 @@
     <% end %>
         <div class="content">
            <div class="row">
-           <div class="span3">
-            <% if current_user && current_user.company_id != 0 %>
-            <%= render 'layouts/left_menu' %>           
-           </div>
-           <div class="span9">
+            <% if current_user && current_user.company_id != 0 %>           
+           <div class="span12">
 	           <% flash.each do |name, msg| %>
-	            <% if msg.is_a?(String )%>
-	           		<div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-		           		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		           		<%= msg %>
-		           	</div> 	
-	           		<% end %>
-           		
+		            <% if msg.is_a?(String )%>
+		           		<div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+			           		<button type="button" class="close" data-dismiss="alert">&times;</button>
+			           		<%= msg %>
+			           	</div> 	
+		           	<% end %>           		
 	            <% end %>
             <% end %>
             <%= yield %>

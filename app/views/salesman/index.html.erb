@@ -1,31 +1,22 @@
-
-<div class = "span8">
 <table class="table plain_table">
 <tr><td>
   <div class="input-append">
     
     <%= form_tag salesman_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span5" %>
-    <%= submit_tag("Search", :class => "btn") %>   
+    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => "Search a customer by first name, last name, ID or account number" %>
+           
+    <%= button_tag(type: 'submit', class: "btn") do %>
+   		 <i class="icon-ml-search"></i> Search</button>
+    <% end %> 
     <% end %>
     
   </div>
   </td>
   <td>
-   	<button class="modalButton btn" type="button" id="1">Add customer</button>
+   	<button class="modalButton btn btn-success pull-right" type="button" id="1"><i class="icon-ml-add"></i> Add customer</button>
   </td>
 </tr>
-<tr>
-  <td>
-    <%= form_tag import_customers_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag("Import customers", :class => "btn") %>
-    <% end %>
-  </td>
-  <td>
-  <%= link_to "Export customers", salesman_path(format: "csv"), :class => "btn" %>
-  </td>
-</tr>
+
 </table>
 <table class="table table-bordered table-hover table-striped">
   
@@ -34,9 +25,9 @@
   <th>First name</th>
   <th>Last name </th>
   <th>Account number</th>
-  <th>Actions</th>
+  <th>Balance</th>
+  <th class="span1">Actions</th>
   </tr>
-  
   <% index = 0 %>
   <% @customers.each do |customer| %>
   <tr>
@@ -44,7 +35,11 @@
   <td><%= customer.first_name %></td>
   <td><%= customer.last_name %></td>
   <td><%= customer.id %></td>
-  <td> <a href="customer_details/<%= customer.id %>" class = "btn" >Details</a></td>
+  <td></td>
+  <td> <%= link_to customer_details_path(customer.id) do %>
+  			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span
+  	   <% end %>
+  </td>
   </tr>
   <% end %>
   
@@ -109,4 +104,4 @@
   
   <% end %>  <!-- #form end -->
 </div>
-</div>
+
