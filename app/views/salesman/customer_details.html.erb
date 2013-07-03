@@ -135,7 +135,7 @@
 			<%= f.text_field :due_date, :class => "datepicker input-xlarge", :placeholder => "Due date" %>
 		</div>
 	</div>
-	<%= hidden_field_tag(:customer_id, @customer.id) %>
+	<%= f.hidden_field :customer_id, :value => @customer_id %>
   </div>
   
   <div class="modal-footer">

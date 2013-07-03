@@ -44,9 +44,9 @@ class AccountantController < ApplicationController
         end
         
         if invoice.save
-           redirect_to accountant_path
+           redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "invoice successfully created"
         else
-           redirect_to accountant_path
+           redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :error => "error creating invoice"
         end
  
    end
