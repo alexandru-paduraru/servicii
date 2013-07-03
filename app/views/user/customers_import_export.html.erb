@@ -19,21 +19,22 @@
 		    <% end %>
 		</div>
 		
-        <% if @error_at_import %>
+		<% if @errors %>
 			<div class="alert alert-danger">Error log</div>
 			<table class="table table-bordered table-striped">
-
-			<% @error_at_import.each do |error| %>
+            <% @errors.each do |error| %>
 				<tr>
 					<td>Line #</td>
-					<td>error.to_s</td>
+					<td><%= error%></td>
 				</tr>
-			<% end %>
 
+			<% end %>
 			</table>
-        <% end %>
+			<% end %>
+			</div>
+
 	
-	</div>
+
 	<div class="span6">
 		<div class="well"> 
 		<h3>Export customers</h3>

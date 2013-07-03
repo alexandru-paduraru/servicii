@@ -20,13 +20,14 @@ class Customer < ActiveRecord::Base
   end
   
   def self.import(file, current_user)
-    errors = []
+    errors_at_import = []
+    index = 1
   	CSV.foreach(file.path, headers: true) do |row|
         if customer = find_by_email(row["email"])
 	  	else
-	  		customer = Customer.new(row.to_hash)
+	  		customer = Customer.new
 	  	end
-	  	   
+	  	    index += 1
 	  	    customer.first_name = row["first_name"]
 	  	    customer.last_name = row["last_name"]
 	  	    customer.email = row["email"]
@@ -37,10 +38,15 @@ class Customer < ActiveRecord::Base
 	  		if customer.valid?
 	  			customer.save
 	  		else
-	  			errors.append(customer.errors.full_messages)
+	  		    customer.errors.full_messages.each do |error_message|
+		  		    error = {}
+		  		    error[:row] = index
+		  		    error[:message] = error_message
+		  			errors_at_import.append(error)
+		  		end
 	  		end
 	 end
-	 errors
+	 errors_at_import
 	 
   end
   

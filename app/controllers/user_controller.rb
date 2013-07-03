@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+    
 	def login
 	  
 	 respond_to do |format|
@@ -180,21 +181,26 @@ class UserController < ApplicationController
 	end
 	
 	def customers_import_export
-	@error_at_import = []
+	
 		respond_to do |format|
 		format.html {render 'customers_import_export'}
 		end
 	end
 	
 	def customer_import
-	    @error_at_import = []
+        @errors = []
 	    
 	    if(params[:file])
-	 		@error_at_import = Customer.import(params[:file], current_user)
+	 		@errors = Customer.import(params[:file], current_user)
 	    end
 	    
-	    if @error_at_import != []
-	 		redirect_to customers_import_export_path, :notice => "error"+@error_at_import.to_s
+	    
+	    if @errors != []
+	        string = ""
+	        @errors.each do |error|
+	        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
+	        end
+	 		redirect_to customers_import_export_path, :notice => string
 	 	else
 	 	 	redirect_to customers_import_export_path, :notice => "Customers imported."
 	 	end
