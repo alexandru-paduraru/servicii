@@ -6,13 +6,15 @@
     
     <%= form_tag accountant_path, :method => 'get' do %>
     <%= text_field_tag :search, params[:search], :class => "span5" %>
-    <%= submit_tag("Search", :class => "btn") %>   
+    <%= button_tag(type: 'submit', class: "btn") do %>
+   		 <i class="icon-ml-search"></i> Search</button>
+    <% end %>    
     <% end %>
     
   </div>
  </td>
  <td>
- <button class="modalButton btn btn-primary" id="1">Add invoice</button>
+ 
  </td>
  </tr>
  <tr>
@@ -87,7 +89,7 @@
 			<%= f.text_field :customer_id, :class => "input-xlarge", :placeholder => "Customer id" %>
 		</div>
 	</div>
-
+		
   </div>
   
   <div class="modal-footer">

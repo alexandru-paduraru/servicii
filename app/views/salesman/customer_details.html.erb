@@ -1,62 +1,77 @@
-     <div class="row">
-        <div class="span6">
-        <div class="well">
-        <h3><%= @customer.first_name %>&nbsp<%= @customer.last_name %></h3>
-        <table class="table plain_table">
-          <tr>
-            <td><h4>Customer info</h4></td>
-          </tr>
-          <tr>
-            <td><%= @customer.id %></td>
-          </tr>
-          <tr>
-            <td><%= @customer.email %></td>
-          </tr>
-          <tr>
-            <td><%= @customer.phone %></td>
-          </tr>
-          <tr>
-            <td><%= @customer.billing_address %></td>
-          </tr>
-          <tr>
-            <td><%= @customer.description %></td>
-          </tr>
-        </table>
-      </div>
+<div class="well">
+   <div class="row">
+        <div class="span5">
+	        <h4 class="muted">Customer details</h4>
+	        <table class="table">
+	          <tr>
+	          	<th>First name</th>
+	            <td><%= @customer.first_name %></td>
+	          </tr>
+	          <tr>
+	          	<th>Last name</th>
+	            <td><%= @customer.last_name %></td>
+	          </tr>
+	          <tr>
+	          	<th>ID</th>
+	            <td><%= @customer.id %></td>
+	          </tr>
+	          <tr>
+	          	<th>Email</th>
+	            <td><%= @customer.email %></td>
+	          </tr>
+	          <tr>
+	          	<th>Phone</th>
+	            <td><%= @customer.phone %></td>
+	          </tr>
+	          <tr>
+	          	<th>Billing Address</th>
+	            <td><%= @customer.billing_address %></td>
+	          </tr>
+	          <tr>
+	          	<th>Description</th>
+	            <td><%= @customer.description %></td>
+	          </tr>
+	        </table>
         </div>
-  
-      <div class="span6">
-      <table class="table plain_table">
-      <tr>
-      <td><h4>Account</h4></td>
-      </tr>
-      <tr>
-      <td>Due amount: &nbsp<%= @total_due_amount %> </td>
-      <td></td>
-      </tr>
-      <% if @open_invoices %>
+        
+      <div class="span5">
+	      <h4 class="muted" >Account info</h4>
+	      <table class="table plain_table">
 	      <tr>
-	      <td>Open invoices: </td>
+	      <td>Due amount: &nbsp<%= @total_due_amount %> </td>
+	      <td></td>
 	      </tr>
-	      <% @open_invoices.each do |invoice| %>
-	      <tr>
-	      <td> $<%= invoice[:due_amount] %> </td>
-	      <td> <%= invoice[:number] %></td>
-	      </tr>
+	      <% if @open_invoices %>
+		      <tr>
+		      <td>Open invoices: </td>
+		      </tr>
+		      <% @open_invoices.each do |invoice| %>
+		      <tr>
+		      <td> $<%= invoice[:due_amount] %> </td>
+		      <td> <%= invoice[:number] %></td>
+		      </tr>
+		      <% end %>
 	      <% end %>
-      <% end %>
-      </table>
+	      <tr>
+		      <td><button class="modalButton btn btn-success" id="1"><i class="icon-plus-sign icon-white"></i> Create invoice</button></td>
+	      </tr>
+	      </table>
       </div>
-      
+     
   </div>
-
-
-<div class="row">
-<a href="#" class="btn btn-large span1">Email</a>
-<a href="#" class="btn btn-success btn-large span1">Call</a>
-<a href="#" class="btn btn-info btn-large span1">Message</a>
 </div>
 
+<div class="row">
+	<div class="span10 offset1">
+	<div class="row">
+		<h4 class="muted span2">Actions:</h4>
+		<a href="#" class="btn btn-info btn-large btn-block span2"><i class="icon-envelope icon-white"></i> Email</a>
+		<a href="#" class="btn btn-success btn-large btn-block span2"><i class="icon-comment icon-white"></i> Message</a>
+		<a href="#" class="btn btn-warning btn-large btn-block span2"><i class="icon-headphones icon-white"></i> Call</a>
+		<a href="#" class="btn btn-danger btn-large btn-block span2"><i class="icon-exclamation-sign icon-white"></i> Send to collector</a>
+      </div>
+	</div>
+</div>
 
 	
   <div class="acordeon">
@@ -68,7 +83,7 @@
         <h4>Invoices</h4>
       </a>
     </div>
-    <div id="collapseOne" class="accordion-body collapse">
+    <div id="collapseOne" class="accordion-body collapse in">
       <div class="accordion-inner">
         <% @invoices.each do |invoice|%>
         <div class="well">
@@ -96,4 +111,39 @@
 
   
 </div>
+</div>
+
+<div class="modal hide fade" id="modal1">
+<div class="form-horizontal">
+  <%= form_for :invoice, url: '/invoice_create', :class => "form-horizontal" do |f|%>
+
+  <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4>Add invoice</h4>
+          
+	<div class="input-prepend control-group">
+		<%= f.label :amount, :class => "control-label" %>
+		<div class="controls">
+		    <span class="add-on">$</span>
+			<%= f.text_field :amount, :class => "input-xlarge amount", :placeholder => "Amount" %>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= f.label :due_date, :class => "control-label" %>
+		<div class="controls">
+			<%= f.text_field :due_date, :class => "datepicker input-xlarge", :placeholder => "Due date" %>
+		</div>
+	</div>
+	<%= hidden_field_tag(:customer_id, @customer.id) %>
   </div>
+  
+  <div class="modal-footer">
+      <button type="button" class="btn btn-danger span2 pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <%= submit_tag("Add", :class => "btn btn-info span2 pull-right") %>
+
+  </div>
+  
+  <% end %>  <!-- #form end -->
+</div>
+</div>
