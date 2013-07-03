@@ -45,6 +45,8 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'roo'
 
+gem 'mandrill-api'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

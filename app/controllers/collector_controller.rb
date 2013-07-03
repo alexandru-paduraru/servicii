@@ -4,4 +4,6 @@ class CollectorController < ApplicationController
 	    @customers = Customer.search(params[:search])
 		render 'index'
 	end
+
+        
 end
