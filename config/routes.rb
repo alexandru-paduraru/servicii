@@ -64,6 +64,9 @@ patch '/company/:id', to: 'admin#company_update', :as => "company_update"
 get '/email', to: 'user#email', :as => "email"
 get '/send_email', to: 'user#send_email', :as => "send_email"
 
+#send to collector
+get '/send_to_collector/:customer_id', to: 'user#send_to_collector', :as => "send_to_collector"
+
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#login'

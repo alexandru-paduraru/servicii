@@ -192,6 +192,7 @@ require 'mandrill'
         customer[:email] = _post[:email]
         customer[:billing_address] = _post[:billing_address]
         customer[:company_id] = current_user[:company_id]
+        customer[:sent_to_collector] = false
         if customer.save
            redirect_to salesman_path
         else
@@ -234,5 +235,16 @@ require 'mandrill'
 		    end
 	end
 	
+	def send_to_collector
+		customer_id = params[:customer_id]
+		customer = Customer.find(customer_id)
+				
+		if customer.update_attribute(:sent_to_collector, true)
+			redirect_to customer_details_path(:customer_id => customer_id), :notice => "Success! Sent to collector."
+		else
+		    redirect_to customer_details_path(:customer_id => customer_id), :notice => "Error! Couldn't send to collector."
+		end
+	end
 #################### End Customer ##########################
+
 end

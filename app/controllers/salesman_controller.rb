@@ -1,8 +1,21 @@
 class SalesmanController < ApplicationController
 
 	def index
-	
-	    @customers = Customer.search(params[:search])
+	    @customer_detail = []
+	    customers = Customer.search(params[:search])
+	    
+	    	customers.each do |customer|
+	    		@details = {}
+	    		@details[:customer] = customer
+	    		  invoices = Customer.open_invoices(customer)
+	    		  index = 0
+	    		  invoices.each do |open_invoice|
+	    		  	index += 1
+	    		  end
+	    		@details[:open_invoices] = index
+	    		@customer_detail.append(@details)
+	    	end
+	    
 	    respond_to do |format|
 		    format.html {render 'index'}
 # 		    format.csv  {render text: Customer.to_csv(@customers) }
@@ -32,25 +45,25 @@ class SalesmanController < ApplicationController
 	
 	def customer_details
 	 @customer_id = params[:customer_id]
-	 @customer = Customer.find(@customer_id)
-	 
-	 @invoices = @customer.invoices
-	 @open_invoices = []
-	 
-	 @invoices.each do |invoice|
-	 	       open_invoice = {}
-	 	       open_invoice[:due_amount] = invoice.amount
-	 	       open_invoice[:number] = invoice.number
-	 	       @open_invoices.append(open_invoice)
-
+	 @customer = Customer.find_by_id(@customer_id)
+	 if @customer
+		 @invoices = @customer.invoices
+		 @open_invoices = []
+		 
+		 @invoices.each do |invoice|
+		 	       open_invoice = {}
+		 	       open_invoice[:due_amount] = invoice.amount
+		 	       open_invoice[:number] = invoice.number
+		 	       @open_invoices.append(open_invoice)
+	
+		 end
+		 
+		 @total_due_amount = 0
+		 
+		 @open_invoices.each do |invoice|
+		 	@total_due_amount += invoice[:due_amount]
+		 end
 	 end
-	 
-	 @total_due_amount = 0
-	 
-	 @open_invoices.each do |invoice|
-	 	@total_due_amount += invoice[:due_amount]
-	 end
-	 
 	 
 	 respond_to do |format|
 	 	format.html {render 'customer_details'}
