@@ -57,6 +57,9 @@ GEM
     excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     heroku (2.39.4)
       heroku-api (~> 0.3.7)
       launchy (>= 0.3.2)
@@ -157,6 +160,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-sass
   coffee-rails (~> 4.0.0)
+  figaro
   heroku
   jquery-rails
   mandrill-api

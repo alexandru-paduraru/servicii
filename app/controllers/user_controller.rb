@@ -1,3 +1,5 @@
+require 'mandrill'
+
 class UserController < ApplicationController
     
 	def login
@@ -145,13 +147,18 @@ class UserController < ApplicationController
 		end
 	end
 	
+	
+	
+#################### End Employee ##########################
+	
+#################### User actions #######################	
 	def email
 		respond_to do |format|
 		 format.html{ render 'email'}
 		end
 	end
 	
-#################### End Employee ##########################
+################### End User actions #####################
 	
 #################### Customer ##########################	
 	
