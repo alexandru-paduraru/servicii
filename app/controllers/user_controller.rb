@@ -1,7 +1,7 @@
-require 'mandrill'
+
 
 class UserController < ApplicationController
-    
+require 'mandrill'    
 	def login
 	  
 	 respond_to do |format|
@@ -152,10 +152,24 @@ class UserController < ApplicationController
 #################### End Employee ##########################
 	
 #################### User actions #######################	
-	def email
-		respond_to do |format|
-		 format.html{ render 'email'}
-		end
+	def send_email
+		render text: Figaro.env.hello
+		# m = Mandrill::API.new
+# 		message = {
+# 		 :subject=> "Hello from the Mandrill API",
+# 		 :from_name=> "Your name",
+# 		 :text=>"Hi message, how are you?",
+# 		 :to=>[
+# 		   {
+# 		     :email=> "axelut@gmail.com",
+# 		     :name=> "Recipient1"
+# 		   }
+# 		 ],
+# 		 :html=>"<html><h1>Hi <strong>message</strong>, how are you?</h1></html>",
+# 		 :from_email=>"admin@mandrill.com"
+# 		}
+# 		sending = m.messages.send message
+# 		puts sending
 	end
 	
 ################### End User actions #####################

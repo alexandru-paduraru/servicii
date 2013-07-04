@@ -56,6 +56,7 @@ patch '/company/:id', to: 'admin#company_update', :as => "company_update"
 
 #sending emails
 get '/email', to: 'user#email', :as => "email"
+get '/send_email', to: 'user#send_email', :as => "send_email"
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
