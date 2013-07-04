@@ -28,16 +28,17 @@ class AccountantController < ApplicationController
  
 	 def send_email(_post,invoice)
 	 	m = Mandrill::API.new
+	 	pay_link = "<a href='http://localhost:3000/invoice_pay/#{invoice.id}'>Pay</a>"
 	 	template_name = "invoice_template"
-	 	template_content = [{"name" => "customer_id", "content" => _post[:customer_id]},{"name" => "due_date", "content" => _post[:due_date]},{"name" => "amount", "content" => _post[:amount]},{"name" => "service_name", "content" => _post[:service_1][:service_name]},{"name" => "service_amount", "content" => _post[:service_1][:service_value]},{"name" => "service_qty", "content" => _post[:service_1][:service_qty]},{"name" => "pay", "content" => "<a href='http://localhost:3000/invoice_pay/" + invoice.id + ">Pay</a>"},]
+	 	template_content = [{"name" => "customer_id", "content" => _post[:customer_id]},{"name" => "due_date", "content" => _post[:due_date]},{"name" => "amount", "content" => _post[:amount]},{"name" => "service_name", "content" => _post[:service_1][:service_name]},{"name" => "service_value", "content" => _post[:service_1][:service_value]},{"name" => "service_qty", "content" => _post[:service_1][:service_qty]},{"name" => "pay", "content" => pay_link }]
 		message = {
 		 :subject=> "Invoice details",
 		 :from_name=> "Companie de trimis facturi",
 		 :text=>"Details",
 		 :to=>[
 		   {
-		     :email=> "axelut@gmail.com",
-		     :name=> "Alexandru Paduraru"
+		     :email=> _post[:customer_email],
+		     :name=> _post[:customer_name]
 		   }
 		 ],
 		 :html=>"Total amount #{_post[:amount]}",

@@ -153,7 +153,9 @@
 			<%= f.text_field :due_date, :class => "datepicker input-xlarge", :placeholder => "Due date" %>
 		</div>
 	</div>
-	<%= f.hidden_field :customer_id, :value => @customer_id %>
+	<%= f.hidden_field :customer_id, :value => @customer.id %>
+	<%= f.hidden_field :customer_email, :value => @customer.email %>
+	<%= f.hidden_field :customer_name, :value => @customer.first_name + ' ' + @customer.last_name  %>
   	<hr>
 	
   <h4>Services</h4>
