@@ -13,7 +13,8 @@ class Customer < ActiveRecord::Base
   
   def self.search(search)
   	if search
-    	find(:all, :conditions => ['first_name LIKE ?', "%#{search}%"])
+  		search = search.downcase
+    	find(:all, :conditions => ['lower(first_name) LIKE ?', "%#{search}%"])
     else
     	find(:all)
     end

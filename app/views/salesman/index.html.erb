@@ -3,7 +3,7 @@
   <div class="input-append">
     
     <%= form_tag salesman_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => "Search a customer by first name, last name, ID or account number" %>
+    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => "Search a customer by first name" %>
            
     <%= button_tag(type: 'submit', class: "btn") do %>
    		 <i class="icon-ml-search"></i> Search</button>
