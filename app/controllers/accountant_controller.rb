@@ -50,5 +50,13 @@ class AccountantController < ApplicationController
         end
  
    end
+   
+   def invoice_import_export
+   
+   respond_to do |format|
+   	format.html {render 'invoice_import_export'}
+   end
+   
+   end
  
 end
