@@ -1,0 +1,8 @@
+MANDRILL_APIKEY: Y7j0n5TAhHrqV1PdUCbTuw
+MANDRILL_USERNAME: conacel.elena@gmail.com
+HELLO: world
+development:
+  HELLO: developers
+production:
+  HELLO: users
+  
