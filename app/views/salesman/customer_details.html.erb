@@ -32,6 +32,14 @@
 	          	<th>Description</th>
 	            <td><%= @customer.description %></td>
 	          </tr>
+	          <tr>
+	          	<th>Sent to collector </th>
+	            <td>
+	            <% if @customer.sent_to_collector %> yes
+	            <% else %> no
+	            <% end %>
+	            </td>
+	          </tr>
 	        </table>
         </div>
         
@@ -69,9 +77,16 @@
 		<%= link_to send_email_path, :class => "btn btn-info btn-large btn-block span2" do %>
 			<i class="icon-envelope icon-white"></i> Email
 		<% end %>
+		
 		<a href="#" class="btn btn-success btn-large btn-block span2"><i class="icon-comment icon-white"></i> Message</a>
 		<a href="#" class="btn btn-warning btn-large btn-block span2"><i class="icon-headphones icon-white"></i> Call</a>
-		<a href="#" class="btn btn-danger btn-large btn-block span2"><i class="icon-exclamation-sign icon-white"></i> Send to collector</a>
+    <% if @customer.sent_to_collector%>
+        <a href="#" class="btn btn-danger btn-large btn-block span2 disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
+    <% else %>
+	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block span2" do %>
+	     <i class="icon-exclamation-sign icon-white"></i>Send to collector
+	    <% end %>
+	<% end %>
       </div>
 	</div>
 </div>

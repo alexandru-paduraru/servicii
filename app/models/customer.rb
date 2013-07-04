@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
 
-  attr_accessible :first_name, :last_name, :email, :phone, :billing_address, :description
+  attr_accessible :first_name, :last_name, :email, :phone, :billing_address, :description, :sent_to_collector
   
   belongs_to :company
   has_many :invoices
