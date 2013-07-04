@@ -41,6 +41,11 @@ post '/customer_import', to: 'user#customer_import', :as => "import_customers"
 get '/customer_export', to: 'user#customer_export', :as => "export_customers"
 get '/customers/import_export', to: 'user#customers_import_export', :as => "customers_import_export"
 
+#invoice import
+get '/invoices/import_export', to: 'accountant#invoices_import_export', :as => "invoices_import_export"
+post '/invoice_import', to: 'accountant#invoice_import', :as => "import_invoices"
+get '/invoice_export', to: 'accountant#invoice_export', :as => "export_invoices" 
+
 #create invoice
 get '/invoices/new', to: 'accountant#invoice_new', :as => "invoice_new"
 post '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"

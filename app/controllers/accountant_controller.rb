@@ -32,7 +32,6 @@ class AccountantController < ApplicationController
         invoice[:amount] = _post[:amount]
         invoice[:due_date] = _post[:due_date]
         invoice[:customer_id] = _post[:customer_id]
-        invoice[:current_balance] = -_post[:amount].to_i
         invoice[:date] = Time.now
         invoice[:number] = 11111 #algorithm for generating the invoice number?
         
@@ -51,12 +50,40 @@ class AccountantController < ApplicationController
  
    end
    
-   def invoice_import_export
+   def invoices_import_export
    
-   respond_to do |format|
-   	format.html {render 'invoice_import_export'}
+	   respond_to do |format|
+	   	format.html {render 'invoices_import_export'}
+	   end
+   
    end
    
+   def invoice_import
+   	     @errors = []
+	    
+	    if(params[:file])
+	 		@errors = Invoice.import(params[:file], current_user)
+	    end
+	    
+	    
+	    if @errors != []
+	        string = ""
+	        @errors.each do |error|
+	        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
+	        end
+	 		redirect_to invoices_import_export_path, :notice => string
+	 	else
+	 	 	redirect_to invoices_import_export_path, :notice => "Invoices imported."
+	 	end
+
+   end
+   
+   def invoice_export
+    @invoices = Invoice.all
+	   	respond_to do |format|
+		   	format.html {render 'invoices_import_export'}
+		   	format.csv {send_data Invoice.to_csv(@invoices)}
+	   	end
    end
  
 end

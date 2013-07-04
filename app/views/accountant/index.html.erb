@@ -17,13 +17,7 @@
  
  </td>
  </tr>
- <tr>
- <td>
-  <label class = "strong">Download: </label>
-  <button class="btn">Income</button>
-  <button class="btn">Invoices</button>
- </td>
-</tr>
+
 </table>
 
 <table class="table table-bordered table-hover table-striped">
@@ -31,23 +25,17 @@
   <tr>
   <th>Invoice number</th>
   <th>Amount</th>
-  <th>Current balance</th>
   <th>Customer id </th>
   <th>Details</th>
   </tr>
   
   <% index = 0 %>
   <% @invoices.each do |invoice| %>
-  	<% if invoice.current_balance < 0 %>
-  		<tr class = "error">
-	<% else %>
-		<tr >
-	<% end %>
+  <tr>
   
   <% index = index + 1 %>
   <td><%= invoice.number %></td>
   <td><%= invoice.amount %> $ </td>
-  <td><%= invoice.current_balance %></td>
   <td><%= invoice.customer_id %></td>
     <td> <a href="invoice_details/<%= invoice.id %>" class = "btn" >Details</a></td>
 

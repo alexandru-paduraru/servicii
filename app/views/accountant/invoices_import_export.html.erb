@@ -6,14 +6,14 @@
 		<h3>Import invoices</h3>
 		<p>A csv file cand be used to import invoices. The first row should be the column name. The following columns are allowed: </p>
 		<ul>
-			<li><strong>first_name</strong> - string </li>
-			<li><strong>last_name</strong> - string </li>
-			<li><strong>email</strong> - string</li>
-			<li><strong>phone</strong> - string</li>
-			<li><strong>billing_adress</strong> - string </li>
-			<li><strong>description</strong>- string</li>
+			<li><strong>date</strong> - date </li>
+			<li><strong>number</strong> - string </li>
+			<li><strong>due_date</strong> - date</li>
+			<li><strong>amount</strong> - float</li>
+<!-- 			<li><strong>company_id</strong> - integer </li> -->
+			<li><strong>customer_id</strong>- integer</li>
 		</ul>
-		<%= form_tag import_customers_path, multipart: true do %>
+		<%= form_tag import_invoices_path, multipart: true do %>
 		    <%= file_field_tag :file %>
 		    <%= submit_tag("Import", :class => "btn btn-large btn-success pull-right") %>
 		    <% end %>
@@ -37,10 +37,10 @@
 
 	<div class="span6">
 		<div class="well"> 
-		<h3>Export customers</h3>
+		<h3>Export invoices</h3>
 		<p>To export invoices click on the buttom below and you will be downloading a csv containing the data about all registered invoices in your database.</p> 
 
-		  <%= link_to "Export", export_customers_path(format: "csv"), :class => "btn btn-large btn-warning pull-right" %>
+		  <%= link_to "Export", export_invoices_path(format: "csv"), :class => "btn btn-large btn-warning pull-right" %>
 		<div class="clearfix"></div>
 		</div>
 	</div>

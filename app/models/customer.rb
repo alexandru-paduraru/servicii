@@ -13,7 +13,7 @@ class Customer < ActiveRecord::Base
   
   def self.search(search)
   	if search
-    	find(:all, :conditions => ['first_name or last_name LIKE ?', "%#{search}%"])
+    	find(:all, :conditions => ['first_name LIKE ?', "%#{search}%"])
     else
     	find(:all)
     end
