@@ -6,6 +6,9 @@ class Invoice < ActiveRecord::Base
   
   has_many :transactions
   
+  validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
+
+  
   def self.search(search)
   	if search
     	find(:all, :conditions => ['number LIKE ?', "%#{search}%"])

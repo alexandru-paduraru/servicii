@@ -38,12 +38,11 @@ class SalesmanController < ApplicationController
 	 @open_invoices = []
 	 
 	 @invoices.each do |invoice|
-	 	if invoice.current_balance < 0
 	 	       open_invoice = {}
-	 	       open_invoice[:due_amount] = invoice.current_balance
+	 	       open_invoice[:due_amount] = invoice.amount
 	 	       open_invoice[:number] = invoice.number
 	 	       @open_invoices.append(open_invoice)
-		end
+
 	 end
 	 
 	 @total_due_amount = 0
