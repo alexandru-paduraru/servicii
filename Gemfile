@@ -22,7 +22,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'figaro'
 gem 'protected_attributes'
 gem 'jquery-rails'
 
