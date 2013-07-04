@@ -90,10 +90,10 @@ require 'mandrill'
 			if @user.company_id == current_user.company_id
 				@user
 			else 
-				redirect_to admin_path, :notice => "Error! User not available for your company"
+				redirect_to admin_path, :alert => "Error! User not available for your company"
 			end	
 		else 
-				redirect_to admin_path, :notice => "Error! User not available for your company"
+				redirect_to admin_path, :alert => "Error! User not available for your company"
 		end
 	end
 	
@@ -143,7 +143,7 @@ require 'mandrill'
  			else render text: "eroare la adaugarea job-ului"
  			end
 		else
-			render 'edit', :notice => "There was an error, please try again"
+			render 'edit', :alert => "There was an error, please try again"
 		end
 	end
 	
