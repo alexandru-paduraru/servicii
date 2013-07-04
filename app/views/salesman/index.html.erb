@@ -25,18 +25,18 @@
   <th>First name</th>
   <th>Last name </th>
   <th>Account number</th>
-  <th>Balance</th>
+  <th>Open invoices</th>
   <th class="span1">Actions</th>
   </tr>
   <% index = 0 %>
-  <% @customers.each do |customer| %>
+  <% @customer_detail.each do |details| %>
   <tr>
   <td><%= index = index + 1 %> </td>
-  <td><%= customer.first_name %></td>
-  <td><%= customer.last_name %></td>
-  <td><%= customer.id %></td>
-  <td></td>
-  <td> <%= link_to customer_details_path(customer.id) do %>
+  <td><%= details[:customer].first_name %></td>
+  <td><%= details[:customer].last_name %></td>
+  <td><%= details[:customer].id %></td>
+  <td><%= details[:open_invoices] %></td>
+  <td> <%= link_to customer_details_path(details[:customer].id) do %>
   			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span
   	   <% end %>
   </td>

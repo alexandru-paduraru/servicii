@@ -14,10 +14,19 @@ class Customer < ActiveRecord::Base
   def self.search(search)
   	if search
   		search = search.downcase
-    	find(:all, :conditions => ['lower(first_name) LIKE ?', "%#{search}%"])
+    	find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or id LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%"])
     else
     	find(:all)
     end
+  end
+  
+  def self.open_invoices(customer)
+  	if customer
+  	    customer.invoices.find(:all, :conditions => ['amount > ?', "0"])
+  	else
+  		nil
+  	end
+  
   end
   
   def self.import(file, current_user)
