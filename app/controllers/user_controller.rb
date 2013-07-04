@@ -221,7 +221,7 @@ require 'mandrill'
 	        @errors.each do |error|
 	        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
 	        end
-	 		render 'customers_import_export', :notice => string
+	 		render 'customers_import_export'
 	 	else
 	 	 	redirect_to customers_import_export_path, :notice => "Customers imported."
 	 	end
