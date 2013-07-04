@@ -99,11 +99,7 @@ class AccountantController < ApplicationController
         end
         
         if invoice.save
-<<<<<<< HEAD
            send_email(_post,invoice) 
-=======
-#            send_email(_post) 
->>>>>>> 4bb79a55807b63e1a9dc9850dbbfb55fd3f98142
         else
            redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "error creating invoice"
         end
