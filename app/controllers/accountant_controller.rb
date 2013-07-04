@@ -1,3 +1,4 @@
+require 'mandrill' 
 class AccountantController < ApplicationController
 
  def index
@@ -17,18 +18,71 @@ class AccountantController < ApplicationController
 	 end
  end
  
- def invoice_new
- @invoice = Invoice.new
- respond_to do |format|
-      	format.html  {render 'invoice_new'}
-      	format.json { render json: @invoice }
- end
- end
+	 def invoice_new
+		 @invoice = Invoice.new
+		 respond_to do |format|
+	     	 	format.html  {render 'invoice_new'}
+	     	 	format.json { render json: @invoice }
+	     end
+	 end
  
+	 def send_email(_post)
+	 	m = Mandrill::API.new
+		message = {
+		 :subject=> "Invoice details",
+		 :from_name=> "Companie de trimis facturi",
+		 :text=>"Details",
+		 :to=>[
+		   {
+		     :email=> "axelut@gmail.com",
+		     :name=> "Alexandru Paduraru"
+		   }
+		 ],
+		 :html=>"invoice information #{_post[:amount]}",
+		 # :html=>"<html><table>             DE FACUT SA MEARGA HTML 
+# 		 	<tr>
+# 		 		<th>Customer id</th>
+# 		 		<th>Due Date</th>
+# 		 		<th>Amount</th>
+# 		 	</tr>
+# 		 	<tr>
+# 		 		<td>#{_post[:customer_id]}</td>
+# 		 		<td>#{_post[:due_date]}</td>
+# 		 		<td>#{_post[:amount]}</td>
+# 		 	</tr>
+# 		 </table>
+# 		 <h4>Services</h4>
+# 		 <table>
+# 		 	<tr>
+# 		 		<th>Service name</th>
+# 		 		<th>Value</th>
+# 		 		<th>Qty</th>
+# 		 	</tr>
+# 		 	<tr>
+# 		 		<td>#{_post['service_1']['service_name']}</td>
+# 		 		<td>#{_post['service_1']['service_value']}</td>
+# 		 		<td>#{_post['service_1']['service_qty']}</td>
+# 		 	</tr>
+# 		 	<tr>
+# 		 		<td>#{_post['service_2']['service_name']}</td>
+# 		 		<td>#{_post['service_2']['service_value']}</td>
+# 		 		<td>#{_post['service_2']['service_qty']}</td>
+# 		 	</tr>
+# 
+# 		 </table>
+# 		 <a href='http://google.ro'>Pay</button>
+# 		 </html>",
+		 :from_email=>"admin@mandrill.com"
+		}
+		sending = m.messages.send message
+		puts sending
+		redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
+		
+	 end
  
    def invoice_create
         _post = params[:invoice]
-		invoice = Invoice.new
+  		invoice = Invoice.new
         invoice[:amount] = _post[:amount]
         invoice[:due_date] = _post[:due_date]
         invoice[:customer_id] = _post[:customer_id]
@@ -43,9 +97,9 @@ class AccountantController < ApplicationController
         end
         
         if invoice.save
-           redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "invoice successfully created"
+           send_email(_post) 
         else
-           redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :error => "error creating invoice"
+           redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "error creating invoice"
         end
  
    end

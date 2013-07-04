@@ -134,7 +134,7 @@
 	<div class="control-group">
 		<%= f.label :due_date, :class => "control-label" %>
 		<div class="controls">
-			<%= f.text_field :due_date, :class => "input-xlarge", :placeholder => "Due date" %>
+			<%= f.text_field :due_date, :class => "datepicker input-xlarge", :placeholder => "Due date" %>
 		</div>
 	</div>
 	<%= f.hidden_field :customer_id, :value => @customer_id %>
@@ -150,12 +150,12 @@
 			<%= f.text_field :service_qty, :class => "span1", :placeholder => "Qty" %>
 		</div>
 	</div>
-  </div>
+ 
   <% end %>
   
-  <%= f.fields_for :services_2 do |f| %>
+  <%= f.fields_for :service_2 do |f| %>
   <div class="control-group">
-		<%= f.label :services_name, :class => "control-label" %>
+		<%= f.label :service_name, :class => "control-label" %>
 		<div class="controls">
 			<%= f.text_field :service_name, :class => "input-medium", :placeholder => "Service name" %>
 			<%= f.text_field :service_value, :class => "span1", :placeholder => "Value" %>
@@ -164,6 +164,8 @@
 	</div>
   </div>
   <% end %>
+  </div>  <!--##### end modal container #########-->
+  
   <div class="modal-footer">
       <button type="button" class="btn btn-danger span2 pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
       <%= submit_tag("Add", :class => "btn btn-info span2 pull-right") %>
