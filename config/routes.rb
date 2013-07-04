@@ -52,6 +52,7 @@ post '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"
 
 #invoice details
 get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
+get '/invoice_pay/:invoice_id', to: 'accountant#invoice_pay', :as => "invoice_pay"
 
 #company details
 get '/company_new', to: 'admin#company_new', :as => "company_new"

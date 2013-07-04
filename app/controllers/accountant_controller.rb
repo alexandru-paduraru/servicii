@@ -26,8 +26,10 @@ class AccountantController < ApplicationController
 	     end
 	 end
  
-	 def send_email(_post)
+	 def send_email(_post,invoice)
 	 	m = Mandrill::API.new
+	 	template_name = "invoice_template"
+	 	template_content = [{"name" => "customer_id", "content" => _post[:customer_id]},{"name" => "due_date", "content" => _post[:due_date]},{"name" => "amount", "content" => _post[:amount]},{"name" => "service_name", "content" => _post[:service_1][:service_name]},{"name" => "service_amount", "content" => _post[:service_1][:service_value]},{"name" => "service_qty", "content" => _post[:service_1][:service_qty]},{"name" => "pay", "content" => "<a href='http://localhost:3000/invoice_pay/" + invoice.id + ">Pay</a>"},]
 		message = {
 		 :subject=> "Invoice details",
 		 :from_name=> "Companie de trimis facturi",
@@ -38,7 +40,7 @@ class AccountantController < ApplicationController
 		     :name=> "Alexandru Paduraru"
 		   }
 		 ],
-		 :html=>"invoice information #{_post[:amount]}",
+		 :html=>"Total amount #{_post[:amount]}",
 		 # :html=>"<html><table>             DE FACUT SA MEARGA HTML 
 # 		 	<tr>
 # 		 		<th>Customer id</th>
@@ -74,7 +76,7 @@ class AccountantController < ApplicationController
 # 		 </html>",
 		 :from_email=>"admin@mandrill.com"
 		}
-		sending = m.messages.send message
+		sending = m.messages.send_template template_name, template_content, message
 		puts sending
 		redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
 		
@@ -97,7 +99,7 @@ class AccountantController < ApplicationController
         end
         
         if invoice.save
-           send_email(_post) 
+           send_email(_post,invoice) 
         else
            redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "error creating invoice"
         end
@@ -140,4 +142,7 @@ class AccountantController < ApplicationController
 	   	end
    end
  
+   def invoice_pay
+   	   @invoice = Invoice.find(params[:invoice_id])
+   end
 end
