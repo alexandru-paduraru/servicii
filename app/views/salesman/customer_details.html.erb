@@ -139,13 +139,6 @@
 	</div>
 	<%= f.hidden_field :customer_id, :value => @customer_id %>
   	<hr>
-  	
-  	<%= f.fields_for :workson do |f| %>
-		<%= f.check_box :salesman %><label class="checkbox inline" for="user_workson_salesman"><span></span>Salesman</label><br>
-		<%= f.check_box :accountant %><label class="checkbox inline" for="user_workson_accountant"><span></span>Accountant</label><br> 
-		<%= f.check_box :collector %> <label class="checkbox inline" for="user_workson_collector"><span></span>Collector</label>
-	<% end %>
-	
 	
   <h4>Services</h4>
   <%= f.fields_for :service_1 do |f| %>
@@ -160,7 +153,7 @@
   </div>
   <% end %>
   
-  <%= f.fields_for :services do |f| %>
+  <%= f.fields_for :services_2 do |f| %>
   <div class="control-group">
 		<%= f.label :services_name, :class => "control-label" %>
 		<div class="controls">
@@ -171,7 +164,6 @@
 	</div>
   </div>
   <% end %>
-  
   <div class="modal-footer">
       <button type="button" class="btn btn-danger span2 pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
       <%= submit_tag("Add", :class => "btn btn-info span2 pull-right") %>
