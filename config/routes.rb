@@ -37,7 +37,7 @@ get '/customers/new', to: 'user#customer_new', :as => "customer_new"
 get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "customer_details"
 
 #customer import
-post '/customer_import', to: 'user#customer_import', :as => "import_customers"
+post '/customers/import_export', to: 'user#customer_import', :as => "import_customers"
 get '/customer_export', to: 'user#customer_export', :as => "export_customers"
 get '/customers/import_export', to: 'user#customers_import_export', :as => "customers_import_export"
 

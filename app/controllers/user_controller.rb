@@ -202,7 +202,7 @@ require 'mandrill'
 	end
 	
 	def customers_import_export
-	
+	    @errors = []
 		respond_to do |format|
 		format.html {render 'customers_import_export'}
 		end
@@ -221,7 +221,7 @@ require 'mandrill'
 	        @errors.each do |error|
 	        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
 	        end
-	 		redirect_to customers_import_export_path, :notice => string
+	 		render 'customers_import_export', :notice => string
 	 	else
 	 	 	redirect_to customers_import_export_path, :notice => "Customers imported."
 	 	end

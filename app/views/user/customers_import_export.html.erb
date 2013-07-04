@@ -23,9 +23,9 @@
 			<div class="alert alert-danger">Error log</div>
 			<table class="table table-bordered table-striped">
             <% @errors.each do |error| %>
-				<tr>
-					<td>Line #</td>
-					<td><%= error%></td>
+				<tr class="error">
+					<td>Line <%= error[:row]%> </td>
+					<td><%= error[:message]%></td>
 				</tr>
 
 			<% end %>
