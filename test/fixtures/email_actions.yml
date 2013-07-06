@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sent_at: 2013-07-06
+  viewed_at: 2013-07-06
+  customer_id: 
+  invoice_id: 
+
+two:
+  sent_at: 2013-07-06
+  viewed_at: 2013-07-06
+  customer_id: 
+  invoice_id: 
