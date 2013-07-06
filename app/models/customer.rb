@@ -20,9 +20,29 @@ class Customer < ActiveRecord::Base
     end
   end
   
+  def self.search_collector_list(search)
+    collector_customers = []
+  	if search
+  		search = search.donwcase
+  		collector_customers = Customer.all.where(:sent_to_collector => true).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or id LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%"])
+  	else
+  	    collector_customers = Customer.all.where(:sent_to_collector => true)
+  	end
+  	collector_customers
+  end
+  
   def self.open_invoices(customer)
   	if customer
   	    customer.invoices.find(:all, :conditions => ['amount > ?', "0"])
+  	else
+  		nil
+  	end
+  
+  end
+  
+  def self.last_invoice(customer)
+  	if customer
+  		customer.invoices.order('date asc').last
   	else
   		nil
   	end

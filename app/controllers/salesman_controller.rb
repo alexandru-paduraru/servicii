@@ -46,6 +46,7 @@ class SalesmanController < ApplicationController
 	def customer_details
 	 @customer_id = params[:customer_id]
 	 @customer = Customer.find_by_id(@customer_id)
+	 @customer_last_invoice = Customer.last_invoice(@customer)
 	 if @customer
 		 @invoices = @customer.invoices
 		 @open_invoices = []
