@@ -1,5 +1,5 @@
 class Invoice < ActiveRecord::Base
-  attr_accessible :date, :due_date, :amount, :number, :customer_id
+  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id
   
   belongs_to :company
   belongs_to :customer

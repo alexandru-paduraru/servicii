@@ -69,6 +69,9 @@ class SalesmanController < ApplicationController
 # 		 @emails.each do |email|
 # 		   EmailAction.refresh_info(email)
 # 		 end
+		 
+# 		 @info = EmailAction.user_info
+
 	 end
 	 
 	 respond_to do |format|

@@ -4,6 +4,7 @@ class EmailAction < ActiveRecord::Base
   belongs_to :customer
   belongs_to :invoice
   
+  require 'mandrill' 
    
 	 def self.send_email(_post,invoice)
 	 	m = Mandrill::API.new
@@ -82,5 +83,13 @@ class EmailAction < ActiveRecord::Base
 # 	        end
 #         end 
 # 	 end
+
+	 
+	 def self.user_info
+	 	m = Mandrill::API.new
+	 	result = m.users.info
+	 	result
+	 end
+
   
 end
