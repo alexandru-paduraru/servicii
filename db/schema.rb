@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130706094915) do
+ActiveRecord::Schema.define(version: 20130706181900) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20130706094915) do
     t.integer  "invoice_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mandrill_id"
   end
 
   add_index "email_actions", ["customer_id"], name: "index_email_actions_on_customer_id"

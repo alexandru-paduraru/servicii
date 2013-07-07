@@ -64,6 +64,11 @@ class SalesmanController < ApplicationController
 		 @open_invoices.each do |invoice|
 		 	@total_due_amount += invoice[:due_amount]
 		 end
+		 
+		 @emails = @customer.email_actions
+# 		 @emails.each do |email|
+# 		   EmailAction.refresh_info(email)
+# 		 end
 	 end
 	 
 	 respond_to do |format|
