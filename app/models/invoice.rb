@@ -55,7 +55,7 @@ class Invoice < ActiveRecord::Base
   
   def self.generate_number
   	number = 00001
-     if Invoice.all
+     if Invoice.all != []
          invoice = Invoice.all.order('number asc').last
          number = invoice[:number] + 1
      end
