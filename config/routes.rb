@@ -32,6 +32,8 @@ patch '/employee/:id', to: 'user#update', :as => "user_update"
 post '/customer_create', to: 'user#customer_create', :as => "customer_create"
 get '/customers/new', to: 'user#customer_new', :as => "customer_new"
 
+#delete customer
+get '/delete/:customer_id', to: 'salesman#delete_customer', :as => "customer_delete"
 
 #customer details
 get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "customer_details"
@@ -67,6 +69,7 @@ get '/send_email', to: 'user#send_email', :as => "send_email"
 
 #send to collector
 get '/send_to_collector/:customer_id', to: 'user#send_to_collector', :as => "send_to_collector"
+
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"

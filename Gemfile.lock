@@ -159,7 +159,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   heroku
   jquery-rails
-  mandrill-api
+  mandrill-api (~> 1.0.37)
   pg
   protected_attributes
   rails (= 4.0.0)

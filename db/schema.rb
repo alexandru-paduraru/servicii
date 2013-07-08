@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130706181900) do
+ActiveRecord::Schema.define(version: 20130708120918) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20130706181900) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sent_to_collector"
+    t.boolean  "active"
   end
 
   add_index "customers", ["company_id"], name: "index_customers_on_company_id"
@@ -71,6 +72,7 @@ ActiveRecord::Schema.define(version: 20130706181900) do
     t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "value"
   end
 
   add_index "services", ["company_id"], name: "index_services_on_company_id"

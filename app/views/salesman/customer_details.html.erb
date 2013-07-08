@@ -132,7 +132,7 @@
           <% @emails.each do |email|%>
              <p>Email sent at: <%= email.sent_at %></p>
              <% if email.viewed_at %>
-             <p><%= email.viewed_at %></p>
+             <p>Email viewed at: <%= email.viewed_at %></p>
              <% end %>
           <% end %>
       </div>

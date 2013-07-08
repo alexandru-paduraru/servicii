@@ -52,4 +52,13 @@ class Invoice < ActiveRecord::Base
   		end
   	end
   end
+  
+  def self.generate_number
+  	number = 00001
+     if Invoice.all
+         invoice = Invoice.all.order('number asc').last
+         number = invoice[:number] + 1
+     end
+     number
+  end
 end

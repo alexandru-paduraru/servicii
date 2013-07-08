@@ -3,7 +3,7 @@
   <div class="input-append">
     
     <%= form_tag salesman_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => "Search a customer by first name" %>
+    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => "Search a customer by first name, last name or account number" %>
            
     <%= button_tag(type: 'submit', class: "btn") do %>
    		 <i class="icon-ml-search"></i> Search</button>
@@ -37,8 +37,12 @@
   <td><%= details[:customer].id %></td>
   <td><%= details[:open_invoices] %></td>
   <td> <%= link_to customer_details_path(details[:customer].id) do %>
-  			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span
+  			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span>
   	   <% end %>
+  	   <%= link_to customer_delete_path(details[:customer].id) do %>
+  			 <span class="label label-danger">Delete</span>
+  	   <% end %>
+  	   
   </td>
   </tr>
   <% end %>

@@ -1,4 +1,5 @@
 require 'mandrill' 
+
 class AccountantController < ApplicationController
 
  def index
@@ -32,9 +33,10 @@ class AccountantController < ApplicationController
     	customer_id = params[:customer_id]
 		@customer = Customer.find(customer_id)
 		@invoice = Invoice.new
-		respond_to do |format|
-			format.html {render 'customer_new_invoice'}
-		end
+# 		respond_to do |format|
+# 			format.html {render 'customer_new_invoice'}
+# 		end
+        render 'customer_new_invoice'
 		
     end
  
@@ -46,13 +48,18 @@ class AccountantController < ApplicationController
         invoice[:due_date] = _post[:due_date]
         invoice[:customer_id] = _post[:customer_id]
         invoice[:date] = Time.now
-        invoice[:number] = 11111 #algorithm for generating the invoice number?
-        
+        invoice[:number] = Invoice.generate_number #algorithm for generating the invoice number?
+
         
         if current_user.company_id
         	invoice[:company_id] = current_user.company_id
         else
         	invoice[:company_id] = 0 
+        end
+        
+ ###saving the services in the database     
+        if s1 = _post[:service_1]
+        	Service.add_service(s1[:service_name], s1[:service_value], invoice[:company_id])
         end
         
         if invoice.save
@@ -110,4 +117,5 @@ class AccountantController < ApplicationController
    def invoice_pay
    	   @invoice = Invoice.find(params[:invoice_id])
    end
+   
 end

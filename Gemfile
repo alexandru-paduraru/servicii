@@ -38,11 +38,16 @@ end
 
 gem "bcrypt-ruby", :require => "bcrypt"
 
+#gem for date-picker
 gem 'bootstrap-datepicker-rails'
 
+#gem for csv and excel conversion
 gem 'roo'
 
-gem 'mandrill-api'
+#gem for mandrill service
+gem 'mandrill-api', '~> 1.0.37'
+
+#gem for turning html to pdf
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

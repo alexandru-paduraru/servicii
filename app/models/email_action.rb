@@ -72,17 +72,17 @@ class EmailAction < ActiveRecord::Base
 	
 	 end
 	 
-# 	 def self.refresh_info(email)
-# 	 	m = Mandrill::API.new
-#         id = email.mandrill_id
-#         if id
-#         	result = m.messages.info id
-# 	        if result["opens"] > 0
-# 	            datetime = Time.at(result["opens_detail"][0]["ts"]).to_datetime
-# 	            email.update_attribute(:viewed_at, datetime)
-# 	        end
-#         end 
-# 	 end
+	 def self.refresh_info(email)
+	 	m = Mandrill::API.new
+        id = email.mandrill_id
+        if id
+        	result = m.messages.info id
+	        if result["opens"] > 0
+	            datetime = Time.at(result["opens_detail"][0]["ts"]).to_datetime
+	            email.update_attribute(:viewed_at, datetime)
+	        end
+        end 
+	 end
 
 	 
 	 def self.user_info

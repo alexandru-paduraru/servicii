@@ -51,32 +51,42 @@ class SalesmanController < ApplicationController
 		 @invoices = @customer.invoices
 		 @open_invoices = []
 		 
-		 @invoices.each do |invoice|
-		 	       open_invoice = {}
-		 	       open_invoice[:due_amount] = invoice.amount
-		 	       open_invoice[:number] = invoice.number
-		 	       @open_invoices.append(open_invoice)
-	
-		 end
+			 @invoices.each do |invoice|
+			 	       open_invoice = {}
+			 	       open_invoice[:due_amount] = invoice.amount
+			 	       open_invoice[:number] = invoice.number
+			 	       @open_invoices.append(open_invoice)
+			 end
 		 
 		 @total_due_amount = 0
 		 
-		 @open_invoices.each do |invoice|
-		 	@total_due_amount += invoice[:due_amount]
-		 end
+			 @open_invoices.each do |invoice|
+			 	@total_due_amount += invoice[:due_amount]
+			 end
 		 
 		 @emails = @customer.email_actions
-# 		 @emails.each do |email|
-# 		   EmailAction.refresh_info(email)
-# 		 end
+		 @emails.each do |email|
+		   EmailAction.refresh_info(email)
+		 end
 		 
 # 		 @info = EmailAction.user_info
 
 	 end
 	 
-	 respond_to do |format|
-	 	format.html {render 'customer_details'}
-	 end
+		 respond_to do |format|
+		 	format.html {render 'customer_details'}
+		 end
 	
+	end
+	
+		def delete_customer
+		customer_id = params[:customer_id]
+		customer = Customer.find(customer_id)
+				
+		if customer.update_attribute(:active, false)
+			redirect_to salesman_path, :notice => "Customer was made inactive."
+		else
+		    redirect_to salesman_path, :notice => "Error! Couldn't make customer inactive."
+		end
 	end
 end
