@@ -33,10 +33,10 @@ class AccountantController < ApplicationController
     	customer_id = params[:customer_id]
 		@customer = Customer.find(customer_id)
 		@invoice = Invoice.new
-# 		respond_to do |format|
-# 			format.html {render 'customer_new_invoice'}
-# 		end
-        render 'customer_new_invoice'
+		respond_to do |format|
+			format.html {render 'customer_new_invoice'}
+		end
+
 		
     end
  
