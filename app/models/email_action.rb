@@ -63,12 +63,12 @@ class EmailAction < ActiveRecord::Base
 		sending = m.messages.send_template template_name, template_content, message
         
 ##### saving the email details in the database ########		
-		_email = EmailAction.new
-		_email.sent_at = Time.now
-		_email.customer_id = _post[:customer_id]
-		_email.invoice_id = invoice.id
-		_email.mandrill_id = sending[0]["_id"]
-		_email.save
+		email = EmailAction.new
+		email.sent_at = Time.now
+		email.customer_id = _post[:customer_id]
+		email.invoice_id = invoice.id
+		email.mandrill_id = sending[0]["_id"]          # POSIBIL PROBLEMA, dureaza pana primesti id de la mandril => nu ai id => nu vezi view-ul pentru client in care ceri lista cu mail-uri....
+		email.save
 	
 	 end
 	 

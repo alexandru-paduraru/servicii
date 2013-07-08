@@ -66,17 +66,17 @@ class SalesmanController < ApplicationController
 		 
 		 @emails = @customer.email_actions
 		 @emails.each do |email|
-		   EmailAction.refresh_info(email)
+		   EmailAction.refresh_info(email) # DE CE EmailAction si nu email.refresh_info ? ?? 
 		 end
 		 
 # 		 @info = EmailAction.user_info
 
 	 end
-	 
-		 respond_to do |format|
-		 	format.html {render 'customer_details'}
-		 end
-	
+	 # 
+# 		 respond_to do |format|
+# 		 	format.html {render 'customer_details'}
+# 		 end
+	render 'customer_details'
 	end
 	
 		def delete_customer

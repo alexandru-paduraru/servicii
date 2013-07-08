@@ -130,9 +130,9 @@
     <div id="collapseTwo" class="accordion-body collapse in">
       <div class="accordion-inner">
           <% @emails.each do |email|%>
-             <p>Email sent at: <%= email.sent_at %></p>
+             <p>Email sent at:<strong> <%= email.sent_at %></strong>
              <% if email.viewed_at %>
-             <p>Email viewed at: <%= email.viewed_at %></p>
+             - this email was viewed at: <strong><%= email.viewed_at %></strong></p>
              <% end %>
           <% end %>
       </div>
