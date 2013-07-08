@@ -77,7 +77,7 @@ class AccountantController < ApplicationController
 # 		 </table>
 # 		 <a href='http://google.ro'>Pay</button>
 # 		 </html>",
-		 :from_email=>"gherghe_neculai@yahoo.com"
+		 :from_email=>"admin@servicii.com"
 		}
 		sending = m.messages.send_template template_name, template_content, message
 		puts sending
