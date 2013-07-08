@@ -46,6 +46,10 @@
       <div class="span5">
 	      <h4 class="muted" >Account info</h4>
 	      <table class="table plain_table">
+	      
+	      <% if @customer_last_invoice %>
+	      <tr><td>Last invoice:</td><td><%= @customer_last_invoice.date %></td></tr>
+	      <% end %>
 	      <tr>
 	      <td>Due amount: &nbsp<%= @total_due_amount %> </td>
 	      <td></td>
@@ -62,7 +66,10 @@
 		      <% end %>
 	      <% end %>
 	      <tr>
-		      <td><button class="modalButton btn btn-success" id="1"><i class="icon-plus-sign icon-white"></i> Create invoice</button></td>
+<!-- 		      <td><button class="modalButton btn btn-success" id="1"><i class="icon-plus-sign icon-white"></i> Create invoice</button></td> -->
+		    <%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success " do %>
+	     <i class="icon-plus-sign icon-white"></i> Invoice
+	    <% end %>
 	      </tr>
 	      </table>
       </div>
@@ -120,9 +127,14 @@
       <h4>Timeline</h4>
       </a>
     </div>
-    <div id="collapseTwo" class="accordion-body collapse">
+    <div id="collapseTwo" class="accordion-body collapse in">
       <div class="accordion-inner">
-	      Previous actions from multiple invoices.
+          <% @emails.each do |email|%>
+             <p>Email sent at: <%= email.sent_at %></p>
+             <% if email.viewed_at %>
+             <p>Email viewed at: <%= email.viewed_at %></p>
+             <% end %>
+          <% end %>
       </div>
     </div>
   </div>

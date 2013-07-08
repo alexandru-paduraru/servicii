@@ -40,7 +40,7 @@ GEM
     addressable (2.3.5)
     arel (4.0.0)
     atomic (1.1.10)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.0)
     bootstrap-datepicker-rails (1.1.1.1)
       railties (>= 3.0)
     bootstrap-sass (2.3.2.0)
@@ -52,7 +52,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.2)
+    coffee-script-source (1.6.3)
     erubis (2.7.0)
     excon (0.16.10)
     execjs (1.4.0)
@@ -67,7 +67,7 @@ GEM
       excon (~> 0.16.10)
     hike (1.2.3)
     i18n (0.6.4)
-    jquery-rails (3.0.1)
+    jquery-rails (3.0.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.7)
@@ -76,7 +76,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mandrill-api (1.0.35)
+    mandrill-api (1.0.37)
       excon (~> 0.16.0)
       json (~> 1.7.7)
     mime-types (1.23)
@@ -159,7 +159,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   heroku
   jquery-rails
-  mandrill-api
+  mandrill-api (~> 1.0.37)
   pg
   protected_attributes
   rails (= 4.0.0)

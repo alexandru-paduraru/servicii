@@ -1,5 +1,5 @@
 class Invoice < ActiveRecord::Base
-  attr_accessible :date, :due_date, :amount, :number, :customer_id
+  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id
   
   belongs_to :company
   belongs_to :customer
@@ -51,5 +51,14 @@ class Invoice < ActiveRecord::Base
   			csv << invoice.attributes.values_at(*column_names)
   		end
   	end
+  end
+  
+  def self.generate_number
+  	number = 00001
+     if Invoice.all
+         invoice = Invoice.all.order('number asc').last
+         number = invoice[:number] + 1
+     end
+     number
   end
 end

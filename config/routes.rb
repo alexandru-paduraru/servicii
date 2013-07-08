@@ -32,6 +32,8 @@ patch '/employee/:id', to: 'user#update', :as => "user_update"
 post '/customer_create', to: 'user#customer_create', :as => "customer_create"
 get '/customers/new', to: 'user#customer_new', :as => "customer_new"
 
+#delete customer
+get '/delete/:customer_id', to: 'salesman#delete_customer', :as => "customer_delete"
 
 #customer details
 get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "customer_details"
@@ -49,6 +51,7 @@ get '/invoice_export', to: 'accountant#invoice_export', :as => "export_invoices"
 #create invoice
 get '/invoices/new', to: 'accountant#invoice_new', :as => "invoice_new"
 post '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"
+get '/customers/:customer_id/new_invoice', to: 'accountant#customer_new_invoice', :as => "customer_new_invoice"
 
 #invoice details
 get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
@@ -66,6 +69,7 @@ get '/send_email', to: 'user#send_email', :as => "send_email"
 
 #send to collector
 get '/send_to_collector/:customer_id', to: 'user#send_to_collector', :as => "send_to_collector"
+
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
