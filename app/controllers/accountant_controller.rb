@@ -26,63 +26,6 @@ class AccountantController < ApplicationController
 	     	 	format.json { render json: @invoice }
 	     end
 	 end
-<<<<<<< HEAD
- 
-	 def send_email(_post,invoice)
-	 	m = Mandrill::API.new
-	 	pay_link = "<a href='http://localhost:3000/invoice_pay/#{invoice.id}'>Pay</a>"
-	 	template_name = "invoice_template"
-	 	template_content = [{"name" => "customer_id", "content" => _post[:customer_id]},{"name" => "due_date", "content" => _post[:due_date]},{"name" => "amount", "content" => _post[:amount]},{"name" => "service_name", "content" => _post[:service_1][:service_name]},{"name" => "service_value", "content" => _post[:service_1][:service_value]},{"name" => "service_qty", "content" => _post[:service_1][:service_qty]},{"name" => "pay", "content" => pay_link }]
-		message = {
-		 :subject=> "Invoice details",
-		 :from_name=> "Companie de trimis facturi",
-		 :text=>"Details",
-		 :to=>[
-		   {
-		     :email=> _post[:customer_email],
-		     :name=> _post[:customer_name]
-		   }
-		 ],
-		 :html=>"Total amount #{_post[:amount]}",
-		 # :html=>"<html><table>             DE FACUT SA MEARGA HTML 
-# 		 	<tr>
-# 		 		<th>Customer id</th>
-# 		 		<th>Due Date</th>
-# 		 		<th>Amount</th>
-# 		 	</tr>
-# 		 	<tr>
-# 		 		<td>#{_post[:customer_id]}</td>
-# 		 		<td>#{_post[:due_date]}</td>
-# 		 		<td>#{_post[:amount]}</td>
-# 		 	</tr>
-# 		 </table>
-# 		 <h4>Services</h4>
-# 		 <table>
-# 		 	<tr>
-# 		 		<th>Service name</th>
-# 		 		<th>Value</th>
-# 		 		<th>Qty</th>
-# 		 	</tr>
-# 		 	<tr>
-# 		 		<td>#{_post['service_1']['service_name']}</td>
-# 		 		<td>#{_post['service_1']['service_value']}</td>
-# 		 		<td>#{_post['service_1']['service_qty']}</td>
-# 		 	</tr>
-# 		 	<tr>
-# 		 		<td>#{_post['service_2']['service_name']}</td>
-# 		 		<td>#{_post['service_2']['service_value']}</td>
-# 		 		<td>#{_post['service_2']['service_qty']}</td>
-# 		 	</tr>
-# 
-# 		 </table>
-# 		 <a href='http://google.ro'>Pay</button>
-# 		 </html>",
-		 :from_email=>"admin@servicii.com"
-		}
-		sending = m.messages.send_template template_name, template_content, message
-		puts sending
-		redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
-=======
 
 #### view for opening a new invoice from a customer details
 
@@ -90,18 +33,10 @@ class AccountantController < ApplicationController
     	customer_id = params[:customer_id]
 		@customer = Customer.find(customer_id)
 		@invoice = Invoice.new
-<<<<<<< HEAD
-# 		respond_to do |format|
-# 			format.html {render 'customer_new_invoice'}
-# 		end
-        render 'customer_new_invoice'
->>>>>>> cbcee06e1bc20aeeafd5f3a6b6a9fccdb4b08a1f
-=======
+
 		respond_to do |format|
 			format.html {render 'customer_new_invoice'}
 		end
-
->>>>>>> 59ce4924c839963d4486da245974af4eb8425c8e
 		
     end
  
