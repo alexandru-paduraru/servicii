@@ -47,30 +47,41 @@ class SalesmanController < ApplicationController
 	 @customer_id = params[:customer_id]
 	 @customer = Customer.find_by_id(@customer_id)
 	 @customer_last_invoice = Customer.last_invoice(@customer)
+	 _customer_last_action = EmailAction.last_action(@customer)
+	 if _customer_last_action
+	 @last_action = ((Time.now.to_date - _customer_last_action[:sent_at].to_date)/1.day).to_i
+	 end
 	 if @customer
 		 @invoices = @customer.invoices
 		 @open_invoices = []
-		 
 			 @invoices.each do |invoice|
 			 	       open_invoice = {}
 			 	       open_invoice[:due_amount] = invoice.amount
+			 	       open_invoice[:date] = invoice.date
+			 	       open_invoice[:due_date] = invoice.due_date
 			 	       open_invoice[:number] = invoice.number
 			 	       @open_invoices.append(open_invoice)
 			 end
 		 
 		 @total_due_amount = 0
 		 
-			 @open_invoices.each do |invoice|
-			 	@total_due_amount += invoice[:due_amount]
-			 end
+		 @open_invoices.each do |invoice|
+		 	@total_due_amount += invoice[:due_amount]
+		 end
 		 
 		 @emails = @customer.email_actions
 # 		 @emails.each do |email|
-# 		   EmailAction.refresh_info(email) # DE CE EmailAction si nu email.refresh_info ? ??  :))) fiindca asa se numeste modelul: il voi seta doar la activity in viitor. oricum, tu mi-ai zis sa pun activity.
+# 		   EmailAction.refresh_info(email)
 # 		 end
+         @email_details = []
+		 @emails.each do |email|
+		     details = {}
+		     details[:email] = email
+		     details[:user] = User.find(email.user_id)
+			# EmailAction.refresh_info(email)
+			 @email_details.append(details)
+	     end
 		 
-# 		 @info = EmailAction.user_info
-
 	 end
 
 	render 'customer_details'

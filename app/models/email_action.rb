@@ -97,6 +97,14 @@ class EmailAction < ActiveRecord::Base
 	 	result = m.users.info
 	 	result
 	 end
+	 
+	 def self.last_action(customer)
+		if customer
+	  		customer.email_actions.order('sent_at asc').last
+	  	else
+	  		nil
+	  	end
+	 end
 
   
 end

@@ -31,7 +31,15 @@
         </div>
         
       <div class="span3 pull-right actions well">
-      	<h5>Last contact: 20 days ago </h5>
+      	<h5>Last contact:
+      	 <% if @last_action %>
+      	   <% if @last_action == 0 %>
+      	        today 
+      	   <% else %>
+	  	   		<%= @last_action %> &nbsp days ago
+      	 	<% end %>
+      	 <% end %> 
+      	 </h5>
 	      <h5 class="muted">Account actions:</h5>
 	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
 		<%= link_to send_email_path, :class => "btn btn-info btn-large btn-block" do %>
@@ -75,8 +83,8 @@
 		      <% @open_invoices.each do |invoice| %>
 		      <tr>
 		      <td> <%= invoice[:number] %></td>
-		      <td> </td>
-		      <td> </td>
+		      <td> <%= invoice[:date] %></td>
+		      <td> <%= invoice[:due_date] %> </td>
 		      <td> </td>
 		      <td> $<%= invoice[:due_amount] %> </td>
 		      </tr>
@@ -106,13 +114,20 @@
 	<div class="span6">
 	<legend>Timeline</legend>
 	<ul>
-	 <% @emails.each do |email|%>
-         <li>    <p>Email sent at:<strong> <%= email.sent_at %></strong>
-             <% if email.viewed_at %>
-             - this email was viewed at: <strong><%= email.viewed_at %></strong></p>
-             <% end %>
-         </li>    
-          <% end %>
+         <% @email_details.each do |email_detail| %>
+         <li> 
+           Email for invoice# <%= email_detail[:email].invoice_id %> was sent by <%= email_detail[:user].first_name %> &nbsp <%= email_detail[:user].last_name %>
+	       <%= email_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
+	       <%= email_detail[:email].sent_at.strftime("at %I:%M%p") %>
+	       <br>
+	        <% if email_detail[:email].viewed_at %>
+				 <%= email_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
+				 <%= email_detail[:email].viewed_at.strftime("at %I:%M%p") %>
+	        <% end %>
+          </li>   
+        <% end %>
+ 
+
 	</ul>
 	</div>
 	
