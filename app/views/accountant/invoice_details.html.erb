@@ -68,9 +68,20 @@
       <h4>Timeline</h4>
       </a>
     </div>
-    <div id="collapseTwo" class="accordion-body collapse">
-      <div class="accordion-inner">
-        Information about sms, email, message.
+    <div id="collapseTwo" class="accordion-body collapse in">
+      <div class="accordion-inner in">
+        <% @email_details.each do |email_detail| %>
+           Email for invoice# <%= email_detail[:email].invoice_id %> was sent by <%= email_detail[:user].first_name %> &nbsp <%= email_detail[:user].last_name %>
+	       <%= email_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
+	       <%= email_detail[:email].sent_at.strftime("at %I:%M%p") %>
+	       <br>
+	        <% if email_detail[:email].viewed_at %>
+				 <%= email_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
+				 <%= email_detail[:email].viewed_at.strftime("at %I:%M%p") %>
+	        <% end %>
+        </p>
+        <% end %>
+<!--         <p>Difference: <%= @difference %></p> -->
       </div>
     </div>
   </div>
