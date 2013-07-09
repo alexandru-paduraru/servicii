@@ -1,44 +1,58 @@
-<% if @customer %>       
+     
    <div class="row">
         <div class="span5">
-	        <h4 class="muted">Customer details</h4>
-	         <address>
-			    <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
-			    <%= @customer.email %><br>
-			    <%= @customer.phone %>
-			    </address>
-			     
-			    <address>
-			    <strong>Address</strong><br>
-			    <%= @customer.billing_address %>
-			    </address>
-			    
-			    <address>
-			    <strong>Description</strong>
-			    <%= @customer.description %><br>
-			    Sent to collector: 
-			    <% if @customer.sent_to_collector %>
-			    	 yes
-	            <% else %>
-	            	 no
-	            <% end %>
-			    </address>
-	    <a href="#" class="btn"><i class="icon-edit"></i> Save</a>
+	        <h4 class="muted">Edit customer details</h4>
+	        <%= form_for @customer, url: customer_update_path do |f| %>
+	        <% if @customer.errors.any? %>
+				<div class="alert alert-error">
+				<h4>Errors:</h4>
+				<ul>
+					<% @customer.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+				</div>
+			<% end %>
+	        
+	        <div class="controls controls-row">
+	        <%= f.text_field :first_name, :class => "span2", :placeholder => "First name" %>
+	        <%= f.text_field :last_name, :class => "span3", :placeholder => "Last name" %>
+	        </div>
+	        <div class="controls controls-row">
+	        <%= f.text_field :email, :class => "span5", :placeholder => "Email" %>
+	        </div>
+	        <div class="controls controls-row">
+	        <%= f.text_field :phone, :class => "span5", :placeholder => "Phone" %>
+	        </div>
+	        <div class="controls controls-row">
+	        <%= f.text_field :billing_address, :class => "span5", :placeholder => "Billing address" %>
+	        </div>
+	        <div class="controls controls-row">
+	        <%= f.text_area :description, :class => "span5", :placeholder => "Description", :rows => "3" %>
+	        </div>
+	        
+	        <%= link_to customer_details_path(@customer.id), :class => "btn btn-danger" do %>
+	        	<i class="icon-remove icon-white"></i>Cancel
+	        <% end %>
+	        <button type="submit" class="btn btn-success pull-right">
+		        <i class="icon-ok icon-white"></i> Save</a>
+	        </button>
+	        <% end %>
         </div>
         
       <div class="span3 pull-right actions well">
       	<h5>Last contact: 20 days ago </h5>
 	      <h5 class="muted">Account actions:</h5>
-	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
-		<%= link_to send_email_path, :class => "btn btn-info btn-large btn-block" do %>
+	      <a href="#" class="btn btn-success btn-large btn-block disabled"><i class="icon-headphones icon-white"></i> Call</a>
+		<%= link_to send_email_path, :class => "btn btn-info btn-large btn-block disabled" do %>
 			<i class="icon-envelope icon-white"></i> Send email
 		<% end %>
 		
-		<a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
+		<a href="#" class="btn btn-warning btn-large btn-block disabled"><i class="icon-comment icon-white"></i> Message</a>
     <% if @customer.sent_to_collector%>
         <a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
     <% else %>
-	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block" do %>
+	    <%= link_to send_to_collector_path(@customer.id), :class => "btn btn-danger btn-large btn-block disabled" do %>
 	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
 	    <% end %>
 	<% end %>
@@ -46,4 +60,3 @@
      
   </div>
 <!-- end row   -->
-<% end %>

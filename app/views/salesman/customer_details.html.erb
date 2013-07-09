@@ -15,13 +15,13 @@
 			    </address>
 			    
 			    <address>
-			    <strong>Description</strong>
+			    <strong>Description</strong><br>
 			    <%= @customer.description %><br>
-			    Sent to collector: 
+			    <strong>Sent to collector:</strong> 
 			    <% if @customer.sent_to_collector %>
-			    	 yes
+			    	 Yes
 	            <% else %>
-	            	 no
+	            	 No
 	            <% end %>
 			    </address>
 		<%= link_to customer_edit_path(@customer.id), :class => "btn" do %>

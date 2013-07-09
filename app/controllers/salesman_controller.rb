@@ -72,11 +72,28 @@ class SalesmanController < ApplicationController
 # 		 @info = EmailAction.user_info
 
 	 end
-	 # 
-# 		 respond_to do |format|
-# 		 	format.html {render 'customer_details'}
-# 		 end
+
 	render 'customer_details'
+	end
+	
+	def customer_edit
+		@customer = Customer.find_by_id(params[:customer_id])
+	end
+	
+	def customer_update
+		_post = params[:customer]
+		@customer = Customer.find_by_id(params[:customer_id])
+		@customer.first_name = _post[:first_name]
+		@customer.last_name = _post[:last_name]
+		@customer.email = _post[:email]
+		@customer.billing_address = _post[:billing_address]
+		@customer.description = _post[:description]
+		@customer.phone = _post[:phone]
+		if @customer.save
+			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
+		else
+			render 'customer_edit'
+		end
 	end
 	
 		def delete_customer
