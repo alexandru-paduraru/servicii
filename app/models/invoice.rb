@@ -62,4 +62,21 @@ class Invoice < ActiveRecord::Base
      end
      number
   end
+  
+  def self.save_invoice(post, invoice, current_user)
+  	invoice = Invoice.new(:date => Time.now, :customer_id => post[:customer_id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => post[:due_date], :amount => post[:amount])
+  	invoice.number = Invoice.generate_number
+  	
+  	if invoice.save
+  		id_inv = invoice.id
+  		# pentru servicii multiple va fi un for
+  		if s1 = post[:service_1]
+        	id_serv = Service.add_service(s1[:service_name], s1[:service_value], invoice[:company_id])
+        	id_rel = Invoice_has_service.create(:qty => s1[:service_qty], :invoice_id => id_inv, :service_id => id_serv)
+        end
+  	end
+  
+  		
+  
+  end
 end

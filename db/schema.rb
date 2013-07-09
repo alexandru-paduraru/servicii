@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130709103351) do
+ActiveRecord::Schema.define(version: 20130709111957) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -58,12 +58,11 @@ ActiveRecord::Schema.define(version: 20130709103351) do
   add_index "email_actions", ["user_id"], name: "index_email_actions_on_user_id"
 
   create_table "invoice_has_services", force: true do |t|
-    t.string   "qty"
-    t.string   "float"
     t.integer  "invoice_id"
     t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "qty"
   end
 
   add_index "invoice_has_services", ["invoice_id"], name: "index_invoice_has_services_on_invoice_id"

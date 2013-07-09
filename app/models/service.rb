@@ -3,8 +3,10 @@ class Service < ActiveRecord::Base
   belongs_to :company
   
   def self.add_service(name, value, company_id)
+     id = nil
      if search_name_value(name, value) == []
-        Service.create(:name => name, :value => value, :company_id => company_id)
+        service = Service.create(:name => name, :value => value, :company_id => company_id)
+        id = service.id
      end
   end
   
