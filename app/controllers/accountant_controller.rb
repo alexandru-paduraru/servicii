@@ -14,6 +14,17 @@ class AccountantController < ApplicationController
 	 @customer_id = @invoice.customer_id
 	 @customer = Customer.find(@customer_id)
 	 
+	 @email_details = []
+	 
+	 @emails = @invoice.email_actions
+	 @emails.each do |email|
+	     details = {}
+	     details[:email] = email
+	     details[:user] = User.find(email.user_id)
+		 EmailAction.refresh_info(email)
+		 @email_details.append(details)
+     end
+     	 
 	 respond_to do |format|
 	 	format.html {render 'invoice_details'}
 	 end
@@ -48,6 +59,7 @@ class AccountantController < ApplicationController
         invoice[:due_date] = _post[:due_date]
         invoice[:customer_id] = _post[:customer_id]
         invoice[:date] = Time.now
+        invoice[:user_id] = current_user.id #the user that creates the invoice
         invoice[:number] = Invoice.generate_number #algorithm for generating the invoice number?
 
         
@@ -65,7 +77,7 @@ class AccountantController < ApplicationController
         if invoice.save
            if params[:send]
            redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
-           EmailAction.send_email(_post,invoice) 
+           EmailAction.send_email(_post,invoice,current_user) 
            end
            if params[:draft]
            redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "Success! Invoice saved as draft."

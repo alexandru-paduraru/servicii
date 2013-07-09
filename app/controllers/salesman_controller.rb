@@ -65,9 +65,9 @@ class SalesmanController < ApplicationController
 			 end
 		 
 		 @emails = @customer.email_actions
-		 @emails.each do |email|
-		   EmailAction.refresh_info(email) # DE CE EmailAction si nu email.refresh_info ? ?? 
-		 end
+# 		 @emails.each do |email|
+# 		   EmailAction.refresh_info(email) # DE CE EmailAction si nu email.refresh_info ? ??  :))) fiindca asa se numeste modelul: il voi seta doar la activity in viitor. oricum, tu mi-ai zis sa pun activity.
+# 		 end
 		 
 # 		 @info = EmailAction.user_info
 

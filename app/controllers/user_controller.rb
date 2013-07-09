@@ -194,6 +194,7 @@ require 'mandrill'
         customer[:company_id] = current_user[:company_id]
         customer[:sent_to_collector] = false
         customer[:active] = true
+        customer[:user_id] = current_user.id
         if customer.save
            redirect_to salesman_path
         else

@@ -6,7 +6,7 @@ class EmailAction < ActiveRecord::Base
   
   require 'mandrill' 
    
-	 def self.send_email(_post,invoice)
+	 def self.send_email(_post,invoice,current_user)
 	 	m = Mandrill::API.new
 	 	pay_link = "<a href='http://localhost:3000/invoice_pay/#{invoice.id}'>Pay</a>"
 	 	template_name = "invoice_template"
@@ -64,15 +64,18 @@ class EmailAction < ActiveRecord::Base
         
 ##### saving the email details in the database ########		
 		email = EmailAction.new
-		email.sent_at = Time.now
+		email.sent_at = Time.now.to_datetime
 		email.customer_id = _post[:customer_id]
 		email.invoice_id = invoice.id
 		email.mandrill_id = sending[0]["_id"]          # POSIBIL PROBLEMA, dureaza pana primesti id de la mandril => nu ai id => nu vezi view-ul pentru client in care ceri lista cu mail-uri....
+		email.user_id = current_user.id
 		email.save
 	
 	 end
 	 
-	 def self.refresh_info(email)
+	 def self.refresh_info(email) #face refresh la informatia despre email doar daca au trecut 30 minute de la trimitere
+	 difference = Time.zone.now - email.sent_at
+	 if difference > 1000
 	 	m = Mandrill::API.new
         id = email.mandrill_id
         if id
@@ -84,6 +87,8 @@ class EmailAction < ActiveRecord::Base
 		        end	
 	        end
         end 
+      end
+     
 	 end
 
 	 

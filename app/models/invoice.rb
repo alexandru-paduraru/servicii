@@ -5,6 +5,7 @@ class Invoice < ActiveRecord::Base
   belongs_to :customer
   
   has_many :transactions
+  has_many :email_actions
   
   validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
 
