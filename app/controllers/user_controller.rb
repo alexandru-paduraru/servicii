@@ -45,10 +45,18 @@ require 'mandrill'
 		@user.job = 0
 		@user.company_id = current_user.company_id
 		
+		@users_details = []
+			@users = User.all
+			
+			@users.each do |user|
+				@user_details = User.details(user.id)
+				@users_details.append(@user_details)
+			end
+
 		#render 'verifica'
 		 if @user.save
- 			if _post[:workson][:salesman].to_i == 1
- 				workson = Workson.new
+	 			if _post[:workson][:salesman].to_i == 1
+				workson = Workson.new
  				workson.user_id = @user[:id]
  				workson.job_id = 2
  				if workson.save
@@ -79,7 +87,7 @@ require 'mandrill'
  			else render text: "eroare la adaugarea job-ului"
  			end
  		else 
- 			render 'new'
+ 			render 'admin/index'
 		end
 	end
 	

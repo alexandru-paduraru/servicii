@@ -26,7 +26,75 @@
     </li>
     
 </ul> -->
- <h4>Employees sau putem pune statisticile</h4>
+<div class="row">
+<div class="span6">
+	<legend>Global timeline</legend>
+	
+	<ul>
+		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
+		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
+		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
+		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
+		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
+		
+	</ul>
+		
+	
+</div>
+<div class="span5 pull-right">
+	
+	
+	<div id="employee_form">
+	<button type="button" id="create_employee_button_close" class="btn btn-danger pull-right"><i class="icon-remove icon-white"></i></button>
+	<legend>Create employee account</legend>
+	<%= form_for @user, url: '/admin' do |f| %>
+	<% if @user.errors.any? %>
+				<div class="alert alert-error">
+				<h4>Errors:</h4>
+				<ul>
+					<% @user.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+				</div>
+			<% end %>
+	<fieldset>
+
+	<div class="control-group">
+		<%= f.label :available_jobs, :class => "control-label" %>
+		<div class="controls">
+		<%= f.fields_for :workson do |f| %>
+			<%= f.check_box :salesman %><label class="checkbox inline" for="user_workson_salesman"><span></span>Salesman</label>
+			<%= f.check_box :accountant %><label class="checkbox inline" for="user_workson_accountant"><span></span>Accountant</label> 
+			<%= f.check_box :collector %> <label class="checkbox inline" for="user_workson_collector"><span></span>Collector</label>
+		<% end %>
+		</div>
+	</div>
+	
+	<div class="controls controls-row">
+			<%= f.text_field :email,  :class => "span5", :placeholder => "Email" %>
+	</div>
+	<div class="controls controls-row">
+			<%= f.text_field :first_name, :class => "span2", :placeholder => "First Name" %>
+			<%= f.text_field :last_name, :class => "span3", :placeholder => "Last Name" %>
+	</div>
+	<div class="controls controls-row">
+			<%= f.password_field :password,  :class => "span2", :placeholder => "Password" %>
+			<%= f.password_field :password_confirmation, :class => "span3", :placeholder => "Password Confirmation" %>
+	</div>
+	  
+	
+	<!-- Text input-->
+	</fieldset>
+	</div>
+	
+	<button type="button" id="create_employee_button" class="btn btn-success pull-right"><i class="icon-plus icon-white"></i>Add employee</button>  
+	
+	<% end %>
+</div>
+</div>
+
+ <h4>Employees</h4>
 <table class="table table-bordered table-striped">
 <tr>
 	<th>#</th>
@@ -61,3 +129,5 @@
 	<p>No employees in database</p>
 <% end %>
 </table>
+
+</div>

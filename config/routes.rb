@@ -21,7 +21,7 @@ get '/employees/new', to: 'user#new', :as => "user_new"
 get '/salesman_new', to: 'salesman#new', :as =>"salesman_new"
 post '/salesman_create', to: 'salesman#create', :as =>"salesman_create"
 post '/signup', to: 'admin#create', :as => "admin_create"
-post '/employees', to: 'user#create', :as => "user_create"
+post '/admin', to: 'user#create', :as => "user_create"
 
 #edit users
 get '/employee/:id/edit', to: 'user#edit', :as => "user_edit"

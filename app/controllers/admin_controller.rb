@@ -63,6 +63,7 @@ class AdminController < ApplicationController
 	end
 ############ End Company ###############
 	def index
+		@user = User.new
 		@users_details = []
 		@users = User.all
 		
