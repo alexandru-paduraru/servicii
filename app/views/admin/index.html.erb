@@ -31,12 +31,17 @@
 	<legend>Global timeline</legend>
 	
 	<ul>
-		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
-		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
-		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
-		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
-		<li><strong>{User}</strong>	{action} on invoice <strong> {number}</strong></li>
+		<% @customers.each do |customer| %>
+		<li>User <%= customer.user_id %> added <%= customer.first_name%> &nbsp <%= customer.last_name %> at <%= customer.created_at %></li>
+		<% end %>
 		
+		<% @invoices.each do |invoice| %>
+		<li>User <%= invoice.user_id %> created an invoice for customer <%= invoice.customer_id %> on <%= invoice.date %></li>
+		<% end %>
+		
+		<% @actions.each do |action| %>
+		<li>User <%= action.user_id %> sent an email for customer <%= action.customer_id %> on <%= action.sent_at %></li>
+		<% end %>		
 	</ul>
 		
 	

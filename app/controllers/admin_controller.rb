@@ -67,6 +67,10 @@ class AdminController < ApplicationController
 		@users_details = []
 		@users = User.all
 		
+		@customers = Customer.index(current_user.company_id)
+		@invoices = Invoice.index(current_user.company_id)
+		@actions = EmailAction.index(current_user.company_id)
+		
 		@users.each do |user|
 			@user_details = User.details(user.id)
 			@users_details.append(@user_details)

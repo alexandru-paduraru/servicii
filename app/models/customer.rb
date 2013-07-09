@@ -90,5 +90,9 @@ class Customer < ActiveRecord::Base
   	end
   end
   
+  def self.index(company_id)
+     all.where(:company_id => company_id).order('created_at asc')
+   end
+  
   
 end

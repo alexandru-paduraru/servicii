@@ -88,4 +88,8 @@ class Invoice < ActiveRecord::Base
   	end
   	
   end
+  
+   def self.index(company_id)
+     all.where(:company_id => company_id).order('date asc')
+   end
 end
