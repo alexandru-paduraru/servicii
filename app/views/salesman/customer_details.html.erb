@@ -2,7 +2,11 @@
        
    <div class="row">
         <div class="span5">
-	        <legend class="muted">Customer details</legend>
+	        <legend class="muted">Customer details
+		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right" do %>
+		       		<i class="icon-edit"></i> Edit</a>
+				<% end %> 
+	        </legend>
 	         <address>
 			    <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
 			    <%= @customer.email %><br>
@@ -24,9 +28,7 @@
 	            	 No
 	            <% end %>
 			    </address>
-		<%= link_to customer_edit_path(@customer.id), :class => "btn" do %>
-			<i class="icon-edit"></i> Edit</a>
-		<% end %>
+		
 	
         </div>
         

@@ -1,7 +1,7 @@
      
    <div class="row">
         <div class="span5">
-	        <h4 class="muted">Edit customer details</h4>
+	        <legend>Edit customer details</legend>
 	        <%= form_for @customer, url: customer_update_path do |f| %>
 	        <% if @customer.errors.any? %>
 				<div class="alert alert-error">
