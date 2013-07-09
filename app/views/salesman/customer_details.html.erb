@@ -1,144 +1,147 @@
 <% if @customer %>
-<div class="well">
+       
    <div class="row">
         <div class="span5">
 	        <h4 class="muted">Customer details</h4>
-	        <table class="table">
-	          <tr>
-	          	<th>First name</th>
-	            <td><%= @customer.first_name %></td>
-	          </tr>
-	          <tr>
-	          	<th>Last name</th>
-	            <td><%= @customer.last_name %></td>
-	          </tr>
-	          <tr>
-	          	<th>ID</th>
-	            <td><%= @customer.id %></td>
-	          </tr>
-	          <tr>
-	          	<th>Email</th>
-	            <td><%= @customer.email %></td>
-	          </tr>
-	          <tr>
-	          	<th>Phone</th>
-	            <td><%= @customer.phone %></td>
-	          </tr>
-	          <tr>
-	          	<th>Billing Address</th>
-	            <td><%= @customer.billing_address %></td>
-	          </tr>
-	          <tr>
-	          	<th>Description</th>
-	            <td><%= @customer.description %></td>
-	          </tr>
-	          <tr>
-	          	<th>Sent to collector </th>
-	            <td>
-	            <% if @customer.sent_to_collector %> yes
-	            <% else %> no
+	         <address>
+			    <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
+			    <%= @customer.email %><br>
+			    <%= @customer.phone %>
+			    </address>
+			     
+			    <address>
+			    <strong>Address</strong><br>
+			    <%= @customer.billing_address %>
+			    </address>
+			    
+			    <address>
+			    <strong>Description</strong>
+			    <%= @customer.description %><br>
+			    Sent to collector: 
+			    <% if @customer.sent_to_collector %>
+			    	 yes
+	            <% else %>
+	            	 no
 	            <% end %>
-	            </td>
-	          </tr>
-	        </table>
+			    </address>
+		<%= link_to customer_edit_path(@customer.id), :class => "btn" do %>
+			<i class="icon-edit"></i> Edit</a>
+		<% end %>
+	
         </div>
         
-      <div class="span5">
-	      <h4 class="muted" >Account info</h4>
-	      <table class="table plain_table">
-	      
-	      <% if @customer_last_invoice %>
-	      <tr><td>Last invoice:</td><td><%= @customer_last_invoice.date %></td></tr>
-	      <% end %>
-	      <tr>
-	      <td>Due amount: &nbsp<%= @total_due_amount %> </td>
-	      <td></td>
-	      </tr>
-	      <% if @open_invoices %>
-		      <tr>
-		      <td>Open invoices: </td>
-		      </tr>
-		      <% @open_invoices.each do |invoice| %>
-		      <tr>
-		      <td> $<%= invoice[:due_amount] %> </td>
-		      <td> <%= invoice[:number] %></td>
-		      </tr>
-		      <% end %>
-	      <% end %>
-	      <tr>
-<!-- 		      <td><button class="modalButton btn btn-success" id="1"><i class="icon-plus-sign icon-white"></i> Create invoice</button></td> -->
-		    <%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success " do %>
-	     <i class="icon-plus-sign icon-white"></i> Invoice
-	    <% end %>
-	      </tr>
-	      </table>
-      </div>
-     
-  </div>
-</div>
-
-<div class="row">
-	<div class="span10 offset1">
-	<div class="row">
-		<h4 class="muted span2">Actions:</h4>
-		<%= link_to send_email_path, :class => "btn btn-info btn-large btn-block span2" do %>
-			<i class="icon-envelope icon-white"></i> Email
+      <div class="span3 pull-right actions well">
+      	<h5>Last contact: 20 days ago </h5>
+	      <h5 class="muted">Account actions:</h5>
+	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
+		<%= link_to send_email_path, :class => "btn btn-info btn-large btn-block" do %>
+			<i class="icon-envelope icon-white"></i> Send email
 		<% end %>
 		
-		<a href="#" class="btn btn-success btn-large btn-block span2"><i class="icon-comment icon-white"></i> Message</a>
-		<a href="#" class="btn btn-warning btn-large btn-block span2"><i class="icon-headphones icon-white"></i> Call</a>
+		<a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
     <% if @customer.sent_to_collector%>
-        <a href="#" class="btn btn-danger btn-large btn-block span2 disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
+        <a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
     <% else %>
-	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block span2" do %>
-	     <i class="icon-exclamation-sign icon-white"></i>Send to collector
+	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block" do %>
+	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
 	    <% end %>
 	<% end %>
       </div>
+     
+  </div>
+<!-- end row   -->
+
+
+<%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success pull-right span2" do %>
+	     <i class="icon-plus-sign icon-white"></i> Invoice
+<% end %>
+	    
+<h4 class="muted">Open invoices</h4>
+<table class="table table-striped table-bordered">
+		<!--	
+		<% if @customer_last_invoice %>
+	      <tr><td>Last invoice:</td><td><%= @customer_last_invoice.date %></td></tr>
+	      <% end %>
+	      <tr>
+-->
+	      <tr>
+	      	<th>#</th>
+	      	<th>Issue date</th>
+	      	<th>Due date</th>
+	      	<th>Status</th>
+	      	<th>Amount</th>
+	      </tr>
+	      <% if @open_invoices %>
+		      <% @open_invoices.each do |invoice| %>
+		      <tr>
+		      <td> <%= invoice[:number] %></td>
+		      <td> </td>
+		      <td> </td>
+		      <td> </td>
+		      <td> $<%= invoice[:due_amount] %> </td>
+		      </tr>
+		      <% end %>
+	      <% end %>
+<!-- 		      <td><button class="modalButton btn btn-success" id="1"><i class="icon-plus-sign icon-white"></i> Create invoice</button></td> -->
+		  <tr>
+		  	<td colspan="4"></td>
+		  	<td class="span3"><h5><strong class="muted">Due amount: </strong>$ <%= @total_due_amount %><h4></td>
+		  </tr>
+		    
+</table>
+
+<h4 class="muted">Subscription</h4>
+<table class="table table-striped table-bordered">
+	      <tr>
+	      	<th>#</th>
+	      	<th>Issue date</th>
+	      	<th>Due date</th>
+	      	<th>Status</th>
+	      	<th>Amount</th>
+	      </tr>
+</table>
+
+
+<div class="row">
+	<div class="span6">
+	<legend>Timeline</legend>
+	<ul>
+	 <% @emails.each do |email|%>
+         <li>    <p>Email sent at:<strong> <%= email.sent_at %></strong>
+             <% if email.viewed_at %>
+             - this email was viewed at: <strong><%= email.viewed_at %></strong></p>
+             <% end %>
+         </li>    
+          <% end %>
+	</ul>
+	</div>
+	
+	<div class="span6">
+	<legend>Future actions</legend>
 	</div>
 </div>
-
-	
+	      
   <div class="acordeon">
 <div class="accordion" id="accordion2">
 
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        <h4>Invoices</h4>
+        <h4>All invoices</h4>
       </a>
     </div>
-    <div id="collapseOne" class="accordion-body collapse in">
+    <div id="collapseOne" class="accordion-body collapse">
       <div class="accordion-inner">
         <% @invoices.each do |invoice|%>
         <div class="well">
-        <p>Number: <%= invoice.number %></p>
-        <p>Date: <%= invoice.date %></p>
-        <p>Amount: <%= invoice.amount %><%= %></p>
+        <p># <%= invoice.number %> -
+        Date: <%= invoice.date %> - 
+        Amount: <%= invoice.amount %><%= %></p>
         </div>
         <% end %>
       </div>
     </div>
   </div>
-  
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-      <h4>Timeline</h4>
-      </a>
-    </div>
-    <div id="collapseTwo" class="accordion-body collapse in">
-      <div class="accordion-inner">
-          <% @emails.each do |email|%>
-             <p>Email sent at:<strong> <%= email.sent_at %></strong>
-             <% if email.viewed_at %>
-             - this email was viewed at: <strong><%= email.viewed_at %></strong></p>
-             <% end %>
-          <% end %>
-      </div>
-    </div>
-  </div>
-
   
 </div>
 </div>

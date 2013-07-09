@@ -1,0 +1,49 @@
+<% if @customer %>       
+   <div class="row">
+        <div class="span5">
+	        <h4 class="muted">Customer details</h4>
+	         <address>
+			    <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
+			    <%= @customer.email %><br>
+			    <%= @customer.phone %>
+			    </address>
+			     
+			    <address>
+			    <strong>Address</strong><br>
+			    <%= @customer.billing_address %>
+			    </address>
+			    
+			    <address>
+			    <strong>Description</strong>
+			    <%= @customer.description %><br>
+			    Sent to collector: 
+			    <% if @customer.sent_to_collector %>
+			    	 yes
+	            <% else %>
+	            	 no
+	            <% end %>
+			    </address>
+	    <a href="#" class="btn"><i class="icon-edit"></i> Save</a>
+        </div>
+        
+      <div class="span3 pull-right actions well">
+      	<h5>Last contact: 20 days ago </h5>
+	      <h5 class="muted">Account actions:</h5>
+	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
+		<%= link_to send_email_path, :class => "btn btn-info btn-large btn-block" do %>
+			<i class="icon-envelope icon-white"></i> Send email
+		<% end %>
+		
+		<a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
+    <% if @customer.sent_to_collector%>
+        <a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
+    <% else %>
+	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block" do %>
+	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
+	    <% end %>
+	<% end %>
+      </div>
+     
+  </div>
+<!-- end row   -->
+<% end %>

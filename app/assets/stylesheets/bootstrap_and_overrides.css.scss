@@ -1,7 +1,7 @@
 //@import "bootstrap";
 //@import "bootstrap-responsive";
 body { 
-	background: #A7D7F1;
+	background: #E6E6E6;
 	background-image:url('bg02.png');
 	
 }
@@ -396,6 +396,10 @@ input[type=checkbox]:checked + label span:after {
 
 .btn-block + .btn-block {
 	margin-top:0;
+}
+
+.actions .btn{
+	margin-bottom: 10px;
 }
 
 

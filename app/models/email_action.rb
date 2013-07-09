@@ -67,7 +67,7 @@ class EmailAction < ActiveRecord::Base
 		email.sent_at = Time.now
 		email.customer_id = _post[:customer_id]
 		email.invoice_id = invoice.id
-		email.mandrill_id = sending[0]["_id"]          # POSIBIL PROBLEMA, dureaza pana primesti id de la mandril => nu ai id => nu vezi view-ul pentru client in care ceri lista cu mail-uri....
+		email.mandrill_id = sending[0]["_id"]          # POSIBIL PROBLEMA, dureaza pana primesti id de la mandril
 		email.save
 	
 	 end
