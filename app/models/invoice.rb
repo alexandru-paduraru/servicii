@@ -1,5 +1,5 @@
 class Invoice < ActiveRecord::Base
-  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id
+  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id
   
   belongs_to :company
   belongs_to :customer
@@ -63,7 +63,7 @@ class Invoice < ActiveRecord::Base
      number
   end
   
-  def self.save_invoice(post, invoice, current_user)
+  def self.save_invoice(post, current_user)
   	invoice = Invoice.new(:date => Time.now, :customer_id => post[:customer_id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => post[:due_date], :amount => post[:amount])
   	invoice.number = Invoice.generate_number
   	
@@ -72,11 +72,20 @@ class Invoice < ActiveRecord::Base
   		# pentru servicii multiple va fi un for
   		if s1 = post[:service_1]
         	id_serv = Service.add_service(s1[:service_name], s1[:service_value], invoice[:company_id])
-        	id_rel = Invoice_has_service.create(:qty => s1[:service_qty], :invoice_id => id_inv, :service_id => id_serv)
+        	
+        	rel = InvoiceHasService.new
+        	rel[:invoice_id] = id_inv
+        	rel[:service_id] = id_serv
+        	if s1[:service_qty]
+        		rel[:qty] = s1[:service_qty]
+        	end
+        	rel.save
+ 
         end
+        id_inv
+      else
+      	nil
   	end
-  
-  		
-  
+  	
   end
 end

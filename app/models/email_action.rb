@@ -1,14 +1,14 @@
 class EmailAction < ActiveRecord::Base
-  attr_accessible :sent_at, :viewed_at, :mandrill_id
+  attr_accessible :sent_at, :viewed_at, :mandrill_id, :user_id
   
   belongs_to :customer
   belongs_to :invoice
   
   require 'mandrill' 
    
-	 def self.send_email(_post,invoice,current_user)
+	 def self.send_email(_post,invoice_id,current_user)
 	 	m = Mandrill::API.new
-	 	pay_link = "<a href='http://localhost:3000/invoice_pay/#{invoice.id}'>Pay</a>"
+	 	pay_link = "<a href='http://localhost:3000/invoice_pay/#{invoice_id}'>Pay</a>"
 	 	template_name = "invoice_template"
 	 	template_content = [{"name" => "customer_id", "content" => _post[:customer_id]},{"name" => "due_date", "content" => _post[:due_date]},{"name" => "amount", "content" => _post[:amount]},{"name" => "service_name", "content" => _post[:service_1][:service_name]},{"name" => "service_value", "content" => _post[:service_1][:service_value]},{"name" => "service_qty", "content" => _post[:service_1][:service_qty]},{"name" => "pay", "content" => pay_link }]
 		message = {
@@ -66,7 +66,7 @@ class EmailAction < ActiveRecord::Base
 		email = EmailAction.new
 		email.sent_at = Time.now.to_datetime
 		email.customer_id = _post[:customer_id]
-		email.invoice_id = invoice.id
+		email.invoice_id = invoice_id
 		email.mandrill_id = sending[0]["_id"]          # POSIBIL PROBLEMA, dureaza pana primesti id de la mandril
 		email.user_id = current_user.id
 		email.save

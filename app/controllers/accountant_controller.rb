@@ -54,36 +54,36 @@ class AccountantController < ApplicationController
    def invoice_create
         if params[:send] || params[:draft]
         _post = params[:invoice]
-  		invoice = Invoice.new
-        invoice[:amount] = _post[:amount]
-        invoice[:due_date] = _post[:due_date]
-        invoice[:customer_id] = _post[:customer_id]
-        invoice[:date] = Time.now
-        invoice[:user_id] = current_user.id #the user that creates the invoice
-        invoice[:number] = Invoice.generate_number #algorithm for generating the invoice number?
-
-        
-        if current_user.company_id
-        	invoice[:company_id] = current_user.company_id
-        else
-        	invoice[:company_id] = 0 
-        end
+#   		invoice = Invoice.new
+#         invoice[:amount] = _post[:amount]
+#         invoice[:due_date] = _post[:due_date]
+#         invoice[:customer_id] = _post[:customer_id]
+#         invoice[:date] = Time.now
+#         invoice[:user_id] = current_user.id #the user that creates the invoice
+#         invoice[:number] = Invoice.generate_number #algorithm for generating the invoice number?
+# 
+#         
+#         if current_user.company_id
+#         	invoice[:company_id] = current_user.company_id
+#         else
+#         	invoice[:company_id] = 0 
+#         end
         
  ###saving the services in the database     
-        if s1 = _post[:service_1]
-        	Service.add_service(s1[:service_name], s1[:service_value], invoice[:company_id])
-        end
+#         if s1 = _post[:service_1]
+#         	Service.add_service(s1[:service_name], s1[:service_value], invoice[:company_id])
+#         end
         
-        if invoice.save
+        if invoice_id = Invoice.save_invoice(_post,current_user)
            if params[:send]
-           redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
-           EmailAction.send_email(_post,invoice,current_user) 
+           redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
+           EmailAction.send_email(_post,invoice_id,current_user) 
            end
            if params[:draft]
-           redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :notice => "Success! Invoice saved as draft."
+           redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice saved as draft."
            end
         else
-           redirect_to customer_details_path(:customer_id => invoice[:customer_id]), :alert => "Error creating invoice ! "
+           redirect_to customer_details_path(:customer_id => _post[:customer_id]), :alert => "Error creating invoice ! "
         end
      end
 
