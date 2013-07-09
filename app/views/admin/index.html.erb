@@ -50,8 +50,8 @@
 	
 	
 	<div id="employee_form">
-	<button type="button" id="create_employee_button_close" class="btn btn-danger pull-right"><i class="icon-remove icon-white"></i></button>
-	<legend>Create employee account</legend>
+	
+	<legend>Create employee account <button type="button" id="create_employee_button_close" class="btn btn-danger pull-right"><i class="icon-remove icon-white"></i></button></legend>
 	<%= form_for @user, url: '/admin' do |f| %>
 	<% if @user.errors.any? %>
 				<div class="alert alert-error">
