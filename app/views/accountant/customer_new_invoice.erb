@@ -8,7 +8,7 @@
 		<p><strong>Adress:</strong> <%= @customer.billing_address %></p>
 	</div>
 
-<div class="span5 well">
+<div class="span5">
 <fieldset>
  
 <% if @invoice.errors.any? %>
@@ -26,15 +26,15 @@
 <div class="input-prepend control-group">
 	<%= f.label :amount, :class => "control-label" %>
 	<div class="controls">
-	    <span class="add-on">$</span>
-		<%= f.text_field :amount, :class => "input-xlarge amount", :placeholder => "Amount" %>
+	    
+		<%= f.text_field :amount, :placeholder => "Amount" %>
 	</div>
 </div>
 
 <div class="control-group">
 	<%= f.label :due_date, :class => "control-label" %>
 	<div class="controls">
-		<%= f.text_field :due_date, :class => "datepicker input-xlarge", :placeholder => "Due date" %>
+		<%= f.text_field :due_date, :class => "datepicker", :placeholder => "Due date" %>
 	</div>
 </div>
 

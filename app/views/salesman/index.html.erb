@@ -1,9 +1,8 @@
-<table class="table plain_table">
-<tr><td>
+
   <div class="input-append">
     
     <%= form_tag salesman_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => "Search a customer by first name, last name or account number" %>
+    <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => "Search a customer by first name, last name or account number" %>
            
     <%= button_tag(type: 'submit', class: "btn") do %>
    		 <i class="icon-ml-search"></i> Search</button>
@@ -11,13 +10,9 @@
     <% end %>
     
   </div>
-  </td>
-  <td>
+  
    	<button class="modalButton btn btn-success pull-right" type="button" id="1"><i class="icon-ml-add"></i> Add customer</button>
-  </td>
-</tr>
 
-</table>
 <table class="table table-bordered table-hover table-striped">
   
   <tr>

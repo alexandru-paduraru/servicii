@@ -1,4 +1,4 @@
-<div class="span5 well">
+<div class="span6 well">
 
 <%= form_for @customer, url: '/customer_create', html: {class: "form-horizontal"} do |f| %>
 <fieldset>
@@ -16,31 +16,31 @@
 <div class="control-group">
 	<%= f.label :first_name, :class => "control-label" %>
 	<div class="controls">
-		<%= f.text_field :first_name, :class => "input-xlarge", :placeholder => "First Name" %>
+		<%= f.text_field :first_name, :placeholder => "First Name" %>
 	</div>
 </div>
 <div class="control-group">
 	<%= f.label :last_name, :class => "control-label" %>
 	<div class="controls">
-		<%= f.text_field :last_name, :class => "input-xlarge", :placeholder => "Last Name" %>
+		<%= f.text_field :last_name, :placeholder => "Last Name" %>
 	</div>
 </div>
 <div class="control-group">
 	<%= f.label :email, :class => "control-label" %>
 	<div class="controls">
-		<%= f.text_field :email, :class => "input-xlarge", :placeholder => "Email" %>
+		<%= f.text_field :email, :placeholder => "Email" %>
 	</div>
 </div>
 <div class="control-group">
 	<%= f.label :phone, :class => "control-label" %>
 	<div class="controls">
-		<%= f.text_field :phone, :class => "input-xlarge", :placeholder => "Phone" %>
+		<%= f.text_field :phone, :placeholder => "Phone" %>
 	</div>
 </div>
 <div class="control-group">
 	<%= f.label :billing_address, :class => "control-label" %>
 	<div class="controls">
-		<%= f.text_field :billing_address, :class => "input-xlarge", :placeholder => "Billing address" %>
+		<%= f.text_field :billing_address, :placeholder => "Billing address" %>
 	</div>
 </div>
 
