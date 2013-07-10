@@ -19,6 +19,7 @@ $(document).ready(function() {
 	$("#create_employee_button_close").click(function(){
 		$("#employee_form").slideUp('slow',function(){
 			$("#create_employee_button").attr("type","button");
+			window.location.href = window.location.pathname;
 		});	
 	});
 	
