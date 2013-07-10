@@ -1,3 +1,4 @@
+require 'date'
 class Invoice < ActiveRecord::Base
   attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id
   
@@ -9,9 +10,19 @@ class Invoice < ActiveRecord::Base
   
    validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
    validates :amount, :numericality => {:greater_than_or_equal_to => 0.01}
-#    validates :date, :format =>{ :with => /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/ }
-
- 
+#    validate :check_date_format
+#    
+#    def check_date_format
+#      if (Date.parse(date) rescue ArgumentError) == ArgumentError
+#         errors.add(:date, 'must be a valid date')
+#      end
+#      
+#      if (Date.parse(due_date) rescue ArgumentError) == ArgumentError
+#         errors.add(:due_date, 'must be a valid date')
+#      end
+#    end
+    
+    
   def self.search(search)
   	if search
     	find(:all, :conditions => ['number LIKE ?', "%#{search}%"])
