@@ -14,8 +14,6 @@ get '/accountant', to: 'accountant#index', :as => "accountant"
 get '/collector', to: 'collector#index', :as => "collector"
 get '/admin', to: 'admin#index', :as => "admin"
 get '/users', to: 'user#index', :as => "users"
-get '/employees/new', to: 'user#new', :as => "user_new"
-
 
 #create users
 get '/salesman_new', to: 'salesman#new', :as =>"salesman_new"
@@ -28,8 +26,11 @@ get '/employee/:id/edit', to: 'user#edit', :as => "user_edit"
 patch '/employee/:id', to: 'user#update', :as => "user_update"
 
 
+#view customers
+
+get '/customers', to: 'salesman#index', :as => "customers"
 #create customers
-post '/customer_create', to: 'user#customer_create', :as => "customer_create"
+post '/customers', to: 'user#customer_create', :as => "customer_create"
 get '/customers/new', to: 'user#customer_new', :as => "customer_new"
 
 #delete customer

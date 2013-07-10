@@ -185,28 +185,25 @@ require 'mandrill'
 	
 	def customer_new
 	 @customer = Customer.new
-	 respond_to do |format|
-      	format.html  {render 'customer_new'}
-      	format.json { render json: @customer }
-     end
 	end
 	
 	def customer_create
+		@customer = Customer.new
 		_post = params[:customer]
-		customer = Customer.new
-        customer[:first_name] = _post[:first_name]
-        customer[:last_name] = _post[:last_name]
-        customer[:phone] = _post[:phone]
-        customer[:email] = _post[:email]
-        customer[:billing_address] = _post[:billing_address]
-        customer[:company_id] = current_user[:company_id]
-        customer[:sent_to_collector] = false
-        customer[:active] = true
-        customer[:user_id] = current_user.id
-        if customer.save
-           redirect_to salesman_path
+		@customer = Customer.new
+        @customer[:first_name] = _post[:first_name]
+        @customer[:last_name] = _post[:last_name]
+        @customer[:phone] = _post[:phone]
+        @customer[:email] = _post[:email]
+        @customer[:billing_address] = _post[:billing_address]
+        @customer[:company_id] = current_user[:company_id]
+        @customer[:sent_to_collector] = false
+        @customer[:active] = true
+        @customer[:user_id] = current_user.id
+        if @customer.save
+           redirect_to customers_path
         else
-           redirect_to salesman_path
+           render 'customer_new'
         end
 		
 	end
