@@ -49,7 +49,7 @@ class AdminController < ApplicationController
 		@actions = EmailAction.index(current_user.company_id)
 		
 		@users.each do |user|
-			@user_details = User.details(user.id, current_user)
+			@user_details = User.details(user.id)
 			@users_details.append(@user_details)
 		end
 		 render 'index'
