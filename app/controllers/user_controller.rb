@@ -84,7 +84,7 @@ require 'mandrill'
 			end
  			if ok == 1
  				redirect_to admin_path, :notice => "Employee was created."
- 			else render text: "eroare la adaugarea job-ului"
+ 			else redirect_to admin_path, :notice => "Employee was created! Info: you didn't choose any job for your employee, you can do this by editing your employee from the bottom list!"
  			end
  		else 
  			render 'admin/index'
@@ -148,7 +148,7 @@ require 'mandrill'
 			end
  			if ok == 1
  				redirect_to admin_path, :notice => "Employee updated successfully"
- 			else render text: "eroare la adaugarea job-ului"
+ 			else redirect_to admin_path, :notice => "Employee was updated! Info: you didn't choose any job for your employee, you can do this by editing your employee from the bottom list!"
  			end
 		else
 			render 'edit', :alert => "There was an error, please try again"

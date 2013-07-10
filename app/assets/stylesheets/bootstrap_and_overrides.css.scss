@@ -406,7 +406,6 @@ input[type=checkbox]:checked + label span:after {
 	display:none;
 }
 
-
-.controls-row .field_with_errors .span3 {
-    margin-left: 20px;
+.controls-row .field_with_errors .span3{
+    margin-left: 20px !important;
 }

@@ -16,17 +16,22 @@
 		<% end %>		
 	</ul>
 	<% else %>
-	<% if @user.errors.any? %>
+	<% if @job_error || @user.errors.any? %>
 	<legend class="text-error">Errors </legend>
-				<div class="alert alert-error">
+		<div class="alert alert-error">
+			<% if @job_error %>
+			<%= @job_error %>
+			<% end %>
+			<% if @user.errors.any? %>
 				<ul>
 					<% @user.errors.full_messages.each do |message| %>
 					<li><%= message %></li>
 					<% end %>
 				</ul>
-				</div>
 			<% end %>
+			</div>
 	<% end %>	
+	<% end %>
 	
 </div>
 <div class="span5 pull-right">
