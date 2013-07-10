@@ -3,7 +3,11 @@ require 'mandrill'
 class AccountantController < ApplicationController
 
  def index
- 	@invoices = Invoice.search(params[:search])
+ 	if params[:search] != ''
+ 		@invoices = Invoice.search(params[:search])
+ 	else 
+ 		@invoices = Invoice.all
+ 	end 
  	render 'index'
  end
  

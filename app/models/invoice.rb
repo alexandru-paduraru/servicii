@@ -25,7 +25,7 @@ class Invoice < ActiveRecord::Base
     
   def self.search(search)
   	if search
-    	find(:all, :conditions => ['number LIKE ? OR customer_id LIKE ? ', "%#{search}%", "%#{search}%"])
+    	find(:all, :conditions => ['number = ? OR customer_id = ? ', search, search])
     else
     	find(:all)
     end
