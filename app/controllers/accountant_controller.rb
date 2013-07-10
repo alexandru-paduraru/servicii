@@ -124,19 +124,21 @@ class AccountantController < ApplicationController
 	    
 	    if(params[:file])
 	 		@errors = Invoice.import(params[:file], current_user)
-	    end
-	    
-	    
-	    if @errors != []
-	        string = ""
-	        @errors.each do |error|
-	        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
-	        end
-	 		redirect_to invoices_import_export_path, :notice => string
-	 	else
-	 	 	redirect_to invoices_import_export_path, :notice => "Invoices imported."
-	 	end
 
+	    
+	    
+		    if @errors != []
+		        string = ""
+		        @errors.each do |error|
+		        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
+		        end
+		 		redirect_to invoices_import_export_path, :notice => string
+		 	else
+		 	 	redirect_to invoices_import_export_path, :notice => "Invoices imported."
+		 	end
+	   else # if there was no file selected
+	     redirect_to invoices_import_export_path, :alert => "Choose a file!"
+	   end
    end
    
    def invoice_export

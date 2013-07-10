@@ -220,18 +220,20 @@ require 'mandrill'
 	    
 	    if(params[:file])
 	 		@errors = Customer.import(params[:file], current_user)
-	    end
-	    
-	    
-	    if @errors != []
-	        string = ""
-	        @errors.each do |error|
-	        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
-	        end
-	 		render 'customers_import_export'
-	 	else
-	 	 	redirect_to customers_import_export_path, :notice => "Customers imported."
-	 	end
+	       
+		    if @errors != []
+		        string = ""
+		        @errors.each do |error|
+		        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
+		        end
+		 		render 'customers_import_export'
+		 	else
+		 	 	redirect_to customers_import_export_path, :notice => "Customers imported."
+		 	end
+		else #if no file is selected
+			redirect_to customers_import_export_path, :alert => "Choose a file!"
+
+		end
 	end
 	
 	def customer_export
