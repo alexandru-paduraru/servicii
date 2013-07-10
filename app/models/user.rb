@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :worksons, :foreign_key => "user_id"
   
   validates :first_name, :last_name, :email, :job, :presence => true
-  validates :email, :length => { :minimum => 4 } 
+  validates :email, :length => { :minimum => 5 } 
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 

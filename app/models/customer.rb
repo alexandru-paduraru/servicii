@@ -10,6 +10,7 @@ class Customer < ActiveRecord::Base
   validates :first_name, :last_name, :email, :phone, :billing_address, :presence => true
   validates :first_name, :last_name, :length => { :minimum => 2 }
   validates_uniqueness_of :email
+  validates :email, :length => { :minimum => 5 } 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   
   def self.search(search)

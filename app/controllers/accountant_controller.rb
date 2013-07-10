@@ -41,9 +41,9 @@ class AccountantController < ApplicationController
 #### view for opening a new invoice from a customer details
 
     def customer_new_invoice
+    	@invoice = Invoice.new
     	customer_id = params[:customer_id]
 		@customer = Customer.find(customer_id)
-		@invoice = Invoice.new
 
 		respond_to do |format|
 			format.html {render 'customer_new_invoice'}
@@ -74,7 +74,7 @@ class AccountantController < ApplicationController
 #         	Service.add_service(s1[:service_name], s1[:service_value], invoice[:company_id])
 #         end
         
-        if invoice_id = Invoice.save_invoice(_post,current_user)
+        if @invoice = Invoice.save_invoice(_post,current_user)
            if params[:send]
            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
            EmailAction.send_email(_post,invoice_id,current_user) 
@@ -84,6 +84,7 @@ class AccountantController < ApplicationController
            end
         else
            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :alert => "Error creating invoice ! "
+ 
         end
      end
 

@@ -7,9 +7,9 @@ class Invoice < ActiveRecord::Base
   has_many :transactions
   has_many :email_actions
   
-  validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
-
-  
+  		   validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
+   validates :amount, :numericality => {:greater_than_or_equal_to => 0.01}
+ 
   def self.search(search)
   	if search
     	find(:all, :conditions => ['number LIKE ?', "%#{search}%"])
@@ -82,7 +82,7 @@ class Invoice < ActiveRecord::Base
         	rel.save
  
         end
-        id_inv
+        invoice
       else
       	nil
   	end

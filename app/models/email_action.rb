@@ -1,5 +1,5 @@
 class EmailAction < ActiveRecord::Base
-  attr_accessible :sent_at, :viewed_at, :mandrill_id, :user_id
+  attr_accessible :sent_at, :viewed_at, :mandrill_id, :user_id, :customer_id
   
   belongs_to :customer
   belongs_to :invoice

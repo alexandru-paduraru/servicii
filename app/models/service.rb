@@ -2,6 +2,9 @@ class Service < ActiveRecord::Base
   attr_accessible :company_id, :name, :value 
   belongs_to :company
   
+  validates :value, :name, :presence => true
+  validates :value, :numericality => {:greater_than_or_equal_to => 0.01}
+  
   def self.add_service(name, value, company_id)
      search = search_name_value(name, value)
      if search == []
