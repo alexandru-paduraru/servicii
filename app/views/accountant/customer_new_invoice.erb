@@ -21,7 +21,15 @@
 	</ul>
 	</div>
 <% end %>
-
+<% if @service.errors.any? %>
+	<div class="alert alert-error">
+	<ul>
+		<% @service.errors.full_messages.each do |message| %>
+		<li>Service <%= message %></li>
+		<% end %>
+	</ul>
+	</div>
+<% end %>
 
 <div class="input-prepend control-group">
 	<%= f.label :amount, :class => "control-label" %>

@@ -6,9 +6,10 @@ class Invoice < ActiveRecord::Base
   
   has_many :transactions
   has_many :email_actions
-  
   		   validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
    validates :amount, :numericality => {:greater_than_or_equal_to => 0.01}
+#    validates :date, :format =>{ :with => /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/ }
+
  
   def self.search(search)
   	if search
@@ -61,32 +62,6 @@ class Invoice < ActiveRecord::Base
          number = invoice[:number] + 1
      end
      number
-  end
-  
-  def self.save_invoice(post, current_user)
-  	invoice = Invoice.new(:date => Time.now, :customer_id => post[:customer_id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => post[:due_date], :amount => post[:amount])
-  	invoice.number = Invoice.generate_number
-  	
-  	if invoice.save
-  		id_inv = invoice.id
-  		# pentru servicii multiple va fi un for
-  		if s1 = post[:service_1]
-        	id_serv = Service.add_service(s1[:service_name], s1[:service_value], invoice[:company_id])
-        	
-        	rel = InvoiceHasService.new
-        	rel[:invoice_id] = id_inv
-        	rel[:service_id] = id_serv
-        	if s1[:service_qty]
-        		rel[:qty] = s1[:service_qty]
-        	end
-        	rel.save
- 
-        end
-        invoice
-      else
-      	nil
-  	end
-  	
   end
   
    def self.index(company_id)

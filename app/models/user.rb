@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
 	   nil
    end
   end
+  
+  def self.index_by_company(company_id)
+  	all.where(:company_id => company_id)
+  end
 
   def self.details(id)
     details = {}

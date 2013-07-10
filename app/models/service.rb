@@ -27,7 +27,11 @@ class Service < ActiveRecord::Base
   def self.search_name_value(name, value)
    		value_int = value.to_i
   		services = Service.all.where("name = ? and value = ?", "#{name}", value_int)
-  		services
+  		if services == []
+  			nil
+  		else
+  			services[0]
+  		end
   end
   
 end

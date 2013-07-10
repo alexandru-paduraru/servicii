@@ -54,7 +54,7 @@ class AdminController < ApplicationController
 	end
 	
 	def company_update
-		@company = Company.find(params[:id])
+		@company = Company.find_by_id(params[:id])
 		 if @company.update_attributes(params[:company])
  		 	redirect_to admin_path, :notice => "Company updated successfully"
  		else 
@@ -65,14 +65,14 @@ class AdminController < ApplicationController
 	def index
 		@user = User.new
 		@users_details = []
-		@users = User.all
+		@users = User.index_by_company(current_user.company_id)
 		
 		@customers = Customer.index(current_user.company_id)
 		@invoices = Invoice.index(current_user.company_id)
 		@actions = EmailAction.index(current_user.company_id)
 		
 		@users.each do |user|
-			@user_details = User.details(user.id)
+			@user_details = User.details(user.id, current_user)
 			@users_details.append(@user_details)
 		end
 		 render 'index'

@@ -109,7 +109,7 @@ class SalesmanController < ApplicationController
 	
 		def delete_customer
 		customer_id = params[:customer_id]
-		customer = Customer.find(customer_id)
+		customer = Customer.find_by_id(customer_id)
 				
 		if customer.update_attribute(:active, false)
 			redirect_to salesman_path, :notice => "Customer was made inactive."

@@ -106,7 +106,7 @@ require 'mandrill'
 	end
 	
 	def update
-		@user = User.find(params[:id])
+		@user = User.find_by_id(params[:id])
 		_post = params[:user]
 		ok = 0
 		@user.email = _post[:email]
@@ -244,7 +244,7 @@ require 'mandrill'
 	
 	def send_to_collector
 		customer_id = params[:customer_id]
-		customer = Customer.find(customer_id)
+		customer = Customer.find_by_id(customer_id)
 				
 		if customer.update_attribute(:sent_to_collector, true)
 			redirect_to customer_details_path(:customer_id => customer_id), :notice => "Success! Sent to collector."

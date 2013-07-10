@@ -9,10 +9,10 @@ class AccountantController < ApplicationController
  
  def invoice_details
   	 @invoice_id = params[:invoice_id]
-	 @invoice = Invoice.find(@invoice_id)
+	 @invoice = Invoice.find_by_id(@invoice_id)
 	 
 	 @customer_id = @invoice.customer_id
-	 @customer = Customer.find(@customer_id)
+	 @customer = Customer.find_by_id(@customer_id)
 	 
 	 @email_details = []
 	 
@@ -20,7 +20,7 @@ class AccountantController < ApplicationController
 	 @emails.each do |email|
 	     details = {}
 	     details[:email] = email
-	     details[:user] = User.find(email.user_id)
+	     details[:user] = User.find_by_id(email.user_id)
 		 EmailAction.refresh_info(email)
 		 @email_details.append(details)
      end
@@ -42,8 +42,9 @@ class AccountantController < ApplicationController
 
     def customer_new_invoice
     	@invoice = Invoice.new
+    	@service = Service.new
     	customer_id = params[:customer_id]
-		@customer = Customer.find(customer_id)
+		@customer = Customer.find_by_id(customer_id)
 
 		respond_to do |format|
 			format.html {render 'customer_new_invoice'}
@@ -52,39 +53,54 @@ class AccountantController < ApplicationController
     end
  
    def invoice_create
+
         if params[:send] || params[:draft]
         _post = params[:invoice]
-#   		invoice = Invoice.new
-#         invoice[:amount] = _post[:amount]
-#         invoice[:due_date] = _post[:due_date]
-#         invoice[:customer_id] = _post[:customer_id]
-#         invoice[:date] = Time.now
-#         invoice[:user_id] = current_user.id #the user that creates the invoice
-#         invoice[:number] = Invoice.generate_number #algorithm for generating the invoice number?
-# 
-#         
-#         if current_user.company_id
-#         	invoice[:company_id] = current_user.company_id
-#         else
-#         	invoice[:company_id] = 0 
-#         end
+        ok = true
+
+
+		@invoice = Invoice.new(:date => Time.now, :customer_id => _post[:customer_id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => _post[:due_date], :amount => _post[:amount])
+		@invoice.number = Invoice.generate_number
+		if !@invoice.save
+			ok = false
+		else
+			if s1 = _post[:service_1]
+			    existing_service = Service.search_name_value(s1[:service_name], s1[:service_value])
+			    if existing_service != nil
+				    @service = existing_service
+				    @rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @service.id, :qty => s1[:service_qty])
+		        	if !@rel.save 
+		        		ok = false
+		        	end
+			    else
+	        	@service = Service.new(:name => s1[:service_name], :value => s1[:service_value], :company_id => @invoice[:company_id])
+	        		if @service.save
+	        			@rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @service.id, :qty => s1[:service_qty])
+	        			if !@rel.save 
+	        				ok = false
+	        			end
+	        		else
+	        		 ok = false
+	        		end
+	        	 end
+			 end
+			
+		end
+		
+		
         
- ###saving the services in the database     
-#         if s1 = _post[:service_1]
-#         	Service.add_service(s1[:service_name], s1[:service_value], invoice[:company_id])
-#         end
-        
-        if @invoice = Invoice.save_invoice(_post,current_user)
+        if ok
            if params[:send]
            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
-           EmailAction.send_email(_post,invoice_id,current_user) 
+           EmailAction.send_email(_post,@invoice.id,current_user) 
            end
            if params[:draft]
            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice saved as draft."
            end
         else
-           redirect_to customer_details_path(:customer_id => _post[:customer_id]), :alert => "Error creating invoice ! "
- 
+#            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :alert => "Error creating invoice ! "
+ 			@customer = Customer.find_by_id(_post[:customer_id])
+ 			render 'customer_new_invoice'
         end
      end
 
@@ -128,7 +144,7 @@ class AccountantController < ApplicationController
    end
  
    def invoice_pay
-   	   @invoice = Invoice.find(params[:invoice_id])
+   	   @invoice = Invoice.find_by_id(params[:invoice_id])
    end
    
 end
