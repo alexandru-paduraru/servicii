@@ -13,9 +13,9 @@
   <th>#</th>
   <th>First name</th>
   <th>Last name </th>
-  <th>Customer id</th>
+  <th>Email</th>
   <th>Response</th>
-  <th></th>
+  <th>Actions</th>
   </tr>
   
   <% index = 0 %>
@@ -24,7 +24,7 @@
   <td><%= index = index + 1 %> </td>
   <td><%= customer.first_name %></td>
   <td><%= customer.last_name %></td>
-  <td><%= customer.id %></td>
+  <td><%= customer.email %></td>
   <td> </td>
   <td> <a href="customer_details/<%= customer.id %>" class = "btn" >Details</a></td>
   </tr>

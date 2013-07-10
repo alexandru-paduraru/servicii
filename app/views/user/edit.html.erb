@@ -43,6 +43,7 @@
 		<%= f.password_field :password_confirmation, :placeholder => "Password Confirmation" %>
 	</div>
 </div>
+<% if @user.job == 0 %>
 <div class="control-group">
 	<%= f.label :available_jobs, :class => "control-label" %>
 	<div class="controls">
@@ -53,7 +54,7 @@
 	<% end %>
 	</div>
 </div>
-  
+<% end %>
     <%= submit_tag("Save changes", :class => "btn btn-info pull-right")%>
     <a href="/admin" class="btn btn-danger">Cancel</a>
   <% end %>

@@ -25,8 +25,8 @@ class Customer < ActiveRecord::Base
   def self.search_collector_list(search)
     collector_customers = []
   	if search
-  		search = search.donwcase
-  		collector_customers = Customer.all.where(:sent_to_collector => true).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or id LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%"])
+  		search = search.downcase
+  		collector_customers = Customer.all.where(:sent_to_collector => true).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%"])
   	else
   	    collector_customers = Customer.all.where(:sent_to_collector => true)
   	end
