@@ -41,6 +41,9 @@ gem "bcrypt-ruby", :require => "bcrypt"
 #gem for date-picker
 gem 'bootstrap-datepicker-rails'
 
+#gem for choosing date?
+gem 'american_date'
+
 #gem for csv and excel conversion
 gem 'roo'
 

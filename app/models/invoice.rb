@@ -6,7 +6,8 @@ class Invoice < ActiveRecord::Base
   
   has_many :transactions
   has_many :email_actions
-  		   validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
+  
+   validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
    validates :amount, :numericality => {:greater_than_or_equal_to => 0.01}
 #    validates :date, :format =>{ :with => /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/ }
 

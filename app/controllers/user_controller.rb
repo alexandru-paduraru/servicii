@@ -249,7 +249,7 @@ require 'mandrill'
 		if customer.update_attribute(:sent_to_collector, true)
 			redirect_to customer_details_path(:customer_id => customer_id), :notice => "Success! Sent to collector."
 		else
-		    redirect_to customer_details_path(:customer_id => customer_id), :notice => "Error! Couldn't send to collector."
+		    redirect_to customer_details_path(:customer_id => customer_id), :alert => "Error! Couldn't send to collector."
 		end
 	end
 	

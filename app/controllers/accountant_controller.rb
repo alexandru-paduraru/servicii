@@ -58,7 +58,7 @@ class AccountantController < ApplicationController
         _post = params[:invoice]
         ok = true
 
-
+		@service = Service.new
 		@invoice = Invoice.new(:date => Time.now, :customer_id => _post[:customer_id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => _post[:due_date], :amount => _post[:amount])
 		@invoice.number = Invoice.generate_number
 		if !@invoice.save

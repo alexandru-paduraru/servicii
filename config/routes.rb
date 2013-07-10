@@ -53,8 +53,7 @@ get '/invoice_export', to: 'accountant#invoice_export', :as => "export_invoices"
 
 #create invoice
 get '/invoices/new', to: 'accountant#invoice_new', :as => "invoice_new"
-post '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"
-get '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"
+post  '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"
 get '/customers/:customer_id/new_invoice', to: 'accountant#customer_new_invoice', :as => "customer_new_invoice"
 
 #invoice details

@@ -44,9 +44,9 @@
       	 </h5>
 	      <h5 class="muted">Account actions:</h5>
 	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
-		<%= link_to send_email_path, :class => "btn btn-info btn-large btn-block" do %>
+		<a href="#" class = "btn btn-info btn-large btn-block">
 			<i class="icon-envelope icon-white"></i> Send email
-		<% end %>
+        </a>
 		
 		<a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
     <% if @customer.sent_to_collector%>
