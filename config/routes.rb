@@ -4,7 +4,8 @@ resources :user, :only => [:login]
 resources :admin, :only => [:signup] 
 
 get '/logout', to: 'session#destroy_user', :as => "logout" 
-get '/signup', to: 'admin#signup', :as => "signup"
+get '/signup', to: 'session#signup', :as => "signup"
+post '/signup', to: 'session#create', :as => "admin_create"
 post '/login', to: 'session#login_user', :as => "login_user"
 get '/login', to: 'session#login', :as =>"login"
 
@@ -18,7 +19,7 @@ get '/users', to: 'user#index', :as => "users"
 #create users
 get '/salesman_new', to: 'salesman#new', :as =>"salesman_new"
 post '/salesman_create', to: 'salesman#create', :as =>"salesman_create"
-post '/signup', to: 'admin#create', :as => "admin_create"
+
 post '/admin', to: 'user#create', :as => "user_create"
 
 #edit users

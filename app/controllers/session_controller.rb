@@ -1,5 +1,32 @@
 class SessionController < ApplicationController
+  skip_before_filter :require_login, :only => [:login, :login_user, :create, :signup]
 
+	
+ def signup
+		@user = User.new
+ end
+
+	def create
+		# render text: params[:post].inspect
+		pass = {}
+		object = params[:user]
+		@user = User.new
+		@user.email = object[:email]
+		@user.password = object[:password] 
+		@user.first_name = object[:first_name]
+		@user.last_name = object[:last_name]
+		@user.job = 1
+		@user.company_id = 0
+		
+			if @user.save 
+				session[:user_id] = @user[:id]
+				redirect_to company_new_path 
+			else 
+				render 'signup'
+			end
+		#redirect_to company_new_path
+	end
+	  
   def login 
    render 'login'
   end

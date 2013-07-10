@@ -8,7 +8,7 @@
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <style>
 	  .container-login{
-		  width:270px;
+		  width:300px;
 	  }
   </style>
 </head>
@@ -55,6 +55,8 @@
     <% else %>  
       <div class="container container-login">
     <% end %>
+    
+  
         <div class="content">
            <div class="row">
             <% if current_user && current_user.company_id != 0 %>           
@@ -75,12 +77,13 @@
 		           	           		
 	            <% end %>
             <% end %>
-            <%= yield %>
+           <%= yield %>
            </div>           
           </div>
           <footer>
           </footer>
         </div>
+     
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
 </body>
