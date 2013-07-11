@@ -52,10 +52,12 @@ get '/invoices/import_export', to: 'accountant#invoices_import_export', :as => "
 post '/invoice_import', to: 'accountant#invoice_import', :as => "import_invoices"
 get '/invoice_export', to: 'accountant#invoice_export', :as => "export_invoices" 
 
-#create invoice
-get '/invoices/new', to: 'accountant#invoice_new', :as => "invoice_new"
-post  '/invoice_create', to: 'accountant#invoice_create', :as => "invoice_create"
-get '/customers/:customer_id/new_invoice', to: 'accountant#customer_new_invoice', :as => "customer_new_invoice"
+#create/view invoice
+get '/customers/:customer_id/invoices', to: 'salesman#customer_details', :as => "customer_invoices"
+get '/customers/:customer_id/invoices/new', to: 'accountant#customer_new_invoice', :as => "customer_new_invoice"
+post '/customers/:customer_id/invoices', to: 'accountant#invoice_create', :as => "customer_create_invoice"
+
+
 
 #invoice details
 get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"

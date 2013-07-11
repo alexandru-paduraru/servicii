@@ -26,4 +26,13 @@ $(document).ready(function() {
 	if($('.alert-error').html()){
 		$("#employee_form").show();
 	}
+	index = 2
+	$('#add_service_button').click(function(){
+		index++;
+		td_service = '<td><input type="text" placeholder="Service name" name="invoice[service_'+ index +'][service_name]"></td>';
+		td_value = '<td><input type="text" placeholder="Value" name="invoice[service_'+ index +'][service_value]"></td>';
+		td_qty = '<td><input type="text" placeholder="Qty" name="invoice[service_'+ index +'][service_qty]"></td>';
+		td_total = '<td></td>'
+		$('#services_table tr:last').before('<tr>' + td_service + td_value + td_qty + td_total + '</tr>');
+	});
 });

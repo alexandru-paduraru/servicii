@@ -1,6 +1,6 @@
 <legend>Create invoice </legend> 
 
-<%= form_for @invoice, url: '/invoice_create', html: {class: "form-horizontal"} do |f| %>
+<%= form_for @invoice, url: customer_create_invoice_path(@customer), html: {class: "form-horizontal"} do |f| %>
 
 <div class ="row">
 	<div class = "span6">
@@ -8,7 +8,7 @@
 		<p><strong>Adress:</strong> <%= @customer.billing_address %></p>
 	</div>
 
-<div class="span5">
+<div class="span6">
 <fieldset>
  
 <% if @invoice.errors.any? %>
@@ -17,15 +17,6 @@
 	<ul>
 		<% @invoice.errors.full_messages.each do |message| %>
 		<li><%= message %></li>
-		<% end %>
-	</ul>
-	</div>
-<% end %>
-<% if @service.errors.any? %>
-	<div class="alert alert-error">
-	<ul>
-		<% @service.errors.full_messages.each do |message| %>
-		<li>Service <%= message %></li>
 		<% end %>
 	</ul>
 	</div>
@@ -56,9 +47,9 @@
 
 </div>
 </div>
-
-<div class="span11">
-<table class="table table-bordered">
+<div class="row">
+<div class="span12">
+<table class="table table-bordered" id="services_table">
   <tr>
   <th>Service</th>
   <th>Value</th>
@@ -71,10 +62,10 @@
 			<td><%= f.text_field :service_name, :placeholder => "Service name" %>
 			</td>
 			<td>
-			<%= f.text_field :service_value, :placeholder => "Value" %>
+			<%= f.number_field :service_value, :placeholder => "Value" %>
 			</td>
 			<td>
-			<%= f.text_field :service_qty, :placeholder => "Qty" %>
+			<%= f.number_field :service_qty, :placeholder => "Qty" %>
 			</td>
 			<td>
 			</td>
@@ -87,25 +78,31 @@
 			<%= f.text_field :service_name, :placeholder => "Service name" %>
   			</td>
   			<td>
-			<%= f.text_field :service_value, :placeholder => "Value" %>
+			<%= f.number_field :service_value, :placeholder => "Value" %>
   			</td>
   			<td>
-			<%= f.text_field :service_qty, :placeholder => "Qty" %>
+			<%= f.number_field :service_qty, :placeholder => "Qty" %>
   			</td>
   			<td>
   			</td>
   <% end %>
   </tr>
+  <tr>
+	  <td colspan="3"><button class="btn btn-success" type="button" id="add_service_button"><i class="icon-plus icon-white"></i> Add service</button></td>
+	  <td class="span3">
+	  	<strong>Total amount:</strong>
+	  </td>
+  </tr>
 </table>
 
 
+
 </div>
-
-  <%= f.submit "Save as draft", :name => "draft", :class => "btn btn-info pull-left span2" %>
-
-  <button class="modalButton btn btn-info span2" id="1"> Preview </button>
-  <%= f.submit "Send" , :name => "send", :class => "btn btn-primary pull-right span2"%>
-
+<button class="modalButton btn btn-info span2" id="1"> Preview </button>
+  <div class="btn-group pull-right">
+  <%= f.submit "Save as draft", :name => "draft", :class => "btn span2" %>
+  <%= f.submit "Send" , :name => "send", :class => "btn btn-primary span2"%>
+  </div>
   <% end %>
   </form>
-  
+</div>  

@@ -46,23 +46,27 @@ class AccountantController < ApplicationController
 
     def customer_new_invoice
     	@invoice = Invoice.new
-    	@service = Service.new
+    	@services = []
     	customer_id = params[:customer_id]
 		@customer = Customer.find_by_id(customer_id)
-
-		respond_to do |format|
-			format.html {render 'customer_new_invoice'}
-		end
 		
+		render 'customer_new_invoice'
     end
  
+   
+   def invoice_create_test
+   
+   
+   end
+   
+   
    def invoice_create
 
         if params[:send] || params[:draft]
         _post = params[:invoice]
         ok = true
-
-		@service = Service.new
+        @services = []
+		@services[1] = Service.new
 		@invoice = Invoice.new(:date => Time.now, :customer_id => _post[:customer_id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => _post[:due_date], :amount => _post[:amount])
 		@invoice.number = Invoice.generate_number
 		if !@invoice.save
@@ -71,15 +75,15 @@ class AccountantController < ApplicationController
 			if s1 = _post[:service_1]
 			    existing_service = Service.search_name_value(s1[:service_name], s1[:service_value])
 			    if existing_service != nil
-				    @service = existing_service
-				    @rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @service.id, :qty => s1[:service_qty])
+				    @services[1] = existing_service
+				    @rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @services[1].id, :qty => s1[:service_qty])
 		        	if !@rel.save 
 		        		ok = false
 		        	end
 			    else
-	        	@service = Service.new(:name => s1[:service_name], :value => s1[:service_value], :company_id => @invoice[:company_id])
-	        		if @service.save
-	        			@rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @service.id, :qty => s1[:service_qty])
+	        	@services[1] = Service.new(:name => s1[:service_name], :value => s1[:service_value], :company_id => @invoice[:company_id])
+	        		if @services[1].save
+	        			@rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @services[1].id, :qty => s1[:service_qty])
 	        			if !@rel.save 
 	        				ok = false
 	        			end
