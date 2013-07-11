@@ -190,12 +190,13 @@ require 'mandrill'
 	def customer_create
 		@customer = Customer.new
 		_post = params[:customer]
-		@customer = Customer.new
-        @customer[:first_name] = _post[:first_name]
-        @customer[:last_name] = _post[:last_name]
-        @customer[:phone] = _post[:phone]
-        @customer[:email] = _post[:email]
-        @customer[:billing_address] = _post[:billing_address]
+		@customer = Customer.new(:first_name => _post[:first_name], :last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code])
+#         @customer[:first_name] = _post[:first_name]
+#         @customer[:last_name] = _post[:last_name]
+#         @customer[:phone] = _post[:phone]
+#         @customer[:email] = _post[:email]
+#         @customer[:address1] = _post[:address1]
+#         @customer[:address2] = _post[:address2]
         @customer[:company_id] = current_user[:company_id]
         @customer[:sent_to_collector] = false
         @customer[:active] = true

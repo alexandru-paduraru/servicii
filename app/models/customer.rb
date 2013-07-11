@@ -1,17 +1,19 @@
 class Customer < ActiveRecord::Base
 
-  attr_accessible :first_name, :last_name, :email, :phone, :billing_address, :description, :sent_to_collector, :user_id, :account
+  attr_accessible :first_name, :last_name, :email, :phone, :description, :sent_to_collector, :user_id, :account, :state, :city, :zip_code, :address1, :address2, :organization_name, :industry, :company_size
   
   belongs_to :company
   has_many :invoices
   has_many :transactions
   has_many :email_actions
   
-  validates :first_name, :last_name, :email, :phone, :billing_address, :presence => true
-  validates :first_name, :last_name, :length => { :minimum => 2 }
-  validates_uniqueness_of :email
+  validates :first_name, :last_name, :email, :phone,:address1, :state, :city, :zip_code, :presence => true
+  validates :first_name, :last_name,:organization_name, :state, :city, :zip_code, :length => { :minimum => 2 }
+  validates :address1, :length => {:minimum => 5}
+  validates_uniqueness_of :email, :organization_name
   validates :email, :length => { :minimum => 5 } 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  validates_format_of :zip_code, :with => /\A[0-9]+\Z/i  
   
   def self.search(search, current_user)
   	if search

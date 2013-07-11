@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130711092737) do
+ActiveRecord::Schema.define(version: 20130711113523) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20130711092737) do
     t.string   "last_name"
     t.string   "email"
     t.string   "phone"
-    t.text     "billing_address"
     t.text     "description"
     t.integer  "company_id"
     t.datetime "created_at"
@@ -38,6 +37,14 @@ ActiveRecord::Schema.define(version: 20130711092737) do
     t.boolean  "active"
     t.integer  "user_id"
     t.string   "account"
+    t.string   "organization_name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "state"
+    t.string   "city"
+    t.string   "zip_code"
+    t.string   "industry"
+    t.string   "company_size"
   end
 
   add_index "customers", ["company_id"], name: "index_customers_on_company_id"

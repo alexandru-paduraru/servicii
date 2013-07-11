@@ -1,6 +1,6 @@
      
    <div class="row">
-        <div class="span5">
+        <div class="span7">
 	        <legend>Edit customer details</legend>
 	        <%= form_for @customer, url: customer_update_path do |f| %>
 	        <% if @customer.errors.any? %>
@@ -15,20 +15,34 @@
 			<% end %>
 	        
 	        <div class="controls controls-row">
-	        <%= f.text_field :first_name, :class => "span2", :placeholder => "First name" %>
-	        <%= f.text_field :last_name, :class => "span3", :placeholder => "Last name" %>
+	        <%= f.text_field :first_name, :class => "span3", :placeholder => "First name" %>
+	        <%= f.text_field :last_name, :class => "span4", :placeholder => "Last name" %>
 	        </div>
 	        <div class="controls controls-row">
-	        <%= f.text_field :email, :class => "span5", :placeholder => "Email" %>
+	        <%= f.text_field :organization_name, :class => "span7", :placeholder => "Organization name" %>
 	        </div>
 	        <div class="controls controls-row">
-	        <%= f.text_field :phone, :class => "span5", :placeholder => "Phone" %>
+	        <%= f.text_field :email, :class => "span4", :placeholder => "Email" %>
+	        <%= f.text_field :phone, :class => "span3", :placeholder => "Phone" %>
 	        </div>
 	        <div class="controls controls-row">
-	        <%= f.text_field :billing_address, :class => "span5", :placeholder => "Billing address" %>
+	        <%= f.text_field :state, :class => "span2", :placeholder => "State" %>
+	        <%= f.text_field :city, :class => "span2", :placeholder => "City" %>
+	        <%= f.text_field :zip_code, :class => "span2", :placeholder => "Zipcode" %>
+
 	        </div>
 	        <div class="controls controls-row">
-	        <%= f.text_area :description, :class => "span5", :placeholder => "Description", :rows => "3" %>
+	        <%= f.text_field :address1, :class => "span7", :placeholder => "Address1" %>
+	        </div>
+	        <div class="controls controls-row">
+	        <%= f.text_field :address2, :class => "span7", :placeholder => "Address2" %>
+	        </div>
+	        <div class="controls controls-row">
+	        <%= f.text_field :industry, :class => "span4", :placeholder => "Industry" %>
+	        <%= f.text_field :company_size, :class => "span3", :placeholder => "Company size" %>
+	        </div>
+	        <div class="controls controls-row">
+	        <%= f.text_area :description, :class => "span7", :placeholder => "Description", :rows => "3" %>
 	        </div>
 	        
 	        <%= link_to customer_details_path(@customer.id), :class => "btn btn-danger" do %>

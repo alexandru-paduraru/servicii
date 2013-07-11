@@ -8,6 +8,7 @@
 				<% end %> 
 	        </legend>
 	         <address>
+	            <strong><%= @customer.organization_name %></strong><br><br>
 			    <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
 			    <%= @customer.email %><br>
 			    <%= @customer.phone %>
@@ -15,7 +16,13 @@
 			     
 			    <address>
 			    <strong>Address</strong><br>
-			    <%= @customer.billing_address %>
+			    <%= @customer.state %>
+			    <%= @customer.city %>
+			    <!-- <%= @customer.zip_code %> -->
+			    <%= @customer.address1 %>
+			    <% if @customer.address2 %>
+			     <%= @customer.address2%>
+			    <% end %>
 			    </address>
 			    
 			    <address>

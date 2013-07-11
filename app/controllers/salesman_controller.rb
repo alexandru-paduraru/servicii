@@ -94,12 +94,12 @@ class SalesmanController < ApplicationController
 	def customer_update
 		_post = params[:customer]
 		@customer = Customer.find_by_id(params[:customer_id])
-		@customer.first_name = _post[:first_name]
-		@customer.last_name = _post[:last_name]
-		@customer.email = _post[:email]
-		@customer.billing_address = _post[:billing_address]
-		@customer.description = _post[:description]
-		@customer.phone = _post[:phone]
+		@customer.update_attributes(:first_name => _post[:first_name],:last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code])
+# 		@customer.first_name = _post[:first_name]
+# 		@customer.last_name = _post[:last_name]
+# 		@customer.email = _post[:email]
+# 		@customer.description = _post[:description]
+# 		@customer.phone = _post[:phone]
 		if @customer.save
 			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
 		else
