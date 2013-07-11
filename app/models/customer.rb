@@ -98,13 +98,13 @@ class Customer < ActiveRecord::Base
    end
    
   def self.generate_number
-  	number = '00001'
+  	number = '1'
      if Customer.all != []
          if customer = Customer.all.order('account asc').last
-         number = customer[:account].to_i + 1
+         number = (customer[:account].to_i + 1).to_s
          end
      end
-     number.to_s
+     number
   end
   
   
