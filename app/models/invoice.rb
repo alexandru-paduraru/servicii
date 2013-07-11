@@ -23,11 +23,11 @@ class Invoice < ActiveRecord::Base
 #    end
     
     
-  def self.search(search)
+  def self.search(search, current_user)
   	if search
-    	find(:all, :conditions => ['number = ? OR customer_id = ? ', search, search])
+    	all.where(:company_id => current_user.company_id ).find(:all, :conditions => ['number = ? OR customer_id = ? ', search, search])
     else
-    	find(:all)
+    	all.where(:company_id => current_user.company_id ).find(:all)
     end
   end
   

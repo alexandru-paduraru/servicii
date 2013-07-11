@@ -199,6 +199,7 @@ require 'mandrill'
         @customer[:company_id] = current_user[:company_id]
         @customer[:sent_to_collector] = false
         @customer[:active] = true
+        @customer[:account] = Customer.generate_number
         @customer[:user_id] = current_user.id
         if @customer.save
            redirect_to customers_path

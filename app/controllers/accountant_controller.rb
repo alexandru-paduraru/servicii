@@ -4,7 +4,7 @@ class AccountantController < ApplicationController
 
  def index
  	if params[:search] != ''
- 		@invoices = Invoice.search(params[:search])
+ 		@invoices = Invoice.search(params[:search], current_user)
  	else 
  		@invoices = Invoice.all
  	end 

@@ -1,7 +1,7 @@
 
   <div class="input-append">
     <%= form_tag salesman_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => "Search a customer by first name, last name or email" %>
+    <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => "Search a customer by first name, last name, account number or email" %>
            
     <%= button_tag(type: 'submit', class: "btn") do %>
    		 <i class="icon-ml-search"></i> Search</button>
@@ -18,6 +18,7 @@
 	  <th>First name</th>
 	  <th>Last name </th>
 	  <th>Email</th>
+	  <th>Account</th>
 	  <th>Open invoices</th>
 	  <th class="span1">Actions</th>
   </tr>
@@ -28,6 +29,11 @@
 	  <td><%= details[:customer].first_name %></td>
 	  <td><%= details[:customer].last_name %></td>
 	  <td><%= details[:customer].email %></td>
+	  <td>
+		  <% if details[:customer].account %>
+		  <%= details[:customer].account%>
+		  <% end %>
+	  </td>
 	  <td><%= details[:open_invoices] %></td>
 	  <td> <%= link_to customer_details_path(details[:customer].id) do %>
 	  			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span>

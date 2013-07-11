@@ -13,12 +13,12 @@ class Customer < ActiveRecord::Base
   validates :email, :length => { :minimum => 5 } 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   
-  def self.search(search)
+  def self.search(search, current_user)
   	if search
   		search = search.downcase
-    	all.where(:active => true).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%"])
+    	all.where(:active => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%", "%#{search}%"])
     else
-    	all.where(:active => true)
+    	all.where(:active => true, :company_id => current_user.company_id )
     end
   end
   
@@ -94,6 +94,15 @@ class Customer < ActiveRecord::Base
   def self.index(company_id)
      all.where(:company_id => company_id).order('created_at asc')
    end
+   
+  def self.generate_number
+  	number = 00001
+     if Customer.all != []
+         customer = Customer.all.order('account asc').last
+         number = customer[:account].to_i + 1
+     end
+     number.to_s
+  end
   
   
 end

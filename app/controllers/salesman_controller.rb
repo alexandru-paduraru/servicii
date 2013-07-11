@@ -2,7 +2,7 @@ class SalesmanController < ApplicationController
 
 	def index
 	    @customer_detail = []
-	    customers = Customer.search(params[:search])
+	    customers = Customer.search(params[:search], current_user)
 	    
 	    	customers.each do |customer|
 	    		@details = {}
