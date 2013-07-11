@@ -13,20 +13,29 @@
   <th>#</th>
   <th>First name</th>
   <th>Last name </th>
-  <th>Email</th>
+  <th>Account</th>
+  <th>Open invoices</th>
   <th>Response</th>
   <th>Actions</th>
   </tr>
   
   <% index = 0 %>
-  <% @customers.each do |customer| %>
+  <% @customer_details.each do |customer_details| %>
   <tr>
   <td><%= index = index + 1 %> </td>
-  <td><%= customer.first_name %></td>
-  <td><%= customer.last_name %></td>
-  <td><%= customer.email %></td>
+  <td><%= customer_details[:customer].first_name %></td>
+  <td><%= customer_details[:customer].last_name %></td>
+  <td><%= customer_details[:customer].account %></>
+  <td>
+	  <% if customer_details[:open_invoices]%>
+	      <% customer_details[:open_invoices].each do |open_invoice| %>
+	      <li> # <%= open_invoice.number %> issued <%= open_invoice.date %>
+	      </li>
+	      <% end %>
+	  <% end %>
+  </td>
   <td> </td>
-  <td> <a href="customer_details/<%= customer.id %>" class = "btn" >Details</a></td>
+  <td> <a href="customer_details/<%= customer_details[:customer].id %>" class = "btn" >Details</a></td>
   </tr>
   <% end %>
  

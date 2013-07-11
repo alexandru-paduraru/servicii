@@ -22,13 +22,13 @@ class Customer < ActiveRecord::Base
     end
   end
   
-  def self.search_collector_list(search)
+  def self.search_collector_list(search, current_user)
     collector_customers = []
   	if search
   		search = search.downcase
-  		collector_customers = Customer.all.where(:sent_to_collector => true).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%"])
+  		collector_customers = Customer.all.where(:sent_to_collector => true, :company_id => current_user.company_id).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(account) LIKE ?', "%#{search}%" , "%#{search}%","%#{search}%" ])
   	else
-  	    collector_customers = Customer.all.where(:sent_to_collector => true)
+  	    collector_customers = Customer.all.where(:sent_to_collector => true, :company_id => current_user.company_id)
   	end
   	collector_customers
   end
