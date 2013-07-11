@@ -2,7 +2,11 @@ class CollectorController < ApplicationController
 
 	def index
 	    @customer_details = []
+	    if params[:search]
 	    customers = Customer.search_collector_list(params[:search], current_user)
+	    else
+	    customers = Customer.where(:active => true, :company_id => current_user.company_id, :sent_to_collector => true )
+	    end
 	    	customers.each do |customer|
 	    		@details = {}
 	    		@details[:customer] = customer

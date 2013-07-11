@@ -1,9 +1,10 @@
 
   <div class="input-append">
-    
     <%= form_tag collector_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span5" %>
-    <%= submit_tag("Search", :class => "btn") %>   
+    <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => "Search a customer by first name, last name, account number or invoice number" %>    
+    <%= button_tag(type: 'submit', class: "btn") do %>
+   		 <i class="icon-ml-search"></i> Search</button>
+    <% end %> 
     <% end %>
   </div>
    

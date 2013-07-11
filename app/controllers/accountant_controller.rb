@@ -4,10 +4,18 @@ class AccountantController < ApplicationController
 
  def index
  	if params[:search] != ''
- 		@invoices = Invoice.search(params[:search], current_user)
+ 		invoices = Invoice.search(params[:search], current_user)
  	else 
- 		@invoices = Invoice.all
+ 		invoices = Invoice.all.where(:compan_id => current_user.company_id)
  	end 
+ 	
+ 	@invoice_details = []
+ 	invoices.each do |invoice|
+ 		details = {}
+ 		details[:customer] = invoice.customer
+ 		details[:invoice] = invoice
+ 		@invoice_details.append(details)
+ 	end
  	render 'index'
  end
  

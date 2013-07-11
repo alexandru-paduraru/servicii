@@ -32,10 +32,11 @@ class Invoice < ActiveRecord::Base
     
   def self.search(search, current_user)
   	if search
-    	all.where(:company_id => current_user.company_id ).find(:all, :conditions => ['number = ? OR customer_id = ? ', search, search])
-    else
-    	all.where(:company_id => current_user.company_id ).find(:all)
-    end
+  		search = search.downcase
+		all :joins => :customer, :conditions => ['(invoices.number = ? or customers.account = ?) and invoices.company_id = ?', search, search, current_user.company_id]
+	else
+	    all.where(:company_id => current_user.company_id)
+	end
   end
   
   def self.import(file, current_user)
@@ -75,12 +76,14 @@ class Invoice < ActiveRecord::Base
   end
   
   def self.generate_number
-  	number = 00001
+  	number = 1
      if Invoice.all != []
          invoice = Invoice.all.order('number asc').last
-         number = invoice[:number] + 1
+         if invoice
+         number = invoice[:number].to_i + 1
+         end
      end
-     number
+     number.to_s
   end
   
    def self.index(company_id)

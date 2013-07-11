@@ -16,23 +16,29 @@ class Customer < ActiveRecord::Base
   validates_format_of :zip_code, :with => /\A[0-9]+\Z/i  
   
   def self.search(search, current_user)
-  	if search
+  	if search != ''
   		search = search.downcase
-    	all.where(:active => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%", "%#{search}%"])
+		 if all :joins => :invoices  
+             all :joins => :invoices, :conditions => ['(invoices.number = ? or customers.account = ? or customers.first_name LIKE ? or customers.last_name LIKE ? or customers.email LIKE ?) and invoices.company_id = ? and active = ?', search, search,search, search, search, current_user.company_id, true]
+		 else
+		     all.where(:active => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%", "%#{search}%"])
+		 end  	
     else
     	all.where(:active => true, :company_id => current_user.company_id )
     end
   end
   
   def self.search_collector_list(search, current_user)
-    collector_customers = []
-  	if search
+  	if search != ''
   		search = search.downcase
-  		collector_customers = Customer.all.where(:sent_to_collector => true, :company_id => current_user.company_id).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(account) LIKE ?', "%#{search}%" , "%#{search}%","%#{search}%" ])
-  	else
-  	    collector_customers = Customer.all.where(:sent_to_collector => true, :company_id => current_user.company_id)
-  	end
-  	collector_customers
+		 if all :joins => :invoices  
+             all :joins => :invoices, :conditions => ['(invoices.number = ? or customers.account = ? or customers.first_name LIKE ? or customers.last_name LIKE ? or customers.email LIKE ?) and invoices.company_id = ? and active = ? and sent_to_collector = ?', search, search,search, search, search, current_user.company_id, true, true]
+		 else
+		     all.where(:active => true,:sent_to_collector => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%", "%#{search}%"])
+		 end  	
+    else
+    	all.where(:active => true, :company_id => current_user.company_id, :sent_to_collector => true )
+    end
   end
   
   def self.open_invoices(customer)

@@ -5,7 +5,7 @@
   <div class="input-append">
     
     <%= form_tag accountant_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => 'Search an invoice by "invoice number" or "customer id"' %>
+    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => 'Search an invoice by "invoice number" or "customer account"' %>
     <%= button_tag(type: 'submit', class: "btn") do %>
    		 <i class="icon-ml-search"></i> Search</button>
     <% end %>    
@@ -25,19 +25,19 @@
   <tr>
   <th>Invoice number</th>
   <th>Amount</th>
-  <th>Customer id </th>
+  <th>Customer account </th>
   <th>Details</th>
   </tr>
   
   <% index = 0 %>
-  <% @invoices.each do |invoice| %>
+  <% @invoice_details.each do |invoice_details| %>
   <tr>
   
   <% index = index + 1 %>
-  <td><%= invoice.number %></td>
-  <td><%= invoice.amount %> $ </td>
-  <td><%= invoice.customer_id %></td>
-    <td> <a href="invoice_details/<%= invoice.id %>" class = "btn" >Details</a></td>
+  <td><%= invoice_details[:invoice].number %></td>
+  <td><%= invoice_details[:invoice].amount %> $ </td>
+  <td><%= invoice_details[:customer].account %></td>
+    <td> <a href="invoice_details/<%= invoice_details[:invoice].id %>" class = "btn" >Details</a></td>
 
   </tr>
   <% end %>
