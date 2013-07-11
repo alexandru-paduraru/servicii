@@ -55,7 +55,7 @@ get '/invoice_export', to: 'accountant#invoice_export', :as => "export_invoices"
 #create/view invoice
 get '/customers/:customer_id/invoices', to: 'salesman#customer_details', :as => "customer_invoices"
 get '/customers/:customer_id/invoices/new', to: 'accountant#customer_new_invoice', :as => "customer_new_invoice"
-post '/customers/:customer_id/invoices', to: 'accountant#invoice_create', :as => "customer_create_invoice"
+post '/customers/:customer_id/invoices', to: 'accountant#invoice_create_test', :as => "customer_create_invoice"
 
 
 

@@ -35,4 +35,18 @@ $(document).ready(function() {
 		td_total = '<td></td>'
 		$('#services_table tr:last').before('<tr>' + td_service + td_value + td_qty + td_total + '</tr>');
 	});
+	
+	$('#send_invoice').click(function(){
+	var signup_data = $('#new_invoice').serialize();
+	customer_id = $('#invoice_customer_id').val();
+	if( 1 == 2){
+		$('#ajax_response').addClass('alert alert-danger');
+		$('#ajax_response').html('Parola specificata este diferita de cea din confirmare!');
+		return;
+	}
+	$.post('/customers/' + customer_id + '/invoices',signup_data, function(data){
+		$('#ajax_response').addClass('alert alert-success');
+		$('#ajax_response').html('raspuns din server ' + data);
+	});
+});
 });

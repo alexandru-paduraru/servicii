@@ -4,13 +4,15 @@
 
 <div class ="row">
 	<div class = "span6">
-		<p><strong>Customer name:</strong> <%= @customer.first_name %>&nbsp<%= @customer.last_name %> </p>
-		<p><strong>Adress:</strong> <%= @customer.billing_address %></p>
+		<p><strong>Customer name:</strong> <%= @customer.first_name + ' ' + @customer.last_name %> </p>
+		<p><strong>Adress:</strong> <%= @customer.address1 %></p>
 	</div>
 
 <div class="span6">
 <fieldset>
- 
+<div id="ajax_response">
+
+</div>
 <% if @invoice.errors.any? %>
 	<div class="alert alert-error">
 	<h4>Errors:</h4>
@@ -71,20 +73,49 @@
 			</td>
   <% end %>
   </tr>
-  
-  <tr>
+   <tr>
   <%= f.fields_for :service_2 do |f| %>
-  			<td>
-			<%= f.text_field :service_name, :placeholder => "Service name" %>
-  			</td>
-  			<td>
+
+			<td><%= f.text_field :service_name, :placeholder => "Service name" %>
+			</td>
+			<td>
 			<%= f.number_field :service_value, :placeholder => "Value" %>
-  			</td>
-  			<td>
+			</td>
+			<td>
 			<%= f.number_field :service_qty, :placeholder => "Qty" %>
-  			</td>
-  			<td>
-  			</td>
+			</td>
+			<td>
+			</td>
+  <% end %>
+  </tr>
+  <tr>
+  <%= f.fields_for :service_3 do |f| %>
+
+			<td><%= f.text_field :service_name, :placeholder => "Service name" %>
+			</td>
+			<td>
+			<%= f.number_field :service_value, :placeholder => "Value" %>
+			</td>
+			<td>
+			<%= f.number_field :service_qty, :placeholder => "Qty" %>
+			</td>
+			<td>
+			</td>
+  <% end %>
+  </tr>
+  <tr>
+  <%= f.fields_for :service_4 do |f| %>
+
+			<td><%= f.text_field :service_name, :placeholder => "Service name" %>
+			</td>
+			<td>
+			<%= f.number_field :service_value, :placeholder => "Value" %>
+			</td>
+			<td>
+			<%= f.number_field :service_qty, :placeholder => "Qty" %>
+			</td>
+			<td>
+			</td>
   <% end %>
   </tr>
   <tr>
@@ -95,13 +126,12 @@
   </tr>
 </table>
 
-
-
 </div>
 <button class="modalButton btn btn-info span2" id="1"> Preview </button>
   <div class="btn-group pull-right">
-  <%= f.submit "Save as draft", :name => "draft", :class => "btn span2" %>
-  <%= f.submit "Send" , :name => "send", :class => "btn btn-primary span2"%>
+  <button type="submit" name="draft" class="btn span2">Save draft</button>
+  <button type="submit" name = "send" class="btn btn-danger span2">Send normal</button>
+  <button type="button" id="send_invoice" class="btn btn-primary span2">Send Ajax</button>
   </div>
   <% end %>
   </form>

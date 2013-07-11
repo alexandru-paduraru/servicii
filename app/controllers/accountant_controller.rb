@@ -55,8 +55,10 @@ class AccountantController < ApplicationController
  
    
    def invoice_create_test
-   
-   
+   		@customer = Customer.find_by_id(params[:customer_id])
+   		@invoice = Invoice.new
+   		
+   		render text: "OK"
    end
    
    

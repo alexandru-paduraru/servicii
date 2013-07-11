@@ -5,6 +5,12 @@ class Service < ActiveRecord::Base
   validates :value, :name, :presence => true
   validates :value, :numericality => {:greater_than_or_equal_to => 0.01}
   
+# completari many to many
+  has_many :invoice_has_services
+  has_many :invoices, through: :invoice_has_services  
+
+# sfarsit completari many to many  
+  
   def self.add_service(name, value, company_id)
      search = search_name_value(name, value)
      if search == []

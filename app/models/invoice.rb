@@ -7,7 +7,14 @@ class Invoice < ActiveRecord::Base
   
   has_many :transactions
   has_many :email_actions
-  
+# completari many to many  
+
+  has_many :invoice_has_services
+  has_many :services, through: :invoice_has_services 
+
+  accepts_nested_attributes_for :invoice_has_services
+# sfarsit completari many to many  
+
    validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
    validates :amount, :numericality => {:greater_than_or_equal_to => 0.01}
 #    validate :check_date_format
