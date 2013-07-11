@@ -119,6 +119,7 @@ require 'mandrill'
 			@worksons.each do |job|
 				job.destroy
 			end
+			if _post[:workson] 
 			if _post[:workson][:salesman].to_i == 1
  				workson = Workson.new
  				workson.user_id = @user[:id]
@@ -145,6 +146,7 @@ require 'mandrill'
 					ok = 1
 				else ok = 0
 				end
+			end
 			end
  			if ok == 1
  				redirect_to admin_path, :notice => "Employee updated successfully"
