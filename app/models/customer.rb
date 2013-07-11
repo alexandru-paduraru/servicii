@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
 
-  attr_accessible :first_name, :last_name, :email, :phone, :billing_address, :description, :sent_to_collector, :user_id
+  attr_accessible :first_name, :last_name, :email, :phone, :billing_address, :description, :sent_to_collector, :user_id, :account
   
   belongs_to :company
   has_many :invoices
@@ -96,10 +96,11 @@ class Customer < ActiveRecord::Base
    end
    
   def self.generate_number
-  	number = 00001
+  	number = '00001'
      if Customer.all != []
-         customer = Customer.all.order('account asc').last
+         if customer = Customer.all.order('account asc').last
          number = customer[:account].to_i + 1
+         end
      end
      number.to_s
   end
