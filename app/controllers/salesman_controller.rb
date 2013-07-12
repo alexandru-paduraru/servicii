@@ -2,7 +2,7 @@ class SalesmanController < ApplicationController
 
 	def index
 	    @customer_detail = []
-	    if params[:search]
+	    if params[:search] != ''
 	    customers = Customer.search(params[:search], current_user)
 	    else
 	    customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
