@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	var request;
+	index = 1
+	
 	$('.datepicker').datepicker();
 
 	
@@ -24,9 +27,11 @@ $(document).ready(function() {
 	});
 	
 	if($('.alert-error').html()){
-		$("#employee_form").show();
+		if($("#employee_form")){
+			$("#employee_form").show();
+		}
 	}
-	index = 2
+	
 	$('#bla').click(function(){
 		index++;
 		td_service = '<td><input type="text" placeholder="Service name" name="invoice[service_'+ index +'][service_name]"></td>';
@@ -36,21 +41,62 @@ $(document).ready(function() {
 		$('#services_table tr:last').before('<tr>' + td_service + td_value + td_qty + td_total + '</tr>');
 	});
 	
+	
 	$('#add_service_button').click(function(){
-		var signup_data = $('#new_invoice').serialize();
-		customer_id = $('#invoice_customer_id').val();
-		alert('intrat in ad');
 		response = $('#ajax_response');
-		if( 1 == 2){
-			response.addClass('alert alert-danger');
-			response.html('Parola specificata este diferita de cea din confirmare!');
-			return;
+		customer_id = $('#invoice_customer_id').val();
+		if (request){
+			request.abort();
 		}
-		$.post('/customers/' + customer_id + '/invoices/new/services/new',signup_data, function(data){
-			response.addClass('alert alert-success');
-			response.html('raspuns din server ' + data);
-		});
+		var serializedData = $('#new_invoice').serialize();
+		qty = $('#invoice_service_qty').val();
+
+		if($.isNumeric(qty) && parseInt(qty) > 0){
+			request = $.ajax({
+	        	url: '/customers/' + customer_id + '/invoices/new/services/new',
+	        	type: "post",
+	        	data: serializedData,
+	            success: function(data){
+	            		response.html('');
+	            		response.addClass('alert alert-success');
+	            		response.append('Service added successfully!');
+		            	addNewServiceRow(data.id,data.name,data.value,qty);
+		            	$('#invoice_service_qty').val('0');
+		            	$('#invoice_service_name').val('');
+		            	$('#invoice_service_value').val('');
+	      		},
+	      		error: function(xhr){
+		      		var errors = $.parseJSON(xhr.responseText).errors
+		      		response.addClass('alert alert-danger');
+		      		response.html('');
+		      		response.append('<h4>Service errors:</h4>');
+		      		response.append('<ul>');
+		      		$.each(errors, function(i, val){
+			      		response.append('<li>' + errors[i] + '</li>');
+		      		});
+		      		response.append('</ul>');
+		      		return;
+		      	}
+	        });
+		} else {
+			response.html('');
+			response.addClass('alert alert-danger');
+			response.append('<h4>Service errors: </h4>');
+			response.append('Qty field can\'t be blank and must be > 0');
+		}
 	});
+	
+	function addNewServiceRow(id,name,value,qty){
+		td_number = '<td>' + index++ + '</td>'
+		hidden_service_field = '<input type="hidden" name="service['+index+']" value="'+ qty +'">';
+		td_service = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][name]" value="'+ name +'"></td>';
+		td_value = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][value]" value="' + value +'"></td>';
+		td_qty = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][qty]" value="' + qty + '"></td>';
+		td_actions = '<td></td>'
+		td_total = '<td>$ ' + (value * qty) + ',00</td>'
+		$('#services_table tr:first').after('<tr>' +hidden_service_field + td_number + td_service + td_value + td_qty + td_actions + td_total + '</tr>');
+		$('#services_table tr:last td:last').html('1000');
+	}
 	
 	
 });

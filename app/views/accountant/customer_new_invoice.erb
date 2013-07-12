@@ -1,29 +1,17 @@
 <legend>Create invoice </legend> 
 
-<%= form_for @invoice, url: customer_create_invoice_path(@customer), html: {class: "form-horizontal"} do |f| %>
+<%= form_for ([@invoice, :services]), url: customer_create_invoice_path(@customer), html: {class: "form-horizontal"} do |f| %>
 
 <div class ="row">
 	<div class = "span6">
 		<p><strong>Customer name:</strong> <%= @customer.first_name + ' ' + @customer.last_name %> </p>
 		<p><strong>Adress:</strong> <%= @customer.address1 %></p>
+		<div id="ajax_response">
+		</div>
 	</div>
 
 <div class="span6">
 <fieldset>
-<div id="ajax_response">
-
-</div>
-<% if @invoice.errors.any? %>
-	<div class="alert alert-error">
-	<h4>Errors:</h4>
-	<ul>
-		<% @invoice.errors.full_messages.each do |message| %>
-		<li><%= message %></li>
-		<% end %>
-	</ul>
-	</div>
-<% end %>
-
 <div class="control-group">
 	<%= f.label :due_date, :class => "control-label" %>
 	<div class="controls">
@@ -42,32 +30,38 @@
 </div>
 
 <div class="span12">
-<table class="table table-bordered" id="services_table">
+<table class="table table-striped" id="services_table">
   <tr>
+  <th>#</th>
   <th>Service</th>
   <th>Value</th>
   <th>Qty</th>
+  <th>Actions</th>
   <th>Total</th>
   </tr>
   <tr>
-  <%= f.fields_for :service_1 do |f| %>
-
-			<td><%= f.text_field :service_name, :placeholder => "Service name" %>
+  <%= f.fields_for :service do |f| %>
+  			<td></td>
+			<td><%= f.text_field :name, :class => "span2", :placeholder => "Service name" %>
 			</td>
 			<td>
-			<%= f.number_field :service_value, :placeholder => "Value" %>
+			<%= f.number_field :value, :class => "span2", :placeholder => "0" %>
 			</td>
 			<td>
-			<%= f.number_field :service_qty, :placeholder => "Qty" %>
+			<%= f.number_field :qty, :class => "span2", :placeholder => "0" %>
 			</td>
 			<td>
+			<button class="btn btn-success" type="button" id="add_service_button"><i class="icon-plus icon-white"></i> Add</button>
+			</td>
+			<td>
+				
 			</td>
   <% end %>
   </tr>
  
   <tr>
-	  <td colspan="3"><button class="btn btn-success" type="button" id="add_service_button"><i class="icon-plus icon-white"></i> Add service</button></td>
-	  <td class="span3">
+	  <td colspan="5"></td>
+	  <td>
 	  	<strong>Total amount:</strong>
 	  </td>
   </tr>

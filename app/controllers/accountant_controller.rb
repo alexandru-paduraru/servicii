@@ -65,12 +65,21 @@ class AccountantController < ApplicationController
    def invoice_create_test
    		@customer = Customer.find_by_id(params[:customer_id])
    		@invoice = Invoice.new
-   		
-   		render text: "OK"
+   		_post = params[:invoice][:service]
+   		render :json => _post
    end
    
    def create_service
-   		@service = Service.new(params[:service])
+   		@service = Service.new
+   		_post = params[:invoice][:service]
+   		@service.name = _post[:name]
+   		@service.value = _post[:value]
+   		
+   		if @service.save
+   			render :json => @service.to_json
+   		else 
+   			render :json => { :errors => @service.errors.full_messages }, :status => 422
+   		end
    end
    
    

@@ -409,3 +409,7 @@ input[type=checkbox]:checked + label span:after {
 .controls-row .field_with_errors .span3{
     margin-left: 20px !important;
 }
+
+input[disabled]{
+	background-color: white !important;
+}
