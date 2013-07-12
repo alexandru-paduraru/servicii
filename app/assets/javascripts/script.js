@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	var request;
 	index = 1
+	amount = 0;
 	
 	$('.datepicker').datepicker();
 
@@ -58,6 +59,7 @@ $(document).ready(function() {
 	        	data: serializedData,
 	            success: function(data){
 	            		response.html('');
+	            		response.removeClass('alert-danger');
 	            		response.addClass('alert alert-success');
 	            		response.append('Service added successfully!');
 		            	addNewServiceRow(data.id,data.name,data.value,qty);
@@ -88,14 +90,17 @@ $(document).ready(function() {
 	
 	function addNewServiceRow(id,name,value,qty){
 		td_number = '<td>' + index + '</td>';
+		total = value * qty;
 		service_id = '<input type="hidden" name="service_'+ index +'[id]" value="'+ id +'">';
 		td_service = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[name]" value="'+ name +'"></td>';
 		td_value = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[value]" value="' + value +'"></td>';
 		td_qty = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[qty]" value="' + qty + '"></td>';
 		td_actions = '<td></td>';
-		td_total = '<td>$ ' + (value * qty) + ',00</td>'
+		td_total = '<td>$ ' + total + ',00</td>'
 		$('#services_table tr:first').after('<tr>' + service_id + td_number + td_service + td_value + td_qty + td_actions + td_total + '</tr>');
-		$('#services_table tr:last td:last').html('1000');
+		amount += total;
+		$('#invoice_amount').val(amount);
+		$('#services_table tr:last td:last').html('<strong>Total: $ ' + amount + ',00</strong>');
 		$('#invoice_number_of_services').val(index);
 		index++;
 		
@@ -103,7 +108,7 @@ $(document).ready(function() {
 	
 	$('#invoice_submit').click(function(){
 		response = $('#ajax_response');
-		customer_id = $('#invoice_customer_id').val();
+		customer_id = $('#customer_id').val();
 		if (request){
 			request.abort();
 		}
@@ -117,7 +122,7 @@ $(document).ready(function() {
 	            		response.html('');
 	            		response.addClass('alert alert-success');
 	            		response.append(data);
-		            	
+		            	window.location.href = '/customers/' + customer_id +'/invoices';
 	      		},
 	      		error: function(xhr){
 		      		var errors = $.parseJSON(xhr.responseText).errors
