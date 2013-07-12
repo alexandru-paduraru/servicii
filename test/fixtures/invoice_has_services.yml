@@ -1,13 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  qty: MyString
-  float: MyString
-  invoice_id: 
-  service_id: 
+  qty: -1
+  invoice_id: 1
+  service_id: 1
 
 two:
-  qty: MyString
-  float: MyString
+  qty: 1.5
   invoice_id: 
   service_id: 
+  

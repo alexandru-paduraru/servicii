@@ -3,4 +3,6 @@ class UserType < ActiveRecord::Base
   
   has_many :worksons, :foreign_key => "job_id"
   
+  validates :name, :presence => true
+  
 end

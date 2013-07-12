@@ -2,8 +2,10 @@
 
 one:
   name: MyString
+  value: 1.5
   company_id: 
 
 two:
   name: MyString
+  value: 2
   company_id: 

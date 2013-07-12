@@ -3,11 +3,18 @@
 one:
   sent_at: 2013-07-06
   viewed_at: 2013-07-06
-  customer_id: 
-  invoice_id: 
+  customer_id: 1
+  invoice_id: 1
+  mandrill_id: MyString
+  user_id: 1
+  company_id: 1
+
 
 two:
   sent_at: 2013-07-06
   viewed_at: 2013-07-06
-  customer_id: 
-  invoice_id: 
+  customer_id: 1
+  invoice_id: 1
+  mandrill_id: 
+  user_id: 
+  company_id: 

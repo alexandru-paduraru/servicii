@@ -3,19 +3,37 @@
 one:
   first_name: MyString
   last_name: MyString
-  email: MyString
+  email: MyString@MyString.com
   phone: MyString
-  balance: 1.5
-  billing_address: MyText
-  description: MyText
-  company_id: 
+  description: MyString
+  sent_to_collector: true
+  active: true
+  user_id: 1
+  account: MyString
+  organization_name: 
+  address1: MyString
+  address2: MyString
+  state: MyString
+  city: MyString
+  zip_code: MyString
+  industry:
+  company_size:
 
 two:
   first_name: MyString
   last_name: MyString
   email: MyString
   phone: MyString
-  balance: 1.5
-  billing_address: MyText
-  description: MyText
-  company_id: 
+  description: MyString
+  sent_to_collector: false
+  active: false
+  user_id: 5
+  account: MyString
+  organization_name: MyString
+  address1: MyString
+  address2: MyString
+  state: MyString
+  city: MyString
+  zip_code: MyString
+  industry:
+  company_size:

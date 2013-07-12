@@ -24,7 +24,7 @@ class AdminController < ApplicationController
 	
 	def company_edit
 		if current_user[:company_id] == params[:id].to_i
-			@company = Company.find(params[:id])
+			@company = Company.find_by_id(params[:id])
 		else
 			redirect_to admin_path
 		end

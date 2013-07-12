@@ -10,7 +10,7 @@ class Customer < ActiveRecord::Base
   validates :first_name, :last_name, :email, :phone,:address1, :state, :city, :zip_code, :presence => true
   validates :first_name, :last_name,:organization_name, :state, :city, :zip_code, :length => { :minimum => 2 }
   validates :address1, :length => {:minimum => 5}
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, :account
   validates :email, :length => { :minimum => 5 } 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates_format_of :zip_code, :with => /\A[0-9]+\Z/i  

@@ -16,7 +16,8 @@ class Invoice < ActiveRecord::Base
 # sfarsit completari many to many  
 
    validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
-   validates :amount, :numericality => {:greater_than_or_equal_to => 0.01}
+   validates_uniqueness_of :number
+#    validates :amount, :numericality => {:greater_than_or_equal_to => 0.01} - se pot scrie facturi negative
 #    validate :check_date_format
 #    
 #    def check_date_format

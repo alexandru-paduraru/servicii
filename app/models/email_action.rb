@@ -4,6 +4,8 @@ class EmailAction < ActiveRecord::Base
   belongs_to :customer
   belongs_to :invoice
   
+  validates :sent_at, :presence => true
+  
   require 'mandrill' 
    
 	 def self.send_email(_post,invoice_id,current_user)
