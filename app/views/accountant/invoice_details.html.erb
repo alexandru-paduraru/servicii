@@ -9,7 +9,7 @@
           <td><%= @customer.first_name %> &nbsp <%= @customer.last_name %></td>
           </tr>
           <tr>
-            <td><%= @customer.id %></td>
+            <td><%= @customer.account %></td>
           </tr>
           <tr>
             <td><%= @customer.email %></td>
@@ -18,7 +18,7 @@
             <td><%= @customer.phone %></td>
           </tr>
           <tr>
-            <td><%= @customer.billing_address %></td>
+            <td><%= @customer.address1 %></td>
           </tr>
           <tr>
             <td><%= @customer.description %></td>
@@ -86,19 +86,115 @@
     </div>
   </div>
   
-    <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-      <h4>Future actions</h4>
-      </a>
-    </div>
-    <div id="collapseThree" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <p>Message on ... </p>
-        <p>Email in ... </p>
-      </div>
-    </div>
-  </div>
   
-</div>
+  
+  <% if @invoice %>
+       
+   <div class="row">
+        <div class="span5">
+	        <legend class="muted">Invoice details 
+	        </legend>
+	         <address>
+	            <strong><%= @customer.organization_name %></strong><br><br>
+			    <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
+			    <%= @customer.email %><br>
+			    <%= @customer.phone %>
+			    </address>
+			     
+			    <address>
+			    <strong>Address</strong><br>
+			    <%= @customer.state %>
+			    <%= @customer.city %>
+			    <!-- <%= @customer.zip_code %> -->
+			    <%= @customer.address1 %>
+			    <% if @customer.address2 %>
+			     <%= @customer.address2%>
+			    <% end %>
+			    </address>
+			    
+			    <address>
+			    <strong>Description</strong><br>
+			    <%= @customer.description %><br>
+			    <strong>Sent to collector:</strong> 
+			    <% if @customer.sent_to_collector %>
+			    	 Yes
+	            <% else %>
+	            	 No
+	            <% end %>
+			    </address>
+		
+	
+        </div>
+        
+      <div class="span3 pull-right actions well">
+      	<h5>Last contact:
+      	 <% if @last_action %>
+      	   <% if @last_action == 0 %>
+      	        today 
+      	   <% else %>
+	  	   		<%= @last_action %> &nbsp days ago
+      	 	<% end %>
+      	 <% end %> 
+      	 </h5>
+	      <h5 class="muted">Account actions:</h5>
+	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
+<!--
+		<a href="#" class = "btn btn-info btn-large btn-block">
+			<i class="icon-envelope icon-white"></i> Send email
+        </a>
+-->
+        <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-large btn-block" do %>
+	     <i class="icon-envelope icon-white"></i> Send email
+	    <% end %>
+		
+		<a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
+    <% if @customer.sent_to_collector%>
+        <a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
+    <% else %>
+	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block" do %>
+	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
+	    <% end %>
+	<% end %>
+      </div>
+     
   </div>
+<!-- end row   -->
+
+
+
+<h4 class="muted">Subscription</h4>
+<table class="table table-striped table-bordered">
+	      <tr>
+	      	<th>#</th>
+	      	<th>Issue date</th>
+	      	<th>Due date</th>
+	      	<th>Status</th>
+	      	<th>Amount</th>
+	      </tr>
+</table>
+
+
+<div class="row">
+	<div class="span6">
+	<legend>Timeline</legend>
+	<ul>
+         <% @email_details.each do |email_detail| %>
+         <li> 
+           Email for invoice# <%= email_detail[:email].invoice_id %> was sent by <%= email_detail[:user].first_name %> &nbsp <%= email_detail[:user].last_name %>
+	       <%= email_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
+	       <%= email_detail[:email].sent_at.strftime("at %I:%M%p") %>
+	       <br>
+	        <% if email_detail[:email].viewed_at %>
+				 <%= email_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
+				 <%= email_detail[:email].viewed_at.strftime("at %I:%M%p") %>
+	        <% end %>
+          </li>   
+        <% end %>
+ 
+
+	</ul>
+	</div>
+	
+</div>
+</div>
+<% end %>
