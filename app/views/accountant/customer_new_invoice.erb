@@ -48,8 +48,7 @@
 </fieldset>
 
 </div>
-</div>
-<div class="row">
+
 <div class="span12">
 <table class="table table-bordered" id="services_table">
   <tr>
@@ -73,51 +72,7 @@
 			</td>
   <% end %>
   </tr>
-   <tr>
-  <%= f.fields_for :service_2 do |f| %>
-
-			<td><%= f.text_field :service_name, :placeholder => "Service name" %>
-			</td>
-			<td>
-			<%= f.number_field :service_value, :placeholder => "Value" %>
-			</td>
-			<td>
-			<%= f.number_field :service_qty, :placeholder => "Qty" %>
-			</td>
-			<td>
-			</td>
-  <% end %>
-  </tr>
-  <tr>
-  <%= f.fields_for :service_3 do |f| %>
-
-			<td><%= f.text_field :service_name, :placeholder => "Service name" %>
-			</td>
-			<td>
-			<%= f.number_field :service_value, :placeholder => "Value" %>
-			</td>
-			<td>
-			<%= f.number_field :service_qty, :placeholder => "Qty" %>
-			</td>
-			<td>
-			</td>
-  <% end %>
-  </tr>
-  <tr>
-  <%= f.fields_for :service_4 do |f| %>
-
-			<td><%= f.text_field :service_name, :placeholder => "Service name" %>
-			</td>
-			<td>
-			<%= f.number_field :service_value, :placeholder => "Value" %>
-			</td>
-			<td>
-			<%= f.number_field :service_qty, :placeholder => "Qty" %>
-			</td>
-			<td>
-			</td>
-  <% end %>
-  </tr>
+ 
   <tr>
 	  <td colspan="3"><button class="btn btn-success" type="button" id="add_service_button"><i class="icon-plus icon-white"></i> Add service</button></td>
 	  <td class="span3">
