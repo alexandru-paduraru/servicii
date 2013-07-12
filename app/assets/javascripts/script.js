@@ -89,9 +89,9 @@ $(document).ready(function() {
 	function addNewServiceRow(id,name,value,qty){
 		td_number = '<td>' + index + '</td>';
 		service_id = '<input type="hidden" name="service_'+ index +'[id]" value="'+ id +'">';
-		td_service = '<td><input class="span2" type="text" name="service_'+ index +'[name]" value="'+ name +'"></td>';
-		td_value = '<td><input class="span2" type="text" name="service_'+ index +'[value]" value="' + value +'"></td>';
-		td_qty = '<td><input class="span2" type="text" name="service_'+ index +'[qty]" value="' + qty + '"></td>';
+		td_service = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[name]" value="'+ name +'"></td>';
+		td_value = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[value]" value="' + value +'"></td>';
+		td_qty = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[qty]" value="' + qty + '"></td>';
 		td_actions = '<td></td>';
 		td_total = '<td>$ ' + (value * qty) + ',00</td>'
 		$('#services_table tr:first').after('<tr>' + service_id + td_number + td_service + td_value + td_qty + td_actions + td_total + '</tr>');

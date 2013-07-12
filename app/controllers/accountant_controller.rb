@@ -82,7 +82,10 @@ class AccountantController < ApplicationController
    			end
    			if ok == 1
    				render :text => "Invoice was succesfully created!"
+   			else 
+   				render :text => "There was an error, creating Invoice has service! Please contact admin!"
    			end
+   			
    		else
    			render :json => { :errors => @invoice.errors.full_messages }, :status => 422
    		end
@@ -94,6 +97,7 @@ class AccountantController < ApplicationController
    		_post = params[:service]
    		@service.name = _post[:name]
    		@service.value = _post[:value]
+   		@service.company_id = current_user.company_id
    		if @service.save
    			render :json => @service.to_json
    		else 
