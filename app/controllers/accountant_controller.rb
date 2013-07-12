@@ -64,17 +64,36 @@ class AccountantController < ApplicationController
    
    def invoice_create_test
    		@customer = Customer.find_by_id(params[:customer_id])
-   		@invoice = Invoice.new
-   		_post = params[:invoice][:service]
-   		render :json => _post
+   		ok = 1
+   		_post_customer = params[:customer]
+   		_post_invoice = params[:invoice]
+   		numberOfServices = _post_invoice[:number_of_services].to_i
+   		@invoice = Invoice.new(:date => Time.now, :customer_id => _post_customer[:id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => _post_invoice[:due_date], :amount => _post_invoice[:amount])
+   		@invoice.number = Invoice.generate_number
+   		if @invoice.save
+   			(1..numberOfServices).each do |i|
+   				service = "service_" + i.to_s
+   				_post_service = params[service]
+   				@relation = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => _post_service[:id], :qty => _post_service[:qty])
+   				if !@relation.save
+   					ok = 0
+   					#render :json => { :errors => @relation.errors.full_messages }, :status => 422
+   				end 
+   			end
+   			if ok == 1
+   				render :text => "Invoice was succesfully created!"
+   			end
+   		else
+   			render :json => { :errors => @invoice.errors.full_messages }, :status => 422
+   		end
+   		
    end
    
    def create_service
    		@service = Service.new
-   		_post = params[:invoice][:service]
+   		_post = params[:service]
    		@service.name = _post[:name]
    		@service.value = _post[:value]
-   		
    		if @service.save
    			render :json => @service.to_json
    		else 
@@ -84,7 +103,6 @@ class AccountantController < ApplicationController
    
    
    def invoice_create
-
         if params[:send] || params[:draft]
         _post = params[:invoice]
         ok = true

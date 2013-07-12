@@ -49,7 +49,7 @@ $(document).ready(function() {
 			request.abort();
 		}
 		var serializedData = $('#new_invoice').serialize();
-		qty = $('#invoice_service_qty').val();
+		qty = $('#service_qty').val();
 
 		if($.isNumeric(qty) && parseInt(qty) > 0){
 			request = $.ajax({
@@ -61,9 +61,9 @@ $(document).ready(function() {
 	            		response.addClass('alert alert-success');
 	            		response.append('Service added successfully!');
 		            	addNewServiceRow(data.id,data.name,data.value,qty);
-		            	$('#invoice_service_qty').val('0');
-		            	$('#invoice_service_name').val('');
-		            	$('#invoice_service_value').val('');
+		            	$('#service_qty').val('0');
+		            	$('#service_name').val('');
+		            	$('#service_value').val('');
 	      		},
 	      		error: function(xhr){
 		      		var errors = $.parseJSON(xhr.responseText).errors
@@ -87,18 +87,52 @@ $(document).ready(function() {
 	});
 	
 	function addNewServiceRow(id,name,value,qty){
-		td_number = '<td>' + index++ + '</td>'
-		
-		serv = '{"id" => "35", "val" => "50", "qty" =>"33"}'
-		hidden_service_field = '<input type="hidden" name="invoice[service]['+index+']" value="'+ serv +'">';
-		td_service = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][name]" value="'+ name +'"></td>';
-		td_value = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][value]" value="' + value +'"></td>';
-		td_qty = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][qty]" value="' + qty + '"></td>';
-		td_actions = '<td></td>'
+		td_number = '<td>' + index + '</td>';
+		service_id = '<input type="hidden" name="service_'+ index +'[id]" value="'+ id +'">';
+		td_service = '<td><input class="span2" type="text" name="service_'+ index +'[name]" value="'+ name +'"></td>';
+		td_value = '<td><input class="span2" type="text" name="service_'+ index +'[value]" value="' + value +'"></td>';
+		td_qty = '<td><input class="span2" type="text" name="service_'+ index +'[qty]" value="' + qty + '"></td>';
+		td_actions = '<td></td>';
 		td_total = '<td>$ ' + (value * qty) + ',00</td>'
-		$('#services_table tr:first').after('<tr>' +hidden_service_field + td_number + td_service + td_value + td_qty + td_actions + td_total + '</tr>');
+		$('#services_table tr:first').after('<tr>' + service_id + td_number + td_service + td_value + td_qty + td_actions + td_total + '</tr>');
 		$('#services_table tr:last td:last').html('1000');
+		$('#invoice_number_of_services').val(index);
+		index++;
+		
 	}
 	
+	$('#invoice_submit').click(function(){
+		response = $('#ajax_response');
+		customer_id = $('#invoice_customer_id').val();
+		if (request){
+			request.abort();
+		}
+		var serializedData = $('#new_invoice').serialize();
+
+			request = $.ajax({
+	        	url: '/customers/' + customer_id + '/invoices',
+	        	type: "post",
+	        	data: serializedData,
+	            success: function(data){
+	            		response.html('');
+	            		response.addClass('alert alert-success');
+	            		response.append(data);
+		            	
+	      		},
+	      		error: function(xhr){
+		      		var errors = $.parseJSON(xhr.responseText).errors
+		      		response.addClass('alert alert-danger');
+		      		response.html('');
+		      		response.append('<h4>Service errors:</h4>');
+		      		response.append('<ul>');
+		      		$.each(errors, function(i, val){
+			      		response.append('<li>' + errors[i] + '</li>');
+		      		});
+		      		response.append('</ul>');
+		      		return;
+		      	}
+	        });
+		
+	});
 	
 });
