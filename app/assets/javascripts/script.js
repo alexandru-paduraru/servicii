@@ -88,7 +88,9 @@ $(document).ready(function() {
 	
 	function addNewServiceRow(id,name,value,qty){
 		td_number = '<td>' + index++ + '</td>'
-		hidden_service_field = '<input type="hidden" name="service['+index+']" value="'+ qty +'">';
+		
+		serv = '{"id" => "35", "val" => "50", "qty" =>"33"}'
+		hidden_service_field = '<input type="hidden" name="invoice[service]['+index+']" value="'+ serv +'">';
 		td_service = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][name]" value="'+ name +'"></td>';
 		td_value = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][value]" value="' + value +'"></td>';
 		td_qty = '<td><input disabled class="span2" type="text" name="invoice[service]['+ index +'][qty]" value="' + qty + '"></td>';

@@ -1,6 +1,6 @@
 <legend>Create invoice </legend> 
 
-<%= form_for ([@invoice, :services]), url: customer_create_invoice_path(@customer), html: {class: "form-horizontal"} do |f| %>
+<%= form_for @invoice, url: customer_create_invoice_path(@customer), html: {class: "form-horizontal"} do |f| %>
 
 <div class ="row">
 	<div class = "span6">
