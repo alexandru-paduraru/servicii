@@ -18,8 +18,8 @@ class Customer < ActiveRecord::Base
   def self.search(search, current_user)
   	if search != ''
   		search = search.downcase
-		 if all :joins => :invoices  
-             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) = ? or lower(customers.last_name) = ? or lower(customers.email) = ?) and invoices.company_id = ? and active = ?', search, search,search, search, search, current_user.company_id, true]
+		 if Invoice.all.where(:company_id => current_user.company_id ) != []
+             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) = ? or lower(customers.last_name) = ? or lower(customers.email) = ?) and customers.company_id = ? and customers.active = ?', search, search,search, search, search, current_user.company_id, true]
 		 else
 		    find(:all, :conditions => ['(lower(first_name) = ? or lower(last_name) = ? or lower(email) = ? or lower(account) = ?) and active = ? and company_id = ?', search , search, search, search, true, current_user.company_id])
 		 end  	
@@ -31,8 +31,8 @@ class Customer < ActiveRecord::Base
   def self.search_collector_list(search, current_user)
   	if search != ''
   		search = search.downcase
-		 if all :joins => :invoices  
-             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) = ? or lower(customers.last_name) = ? or lower(customers.email) = ?) and invoices.company_id = ? and active = ? and sent_to_collector = ?', search, search,search, search, search, current_user.company_id, true, true]
+		 if Invoice.all.where(:company_id => current_user.company_id ) != []  
+             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) = ? or lower(customers.last_name) = ? or lower(customers.email) = ?) and customers.company_id = ? and active = ? and sent_to_collector = ?', search, search,search, search, search, current_user.company_id, true, true]
 		 else
 		     all.where(:active => true,:sent_to_collector => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(first_name) = ? or lower(last_name) = ? or lower(email) = ? or lower(account) = ?', search , search, search, search])
 		 end  	
