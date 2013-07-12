@@ -27,7 +27,7 @@ $(document).ready(function() {
 		$("#employee_form").show();
 	}
 	index = 2
-	$('#add_service_button').click(function(){
+	$('#bla').click(function(){
 		index++;
 		td_service = '<td><input type="text" placeholder="Service name" name="invoice[service_'+ index +'][service_name]"></td>';
 		td_value = '<td><input type="text" placeholder="Value" name="invoice[service_'+ index +'][service_value]"></td>';
@@ -36,18 +36,21 @@ $(document).ready(function() {
 		$('#services_table tr:last').before('<tr>' + td_service + td_value + td_qty + td_total + '</tr>');
 	});
 	
-	$('#send_invoice').click(function(){
-	var signup_data = $('#new_invoice').serialize();
-	customer_id = $('#invoice_customer_id').val();
-	response = $('#ajax_response');
-	if( 1 == 2){
-		response.addClass('alert alert-danger');
-		response.html('Parola specificata este diferita de cea din confirmare!');
-		return;
-	}
-	$.post('/customers/' + customer_id + '/invoices',signup_data, function(data){
-		response.addClass('alert alert-success');
-		response.html('raspuns din server ' + data);
+	$('#add_service_button').click(function(){
+		var signup_data = $('#new_invoice').serialize();
+		customer_id = $('#invoice_customer_id').val();
+		alert('intrat in ad');
+		response = $('#ajax_response');
+		if( 1 == 2){
+			response.addClass('alert alert-danger');
+			response.html('Parola specificata este diferita de cea din confirmare!');
+			return;
+		}
+		$.post('/customers/' + customer_id + '/invoices/new/services/new',signup_data, function(data){
+			response.addClass('alert alert-success');
+			response.html('raspuns din server ' + data);
+		});
 	});
-});
+	
+	
 });

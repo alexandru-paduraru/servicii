@@ -69,6 +69,10 @@ class AccountantController < ApplicationController
    		render text: "OK"
    end
    
+   def create_service
+   		@service = Service.new(params[:service])
+   end
+   
    
    def invoice_create
 

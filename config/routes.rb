@@ -57,7 +57,8 @@ get '/customers/:customer_id/invoices', to: 'salesman#customer_details', :as => 
 get '/customers/:customer_id/invoices/new', to: 'accountant#customer_new_invoice', :as => "customer_new_invoice"
 post '/customers/:customer_id/invoices', to: 'accountant#invoice_create_test', :as => "customer_create_invoice"
 
-
+#create service for invoice
+post '/customers/:customer_id/invoices/new/services/new', to: 'accountant#create_service', :as => "create_service_for_invoice"
 
 #invoice details
 get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
