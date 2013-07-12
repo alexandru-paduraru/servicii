@@ -21,7 +21,7 @@ class Customer < ActiveRecord::Base
 		 if all :joins => :invoices  
              all :joins => :invoices, :conditions => ['(invoices.number = ? or customers.account = ? or customers.first_name LIKE ? or customers.last_name LIKE ? or customers.email LIKE ?) and invoices.company_id = ? and active = ?', search, search,search, search, search, current_user.company_id, true]
 		 else
-		     all.where(:active => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) LIKE ?', "%#{search}%" , "%#{search}%", "%#{search}%", "%#{search}%"])
+		    find(:all, :conditions => ['(lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) LIKE ?) and active = ? and company_id = ?', "%#{search}%" , "%#{search}%", "%#{search}%", "%#{search}%", true, current_user.company_id])
 		 end  	
     else
     	all.where(:active => true, :company_id => current_user.company_id )
