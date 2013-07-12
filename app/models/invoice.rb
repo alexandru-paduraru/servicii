@@ -31,7 +31,7 @@ class Invoice < ActiveRecord::Base
     
     
   def self.search(search, current_user)
-  	if search
+  	if search != ''
   		search = search.downcase
   		if all :joins => :customer
 		all :joins => :customer, :conditions => ['(invoices.number = ? or customers.account = ?) and invoices.company_id = ?', search, search, current_user.company_id]
