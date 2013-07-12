@@ -163,22 +163,15 @@ require 'mandrill'
 	
 #################### User actions #######################	
 	def send_email
-		m = Mandrill::API.new
-		message = {
-		 :subject=> "Hello from the Mandrill API",
-		 :from_name=> "Your name",
-		 :text=>"Hi message, how are you?",
-		 :to=>[
-		   {
-		     :email=> "axelut@gmail.com",
-		     :name=> "Recipient1"
-		   }
-		 ],
-		 :html=>"<html><h1>Hi <strong>message</strong>, how are you?</h1></html>",
-		 :from_email=>"admin@mandrill.com"
-		}
-		sending = m.messages.send message
-		puts sending
+		customer_id = params[:customer_id]
+		invoice = {}
+		invoice[:email] = "conacel.elena@gmail.com"
+		invoice[:message] = 'hello'
+		if Notifier.send_invoice(invoice).deliver
+		redirect_to customer_details_path(:customer_id => customer_id), :notice => "Email sent!"
+		else
+		redirect_to customer_details_path(:customer_id => customer_id), :alert => "Error sending email!"
+		end
 	end
 	
 ################### End User actions #####################
