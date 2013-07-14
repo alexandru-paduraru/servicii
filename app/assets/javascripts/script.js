@@ -96,11 +96,11 @@ $(document).ready(function() {
 		td_value = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[value]" value="' + value +'"></td>';
 		td_qty = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[qty]" value="' + qty + '"></td>';
 		td_actions = '<td></td>';
-		td_total = '<td>$ ' + total + ',00</td>'
+		td_total = '<td><span class="pull-right">$ ' + total + ',00</span></td>'
 		$('#services_table tr:first').after('<tr>' + service_id + td_number + td_service + td_value + td_qty + td_actions + td_total + '</tr>');
 		amount += total;
 		$('#invoice_amount').val(amount);
-		$('#services_table tr:last td:last').html('<strong>Total: $ ' + amount + ',00</strong>');
+		$('#services_table tr:last td:last').html('<span class="amount_info">Total: </span> <span class="total_due_amount">$' + amount + ',00</span>');
 		$('#invoice_number_of_services').val(index);
 		index++;
 		

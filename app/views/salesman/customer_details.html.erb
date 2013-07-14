@@ -1,7 +1,7 @@
 <% if @customer %>
-       
+           
    <div class="row">
-        <div class="span5">
+        <div class="span5" style="display:none">
 	        <legend class="muted">Customer details
 		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right" do %>
 		       		<i class="icon-edit"></i> Edit</a>
@@ -35,11 +35,49 @@
 	            	 No
 	            <% end %>
 			    </address>
-		
-	
         </div>
         
-      <div class="span3 pull-right actions well">
+        
+      <div class="span5">
+	        <legend class="muted">Customer details
+		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right" do %>
+		       		<i class="icon-edit"></i> Edit</a>
+				<% end %> 
+	        </legend>
+	         <address>
+	            Organization: <strong><%= @customer.organization_name %></strong><br><br>
+			    Name: <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
+			    Email: <strong><%= @customer.email %></strong><br>
+			    Phone: <strong><%= @customer.phone %></strong>
+			    </address>
+			     
+			    <address>
+			    <strong>Address</strong><br>
+			   
+			    <%= @customer.address1 %>
+			    <% if @customer.address2 %>
+			     <%= @customer.address2%>
+			    <% end %>
+			    <%= @customer.zip_code %><br>
+			    <%= @customer.city %>,
+			    <%= @customer.state %>
+			    </address>
+			    
+			    <address>
+			    <strong>Description</strong><br>
+			    <%= @customer.description %><br>
+			    <strong>Sent to collector:</strong> 
+			    <% if @customer.sent_to_collector %>
+			    	 Yes
+	            <% else %>
+	            	 No
+	            <% end %>
+			    </address>
+        </div>
+        
+        
+        
+      <div class="span3 pull-right actions">
       	<h5>Last contact:
       	 <% if @last_action %>
       	   <% if @last_action == 0 %>
@@ -79,7 +117,7 @@
 <% end %>
 	    
 <h4 class="muted">Open invoices</h4>
-<table class="table table-striped table-bordered">
+<table class="table table-hover">
 		<!--	
 		<% if @customer_last_invoice %>
 	      <tr><td>Last invoice:</td><td><%= @customer_last_invoice.date %></td></tr>
@@ -91,7 +129,7 @@
 	      	<th>Issue date</th>
 	      	<th>Due date</th>
 	      	<th>Status</th>
-	      	<th>Amount</th>
+	      	<th><span class="pull-right">Amount</span></th>
 	      </tr>
 	      <% if @open_invoices %>
 		      <% @open_invoices.each do |invoice| %>
@@ -99,21 +137,24 @@
 		      <td> <%= invoice[:number] %></td>
 		      <td> <%= invoice[:date] %></td>
 		      <td> <%= invoice[:due_date] %> </td>
-		      <td> </td>
-		      <td> $<%= invoice[:due_amount] %> </td>
+		      <td> <span class="label label-warning">Pending</span></td>
+		      <td><span class="pull-right"> $<%= invoice[:due_amount] %> </span></td>
 		      </tr>
 		      <% end %>
 	      <% end %>
 <!-- 		      <td><button class="modalButton btn btn-success" id="1"><i class="icon-plus-sign icon-white"></i> Create invoice</button></td> -->
 		  <tr>
 		  	<td colspan="4"></td>
-		  	<td class="span3"><h5><strong class="muted">Due amount: </strong>$ <%= @total_due_amount %><h4></td>
+		  	<td class="span3">
+		  		<span class="amount_info">Total:</span>
+		  	    <span class="total_due_amount">$<%= @total_due_amount %></span>
+		  	 </td>
 		  </tr>
 		    
 </table>
 
 <h4 class="muted">Subscription</h4>
-<table class="table table-striped table-bordered">
+<table class="table table-hover">
 	      <tr>
 	      	<th>#</th>
 	      	<th>Issue date</th>
@@ -175,66 +216,6 @@
 </div>
 </div>
 
-<div class="modal hide fade" id="modal1">
-<div class="form-horizontal">
-  <%= form_for :invoice, url: '/invoice_create', :class => "form-horizontal" do |f|%>
-
-  <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4>Add invoice</h4>
-          
-	<div class="input-prepend control-group">
-		<%= f.label :amount, :class => "control-label" %>
-		<div class="controls">
-		    <span class="add-on">$</span>
-			<%= f.text_field :amount, :class => "input-xlarge amount", :placeholder => "Amount" %>
-		</div>
-	</div>
-	
-	<div class="control-group">
-		<%= f.label :due_date, :class => "control-label" %>
-		<div class="controls">
-			<%= f.text_field :due_date, :class => "datepicker input-xlarge", :placeholder => "Due date" %>
-		</div>
-	</div>
-	<%= f.hidden_field :customer_id, :value => @customer.id %>
-	<%= f.hidden_field :customer_email, :value => @customer.email %>
-	<%= f.hidden_field :customer_name, :value => @customer.first_name + ' ' + @customer.last_name  %>
-  	<hr>
-	
-  <h4>Services</h4>
-  <%= f.fields_for :service_1 do |f| %>
-  <div class="control-group">
-		<%= f.label :service_name, :class => "control-label" %>
-		<div class="controls">
-			<%= f.text_field :service_name, :class => "input-medium", :placeholder => "Service name" %>
-			<%= f.text_field :service_value, :class => "span1", :placeholder => "Value" %>
-			<%= f.text_field :service_qty, :class => "span1", :placeholder => "Qty" %>
-		</div>
-	</div>
- 
-  <% end %>
-  
-  <%= f.fields_for :service_2 do |f| %>
-  <div class="control-group">
-		<%= f.label :service_name, :class => "control-label" %>
-		<div class="controls">
-			<%= f.text_field :service_name, :class => "input-medium", :placeholder => "Service name" %>
-			<%= f.text_field :service_value, :class => "span1", :placeholder => "Value" %>
-			<%= f.text_field :service_qty, :class => "span1", :placeholder => "Qty" %>
-		</div>
-	</div>
-  </div>
-  <% end %>
-  </div>  <!--##### end modal container #########-->
-  
-  <div class="modal-footer">
-      <button type="button" class="btn btn-danger span2 pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      <%= submit_tag("Add", :class => "btn btn-info span2 pull-right") %>
-
-  </div>
-  
-  <% end %>  <!-- #form end -->
 </div>
 </div>
 <% end %>

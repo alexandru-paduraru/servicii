@@ -3,35 +3,37 @@
 <form accept-charset="UTF-8" id="new_invoice" action=<%= customer_create_invoice_path(@customer) %> method="post">
 
 <div class ="row">
-	<div class = "span6">
-		<p><strong>Customer name:</strong> <%= @customer.first_name + ' ' + @customer.last_name %> </p>
-		<p><strong>Adress:</strong> <%= @customer.address1 %></p>
+	<div class = "span8">
+		<h4>Customer</h4>
+		<p><%= @customer.first_name + ' ' + @customer.last_name %></p>
+		<p><%= @customer.address1 %> <%= @customer.zip_code %></p>
+		<p><%= @customer.city + ' ' + @customer.state %></p>
 		<div id="ajax_response">
 		</div>
 	</div>
 
-<div class="span6">
-<fieldset>
-<div class="control-group">
-<%= fields_for :invoice do |i| %>
-	<%= i.label :due_date, :class => "control-label" %>
-	<div class="controls">
-		<%= i.text_field :due_date, :class => "datepicker", :placeholder => "Due date" %>
-		<%= i.hidden_field :amount %>
-		<%= i.hidden_field :number_of_services, :value => 0 %>
+<div class="span4 pull-right">
+	<h4>Invoice details</h4>
+	<fieldset>
+	<div class="control-group">
+	<%= fields_for :invoice do |i| %>
+		<%= i.label :due_date, :class => "control-label" %>
+		<div class="controls">
+			<%= i.text_field :due_date, :class => "datepicker", :placeholder => "Due date" %>
+			<%= i.hidden_field :amount %>
+			<%= i.hidden_field :number_of_services, :value => 0 %>
+		</div>
+	<% end %>	
 	</div>
-<% end %>	
-</div>
-
-<%= fields_for :customer do |c| %>
-<%= c.hidden_field :id, :value => @customer.id %>
-	<%= c.hidden_field :email, :value => @customer.email %>
-	<%= c.hidden_field :name, :value => @customer.first_name + ' ' + @customer.last_name  %>
-  
-<% end %>
-<!-- Text input-->
-</fieldset>
-
+	
+	<%= fields_for :customer do |c| %>
+	<%= c.hidden_field :id, :value => @customer.id %>
+		<%= c.hidden_field :email, :value => @customer.email %>
+		<%= c.hidden_field :name, :value => @customer.first_name + ' ' + @customer.last_name  %>
+	  
+	<% end %>
+	<!-- Text input-->
+	</fieldset>
 </div>
 
 <div class="span12">
@@ -39,10 +41,10 @@
   <tr>
   <th>#</th>
   <th>Service</th>
-  <th>Value</th>
-  <th>Qty</th>
-  <th>Actions</th>
-  <th>Total</th>
+  <th>Quantity</th>
+  <th>Unit Cost</th>
+  <th></th>
+  <th><span class="pull-right">Total</span></th>
   </tr>
   <tr>
   <%= fields_for :service do |f| %>
@@ -50,10 +52,10 @@
 			<td><%= f.text_field :name, :class => "span2", :placeholder => "Service name" %>
 			</td>
 			<td>
-			<%= f.number_field :value, :class => "span2", :placeholder => "0" %>
+			<%= f.number_field :qty, :class => "span2", :placeholder => "0" %>
 			</td>
 			<td>
-			<%= f.number_field :qty, :class => "span2", :placeholder => "0" %>
+			<%= f.number_field :value, :class => "span2", :placeholder => "0" %>
 			</td>
 			<td>
 			<button class="btn btn-success" type="button" id="add_service_button"><i class="icon-plus icon-white"></i> Add</button>
@@ -67,17 +69,28 @@
   <tr>
 	  <td colspan="5"></td>
 	  <td>
-	  	<strong>Total amount:</strong>
+	  	<span class="amount_info">Total amount:</span>
+	  	<span class="total_due_amount">$0</span>
 	  </td>
   </tr>
 </table>
-
 </div>
-<button class="modalButton btn btn-info span2" id="1"> Preview </button>
+
+<div class = "span12">
+		<h4>Company</h4>
+		<p><%= @company.name %></p>
+		<p><%= @company.address %>, <%= @company.zip_code %></p>
+		<p><%= @company.city + ', ' + @company.country %></p>
+		<div id="ajax_response">
+		</div>
+	</div>
+	
+<button class="modalButton btn btn-info btn-large span2" id="1"> Preview </button>
   <div class="btn-group pull-right">
-  <button type="submit" name="draft" class="btn span2">Save draft</button>
-  <button type="button" id="invoice_submit" class="btn btn-primary span2">Send Ajax</button>
+  <button type="submit" name="draft" class="btn span2 btn-large">Save draft</button>
+  <button type="button" id="invoice_submit" class="btn btn-success btn-large span3">Submit Invoice <i class="icon-circle-arrow-right icon-white"></i></button>
   </div>
-  
   </form>
+  
+  
 </div>  

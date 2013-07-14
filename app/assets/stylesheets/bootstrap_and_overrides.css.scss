@@ -413,3 +413,17 @@ input[type=checkbox]:checked + label span:after {
 input[disabled]{
 	background-color: white !important;
 }
+
+.total_due_amount{
+	color: #169EF4;
+    float: right;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.amount_info{
+	float: left;
+	color:#646464;
+	font-size: 14px;
+	text-transform: uppercase;
+}

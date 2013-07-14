@@ -20,7 +20,7 @@
 	  <th>Email</th>
 	  <th>Account</th>
 	  <th>Open invoices</th>
-	  <th class="span1">Actions</th>
+	  <th>Actions</th>
   </tr>
   <% index = 0 %>
   <% @customer_detail.each do |details| %>
@@ -39,7 +39,7 @@
 	  			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span>
 	  	   <% end %>
 	  	   <%= link_to customer_delete_path(details[:customer].id) do %>
-	  			 <span class="label label-danger">Delete</span>
+	  			 <span class="label label-important">Delete</span>
 	  	   <% end %>
 	  	   
 	  </td>

@@ -57,7 +57,7 @@ class AccountantController < ApplicationController
     	@services = []
     	customer_id = params[:customer_id]
 		@customer = Customer.find_by_id(customer_id)
-		
+		@company = Company.find_by_id(current_user.company_id)
 		render 'customer_new_invoice'
     end
  
