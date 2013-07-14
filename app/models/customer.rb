@@ -16,16 +16,22 @@ class Customer < ActiveRecord::Base
   validates_format_of :zip_code, :with => /\A[0-9]+\Z/i  
   
   def self.search(search, current_user)
-  	if search != ''
+  	if search
   		search = search.downcase
 		 if Invoice.all.where(:company_id => current_user.company_id ) != []
-             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) = ? or lower(customers.last_name) = ? or lower(customers.email) = ?) and customers.company_id = ? and customers.active = ?', search, search,search, search, search, current_user.company_id, true]
+             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and customers.active = ?', search, search, "%#{search}%", "%#{search}%", "%#{search}%", current_user.company_id, true]
 		 else
 		    find(:all, :conditions => ['(lower(first_name) = ? or lower(last_name) = ? or lower(email) = ? or lower(account) = ?) and active = ? and company_id = ?', search , search, search, search, true, current_user.company_id])
 		 end  	
     else
     	all.where(:active => true, :company_id => current_user.company_id )
     end
+	# if search 
+# 	search = search.downcase
+# 		find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ?', "%#{search}%", "%#{search}%"])
+# 	else 
+# 		find(:all)
+# 	end
   end
   
   def self.search_collector_list(search, current_user)

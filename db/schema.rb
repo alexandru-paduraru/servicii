@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130711183701) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "companies", force: true do |t|
     t.string   "name"
     t.text     "address"
@@ -20,8 +23,8 @@ ActiveRecord::Schema.define(version: 20130711183701) do
     t.string   "city"
     t.string   "county"
     t.string   "country"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "customers", force: true do |t|
@@ -47,8 +50,8 @@ ActiveRecord::Schema.define(version: 20130711183701) do
     t.string   "company_size"
   end
 
-  add_index "customers", ["company_id"], name: "index_customers_on_company_id"
-  add_index "customers", ["user_id"], name: "index_customers_on_user_id"
+  add_index "customers", ["company_id"], name: "index_customers_on_company_id", using: :btree
+  add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
 
   create_table "email_actions", force: true do |t|
     t.datetime "sent_at"
@@ -62,10 +65,10 @@ ActiveRecord::Schema.define(version: 20130711183701) do
     t.integer  "company_id"
   end
 
-  add_index "email_actions", ["company_id"], name: "index_email_actions_on_company_id"
-  add_index "email_actions", ["customer_id"], name: "index_email_actions_on_customer_id"
-  add_index "email_actions", ["invoice_id"], name: "index_email_actions_on_invoice_id"
-  add_index "email_actions", ["user_id"], name: "index_email_actions_on_user_id"
+  add_index "email_actions", ["company_id"], name: "index_email_actions_on_company_id", using: :btree
+  add_index "email_actions", ["customer_id"], name: "index_email_actions_on_customer_id", using: :btree
+  add_index "email_actions", ["invoice_id"], name: "index_email_actions_on_invoice_id", using: :btree
+  add_index "email_actions", ["user_id"], name: "index_email_actions_on_user_id", using: :btree
 
   create_table "invoice_has_services", force: true do |t|
     t.integer  "invoice_id"
@@ -75,8 +78,8 @@ ActiveRecord::Schema.define(version: 20130711183701) do
     t.float    "qty"
   end
 
-  add_index "invoice_has_services", ["invoice_id"], name: "index_invoice_has_services_on_invoice_id"
-  add_index "invoice_has_services", ["service_id"], name: "index_invoice_has_services_on_service_id"
+  add_index "invoice_has_services", ["invoice_id"], name: "index_invoice_has_services_on_invoice_id", using: :btree
+  add_index "invoice_has_services", ["service_id"], name: "index_invoice_has_services_on_service_id", using: :btree
 
   create_table "invoices", force: true do |t|
     t.date     "date"
@@ -90,9 +93,9 @@ ActiveRecord::Schema.define(version: 20130711183701) do
     t.integer  "user_id"
   end
 
-  add_index "invoices", ["company_id"], name: "index_invoices_on_company_id"
-  add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id"
-  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id"
+  add_index "invoices", ["company_id"], name: "index_invoices_on_company_id", using: :btree
+  add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id", using: :btree
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
 
   create_table "services", force: true do |t|
     t.string   "name"
@@ -102,7 +105,7 @@ ActiveRecord::Schema.define(version: 20130711183701) do
     t.integer  "value"
   end
 
-  add_index "services", ["company_id"], name: "index_services_on_company_id"
+  add_index "services", ["company_id"], name: "index_services_on_company_id", using: :btree
 
   create_table "transactions", force: true do |t|
     t.date     "date"
@@ -116,14 +119,14 @@ ActiveRecord::Schema.define(version: 20130711183701) do
     t.datetime "updated_at"
   end
 
-  add_index "transactions", ["company_id"], name: "index_transactions_on_company_id"
-  add_index "transactions", ["customer_id"], name: "index_transactions_on_customer_id"
-  add_index "transactions", ["invoice_id"], name: "index_transactions_on_invoice_id"
+  add_index "transactions", ["company_id"], name: "index_transactions_on_company_id", using: :btree
+  add_index "transactions", ["customer_id"], name: "index_transactions_on_customer_id", using: :btree
+  add_index "transactions", ["invoice_id"], name: "index_transactions_on_invoice_id", using: :btree
 
   create_table "user_types", force: true do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -133,8 +136,8 @@ ActiveRecord::Schema.define(version: 20130711183701) do
     t.string   "password_salt"
     t.string   "password_hash"
     t.integer  "company_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "job"
   end
 
