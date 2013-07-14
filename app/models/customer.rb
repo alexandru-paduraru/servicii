@@ -16,7 +16,7 @@ class Customer < ActiveRecord::Base
   validates_format_of :zip_code, :with => /\A[0-9]+\Z/i  
   
   def self.search(search, current_user)
-  	if search
+  	if search != ''
   		search = search.downcase
 		 if Invoice.all.where(:company_id => current_user.company_id ) != []
              all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and customers.active = ?', search, search, "%#{search}%", "%#{search}%", "%#{search}%", current_user.company_id, true]
