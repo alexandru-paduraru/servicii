@@ -164,8 +164,9 @@ require 'mandrill'
 #################### User actions #######################	
 	def send_email
 		customer_id = params[:customer_id]
+		customer = Customer.find_by_id(customer_id)
 		invoice = {}
-		invoice[:email] = "conacel.elena@gmail.com"
+		invoice[:email] = customer[:email]
 		invoice[:message] = 'hello'
 		if Notifier.send_invoice(invoice).deliver
 		redirect_to customer_details_path(:customer_id => customer_id), :notice => "Email sent!"
