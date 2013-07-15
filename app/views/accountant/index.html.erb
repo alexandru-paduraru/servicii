@@ -20,25 +20,31 @@
 
 </table>
 
-<table class="table table-bordered table-hover table-striped">
-  
+<table class="table table-hover">
   <tr>
-  <th>Invoice number</th>
-  <th>Amount</th>
-  <th>Customer account </th>
-  <th>Details</th>
+  	  <th>#</th>
+	  <th>Invoice number</th>
+	  <th>Customer name</th>
+	  <th>Customer account </th>
+	  
+	  <th>Amount</th>
+	  <th></th>
   </tr>
   
   <% index = 0 %>
   <% @invoice_details.each do |invoice_details| %>
   <tr>
   
-  <% index = index + 1 %>
+  <td><%= index = index + 1 %></td>
   <td><%= invoice_details[:invoice].number %></td>
-  <td><%= invoice_details[:invoice].amount %> $ </td>
+  <td><%= invoice_details[:customer].first_name + ' ' + invoice_details[:customer].last_name %></td>
   <td><%= invoice_details[:customer].account %></td>
-    <td> <a href="invoice_details/<%= invoice_details[:invoice].id %>" class = "btn" >Details</a></td>
-
+  <td><%= invoice_details[:invoice].amount %> $ </td>
+    <td><%= link_to invoice_details_path(invoice_details[:invoice].id) do %>
+	  			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span>
+	  	   <% end %>
+	</td>
+    
   </tr>
   <% end %>
   
