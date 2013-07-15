@@ -69,6 +69,33 @@
   </div>
 <!-- end row   -->
 
+<h4 class="muted">Services</h4>
+<table class="table table-hover">
+	      <tr>
+	      	<th>#</th>
+	      	<th>Name</th>
+	      	<th>Value</th>
+	      	<th>Quantity</th>
+	      	<th><span class="pull-right">Amount</span></th>
+	      </tr>
+	      <% index = 0 %>
+	      <% if @services %>
+		      <% @services.each do |service| %>
+		      <tr>
+		      <td><%= index = index +1 %></td>
+		      <td> <%= service[:name]%></td>
+		      <td> <%= service[:value] %></td>
+		      <td> <%= service[:qty] %> </td>
+		      <td><span class="pull-right"> $<%= service[:amount] %> </span>
+		      </td>
+		      </tr>
+		      <% end %>
+	      <% end %>
+
+		    
+</table>
+
+
 <div class="row">
 	<div class="span6">
 	<legend>Timeline</legend>

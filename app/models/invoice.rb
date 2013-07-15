@@ -94,4 +94,19 @@ class Invoice < ActiveRecord::Base
    def self.index(company_id)
      all.where(:company_id => company_id).order('date asc')
    end
+   
+   def self.index_services(invoice)
+   	services = []
+   	relations = invoice.invoice_has_services
+		relations.each do |relation|
+		  service_details = {}
+		  service = Service.find_by_id(relation.service_id)
+		  service_details[:qty] = relation.qty
+		  service_details[:name] = service.name
+		  service_details[:value] = service.value
+		  service_details[:amount] = service_details[:value]*service_details[:qty]
+		  services.append(service_details)
+		end
+	services
+   end
 end

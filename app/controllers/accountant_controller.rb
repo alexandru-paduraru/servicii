@@ -26,6 +26,8 @@ class AccountantController < ApplicationController
 	 @customer_id = @invoice.customer_id
 	 @customer = Customer.find_by_id(@customer_id)
 	 
+	 @services = Invoice.index_services(@invoice)
+	 
 	 @email_details = []
 	 
 	 @emails = @invoice.email_actions
@@ -77,7 +79,6 @@ class AccountantController < ApplicationController
    				@relation = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => _post_service[:id], :qty => _post_service[:qty])
    				if !@relation.save
    					ok = 0
-   					#render :json => { :errors => @relation.errors.full_messages }, :status => 422
    				end 
    			end
    			if ok == 1
