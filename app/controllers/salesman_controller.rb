@@ -50,7 +50,7 @@ class SalesmanController < ApplicationController
 	 @customer_id = params[:customer_id]
 	 @customer = Customer.find_by_id(@customer_id)
 	 @customer_last_invoice = Customer.last_invoice(@customer)
-	 _customer_last_action = EmailAction.last_action(@customer)
+	 _customer_last_action = Action.last_action(@customer)
 	 if _customer_last_action
 	 @last_action = ((Time.now.to_date - _customer_last_action[:sent_at].to_date)/1.day).to_i
 	 end

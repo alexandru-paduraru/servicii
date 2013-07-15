@@ -6,7 +6,7 @@ class Invoice < ActiveRecord::Base
   belongs_to :customer
   
   has_many :transactions
-  has_many :email_actions
+  has_many :actions
 # completari many to many  
 
   has_many :invoice_has_services

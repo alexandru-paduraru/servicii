@@ -5,7 +5,7 @@ class Customer < ActiveRecord::Base
   belongs_to :company
   has_many :invoices
   has_many :transactions
-  has_many :email_actions
+  has_many :actions
   
   validates :first_name, :last_name, :email, :phone,:address1, :state, :city, :zip_code, :presence => true
   validates :first_name, :last_name,:organization_name, :state, :city, :zip_code, :length => { :minimum => 2 }
