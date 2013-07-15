@@ -3,13 +3,10 @@ development:
   encoding: unicode
   database: servicii_db
   pool: 5
-  username: cristina
-  password:
 
 test:
   adapter: postgresql
   encoding: unicode
   database: servicii_db
   pool: 5
-  username: cristina
-  password:
+  
