@@ -83,7 +83,7 @@ class Invoice < ActiveRecord::Base
   def self.generate_number(current_user)
   	number = 1
      if Invoice.all.where(:company_id => current_user.company_id) != []
-         invoice = Invoice.all.where(:company_id => current_user.company_id).order('number asc').last
+         invoice = Invoice.all.where(:company_id => current_user.company_id).order('created_at asc').last
          if invoice
        	  number = invoice[:number].to_i(base=10) + 1
          end

@@ -113,7 +113,7 @@ class Customer < ActiveRecord::Base
   def self.generate_number
   	number = '1'
      if Customer.all != []
-         if customer = Customer.all.order('account asc').last
+         if customer = Customer.all.order('created_at asc').last
          number = (customer[:account].to_i + 1).to_s
          end
      end
