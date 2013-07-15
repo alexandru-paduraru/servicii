@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130711183701) do
+ActiveRecord::Schema.define(version: 20130715123908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "actions", force: true do |t|
+    t.datetime "sent_at"
+    t.datetime "viewed_at"
+    t.integer  "customer_id"
+    t.integer  "invoice_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "mandrill_id"
+    t.integer  "user_id"
+    t.integer  "company_id"
+  end
+
+  add_index "actions", ["company_id"], name: "index_actions_on_company_id", using: :btree
+  add_index "actions", ["customer_id"], name: "index_actions_on_customer_id", using: :btree
+  add_index "actions", ["invoice_id"], name: "index_actions_on_invoice_id", using: :btree
+  add_index "actions", ["user_id"], name: "index_actions_on_user_id", using: :btree
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -52,23 +69,6 @@ ActiveRecord::Schema.define(version: 20130711183701) do
 
   add_index "customers", ["company_id"], name: "index_customers_on_company_id", using: :btree
   add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
-
-  create_table "email_actions", force: true do |t|
-    t.datetime "sent_at"
-    t.datetime "viewed_at"
-    t.integer  "customer_id"
-    t.integer  "invoice_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "mandrill_id"
-    t.integer  "user_id"
-    t.integer  "company_id"
-  end
-
-  add_index "email_actions", ["company_id"], name: "index_email_actions_on_company_id", using: :btree
-  add_index "email_actions", ["customer_id"], name: "index_email_actions_on_customer_id", using: :btree
-  add_index "email_actions", ["invoice_id"], name: "index_email_actions_on_invoice_id", using: :btree
-  add_index "email_actions", ["user_id"], name: "index_email_actions_on_user_id", using: :btree
 
   create_table "invoice_has_services", force: true do |t|
     t.integer  "invoice_id"

@@ -46,7 +46,7 @@ class AdminController < ApplicationController
 		
 		@customers = Customer.index(current_user.company_id)
 		@invoices = Invoice.index(current_user.company_id)
-		@actions = EmailAction.index(current_user.company_id)
+		@actions = Action.index(current_user.company_id)
 		
 		@users.each do |user|
 			@user_details = User.details(user.id)

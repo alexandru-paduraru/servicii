@@ -30,7 +30,7 @@ class AccountantController < ApplicationController
 	 
 	 @email_details = []
 	 
-	 @emails = @invoice.email_actions
+	 @emails = @invoice.actions
 	 @emails.each do |email|
 	     details = {}
 	     details[:email] = email

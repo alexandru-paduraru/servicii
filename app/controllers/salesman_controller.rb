@@ -72,7 +72,7 @@ class SalesmanController < ApplicationController
 		 	@total_due_amount += invoice[:due_amount]
 		 end
 		 
-		 @emails = @customer.email_actions
+		 @emails = @customer.actions
 # 		 @emails.each do |email|
 # 		   EmailAction.refresh_info(email)
 # 		 end
