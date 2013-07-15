@@ -2,20 +2,20 @@
   <% if @invoice %>
        
    <div class="row">
-        <div class="span5">
-	        <legend class="muted">Invoice details 
+        <div class="span9">
+	        <legend class="muted">Invoice  #<%= @invoice.number %>
 	        </legend>
-	        <address><strong>Invoice</strong> <%= @invoice.number %></address>
-	        <address><strong>Issued on :</strong> <%= @invoice.date %><br>
-	        		 <strong>Due on:</strong> <%= @invoice.due_date %><br>
-	        		 <strong>Amount:</strong> <%= @invoice.amount %><br>
-	        
-	        </address>
+	        <div class="span3 pull-right">
+		        <address><strong>Issued on :</strong> <%= @invoice.date %><br>
+		        		 <strong>Due on:</strong> <%= @invoice.due_date %><br>
+		        </address>
+	        </div>
 	         <address>
-	            <strong><%= @customer.organization_name %></strong><br><br>
-			    <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
-			    <%= @customer.email %><br>
-			    <%= @customer.phone %>
+	            <h4>Customer</h4> 
+	            Organization: <strong><%= @customer.organization_name %></strong><br>
+			    Name: <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
+			    Email: <strong><%= @customer.email %></strong><br>
+			    Phone: <strong><%= @customer.phone %></strong>
 			    </address>
 			     
 			    <address>
@@ -28,55 +28,14 @@
 			     <%= @customer.address2%>
 			    <% end %>
 			    </address>
-			    
-			    <address>
-			    <strong>Description</strong><br>
-			    <%= @customer.description %><br>
-			    <strong>Sent to collector:</strong> 
-			    <% if @customer.sent_to_collector %>
-			    	 Yes
-	            <% else %>
-	            	 No
-	            <% end %>
-			    </address>
 		
-	
-        </div>
-        
-      <div class="span3 pull-right actions well">
-
-	      <h5 class="muted">Invoice actions:</h5>
-	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
-<!--
-		<a href="#" class = "btn btn-info btn-large btn-block">
-			<i class="icon-envelope icon-white"></i> Send email
-        </a>
--->
-        <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-large btn-block" do %>
-	     <i class="icon-envelope icon-white"></i> Send email
-	    <% end %>
-		
-		<a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
-    <% if @customer.sent_to_collector%>
-        <a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
-    <% else %>
-	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block" do %>
-	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
-	    <% end %>
-	<% end %>
-      </div>
-     
-  </div>
-<!-- end row   -->
-
-<h4 class="muted">Services</h4>
-<table class="table table-hover">
+		<table class="table table-striped table-hover">
 	      <tr>
 	      	<th>#</th>
 	      	<th>Name</th>
-	      	<th>Value</th>
 	      	<th>Quantity</th>
-	      	<th><span class="pull-right">Amount</span></th>
+	      	<th>Value</th>
+	      	<th><span class="pull-right">Total</span></th>
 	      </tr>
 	      <% index = 0 %>
 	      <% if @services %>
@@ -84,16 +43,55 @@
 		      <tr>
 		      <td><%= index = index +1 %></td>
 		      <td> <%= service[:name]%></td>
-		      <td> <%= service[:value] %></td>
-		      <td> <%= service[:qty] %> </td>
+		      <td> <%= service[:qty].to_i %> </td>
+		      <td> <%= '$' + service[:value].to_s + ',00'%></td>
 		      <td><span class="pull-right"> $<%= service[:amount] %> </span>
 		      </td>
 		      </tr>
 		      <% end %>
 	      <% end %>
-
-		    
+	      <tr>
+	      	<td colspan="4"></td>
+	      	<td>
+	      		<span class="amount_info">Total:</span>
+	      		<span class="total_due_amount">$<%= @invoice.amount %></span>
+	      	</td>
+	      </tr> 
 </table>
+
+	<div>
+		<h4>Company</h4>
+		<p><%= @company.name %></p>
+		<p><%= @company.address %>, <%= @company.zip_code %></p>
+		<p><%= @company.city + ', ' + @company.country %></p>
+	</div>
+</div>
+        
+      <div class="span3 pull-right actions">
+      	 <legend class="muted">Account action</legend>	
+      	 <div class="well">
+      			Account standing: <strong>on time</strong><br>
+      			Last contact: <strong>60 days ago</strong>
+      		</div>
+	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
+	      <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-large btn-block" do %>
+	      		<i class="icon-envelope icon-white"></i> Send email
+	      <% end %>
+	      <a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
+	      <% if @customer.sent_to_collector%>
+	      		<a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
+	      <% else %>
+	      	<%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block" do %>
+	      		<i class="icon-exclamation-sign icon-white"></i> Send to collector
+	      <% end %>
+	<% end %>
+     	<legend class="muted">Future Action</legend>
+      </div>
+     
+  </div>
+<!-- end row   -->
+
+
 
 
 <div class="row">

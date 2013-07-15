@@ -169,9 +169,9 @@ require 'mandrill'
 		invoice[:email] = customer[:email]
 		invoice[:message] = 'hello'
 		if Notifier.send_invoice(invoice).deliver
-		redirect_to customer_details_path(:customer_id => customer_id), :notice => "Email sent!"
+			redirect_to customer_details_path(:customer_id => customer_id), :notice => "Email sent!"
 		else
-		redirect_to customer_details_path(:customer_id => customer_id), :alert => "Error sending email!"
+			redirect_to customer_details_path(:customer_id => customer_id), :alert => "Error sending email!"
 		end
 	end
 	

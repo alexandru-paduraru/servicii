@@ -122,7 +122,7 @@ $(document).ready(function() {
 	            		response.html('');
 	            		response.addClass('alert alert-success');
 	            		response.append(data);
-		            	window.location.href = '/customers/' + customer_id +'/invoices';
+		            //	window.location.href = '/customers/' + customer_id +'/invoices';
 	      		},
 	      		error: function(xhr){
 		      		var errors = $.parseJSON(xhr.responseText).errors

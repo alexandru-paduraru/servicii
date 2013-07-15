@@ -26,6 +26,7 @@ class AccountantController < ApplicationController
 	 @customer_id = @invoice.customer_id
 	 @customer = Customer.find_by_id(@customer_id)
 	 
+	 @company = Company.find_by_id(current_user.company_id)
 	 @services = Invoice.index_services(@invoice)
 	 
 	 @email_details = []
@@ -70,19 +71,25 @@ class AccountantController < ApplicationController
    		_post_customer = params[:customer]
    		_post_invoice = params[:invoice]
    		numberOfServices = _post_invoice[:number_of_services].to_i
+   		@services = []
    		@invoice = Invoice.new(:date => Time.now, :customer_id => _post_customer[:id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => _post_invoice[:due_date], :amount => _post_invoice[:amount])
    		@invoice.number = Invoice.generate_number
    		if @invoice.save
    			(1..numberOfServices).each do |i|
    				service = "service_" + i.to_s
    				_post_service = params[service]
+   				@services.append(_post_service)
    				@relation = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => _post_service[:id], :qty => _post_service[:qty])
    				if !@relation.save
    					ok = 0
    				end 
    			end
    			if ok == 1
-   				render :text => "Invoice was succesfully created!"
+   				if Notifier.send_email_invoice(@invoice, @services, @customer).deliver
+   					render :text => "Invoice was succesfully created! An email was sent to customer!"
+   				else
+   					render :text => "Invoice was succesfully created but email couldn't be sent!"
+   				end
    			else 
    				render :text => "There was an error creating Invoice has service! Please contact admin!"
    			end
