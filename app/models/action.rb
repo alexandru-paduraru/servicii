@@ -9,7 +9,7 @@ class Action < ActiveRecord::Base
 	 
 	 def self.last_action(customer)
 		if customer
-	  		customer.email_actions.order('sent_at asc').last
+	  		customer.actions.order('sent_at asc').last
 	  	else
 	  		nil
 	  	end
