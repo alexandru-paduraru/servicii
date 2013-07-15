@@ -85,10 +85,10 @@ class Invoice < ActiveRecord::Base
      if Invoice.all.where(:company_id => current_user.company_id) != []
          invoice = Invoice.all.where(:company_id => current_user.company_id).order('number asc').last
          if invoice
-       	  number = invoice[:number].to_i + 1
+       	  number = invoice[:number].to_i(base=10) + 1
          end
      end
-     number.to_s
+     number.to_s()
   end
   
    def self.index(company_id)
