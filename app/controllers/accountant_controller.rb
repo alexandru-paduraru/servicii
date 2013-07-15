@@ -73,7 +73,7 @@ class AccountantController < ApplicationController
    		numberOfServices = _post_invoice[:number_of_services].to_i
    		@services = []
    		@invoice = Invoice.new(:date => Time.now, :customer_id => _post_customer[:id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => _post_invoice[:due_date], :amount => _post_invoice[:amount])
-   		@invoice.number = Invoice.generate_number
+   		@invoice.number = Invoice.generate_number(current_user)
    		if @invoice.save
    			(1..numberOfServices).each do |i|
    				service = "service_" + i.to_s
