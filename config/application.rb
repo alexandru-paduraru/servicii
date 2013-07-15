@@ -55,6 +55,10 @@ module Services
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
+
+	#generating pdf
+	config.middleware.use "PDFKit::Middleware"
+	
     # Enable the asset pipeline
     config.assets.enabled = true
     config.serve_static_assets = true
