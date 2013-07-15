@@ -1,1 +1,56 @@
-<h3>Amount <%= @invoice.amount %></h3>
+	
+	<h3>Invoice  #<%= @invoice.number %></h3>
+	        
+	        <div style="float:right; display:block">
+		        <address><strong>Issued on :</strong> <%= @invoice.date %><br>
+		        		 <strong>Due on:</strong> <%= @invoice.due_date %><br>
+		        </address>
+	        </div>
+	         <address>
+	            <h4>Customer</h4> 
+	            Organization: <strong><%= @customer.organization_name %></strong><br>
+			    Name: <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
+			    Email: <strong><%= @customer.email %></strong><br>
+			    Phone: <strong><%= @customer.phone %></strong>
+			    </address>
+			     
+			    <address>
+			    <strong>Address</strong><br>
+			    <%= @customer.state %>
+			    <%= @customer.city %>
+			    <!-- <%= @customer.zip_code %> -->
+			    <%= @customer.address1 %>
+			    <% if @customer.address2 %>
+			     <%= @customer.address2%>
+			    <% end %>
+			    </address>
+			    <br><br>
+		<table class="table table-striped table-hover">
+		      <tr>
+		      	<th>#</th>
+		      	<th>Service</th>
+		      	<th>Quantity</th>
+		      	<th>Value</th>
+<!-- 		      	<th><span class="pull-right">Total</span></th> -->
+		      </tr>
+		      <% index = 0 %>
+		      <% if @services %>
+			      <% @services.each do |service| %>
+			      <tr>
+			      <td><%= index = index +1 %></td>
+			      <td> <%= service[:name]%></td>
+			      <td> <%= service[:qty].to_i %> </td>
+			      <td> <%= '$' + service[:value].to_s + ',00'%></td>
+			      <td><span class="pull-right"> <%= service[:amount] %> </span>
+			      </td>
+			      </tr>
+			      <% end %>
+		      <% end %>
+		      <tr>
+		      	<td colspan="4"></td>
+		      	<td>
+		      		<span class="amount_info">Total:</span>
+		      		<span class="total_due_amount">$<%= @invoice.amount %></span>
+		      	</td>
+		      </tr> 
+	      </table>

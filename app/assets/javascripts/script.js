@@ -108,6 +108,9 @@ $(document).ready(function() {
 	
 	$('#invoice_submit').click(function(){
 		response = $('#ajax_response');
+		var submit_button = $(this).attr("disabled","disabled");
+		var draft_button = $("#invoice_save_draft").attr("disabled","disabled");
+		submit_button.html("Sending...")
 		customer_id = $('#customer_id').val();
 		if (request){
 			request.abort();
@@ -122,7 +125,8 @@ $(document).ready(function() {
 	            		response.html('');
 	            		response.addClass('alert alert-success');
 	            		response.append(data);
-		            //	window.location.href = '/customers/' + customer_id +'/invoices';
+	            		submit_button.html("Invoice sent");
+		            	window.location.href = '/customers/' + customer_id +'/invoices';
 	      		},
 	      		error: function(xhr){
 		      		var errors = $.parseJSON(xhr.responseText).errors
@@ -134,6 +138,9 @@ $(document).ready(function() {
 			      		response.append('<li>' + errors[i] + '</li>');
 		      		});
 		      		response.append('</ul>');
+		      		submit_button.removeAttr("disabled");
+		      		draft_button.removeAttr("disabled");
+		      		submit_button.html("Submit Invoice")
 		      		return;
 		      	}
 	        });
