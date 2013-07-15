@@ -19,9 +19,9 @@ class Customer < ActiveRecord::Base
   	if search != ''
   		search = search.downcase
 		 if Invoice.all.where(:company_id => current_user.company_id ) != []
-             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and customers.active = ?', search, search, "%#{search}%", "%#{search}%", "%#{search}%", current_user.company_id, true]
+             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and customers.active = ?', search, search, "#{search}%", "#{search}%", "#{search}%", current_user.company_id, true], :select => 'distinct customers.first_name, customers.last_name, customers.account, customers.email, customers.id'
 		 else
-		    find(:all, :conditions => ['(lower(first_name) = ? or lower(last_name) = ? or lower(email) = ? or lower(account) = ?) and active = ? and company_id = ?', search , search, search, search, true, current_user.company_id])
+		    find(:all, :conditions => ['(lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) = ?) and active = ? and company_id = ?', "#{search}%" , "#{search}%", "#{search}%", search, true, current_user.company_id])
 		 end  	
     else
     	all.where(:active => true, :company_id => current_user.company_id )
@@ -38,9 +38,10 @@ class Customer < ActiveRecord::Base
   	if search != ''
   		search = search.downcase
 		 if Invoice.all.where(:company_id => current_user.company_id ) != []  
-             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) = ? or lower(customers.last_name) = ? or lower(customers.email) = ?) and customers.company_id = ? and active = ? and sent_to_collector = ?', search, search,search, search, search, current_user.company_id, true, true]
+             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and active = ? and sent_to_collector = ?', search, search,"#{search}%","#{search}%", "#{search}%", current_user.company_id, true, true], :select => 'distinct customers.first_name, customers.last_name, customers.account, customers.email, customers.id'
+
 		 else
-		     all.where(:active => true,:sent_to_collector => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(first_name) = ? or lower(last_name) = ? or lower(email) = ? or lower(account) = ?', search , search, search, search])
+		     all.where(:active => true,:sent_to_collector => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) = ?', "#{search}%" , "#{search}%", "#{search}%", search])
 		 end  	
     else
     	all.where(:active => true, :company_id => current_user.company_id, :sent_to_collector => true )

@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: servicii_db
   pool: 5
-  username: Axelut
+  username: cristina
   password:
 
 test:
@@ -11,5 +11,5 @@ test:
   encoding: unicode
   database: servicii_db
   pool: 5
-  username: Axelut
+  username: cristina
   password:
