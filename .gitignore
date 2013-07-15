@@ -18,4 +18,8 @@
 # Ignore application configuration
 /config/application.yml
 /config/database.yml
+<<<<<<< HEAD
 
+=======
+config/database.yml
+>>>>>>> ba81543038eb4fe98c50fb7db62f9f7e3f07012d
