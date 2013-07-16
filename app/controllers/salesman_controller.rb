@@ -72,17 +72,18 @@ class SalesmanController < ApplicationController
 		 	@total_due_amount += invoice[:due_amount]
 		 end
 		 
-		 @emails = @customer.actions
+		 @actions = @customer.actions
 # 		 @emails.each do |email|
 # 		   EmailAction.refresh_info(email)
 # 		 end
-         @email_details = []
-		 @emails.each do |email|
+         @action_details = []
+		 @actions.each do |email|
 		     details = {}
 		     details[:email] = email
-		     details[:user] = User.find(email.user_id)
+		     details[:user] = User.find_by_id(email.user_id)
+		     details[:invoice] = Invoice.find_by_id(email.invoice_id)
 			# EmailAction.refresh_info(email)
-			 @email_details.append(details)
+			 @action_details.append(details)
 	     end
 		 
 	 end

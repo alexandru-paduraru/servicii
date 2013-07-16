@@ -1,8 +1,9 @@
 class Action < ActiveRecord::Base
-  attr_accessible :sent_at, :viewed_at, :mandrill_id, :user_id, :customer_id
+  attr_accessible :sent_at, :viewed_at, :user_id, :customer_id, :action_type, :text_note, :company_id, :invoice_id
   
   belongs_to :customer
   belongs_to :invoice
+
   
   validates :sent_at, :presence => true
 

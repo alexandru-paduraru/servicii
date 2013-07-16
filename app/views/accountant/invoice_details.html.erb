@@ -98,15 +98,16 @@
 	<div class="span6">
 	<legend>Timeline</legend>
 	<ul>
-         <% @email_details.each do |email_detail| %>
+         <% @action_details.each do |action_detail| %>
          <li> 
-           Email for invoice# <%= email_detail[:email].invoice_id %> was sent by <%= email_detail[:user].first_name %> &nbsp <%= email_detail[:user].last_name %>
-	       <%= email_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
-	       <%= email_detail[:email].sent_at.strftime("at %I:%M%p") %>
+           Email was sent to <%= action_detail[:customer].first_name + ' ' + action_detail[:customer].last_name %>
+           by <%= action_detail[:user].first_name + ' ' + action_detail[:user].last_name %>
+	       <%= action_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
+	       <%= action_detail[:email].sent_at.strftime("at %I:%M%p") %>
 	       <br>
-	        <% if email_detail[:email].viewed_at %>
-				 <%= email_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
-				 <%= email_detail[:email].viewed_at.strftime("at %I:%M%p") %>
+	        <% if action_detail[:email].viewed_at %>
+				 <%= action_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
+				 <%= action_detail[:email].viewed_at.strftime("at %I:%M%p") %>
 	        <% end %>
           </li>   
         <% end %>

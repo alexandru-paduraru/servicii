@@ -29,15 +29,15 @@ class AccountantController < ApplicationController
 	 @company = Company.find_by_id(current_user.company_id)
 	 @services = Invoice.index_services(@invoice)
 	 
-	 @email_details = []
+	 @action_details = []
 	 
-	 @emails = @invoice.actions
-	 @emails.each do |email|
+	 @actions = @invoice.actions
+	 @actions.each do |action|
 	     details = {}
-	     details[:email] = email
-	     details[:user] = User.find_by_id(email.user_id)
-		 EmailAction.refresh_info(email)
-		 @email_details.append(details)
+	     details[:email] = action
+	     details[:user] = User.find_by_id(action.user_id)
+         details[:customer] = Customer.find_by_id(action.customer_id)	     
+		 @action_details.append(details)
      end
      	 
 	 respond_to do |format|
@@ -87,6 +87,7 @@ class AccountantController < ApplicationController
    			if ok == 1
    				if Notifier.send_email_invoice(@invoice, @services, @customer).deliver
    					render :text => "Invoice was succesfully created! An email was sent to customer!"
+   				Action.create(:sent_at => Time.now, :customer_id => @customer.id, :invoice_id => @invoice.id, :user_id => current_user.id, :company_id => @customer.company_id, :action_type => "email")
    				else
    					render :text => "Invoice was succesfully created but email couldn't be sent!"
    				end
@@ -105,11 +106,17 @@ class AccountantController < ApplicationController
    		@service.name = _post[:name]
    		@service.value = _post[:value]
    		@service.company_id = current_user.company_id
-   		if @service.save
-   			render :json => @service.to_json
-   		else 
-   			render :json => { :errors => @service.errors.full_messages }, :status => 422
-   		end
+   		search = Service.search_name_value(_post[:name], _post[:value], current_user.company_id)
+   		if search
+   		     @service = search
+   		     render :json => @service.to_json
+   		else
+			if @service.save
+				render :json => @service.to_json
+			else 
+				render :json => { :errors => @service.errors.full_messages }, :status => 422
+			end
+		end
    end
    
    
@@ -152,7 +159,7 @@ class AccountantController < ApplicationController
         if ok
            if params[:send]
            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
-           EmailAction.send_email(_post,@invoice.id,current_user) 
+#            EmailAction.send_email(_post,@invoice.id,current_user) 
            end
            if params[:draft]
            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice saved as draft."
