@@ -77,6 +77,8 @@ get '/send_email/:customer_id', to: 'user#send_email', :as => "send_email"
 #send to collector
 get '/send_to_collector/:customer_id', to: 'user#send_to_collector', :as => "send_to_collector"
 
+#for viewing invoice as pdf
+get '/pdf_invoice', to: 'accountant#pdf_invoice', :as => "pdf_invoice"
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"

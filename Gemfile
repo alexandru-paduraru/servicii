@@ -70,4 +70,4 @@ gem 'mandrill-api', '~> 1.0.37'
 
 #gem for generating pdf
 gem "pdfkit", "~> 0.5.4"
-#gem "wkhtmltopdf-binary", "~> 0.9.9.1"
+gem "wkhtmltopdf-binary", "~> 0.9.9.1"

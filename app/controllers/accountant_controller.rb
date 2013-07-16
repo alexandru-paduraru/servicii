@@ -209,4 +209,8 @@ class AccountantController < ApplicationController
    	   @invoice = Invoice.find_by_id(params[:invoice_id])
    end
    
+   def pdf_invoice
+   	render 'pdf_invoice'
+   end
+   
 end

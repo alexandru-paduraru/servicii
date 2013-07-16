@@ -57,7 +57,7 @@ module Services
 
 
 	#generating pdf
-	config.middleware.use "PDFKit::Middleware"
+	config.middleware.use "PDFKit::Middleware", :print_media_type => true
 	
     # Enable the asset pipeline
     config.assets.enabled = true
