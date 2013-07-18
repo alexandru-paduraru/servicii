@@ -1,5 +1,4 @@
 <% if @customer %>
-           
    <div class="row">
         <div class="span5" style="display:none">
 	        <legend class="muted">Customer details
@@ -35,89 +34,113 @@
 	            	 No
 	            <% end %>
 			    </address>
+				
         </div>
-        
-        
-      <div class="span5">
-	        <legend class="muted">Customer details
+		
+      <div class="span8">
+		  <ul class="breadcrumb">
+		    <li><a href="#">Accounts List</a> <span class="divider">/</span></li>
+		     <li class="active">Bloom Brothers</li>
+		  </ul>
+		  <div class="padded">
+	      <!--  <legend class="muted"> Customer details </legend> -->
 		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right" do %>
-		       		<i class="icon-edit"></i> Edit</a>
+		       		<i class= "icon-edit"></i></a>
 				<% end %> 
-	        </legend>
-	         <address>
-	            Organization: <strong><%= @customer.organization_name %></strong><br><br>
-			    Name: <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
-			    Email: <strong><%= @customer.email %></strong><br>
-			    Phone: <strong><%= @customer.phone %></strong>
+	        
+	        	<address>
+	            <!--<p class="muted">Organization</p> --><h1><strong><%= @customer.organization_name %></strong></h1> 
+			 	<!-- Contact Name: --> <h4><strong><%= @customer.first_name + ' ' + @customer.last_name %></h4></strong><br> 
+			    
+					<div class="span5">
+ 							<dl class="dl-horizontal ">
+				 <dt>Email</dt>  <dd><%= @customer.email %></dd>
+			     <dt>Phone</dt>  <dd><%= @customer.phone %></dd>
+				 </dl>
+			</div>
+  
+		 
 			    </address>
-			     
+			    <div class="span6">
 			    <address>
-			    <strong>Address</strong><br>
+				<dl class="dl-horizontal clearfix">
+			    <dt>Address</dt> 
 			   
-			    <%= @customer.address1 %>
-			    <% if @customer.address2 %>
+			    <dd><%= @customer.address1 %> 
+					<% if @customer.address2 %>
 			     <%= @customer.address2%>
 			    <% end %>
 			    <%= @customer.zip_code %><br>
 			    <%= @customer.city %>,
-			    <%= @customer.state %>
+			   <%= @customer.state %></dd>
+			    </dl>
 			    </address>
-			    
+			</div>
+ 		
+ 			<div class="span4 pull-left">
 			    <address>
-			    <strong>Description</strong><br>
-			    <%= @customer.description %><br>
-			    <strong>Sent to collector:</strong> 
+			<!--<strong>Description</strong><br>
+			    <%= @customer.description %><br> -->
+	<!--		    <strong>Sent to collector:</strong> 
 			    <% if @customer.sent_to_collector %>
 			    	 Yes
 	            <% else %>
 	            	 No
 	            <% end %>
-			    </address>
-        </div>
+			    </address>-->
+			</div> 
+        </div>  
+	</div>
+	
         
+     
         
-        
-      <div class="span3 pull-right actions">
-      	<h5>Last contact:
+      <div class="span3 pull-right actions ">
+		  
+        	<h5>Last contact:
       	 <% if @last_action %>
       	   <% if @last_action == 0 %>
       	        today 
       	   <% else %>
 	  	   		<%= @last_action %> &nbsp days ago
       	 	<% end %>
-      	 <% end %> 
+      	 <% end %>
       	 </h5>
-	      <h5 class="muted">Account actions:</h5>
-	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
+ 		
+		 <div class="well">
+	      <p>Invoice Flow Actions</p>
+ 		  <a href="#" class="btn btn-success btn-primary btn-block"><i class="icon-headphones icon-white"></i> Call</a>
 <!--
 		<a href="#" class = "btn btn-info btn-large btn-block">
 			<i class="icon-envelope icon-white"></i> Send email
         </a>
--->
-        <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-large btn-block" do %>
-	     <i class="icon-envelope icon-white"></i> Send email
+-->		
+		 
+        <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
+	     <i class="icon-envelope icon-white "></i> Send Email
 	    <% end %>
 		
-		<a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
+		<a href="#" class="btn btn-warning btn-primary btn-block"><i class="icon-comment icon-white"></i> Send SMS Text</a>
     <% if @customer.sent_to_collector%>
-        <a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
+        <a href="#" class="btn btn-danger btn-primary btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
     <% else %>
-	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-large btn-block" do %>
+	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-primary btn-block" do %>
 	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
 	    <% end %>
 	<% end %>
       </div>
-     
-  </div>
-<!-- end row   -->
-
+   </div> 
+</div>
+  
+ <!-- end row   -->
+ 
 
 <%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success pull-right span2" do %>
-	     <i class="icon-plus-sign icon-white"></i> Invoice
-<% end %>
-	    
-<h4 class="muted">Open invoices</h4>
-<table class="table table-hover">
+	     <i class="icon-plus-sign icon-white"></i> Add Invoice 
+<% end %><br><br>
+
+<h6 class="muted">OPEN INVOICES</h6>
+<table class="table table-hover table-striped">
 		<!--	
 		<% if @customer_last_invoice %>
 	      <tr><td>Last invoice:</td><td><%= @customer_last_invoice.date %></td></tr>
@@ -153,8 +176,8 @@
 		    
 </table>
 
-<h4 class="muted">Subscription</h4>
-<table class="table table-hover">
+<h6 class="muted">SUBSCRIPTIONS</h6>
+<table class="table table-hover table-striped">
 	      <tr>
 	      	<th>#</th>
 	      	<th>Issue date</th>
@@ -162,12 +185,11 @@
 	      	<th>Status</th>
 	      	<th>Amount</th>
 	      </tr>
-</table>
-
+</table><br><br>
 
 <div class="row">
 	<div class="span6">
-	<legend>Timeline</legend>
+	<legend><h5>Activity Feed</h5></legend>
 	<ul>
          <% @action_details.each do |action_detail| %>
          <li> 
@@ -187,7 +209,7 @@
 	</div>
 	
 	<div class="span6">
-	<legend>Future actions</legend>
+	<legend><h5>Future Actions</h5></legend>
 	</div>
 </div>
 	      

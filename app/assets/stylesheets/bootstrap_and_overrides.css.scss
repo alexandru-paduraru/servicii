@@ -1,8 +1,9 @@
-//@import "bootstrap";
+  //@import "bootstrap";
 //@import "bootstrap-responsive";
 body { 
 	background: #E6E6E6;
-	background-image:url('bg02.png');
+/*	background: #FFF;
+	background-image:url('bg02.png'); */
 	
 }
 .content {
@@ -14,9 +15,10 @@ body {
   border-radius: 6px;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-  box-shadow: 0 1px 2px rgba(0,0,0,.15);
-  margin-top: 60px;
-}
+  box-shadow: 0 1px 2px rgba(0,0,0,.15); 
+ /* margin-top: 60px; */
+  margin-top: 70px;
+ }
 
 .thumbnail{
 	text-align: center;

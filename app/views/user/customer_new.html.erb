@@ -1,6 +1,6 @@
      
    <div class="row">
-        <div class="span7">
+        <div class="span6">
 	        <legend>Create customer</legend>
 	        <%= form_for @customer, url: customer_create_path do |f| %>
 	        <% if @customer.errors.any? %>
@@ -15,16 +15,16 @@
 			<% end %>
 	        
 	        <div class="controls controls-row">
-	        <%= f.text_field :first_name, :class => "span3", :placeholder => "First name" %>
-	        <%= f.text_field :last_name, :class => "span4", :placeholder => "Last name" %>
-	        </div>
+		    <%= f.text_field :organization_name, :class => "span3", :placeholder => "Organization name" %>
+	        <%= f.text_field :email, :class => "span3", :placeholder => "Email" %>
+	        </div> 
 	        <div class="controls controls-row">
-	        <%= f.text_field :organization_name, :class => "span7", :placeholder => "Organization name" %>
-	        </div>
-	        <div class="controls controls-row">
-	        <%= f.text_field :email, :class => "span4", :placeholder => "Email" %>
-	        <%= f.text_field :phone, :class => "span3", :placeholder => "Phone" %>
-	        </div>
+	 	    <%= f.text_field :first_name, :class => "span2", :placeholder => "First name" %>
+		    <%= f.text_field :last_name, :class => "span2", :placeholder => "Last name" %>
+	        <%= f.text_field :phone, :class => "span2", :placeholder => "Phone" %>
+	        </div><br>
+			
+			<p class="test-info">Address Info</p>
 	        <div class="controls controls-row">
 	        <%= f.text_field :state, :class => "span2", :placeholder => "State" %>
 	        <%= f.text_field :city, :class => "span2", :placeholder => "City" %>
@@ -32,19 +32,20 @@
 
 	        </div>
 	        <div class="controls controls-row">
-	        <%= f.text_field :address1, :class => "span7", :placeholder => "Address1" %>
-	        </div>
+	        <%= f.text_field :address1, :class => "span3", :placeholder => "Address1" %>
+	        <%= f.text_field :address2, :class => "span3", :placeholder => "Address2" %>
+	        </div><br>
+	       	
+			<p>Other Info</p>
 	        <div class="controls controls-row">
-	        <%= f.text_field :address2, :class => "span7", :placeholder => "Address2" %>
-	        </div>
-	        <div class="controls controls-row">
-	        <%= f.text_field :industry, :class => "span4", :placeholder => "Industry" %>
-	        <%= f.text_field :company_size, :class => "span3", :placeholder => "Company size" %>
-	        </div>
-	        <div class="controls controls-row">
+	        <%= f.text_field :industry, :class => "span3", :placeholder => "Industry" %>
+	        <%= f.text_field :company_size, :class => "span2", :placeholder => "Company size" %>
+	        </div><br>
+			<!--
+		    <div class="controls controls-row">
 	        <%= f.text_area :description, :class => "span7", :placeholder => "Description", :rows => "3" %>
 	        </div>
-	        
+	        -->
 	        <%= link_to customers_path, :class => "btn btn-danger" do %>
 	        	<i class="icon-remove icon-white"></i>Cancel
 	        <% end %>
@@ -53,7 +54,7 @@
 	        </button>
 	        <% end %>
         </div>
-        
+      <!--  
       <div class="span3 pull-right actions well">
       	<h5>Last contact: - </h5>
 	      <h5 class="muted">Account actions:</h5>
@@ -71,6 +72,6 @@
 	    <% end %>
 	<% end %>
       </div>
-     
+    	  -->
   </div>
 <!-- end row   -->
