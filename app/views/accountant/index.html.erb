@@ -5,7 +5,7 @@
   <div class="input-append">
     
     <%= form_tag accountant_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span5", :placeholder => 'Search an invoice by "invoice number" or "customer account"' %>
+    <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => 'Search an invoice by invoice number, customer account, first name or last name' %>
     <%= button_tag(type: 'submit', class: "btn") do %>
    		 <i class="icon-ml-search"></i> Search</button>
     <% end %>    

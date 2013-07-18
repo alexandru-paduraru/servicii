@@ -34,7 +34,7 @@ class AccountantController < ApplicationController
 	 @actions = @invoice.actions
 	 @actions.each do |action|
 	     details = {}
-	     details[:email] = action
+	     details[:action] = action
 	     details[:user] = User.find_by_id(action.user_id)
          details[:customer] = Customer.find_by_id(action.customer_id)	     
 		 @action_details.append(details)
@@ -218,6 +218,24 @@ class AccountantController < ApplicationController
    
    def pdf_invoice
    	render 'pdf_invoice'
+   end
+   
+   def add_note
+   	invoice_id = params[:invoice_id]
+   	invoice = Invoice.find_by_id(invoice_id)
+   	customer = invoice.customer
+   	note = params[:text_note]
+   	text_note = note[:body]
+   	if text_note
+   		action = Action.new(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "note", :text_note => text_note)
+   	    if action.save
+			redirect_to invoice_details_path(invoice_id), :notice => "Note added successfully."
+		else
+			redirect_to invoice_details_path(invoice_id), :alert => "Something went wronf. Try again. "
+		end
+	else
+	        redirect_to invoice_details_path(invoice_id), :alert => "Note must contain something."
+	end
    end
    
 end

@@ -35,7 +35,7 @@ class Invoice < ActiveRecord::Base
   	if search != ''
   		search = search.downcase
   		if Customer.all.where(:company_id => current_user.company_id)
-		all :joins => :customer, :conditions => ['(invoices.number = ? or customers.account = ?) and invoices.company_id = ?', search, search, current_user.company_id]
+		all :joins => :customer, :conditions => ['(invoices.number = ? or customers.account = ? or customers.first_name LIKE ? or customers.last_name LIKE ?) and invoices.company_id = ?', search, search,"#{search}%", "#{search}%",current_user.company_id]
 		else
 		find(:all, :conditions => ['number = ? and company_id = ?', search, current_user.company_id])
 		end

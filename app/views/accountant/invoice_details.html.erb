@@ -58,13 +58,24 @@
 		      	</td>
 		      </tr> 
 	      </table>
-
-	<div>
+<div class = "row">
+	<div class="span4">
 		<h4>Company</h4>
 		<p><%= @company.name %></p>
 		<p><%= @company.address %>, <%= @company.zip_code %></p>
 		<p><%= @company.city + ', ' + @company.country %></p>
 	</div>
+	<div class="span5">
+	<%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+    <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
+    <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
+   		 <i class="icon-plus-sign icon-white"></i> Note</button>
+    <% end %>    
+    <% end %>
+    </div>
+</div>
+
+
 </div>
         
       <div class="span3 pull-right actions">
@@ -97,25 +108,52 @@
 <div class="row">
 	<div class="span6">
 	<legend>Timeline</legend>
+	<% if @action_details %>
 	<ul>
          <% @action_details.each do |action_detail| %>
          <li> 
+         <% if action_detail[:action].action_type == "email" %>
            Email was sent to <%= action_detail[:customer].first_name + ' ' + action_detail[:customer].last_name %>
+         <% else %> 
+         	<% if action_detail[:action].action_type == "note" %>
+         	Note was added 
+         	<% end %>
+         <% end %>
+
            by <%= action_detail[:user].first_name + ' ' + action_detail[:user].last_name %>
-	       <%= action_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
-	       <%= action_detail[:email].sent_at.strftime("at %I:%M%p") %>
+	       <%= action_detail[:action].sent_at.strftime("on %m/%d/%Y") %>
+	       <%= action_detail[:action].sent_at.strftime("at %I:%M%p") %>
 	       <br>
-	        <% if action_detail[:email].viewed_at %>
-				 <%= action_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
-				 <%= action_detail[:email].viewed_at.strftime("at %I:%M%p") %>
+	        <% if action_detail[:action].viewed_at %>
+				 <%= action_detail[:action].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
+				 <%= action_detail[:action].viewed_at.strftime("at %I:%M%p") %>
 	        <% end %>
           </li>   
         <% end %>
  
 
 	</ul>
+	<% end %> 
 	</div>
 	
 </div>
+
+<div class="row">
+	<div class="span6">
+	<legend>Notes</legend>
+	<% if @action_details %>
+	<ul>
+		<% @action_details.each do |action_detail| %>
+		<% if action_detail[:action].action_type == "note" %>
+		<li>
+		<%= action_detail[:action].text_note %>
+		</li>
+		<% end %>
+		<% end %>
+	</ul>
+	<% end %>
+	</div>
+</div>
+
 </div>
 <% end %>
