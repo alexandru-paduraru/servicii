@@ -3,14 +3,14 @@
 	<div class="row">
   		<div class="span4">
 	<% if @customers %>
-   	 <h4>Activity Feed</h4> 
+   	 <h5>Activity Feed</h5> 
 </div>
 
  	<div class="span2">
    		<div class="pull-right">
    	<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
    		  <input class="span2" size="16" type="text" value="12-02-2012">
-   		  <span class="add-on"><i class="icon-th"></i></span>
+   		  <span class="add-on"><i class="icon-calendar"></i></span>
    		</div>
    	</div>
 	  
@@ -25,11 +25,10 @@
 </div>
 	<div class="span5">
 		<strong>Kevin J. Liew</strong> &nbsp<a class="text-info" href="#">#collections</a> 
-		<p>Scheduled a <a class="text-error" href="#">#letter mail</a> for Soft Warehouse Source regarding invoice <a  class="muted" href="#"><u>000875</u></a>									
+		<p>Scheduled a <a class="text-error" href="#">#letter mail</a> for Soft Warehouse Source Inc. regarding invoice <a  class="muted" href="#"><u>000875</u></a>									
 		</div>
 	</div><br>
 		<!--Static Example -->
-		
 		<!--Static Example -->
 	 	<div class="row">
 			<div class="span1">
@@ -37,7 +36,7 @@
 	</div>
 		<div class="span5">
 			<strong>Kevin J. Liew</strong> &nbsp<a class="text-info" href="#">#collections</a> 
-			<p>Scheduled a <a class="text-error" href="#">#letter mail</a> for Soft Warehouse Source regarding invoice <a  class="muted" href="#"><u>000875</u></a>									
+			<p>Scheduled a <a class="text-error" href="#">#letter mail</a> for Soft Warehouse Source Inc. regarding invoice <a  class="muted" href="#"><u>000875</u></a>									
 			</div>
 		</div><br>
 			<!--Static Example -->
@@ -48,12 +47,13 @@
 		</div>
 			<div class="span5">
 				<strong>Kevin J. Liew</strong> &nbsp<a class="text-info" href="#">#collections</a> 
-				<p>Scheduled a <a class="text-error" href="#">#letter mail</a> for Soft Warehouse Source regarding invoice <a  class="muted" href="#"><u>000875</u></a>									
+				<p>Scheduled a <a class="text-error" href="#">#letter mail</a> for Soft Warehouse Source Inc. regarding invoice <a  class="muted" href="#"><u>000875</u></a>									
 				</div>
 			</div><br>
 				<!--Static Example -->
-
-
+		 
+	 
+				 
 	<ul>
 		<% @customers.each do |customer| %>
 		<li>User <%= customer.user_id %> added <%= customer.first_name%> <!--&nbsp--> <%= customer.last_name %> at <%= customer.created_at %></li>
@@ -87,7 +87,7 @@
 	
  			
  </div>
-
+ 
 <div class="span5 pull-right ">
   	<div id="employee_form">
 	
@@ -123,13 +123,53 @@
 	<!-- Text input-->
 	</fieldset>
 	</div>
-	
+	<div class="span4 well ">
+	<div class="alert alert-info">
+	              <a href ="#"><strong>Heads up!</strong> Add company logo!</a>
+	            </div> 
+				
+				  <p class="text-align-center">With Invoice Flow you can now improve your organizational effiency by adding an account manager, a financial representative and/or a collection agent with specific rights and responsabilities.</p><br>
+ 
+ 	  		 	<div class="row">
+	  				<div class="span1">
+	  			<img src="https://si0.twimg.com/profile_images/384515986/zmeura_normal.jpg" />
+	  		</div>
+	  			<div class="span3">
+	  				<strong>Account Manager</strong> 
+	  				<i class="muted">responsible with issuing invoices</i>									
+	  				</div>
+	  			</div> 
+ 
+  	  		 	<div class="row">
+	  				<div class="span1">
+	  			<img src="https://si0.twimg.com/profile_images/384515986/zmeura_normal.jpg" />
+	  		</div>
+	  			<div class="span3">
+	  				<strong>Financial Respresentative</strong> 
+	  				<i class="muted">responsible with receivables</i>									
+	  				</div>
+	  			</div> 
+				
+				
+ 	  		 	<div class="row">
+	  				<div class="span1">
+	  			<img src="https://si0.twimg.com/profile_images/384515986/zmeura_normal.jpg"/>
+	  		</div>
+	  			<div class="span3">
+	  				<strong>Collection Agent</strong> 
+	  				<i class="muted">responsible with collecting</i>									
+	  				</div>
+	  			</div><br>
+	  				 <button type="button" id="create_employee_button" class="btn btn-success pull-right"><i class="icon-plus icon-white "></i>Add employee</button>  
+		  		 
+				</div>
+	<!--
 	<button type="button" id="create_employee_button" class="btn btn-success pull-right"><i class="icon-plus icon-white"></i>Add employee</button>  
-	
+	-->
 	<% end %>
 </div>
 </div><br><br>
-
+ 
 <!-- <h4>Employees</h4>  -->
 <table class="table table-hover table-striped">
 <tr>
