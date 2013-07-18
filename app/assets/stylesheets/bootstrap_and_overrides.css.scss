@@ -429,23 +429,3 @@ input[disabled]{
 	font-size: 14px;
 	text-transform: uppercase;
 }
-
-.padded { 
-	padding: 14px; 
-}
-
- 
-.dl-horizontal dt {
-	float:left;
-	width:100px;
-	overflow:hidden;
-	clear:left;
-	text-align:right;
-	text-overflow:ellipsis;
-	white-space:nowrap;
-}
-.dl-horizontal dd {
-	margin-left:130px; 
-	text-align:left;
-}
- 
