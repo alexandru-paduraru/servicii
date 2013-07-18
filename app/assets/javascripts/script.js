@@ -4,13 +4,19 @@ $(document).ready(function() {
 	amount = 0;
 	
 	$('.datepicker').datepicker();
-
+	
+	//rich-text-editor
+	$('#some-textarea').wysihtml5();
 	
 	$(".modalButton").click(function(){
 	    var id = this.id;
 	    var modalNou = '#modal' + id;
 	    $(modalNou).modal('show');
 	 });
+	 
+	 //for centering the modal when its width is increased
+	 $('.custom_width_modal').css({'width': '680px','margin-left': function () {return -($(this).width() / 2);}})
+
 	  //for making row in table click-able
 	$("tr[data-link]").click(function() {
        window.location = $(this).data("link");
