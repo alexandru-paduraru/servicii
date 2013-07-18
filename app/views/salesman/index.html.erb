@@ -18,13 +18,13 @@
 	  <th>First name</th>
 	  <th>Last name </th>
 	  <th>Email</th>
-	  <th>Account</th>
+	  <th>Account number</th>
 	  <th>Open invoices</th>
 	  <th>Actions</th>
   </tr>
   <% index = 0 %>
   <% @customer_detail.each do |details| %>
-	  <tr>
+	  <tr data-link="<%= customer_details_path(details[:customer].id)%>">
 	  <td><%= index = index + 1 %> </td>
 	  <td><%= details[:customer].first_name %></td>
 	  <td><%= details[:customer].last_name %></td>

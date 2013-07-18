@@ -133,7 +133,7 @@
 	      </tr>
 	      <% if @open_invoices %>
 		      <% @open_invoices.each do |invoice| %>
-		      <tr>
+		      <tr data-link="<%= invoice_details_path(invoice[:id])%>">
 		      <td> <%= invoice[:number] %></td>
 		      <td> <%= invoice[:date] %></td>
 		      <td> <%= invoice[:due_date] %> </td>

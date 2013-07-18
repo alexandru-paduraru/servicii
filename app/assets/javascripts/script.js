@@ -11,8 +11,12 @@ $(document).ready(function() {
 	    var modalNou = '#modal' + id;
 	    $(modalNou).modal('show');
 	 });
-	  
-	
+	  //for making row in table click-able
+	$("tr[data-link]").click(function() {
+       window.location = $(this).data("link");
+ 
+    });
+        
 	$("#create_employee_button").click(function(){
 	    $("#employee_form").slideDown('slow',function(){
 			$("#create_employee_button").attr("type","sumbit");

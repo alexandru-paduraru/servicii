@@ -33,7 +33,7 @@
   
   <% index = 0 %>
   <% @invoice_details.each do |invoice_details| %>
-  <tr>
+  <tr data-link="<%= invoice_details_path(invoice_details[:invoice].id)%>">
   
   <td><%= index = index + 1 %></td>
   <td><%= invoice_details[:invoice].number %></td>

@@ -59,6 +59,7 @@ class SalesmanController < ApplicationController
 		 @open_invoices = []
 			 @invoices.each do |invoice|
 			 	       open_invoice = {}
+			 	       open_invoice[:id] = invoice.id
 			 	       open_invoice[:due_amount] = invoice.amount
 			 	       open_invoice[:date] = invoice.date
 			 	       open_invoice[:due_date] = invoice.due_date
