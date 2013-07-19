@@ -80,6 +80,9 @@ get '/send_to_collector/:customer_id', to: 'user#send_to_collector', :as => "sen
 #for viewing invoice as pdf
 get '/pdf_invoice', to: 'accountant#pdf_invoice', :as => "pdf_invoice"
 
+#for creating a note on an invoice
+post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => "add_note"
+
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#login'

@@ -58,13 +58,24 @@
 		      	</td>
 		      </tr> 
 	      </table>
-
-	<div>
+<div class = "row">
+	<div class="span4">
 		<h4>Company</h4>
 		<p><%= @company.name %></p>
 		<p><%= @company.address %>, <%= @company.zip_code %></p>
 		<p><%= @company.city + ', ' + @company.country %></p>
 	</div>
+	<div class="span5">
+	<%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+    <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
+    <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
+   		 <i class="icon-plus-sign icon-white"></i> Note</button>
+    <% end %>    
+    <% end %>
+    </div>
+</div>
+
+
 </div>
         
       <div class="span3 pull-right actions">
@@ -74,9 +85,14 @@
       			Last contact: <strong>60 days ago</strong>
       		</div>
 	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
+<!--
 	      <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-large btn-block" do %>
 	      		<i class="icon-envelope icon-white"></i> Send email
 	      <% end %>
+-->
+	      <button class="btn btn-info btn-large btn-block modalButton" id="1" > 
+	      <i class="icon-envelope icon-white"></i> Send email</button>
+	      
 	      <a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
 	      <% if @customer.sent_to_collector%>
 	      		<a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
@@ -97,24 +113,89 @@
 <div class="row">
 	<div class="span6">
 	<legend>Timeline</legend>
+	<% if @action_details %>
 	<ul>
-         <% @email_details.each do |email_detail| %>
+         <% @action_details.each do |action_detail| %>
          <li> 
-           Email for invoice# <%= email_detail[:email].invoice_id %> was sent by <%= email_detail[:user].first_name %> &nbsp <%= email_detail[:user].last_name %>
-	       <%= email_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
-	       <%= email_detail[:email].sent_at.strftime("at %I:%M%p") %>
+         <% if action_detail[:action].action_type == "email" %>
+           Email was sent to <%= action_detail[:customer].first_name + ' ' + action_detail[:customer].last_name %>
+         <% else %> 
+         	<% if action_detail[:action].action_type == "note" %>
+         	Note was added 
+         	<% end %>
+         <% end %>
+
+           by <%= action_detail[:user].first_name + ' ' + action_detail[:user].last_name %>
+	       <%= action_detail[:action].sent_at.strftime("on %m/%d/%Y") %>
+	       <%= action_detail[:action].sent_at.strftime("at %I:%M%p") %>
 	       <br>
-	        <% if email_detail[:email].viewed_at %>
-				 <%= email_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
-				 <%= email_detail[:email].viewed_at.strftime("at %I:%M%p") %>
+	        <% if action_detail[:action].viewed_at %>
+				 <%= action_detail[:action].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
+				 <%= action_detail[:action].viewed_at.strftime("at %I:%M%p") %>
 	        <% end %>
           </li>   
         <% end %>
  
 
 	</ul>
+	<% end %> 
 	</div>
 	
 </div>
+
+<div class="row">
+	<div class="span6">
+	<legend>Notes</legend>
+	<% if @action_details %>
+	<ul>
+		<% @action_details.each do |action_detail| %>
+		<% if action_detail[:action].action_type == "note" %>
+		<li>
+		<%= action_detail[:action].text_note %>
+		</li>
+		<% end %>
+		<% end %>
+	</ul>
+	<% end %>
+	</div>
+</div>
+
 </div>
 <% end %>
+			   
+ <div class="modal hide fade custom_width_modal" id="modal1">
+	<%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+	      <div class="control-group">
+	      <label class="control-label" for="inputTo" ><strong>To: </strong></label>
+		      <div class="controls">
+		      <%= text_field_tag :to, params[:to], :class => "span4", :placeholder => "To:", :id => "inputTo" %>
+		      </div>
+	      </div>
+	      
+	      <div class="control-group ">
+	      <label class="control-label" for="inputCc"><strong>Cc:</strong></label>
+		      <div class="controls">
+		      <%= text_field_tag :cc, params[:cc], :class => "span4",:placeholder => "Cc", :id => "inputCc" %>
+		      </div>
+	      </div>
+ 
+      <label><strong>Subject:</strong></label>
+      <%= text_field_tag :subject, params[:subject], :class => " span4", :placeholder => "Subject" %>
+     
+<!--           <%= text_area(:text_note, :body, rows: 5, class: "span5")%> -->
+<textarea id="some-textarea" class='wysihtml5 custom_text_editor' placeholder="Enter text ..."></textarea>
+
+        
+        </div>
+      <div class="modal-footer">
+      <button type="button" class="btn pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Send email</button>      
+      </div>
+      <% end %> <!-- end of form -->
+ </div>
+
+

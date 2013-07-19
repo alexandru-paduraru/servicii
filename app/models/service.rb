@@ -13,12 +13,12 @@ class Service < ActiveRecord::Base
   
   def self.add_service(name, value, company_id)
      search = search_name_value(name, value)
-     if search == []
+     if search
         service = Service.create(:name => name, :value => value, :company_id => company_id)
       else
-        service = search[0]
+        service = search
      end
-     service.id
+     service
      
   end
   
@@ -30,9 +30,9 @@ class Service < ActiveRecord::Base
   		Service.all.where(:value => value.to_i)
   end
   
-  def self.search_name_value(name, value)
+  def self.search_name_value(name, value, company_id)
    		value_int = value.to_i
-  		services = Service.all.where("name = ? and value = ?", "#{name}", value_int)
+  		services = Service.all.where("name = ? and value = ? and company_id = ?", "#{name}", value_int, company_id)
   		if services == []
   			nil
   		else

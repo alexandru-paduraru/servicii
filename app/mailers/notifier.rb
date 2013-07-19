@@ -12,9 +12,9 @@ class Notifier < ActionMailer::Base
   end
   
   def send_email_invoice(invoice, services, customer)
-  		@invoice = invoice
-  		@services = services
-  		@customer = customer
-  		mail :to => @customer.email, :subject => "Invoice"
+	  		@invoice = invoice
+	  		@services = services
+	  		@customer = customer
+	  		mail :to => @customer.email, :subject => "Invoice"
   end
 end

@@ -14,7 +14,7 @@
   <th>#</th>
   <th>First name</th>
   <th>Last name </th>
-  <th>Account</th>
+  <th>Account number</th>
   <th>Open invoices</th>
   <th>Response</th>
   <th>Actions</th>
@@ -22,7 +22,7 @@
   
   <% index = 0 %>
   <% @customer_details.each do |customer_details| %>
-  <tr>
+  <tr data-link="<%= customer_details_path(customer_details[:customer].id)%>">
   <td><%= index = index + 1 %> </td>
   <td><%= customer_details[:customer].first_name %></td>
   <td><%= customer_details[:customer].last_name %></td>

@@ -156,7 +156,7 @@
 	      </tr>
 	      <% if @open_invoices %>
 		      <% @open_invoices.each do |invoice| %>
-		      <tr>
+		      <tr data-link="<%= invoice_details_path(invoice[:id])%>">
 		      <td> <%= invoice[:number] %></td>
 		      <td> <%= invoice[:date] %></td>
 		      <td> <%= invoice[:due_date] %> </td>
@@ -191,15 +191,15 @@
 	<div class="span6">
 	<legend><h5>Activity Feed</h5></legend>
 	<ul>
-         <% @email_details.each do |email_detail| %>
+         <% @action_details.each do |action_detail| %>
          <li> 
-           Email for invoice# <%= email_detail[:email].invoice_id %> was sent by <%= email_detail[:user].first_name %> &nbsp <%= email_detail[:user].last_name %>
-	       <%= email_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
-	       <%= email_detail[:email].sent_at.strftime("at %I:%M%p") %>
+           Email for invoice# <%= action_detail[:invoice].number %> was sent by <%= action_detail[:user].first_name %> &nbsp <%= action_detail[:user].last_name %>
+	       <%= action_detail[:email].sent_at.strftime("on %m/%d/%Y") %>
+	       <%= action_detail[:email].sent_at.strftime("at %I:%M%p") %>
 	       <br>
-	        <% if email_detail[:email].viewed_at %>
-				 <%= email_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
-				 <%= email_detail[:email].viewed_at.strftime("at %I:%M%p") %>
+	        <% if action_detail[:email].viewed_at %>
+				 <%= action_detail[:email].viewed_at.strftime("and it was viewed on %m/%d/%Y") %>
+				 <%= action_detail[:email].viewed_at.strftime("at %I:%M%p") %>
 	        <% end %>
           </li>   
         <% end %>
