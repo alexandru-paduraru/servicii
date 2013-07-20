@@ -27,7 +27,7 @@
 			    <address>
 			    <strong>Description</strong><br>
 			    <%= @customer.description %><br>
-			    <strong>Sent to collector:</strong> 
+				<strong>Sent to collector:</strong> 
 			    <% if @customer.sent_to_collector %>
 			    	 Yes
 	            <% else %>
@@ -39,21 +39,21 @@
 		
       <div class="span8">
 		  <ul class="breadcrumb">
-		    <li><a href="#">Accounts List</a> <span class="divider">/</span></li>
-		     <li class="active">Bloom Brothers</li>
-		  </ul>
-		  <div class="padded">
+		    <li><a href="#">Accounts List</a><span class="divider">/</span></li>
+		    <li class="active">Bloom Brothers</li>
+ 		  </ul>
+		  <div class="well-white">
 	      <!--  <legend class="muted"> Customer details </legend> -->
 		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right" do %>
 		       		<i class= "icon-edit"></i></a>
 				<% end %> 
 	        
-	        	<address>
-	            <!--<p class="muted">Organization</p> --><h1><strong><%= @customer.organization_name %></strong></h1> 
-			 	<!-- Contact Name: --> <h4><strong><%= @customer.first_name + ' ' + @customer.last_name %></h4></strong><br> 
+	        	<address>		
+	           	 <h1><%= @customer.organization_name %></h1><blockquote><div class="muted">Internet Publishing, 25-50 employees</div></blockquote>
+			 	 <h4><%= @customer.first_name + ' ' + @customer.last_name %></h4><br> 
 			    
-					<div class="span5">
- 							<dl class="dl-horizontal ">
+					<div class="span6">
+ 							<dl class="dl-inline">
 				 <dt>Email</dt>  <dd><%= @customer.email %></dd>
 			     <dt>Phone</dt>  <dd><%= @customer.phone %></dd>
 				 </dl>
@@ -63,7 +63,7 @@
 			    </address>
 			    <div class="span6">
 			    <address>
-				<dl class="dl-horizontal clearfix">
+				<dl class="dl-inline">
 			    <dt>Address</dt> 
 			   
 			    <dd><%= @customer.address1 %> 
@@ -77,9 +77,9 @@
 			    </address>
 			</div>
  		
- 			<div class="span4 pull-left">
+ 		<!--	<div class="span4 pull-left">
 			    <address>
-			<!--<strong>Description</strong><br>
+			<strong>Description</strong><br>
 			    <%= @customer.description %><br> -->
 	<!--		    <strong>Sent to collector:</strong> 
 			    <% if @customer.sent_to_collector %>
@@ -87,8 +87,8 @@
 	            <% else %>
 	            	 No
 	            <% end %>
-			    </address>-->
-			</div> 
+			    </address>
+			</div> -->
         </div>  
 	</div>
 	
@@ -176,15 +176,101 @@
 		    
 </table>
 
-<h6 class="muted">SUBSCRIPTIONS</h6>
+
+<br>
+
+<!-- Static Example of Table -->
+ 
+<h6 class="muted">7 OPEN INVOICES</h6>
+<table class="table table-hover table-striped">
+  <tr>
+	  <th>Invoice Number</th>
+	  <th>Issue Date</th>
+	  <th>Due Date</th>
+	  <th>Amount</th>
+	  <th>Status</th>
+	  <th>Latest Activity</th>
+  </tr>
+  <tr>
+	  <td>000190</td>
+	  <td>21/07/2013</td>
+	  <td>20/08/2013</td>
+	  <td>$805.00</td>
+ 	  <td class="muted">DRAFT</td>
+	  <td><i></i></td>
+  </tr>
+  <tr>
+	  <td>000283</td>
+	  <td>21/07/2013</td>
+	  <td>20/08/2013</td>
+	  <td>$645.00</td>
+	  <td>DUE (1 wk)</td>
+	  <td class="muted">SMS / Remainder</td>
+   </tr>
+  <tr>
+	  <td>000233</td>
+	  <td>21/07/2013</td>
+	  <td>20/08/2013</td>
+	  <td>$1945.00</td>
+	   <td><span class="badge badge-important">OVERDUE (2d)</span>&nbsp;<span class="badge badge-important"></td>
+<!--  <td>OVERDUE (2d)</td> -->
+	  <td class="muted">Email / Remainder</td>
+  </tr>
+  <tr class="success">
+	  <td>000293</td>
+	  <td>21/07/2013</td>
+	  <td>20/08/2013</td>
+	  <td>$1945.00</td>
+ 	  <td>PAID</td>
+ 	  <td class="muted"><i></i> </td>
+  </tr>
+  <tr>
+	  <td>000243</td>
+	  <td>21/07/2013</td>
+	  <td>20/08/2013</td>
+	  <td>$1945.00</td>
+ 	  <td>PAID</td>
+	  <td><span class="badge badge-success"><i class="icon-ml-email"></i> Thank You</span>&nbsp<span class="badge badge-important"></td>
+<!--  <td>Email / Thank You </td>-->
+		  
+ 
+  
+</table> 
+<br>
+
+
+<h6 class="muted">4 RECURRING INVOICES</h6>
 <table class="table table-hover table-striped">
 	      <tr>
-	      	<th>#</th>
-	      	<th>Issue date</th>
+	      	<th>Invoice Number</th>
+			<th>Issue Date</th>
 	      	<th>Due date</th>
-	      	<th>Status</th>
 	      	<th>Amount</th>
+	      	<th>Status</th>
 	      </tr>
+		  <tr>
+			  <td>000283</td>
+			  <td>21/07/2013</td>
+			  <td>20/08/2013</td>
+			  <td>$645.00</td>
+			  <td>SENT</td> 
+		   </tr>
+		  <tr>
+			  <td>000273</td>
+			  <td>21/07/2013</td>
+			  <td>20/08/2013</td>
+			  <td>$1945.00</td>
+ 		 	  <td>DUE (1w)</td> 
+			 
+		  </tr>
+		  <tr class="success">
+			  <td>000249</td>
+			  <td>21/07/2013</td>
+			  <td>20/08/2013</td>
+			  <td>$1945.00</td>
+		 	  <td>PAID</td>
+		 
+		  </tr>
 </table><br><br>
 
 <div class="row">
@@ -212,7 +298,7 @@
 	<legend><h5>Future Actions</h5></legend>
 	</div>
 </div>
-	      
+<!--
   <div class="acordeon">
 <div class="accordion" id="accordion2">
 
@@ -234,6 +320,7 @@
       </div>
     </div>
   </div>
+--> 
   
 </div>
 </div>

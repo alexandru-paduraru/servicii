@@ -18,13 +18,13 @@
 	  <th>First name</th>
 	  <th>Last name </th>
 	  <th>Email</th>
-	  <th>Account number</th>
+	  <th>Account</th>
 	  <th>Open invoices</th>
 	  <th>Actions</th>
   </tr>
   <% index = 0 %>
   <% @customer_detail.each do |details| %>
-	  <tr data-link="<%= customer_details_path(details[:customer].id)%>">
+	  <tr>
 	  <td><%= index = index + 1 %> </td>
 	  <td><%= details[:customer].first_name %></td>
 	  <td><%= details[:customer].last_name %></td>
@@ -47,4 +47,38 @@
   <% end %>
 </table>
 
-
+<br><br> 
+<!-- Static Example of Table --> 
+<table class="table table-hover table-striped">
+  <tr>
+	  <th>#</th>
+	  <th>Organization Name and Contact Name</th>
+	  <th>Account Standing</th>
+	  <th>Open Invoice</th>
+	  <th>Actions</th>
+  </tr>
+  <tr>
+	  <td>1</td>
+	  <td>Bloom Brothers / Mary R. Gilliam</td>
+	  <td>New Customer</td>
+	  <td>2</td>
+	  <td><span class="badge badge-info"><i class="icon-ml-eye"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></td>
+  </tr>
+  <tr>
+	  <td>2</td>
+	  <td>BASCO / Barbara Lauterbach</td>
+	  <td>Good Payer</td>
+	  <td>1</td>
+	  <td><span class="badge badge-success"><i class="icon-ml-eye"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></span></td>
+  </tr>
+  <tr>
+	  <td>3</td>
+	  <td>Soft Warehouse Source Inc. / Jane Smith</td>
+	  <td>"Not Good Payer"</td>
+	  <td>2</td>
+	  <td><span class="badge"><i class="icon-ml-eye"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></td>
+  </tr>
+   
+</table> 
+<br>
+ 
