@@ -16,4 +16,6 @@
 //= require bootstrap-datepicker
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
+//= require calls
+//= require salesman
 //= require script

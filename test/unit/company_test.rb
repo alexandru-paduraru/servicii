@@ -1,4 +1,3 @@
-
 require 'test_helper'
 
 class CompanyTest < ActiveSupport::TestCase
@@ -11,6 +10,6 @@ class CompanyTest < ActiveSupport::TestCase
   assert company.errors[:address].any?, "address must be present"
   assert company.errors[:country].any?, "country must be present"
   assert company.errors[:zip_code].any?,"zipcode must be present"
-  end
+end
 
 end

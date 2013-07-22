@@ -41,6 +41,7 @@ get '/delete/:customer_id', to: 'salesman#delete_customer', :as => "customer_del
 get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "customer_details"
 get '/customer_details/:customer_id/edit', to: 'salesman#customer_edit', :as => "customer_edit"
 patch '/customer_details/:customer_id', to: 'salesman#customer_update', :as => "customer_update"
+post "/customer_details/send_sms", to: "salesman#send_sms"
 
 #customer import
 post '/customers/import_export', to: 'user#customer_import', :as => "import_customers"
