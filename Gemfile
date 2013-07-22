@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+#ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 
@@ -24,6 +24,7 @@ end
 
 gem 'protected_attributes'
 gem 'jquery-rails'
+gem "twilio-ruby"
 
 group :production do
 	gem 'pg'
@@ -33,7 +34,10 @@ group :production do
 end
 
 group :development, :test do
-gem 'pg'
+  gem 'pg'
+  gem "meta_request"
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 gem "bcrypt-ruby", :require => "bcrypt"

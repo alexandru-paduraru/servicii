@@ -47,25 +47,21 @@
 		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right" do %>
 		       		<i class= "icon-edit"></i></a>
 				<% end %> 
-	        
 	        	<address>		
-	           	 <h1><%= @customer.organization_name %></h1><blockquote><div class="muted">Internet Publishing, 25-50 employees</div></blockquote>
-			 	 <h4><%= @customer.first_name + ' ' + @customer.last_name %></h4><br> 
-			    
-					<div class="span6">
- 							<dl class="dl-inline">
-				 <dt>Email</dt>  <dd><%= @customer.email %></dd>
-			     <dt>Phone</dt>  <dd><%= @customer.phone %></dd>
-				 </dl>
-			</div>
-  
-		 
-			    </address>
-			    <div class="span6">
+	           	<h1 class="organization-name"><%= @customer.organization_name %></h1><blockquote><div class="muted">Internet Publishing, 25-50 employees</div></blockquote>
+              <h4><%= @customer.first_name + ' ' + @customer.last_name %></h4><br> 
+              <div class="span6">
+                <dl class="dl-inline">
+                  <dt>Email</dt>  <dd><%= @customer.email %></dd>
+                  <dt>Phone</dt>  <dd class="customer-phone"><%= @customer.phone %></dd>
+               </dl>
+              </div>
+            </address>
+          <div class="span6">
 			    <address>
 				<dl class="dl-inline">
 			    <dt>Address</dt> 
-			   
+
 			    <dd><%= @customer.address1 %> 
 					<% if @customer.address2 %>
 			     <%= @customer.address2%>
@@ -92,11 +88,7 @@
         </div>  
 	</div>
 	
-        
-     
-        
       <div class="span3 pull-right actions ">
-		  
         	<h5>Last contact:
       	 <% if @last_action %>
       	   <% if @last_action == 0 %>
@@ -106,23 +98,21 @@
       	 	<% end %>
       	 <% end %>
       	 </h5>
- 		
+	
 		 <div class="well">
 	      <p>Invoice Flow Actions</p>
- 		  <a href="#" class="btn btn-success btn-primary btn-block"><i class="icon-headphones icon-white"></i> Call</a>
-<!--
-		<a href="#" class = "btn btn-info btn-large btn-block">
-			<i class="icon-envelope icon-white"></i> Send email
-        </a>
--->		
-		 
-        <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
-	     <i class="icon-envelope icon-white "></i> Send Email
+      <%= link_to "#", :class => "btn btn-success btn-primary btn-block", :id => "select-call" do %>
+        <i class="icon-headphones icon-white"></i> Call
+      <% end %>
+      <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
+	      <i class="icon-envelope icon-white "></i> Send Email
 	    <% end %>
 		
-		<a href="#" class="btn btn-warning btn-primary btn-block"><i class="icon-comment icon-white"></i> Send SMS Text</a>
+		<a href="#" class="btn btn-warning btn-primary btn-block" id="send_sms_btn"><i class="icon-comment icon-white"></i> Send SMS Text</a>
     <% if @customer.sent_to_collector%>
-        <a href="#" class="btn btn-danger btn-primary btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
+      <a href="#" class="btn btn-danger btn-primary btn-block disabled">
+        <i class="icon-exclamation-sign icon-white"></i> Sent to collector
+      </a>
     <% else %>
 	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-primary btn-block" do %>
 	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
@@ -175,13 +165,11 @@
 		  </tr>
 		    
 </table>
-
-
 <br>
 
-<!-- Static Example of Table -->
+<!-- V4 Static Example of Table -->
  
-<h6 class="muted">7 OPEN INVOICES</h6>
+<h6 class="muted">5 OPEN INVOICES</h6>
 <table class="table table-hover table-striped">
   <tr>
 	  <th>Invoice Number</th>
@@ -212,34 +200,38 @@
 	  <td>21/07/2013</td>
 	  <td>20/08/2013</td>
 	  <td>$1945.00</td>
-	   <td><span class="badge badge-important">OVERDUE (2d)</span>&nbsp;<span class="badge badge-important"></td>
-<!--  <td>OVERDUE (2d)</td> -->
-	  <td class="muted">Email / Remainder</td>
+	  <td class="text-error">OVERDUE (2d)</td>
+ 	  <td class="muted">Email / Remainder</td>
   </tr>
-  <tr class="success">
+  <tr>
 	  <td>000293</td>
 	  <td>21/07/2013</td>
 	  <td>20/08/2013</td>
 	  <td>$1945.00</td>
- 	  <td>PAID</td>
- 	  <td class="muted"><i></i> </td>
+ 	  <td class="text-success">PAID</td>
+ 	  <td class="muted"><i></i></td>
   </tr>
   <tr>
 	  <td>000243</td>
 	  <td>21/07/2013</td>
 	  <td>20/08/2013</td>
 	  <td>$1945.00</td>
- 	  <td>PAID</td>
-	  <td><span class="badge badge-success"><i class="icon-ml-email"></i> Thank You</span>&nbsp;<span class="badge badge-important"></td>
-<!--  <td>Email / Thank You </td>-->
-		  
+ 	  <td class="text-success">PAID</td>
+ 	  <td>Email / Thank You</td> 
+  </tr>
+  <tr></tr>
+  <tr>
+  	<td colspan="5"></td>
+  	<td class="span3">
+  		<span class="amount_info">Total:</span>
+  	    <span class="total_due_amount">$<%= @total_due_amount %></span>
+  	 </td>
+  </tr>
  
-  
 </table> 
-<br>
+<br><br> 
 
-
-<h6 class="muted">4 RECURRING INVOICES</h6>
+<h6 class="muted">3 RECURRING INVOICES</h6>
 <table class="table table-hover table-striped">
 	      <tr>
 	      	<th>Invoice Number</th>
@@ -263,20 +255,21 @@
  		 	  <td>DUE (1w)</td> 
 			 
 		  </tr>
-		  <tr class="success">
+		  <tr>
 			  <td>000249</td>
 			  <td>21/07/2013</td>
 			  <td>20/08/2013</td>
 			  <td>$1945.00</td>
-		 	  <td>PAID</td>
+		 	  <td class="text-success">PAID</td>
 		 
 		  </tr>
-</table><br><br>
+</table><br><br><br>
 
 <div class="row">
-	<div class="span6">
+ 	<div class="span5 well-white">
+	<!--
 	<legend><h5>Activity Feed</h5></legend>
-	<ul>
+	<ul> 
          <% @action_details.each do |action_detail| %>
          <li> 
            Email for invoice# <%= action_detail[:invoice].number %> was sent by <%= action_detail[:user].first_name %> &nbsp <%= action_detail[:user].last_name %>
@@ -292,13 +285,75 @@
  
 
 	</ul>
-	</div>
+	-->
 	
-	<div class="span6">
-	<legend><h5>Future Actions</h5></legend>
+	<!-- Static Example Activity Feed -->
+
+	<div class="row">
+	  		<div class="span3">
+	  	 <h5 class="muted">Activity Feed</h5>
 	</div>
+
+	 	<div class="span2">
+	   		<div class="pull-right">
+	   	<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+	   		  <input class="span2" size="16" type="text" value="20/07/2013">
+	   		  <span class="add-on"><i class="icon-calendar"></i></span>
+	   		</div>
+	   	</div>
+	  
+	   </div>
+	   <div class="span5"> <legend></legend></div>
+	</div>  
+ 
+	 	  <!-- Static Example 1 -->
+	 	<div class="row">
+	  			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
+			</div>
+				<div class="span4">
+			<strong><a class="muted" href="#">Kevin J. Liew</a></strong> &nbsp;<a class="muted" href="#">#collections</a><small class="pull-right muted">26m</small>  
+			<p>Scheduled a <a class="muted" href="#">#letter mail</a> on 21/07/2013 for invoice  <a class="muted" href="#"><u>000875</u></a></p>									
+			</div>
+	  <div class="span5"> <legend></legend></div>  
+	</div>
+
+		<!--Static Example 2 -->	
+	 	<div class="row">
+	  			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
+			</div>
+				<div class="span4">
+			<strong><a class="muted" href="#">Kevin J. Liew</a></strong> &nbsp;<a class="muted" href="#">#accounts</a><small class="pull-right muted">35m</small> 
+			<p>Send a <a class="muted" href="#">#email</a> remainder for invoice <a class="muted" href="#"><u>000845</u></a></p>									
+			</div>
+	  <div class="span5"> <legend></legend></div>  
+	</div>
+
+		<!--Static Example 3 -->	
+	 	<div class="row">
+	  			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
+			</div>
+				<div class="span4">
+			<strong><a class="muted" href="#">Kevin J. Liew</a></strong> &nbsp;<a class="muted" href="#">#collections</a><small class="pull-right muted">2h</small> 
+			<p>Added a <a class="muted" href="#">#new</a> note for invoice <a class="muted" href="#"><u>000875</u></a></p>									
+			</div>
+	  <div class="span5"> <legend></legend></div>  
+	</div>
+
+  	
+	 </div>
+   
+ 
+	</div>
+ 
 </div>
 <!--
+	<div class="span6 ">
+	<legend><h5>Future Actions</h5></legend>
+	
+	</div>
+</div>
+ 
+ 
   <div class="acordeon">
 <div class="accordion" id="accordion2">
 

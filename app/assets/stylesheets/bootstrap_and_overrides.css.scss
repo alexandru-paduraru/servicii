@@ -417,10 +417,11 @@ input[disabled]{
 }
 
 .total_due_amount{
-	color: #169EF4;
+	color: #999;
     float: right;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 300;
+	padding-top: 10px;
 }
 
 .amount_info{
@@ -428,6 +429,7 @@ input[disabled]{
 	color:#646464;
 	font-size: 14px;
 	text-transform: uppercase;
+	padding-top: 10px;
 }
 
 .custom_text_editor{
@@ -455,5 +457,5 @@ input[disabled]{
 }
 
 .img {
-	padding-bottom: 14px;
+	padding-bottom: 20px;
 } 
