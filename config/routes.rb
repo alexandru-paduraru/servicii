@@ -88,7 +88,7 @@ post '/send_email_invoice/:invoice_id', to: 'accountant#send_email', :as => "sen
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
-root :to => 'session#login'
+root :to => 'session#home'
 
 
 
