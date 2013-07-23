@@ -84,9 +84,11 @@ get '/pdf_invoice', to: 'accountant#pdf_invoice', :as => "pdf_invoice"
 #for creating a note on an invoice
 post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => "add_note"
 
+post '/send_email_invoice/:invoice_id', to: 'accountant#send_email', :as => "send_email_invoice"
+
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
-root :to => 'session#login'
+root :to => 'session#home'
 
 
 

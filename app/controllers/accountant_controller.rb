@@ -238,4 +238,17 @@ class AccountantController < ApplicationController
 	end
    end
    
+   def send_email
+   invoice_id = params[:invoice_id]
+   note = params[:text_note]
+   message = note[:body]
+   to = params[:to]
+   cc = params[:cc]
+   subject = params[:subject]
+       if Notifier.send_email(to, cc, subject, message).deliver
+            redirect_to invoice_details_path(invoice_id), :notice => "Email sent."
+       else
+            redirect_to invoice_details_path(invoice_id), :alert => "Error sending email."
+       end
+   end
 end
