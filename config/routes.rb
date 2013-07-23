@@ -86,7 +86,7 @@ post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => 
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
-root :to => 'session#login'
+root :to => 'session#home'
 
 
 
