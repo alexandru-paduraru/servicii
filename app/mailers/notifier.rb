@@ -17,4 +17,9 @@ class Notifier < ActionMailer::Base
 	  		@customer = customer
 	  		mail :to => @customer.email, :subject => "Invoice"
   end
+  
+  def send_email(to, cc, subject, message)
+    @message = message
+    mail :to => to, :subject => subject
+  end
 end

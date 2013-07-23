@@ -164,7 +164,7 @@
 <% end %>
 			   
  <div class="modal hide fade custom_width_modal" id="modal1">
-	<%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+	<%= form_tag send_email_invoice_path(@invoice.id), :method => 'post' do %>
       <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
@@ -186,14 +186,14 @@
       <label><strong>Subject:</strong></label>
       <%= text_field_tag :subject, params[:subject], :class => " span4", :placeholder => "Subject" %>
      
-<!--           <%= text_area(:text_note, :body, rows: 5, class: "span5")%> -->
-<textarea id="some-textarea" class='wysihtml5 custom_text_editor' placeholder="Enter text ..."></textarea>
-
-        
+      <%= text_area(:text_note, :body, rows: 5, class: "wysihtml5 custom_text_editor", id: "some-textarea")%>        
         </div>
       <div class="modal-footer">
       <button type="button" class="btn pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Send email</button>      
+<!--       <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Send email</button>  -->
+      <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+   		 <i class="icon-envelope icon-white"></i> Send Email
+      <% end %>       
       </div>
       <% end %> <!-- end of form -->
  </div>
