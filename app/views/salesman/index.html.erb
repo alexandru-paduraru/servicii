@@ -24,7 +24,7 @@
   </tr>
   <% index = 0 %>
   <% @customer_detail.each do |details| %>
-	  <tr>
+	  <tr data-link="<%= customer_details_path(details[:customer].id)%>">
 	  <td><%= index = index + 1 %> </td>
 	  <td><%= details[:customer].first_name %></td>
 	  <td><%= details[:customer].last_name %></td>
