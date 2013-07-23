@@ -18,7 +18,7 @@ class SalesmanController < ApplicationController
 	    		@details[:open_invoices] = index
 	    		@customer_detail.append(@details)
 	    	end
-	    
+
 	    respond_to do |format|
 		    format.html {render 'index'}
 # 		    format.csv  {render text: Customer.to_csv(@customers) }
@@ -42,9 +42,17 @@ class SalesmanController < ApplicationController
 		else 
 			 render text: "Eroare la inregistrare salesman, de facut pagina cu eroare si validat"
 		end
-	
-
 	end
+
+  def send_sms
+    customer = Customer.find(params[:customer_id])
+    customer.send_sms(params[:sms_body], params[:sms_number])
+
+    respond_to do |format|
+      format.html { redirect_to customer_details_path(params[:customer_id]) }
+      format.json { render :json => "1".to_json }
+    end
+  end
 	
 	def customer_details
 	 @customer_id = params[:customer_id]

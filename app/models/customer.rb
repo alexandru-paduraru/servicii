@@ -54,26 +54,25 @@ class Customer < ActiveRecord::Base
   	else
   		nil
   	end
-  
   end
-  
+
   def self.last_invoice(customer)
   	if customer
   		customer.invoices.order('date asc').last
   	else
   		nil
   	end
-  
   end
-  
+
   def self.import(file, current_user)
     errors_at_import = []
     index = 1
   	CSV.foreach(file.path, headers: true) do |row|
         if customer = find_by_email(row["email"])
-	  	else
-	  		customer = Customer.new
-	  	end
+        else
+          customer = Customer.new
+        end
+
 	  	    index += 1
 	  	    customer.first_name = row["first_name"]
 	  	    customer.last_name = row["last_name"]
@@ -94,9 +93,24 @@ class Customer < ActiveRecord::Base
 	  		end
 	 end
 	 errors_at_import
-	 
   end
-  
+
+  def send_sms(sms_body, to_number = nil, from_number = nil )
+    to_number ||= self.phone
+    from_number ||= "+14065521383"
+
+    account_sid = TWILIO_C['twilio']['account_sid']
+    auth_token  = TWILIO_C['twilio']['auth_token']
+    twilio_client = Twilio::REST::Client.new account_sid, auth_token
+
+    message = twilio_client.account.sms.messages.create(:body => sms_body,
+                :to => to_number,
+                :from => from_number)
+
+    # TODO: Add a timeline message with this
+    # puts message.sid
+  end
+
   def self.to_csv(customers)
     CSV.generate do |csv|
   		csv << column_names
@@ -105,11 +119,11 @@ class Customer < ActiveRecord::Base
   		end
   	end
   end
-  
+
   def self.index(company_id)
      all.where(:company_id => company_id).order('created_at asc')
-   end
-   
+  end
+
   def self.generate_number
   	number = '1'
      if Customer.all != []
@@ -119,6 +133,4 @@ class Customer < ActiveRecord::Base
      end
      number
   end
-  
-  
 end

@@ -1,0 +1,27 @@
+<div id="send-sms-modal" class="modal hide fade in" style="display: none;">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3 id="call-status">Send SMS</h3>
+  </div>
+    <div class="modal-body">
+      <div class="call-status-bar" >
+        Send SMS:
+        <%= form_tag ({:controller => "salesman", :action => "send_sms"}) do %>
+          <%= label_tag "To:" %>
+          <%= text_field_tag "sms_number", (@customer.phone rescue "") %>
+          <br />
+          <%= label_tag "Text:" %>
+          <%= text_area_tag "sms_body", "", :placeholder => "" %>
+          <%= hidden_field_tag :customer_id, params[:customer_id] %>
+
+          <br />
+          <br />
+
+          <%= submit_tag "Send", :class => "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+    </div>
+</div>

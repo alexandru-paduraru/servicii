@@ -3,16 +3,15 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   attr_accessible :company_id, :email, :first_name, :last_name, :password_hash, :password_salt, :type, :job
   include BCrypt
-  
-#  belongs_to :user_type
+
+  #  belongs_to :user_type
   belongs_to :company
   has_many :worksons, :foreign_key => "user_id"
-  
+
   validates :first_name, :last_name, :email, :job, :presence => true
   validates :email, :length => { :minimum => 5 } 
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-
 
   def password
       @password ||= Password.new(password_hash)
@@ -22,19 +21,19 @@ class User < ActiveRecord::Base
       @password = Password.create(new_password)
       self.password_hash = @password
   end
-    
+
   def self.authenticate(email_param, password_param)
    if @user = find_by_email(email_param)
 	   if @user.password == password_param
 	   		@user
 	   	else
-	   	    nil
+	   	  nil
 	   end
 	else
 	   nil
    end
   end
-  
+
   def self.index_by_company(company_id)
   	all.where(:company_id => company_id)
   end
@@ -50,5 +49,4 @@ class User < ActiveRecord::Base
   	details[:job] = works_on
   	details
   end
-  
 end

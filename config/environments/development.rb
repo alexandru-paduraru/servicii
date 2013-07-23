@@ -34,15 +34,20 @@ Services::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
   config.eager_load = false
-  
+
   #sending emails with mandrill
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  :address   => "smtp.mandrillapp.com",
-  :port      => 587,
-  :user_name => ENV["MANDRILL_USERNAME"],
-  :password  => ENV["MANDRILL_APIKEY"]
+
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'localhost',
+    :port           => 1025
   }
+
+#  config.action_mailer.smtp_settings = {
+  #:address   => "smtp.mandrillapp.com",
+  #:port      => 587,
+  #:user_name => ENV["MANDRILL_USERNAME"],
+  #:password  => ENV["MANDRILL_APIKEY"]
+  #}
 end
