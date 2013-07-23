@@ -7,7 +7,7 @@
     <%= form_tag accountant_path, :method => 'get' do %>
     <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => 'Search an invoice by invoice number, customer account, first name or last name' %>
     <%= button_tag(type: 'submit', class: "btn") do %>
-   		 <i class="icon-ml-search"></i> Search</button>
+   		 <i class="icon-search"></i> Search</button>
     <% end %>    
     <% end %>
     
@@ -42,7 +42,7 @@
   <td><%= invoice_details[:customer].account %></td>
   <td><%= invoice_details[:invoice].amount %> $ </td>
     <td><%= link_to invoice_details_path(invoice_details[:invoice].id) do %>
-	  			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span>
+	  			 <span class="label label-info"><i class="icon-eye-open"></i> Details</span>
 	  	   <% end %>
 	</td>
     

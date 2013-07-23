@@ -4,12 +4,12 @@
     <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => "Search a customer by first name, last name, account number, email or invoice number" %>
            
     <%= button_tag(type: 'submit', class: "btn") do %>
-   		 <i class="icon-ml-search"></i> Search</button>
+   		 <i class="icon-search"></i> Search</button>
     <% end %> 
     <% end %>
   </div>
    	<%= link_to customer_new_path, :class => "btn btn-success pull-right" do %>
-   		<i class="icon-ml-add"></i> Add customer
+   		<i class="icon-plus-sign"></i> Add customer
    	<% end %>
    	
 <table class="table table-hover table-striped">
@@ -36,7 +36,7 @@
 	  </td>
 	  <td><%= details[:open_invoices] %></td>
 	  <td> <%= link_to customer_details_path(details[:customer].id) do %>
-	  			 <span class="label label-info"><i class="icon-ml-eye"></i> Details</span>
+	  			 <span class="label label-info"><i class="icon-eye-open"></i> Details</span>
 	  	   <% end %>
 	  	   <%= link_to customer_delete_path(details[:customer].id) do %>
 	  			 <span class="label label-important">Delete</span>
@@ -62,21 +62,21 @@
 	  <td>Bloom Brothers / Mary R. Gilliam</td>
 	  <td>New Customer</td>
 	  <td>2</td>
-	  <td><span class="badge badge-info"><i class="icon-ml-eye"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></td>
+	  <td><span class="badge badge-info"><i class="icon-eye-open"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></td>
   </tr>
   <tr>
 	  <td>2</td>
 	  <td>BASCO / Barbara Lauterbach</td>
 	  <td>Good Payer</td>
 	  <td>1</td>
-	  <td><span class="badge badge-success"><i class="icon-ml-eye"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></span></td>
+	  <td><span class="badge badge-success"><i class="icon-eye-open"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></span></td>
   </tr>
   <tr>
 	  <td>3</td>
 	  <td>Soft Warehouse Source Inc. / Jane Smith</td>
 	  <td>"Not Good Payer"</td>
 	  <td>2</td>
-	  <td><span class="badge"><i class="icon-ml-eye"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></td>
+	  <td><span class="badge"><i class="icon-eye-open"></i> View</span>&nbsp<span class="badge badge-important"><!--<i class="icon-ml-remove"></i></span> Functia de Delete eu zic sa o punem in pagina de customer --></td>
   </tr>
    
 </table> 
