@@ -19,7 +19,9 @@ $(document).ready(function() {
             requestSearch();
         }
     });
-    
+    $('#search-button').click(function(){
+        requestSearch();
+    });
     function requestSearch(){
         $('#server').html('');
         index = 1;
