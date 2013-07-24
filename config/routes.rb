@@ -88,6 +88,11 @@ post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => 
 
 post '/send_email_invoice/:invoice_id', to: 'accountant#send_email', :as => "send_email_invoice"
 
+
+#testing invoice template
+
+get '/invoice_template/:invoice_id', to: 'accountant#invoice_template', :as => "invoice_template"
+get '/invoice_pdf/:invoice_id', to: 'accountant#invoice_pdf', :as => "invoice_pdf"
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#home'

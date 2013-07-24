@@ -946,18 +946,18 @@ label.checkbox.toggle.candy a.slide-button {
 
 input[type=radio] {
 display: none;
-} 
+}
 
 label[class="radio inline"] span {
-    display:inline-block;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    height: 18px;
-    width: 18px;
-    margin-right: 5px;
+  display:inline-block;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-right: 5px;
 
-    -moz-border-radius: 20px;
+  -moz-border-radius: 20px;
 	-webkit-border-radius: 20px;
 	border-radius: 20px;
 
