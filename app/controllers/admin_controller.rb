@@ -40,6 +40,8 @@ class AdminController < ApplicationController
 	end
 ############ End Company ###############
 	def index
+	    _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
+	    @activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id) 
 		@user = User.new
 		@users_details = []
 		@users = User.index_by_company(current_user.company_id)

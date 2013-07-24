@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130716130710) do
+ActiveRecord::Schema.define(version: 20130724142922) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "actions", force: true do |t|
     t.datetime "sent_at"
@@ -30,6 +33,19 @@ ActiveRecord::Schema.define(version: 20130716130710) do
   add_index "actions", ["customer_id"], name: "index_actions_on_customer_id", using: :btree
   add_index "actions", ["invoice_id"], name: "index_actions_on_invoice_id", using: :btree
   add_index "actions", ["user_id"], name: "index_actions_on_user_id", using: :btree
+
+  create_table "activities", force: true do |t|
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "key"
+    t.text     "parameters"
+    t.integer  "recipient_id"
+    t.string   "recipient_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "companies", force: true do |t|
     t.string   "name"
