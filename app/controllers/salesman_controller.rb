@@ -125,4 +125,6 @@ class SalesmanController < ApplicationController
 		    redirect_to salesman_path, :notice => "Error! Couldn't make customer inactive."
 		end
 	end
+	
+
 end
