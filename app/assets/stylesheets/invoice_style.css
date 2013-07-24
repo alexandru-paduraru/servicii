@@ -35,7 +35,7 @@ Author:
 body {
     font-size: 14px;
     margin: 0px;
-    text-align: center;
+    /*text-align: center;*/
     background: #ddd;
     color: #333;
     font-family: Helvetica, Arial, sans-serif;
@@ -322,4 +322,8 @@ h2, h3, h4, h5, h6, .title {
 	    padding-top: 18px;
 	    font-size: 12px;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 963420b28def849cc05c36e9670262d7efe2bbab
