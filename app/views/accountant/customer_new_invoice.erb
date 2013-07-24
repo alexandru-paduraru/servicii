@@ -1,18 +1,29 @@
-<legend>Create invoice </legend> 
+<div class="row">
+	<div class="span2">
+		<button class="btn btn-link" type="button">Back</button>
+		</div>
+		<div class="span8"><button class="btn pull-right" type="button">Preview</button>  
+			</div> 
+<!--  	<div class="span2"><button class="btn btn-primary pull-right" type="button">Save as Draft</button>-->
+ 		<div class="span2"><button type="button" id="invoice_submit" class="btn btn-success pull-right" type="button">Send Invoice <i class="icon-circle-arrow-right icon-white"></i></button>  
 
+			</div>
+</div>
+<hr class="bs-docs-separator">
+<br> 
 <form accept-charset="UTF-8" id="new_invoice" action=<%= customer_create_invoice_path(@customer) %> method="post">
 
 <div class ="row">
-	<div class = "span8">
+	<div class = "span6 well-white">
 		<h4>Customer</h4>
 		<p><%= @customer.first_name + ' ' + @customer.last_name %></p>
 		<p><%= @customer.address1 %> <%= @customer.zip_code %></p>
 		<p><%= @customer.city + ' ' + @customer.state %></p>
 		<div id="ajax_response">
-		</div>
-	</div>
+		</div><br><br>
+	</div>	 
 
-<div class="span4 pull-right">
+<div class="span4 well-white pull-right">
 	<h4>Invoice details</h4>
 	<fieldset>
 	<div class="control-group">
@@ -75,20 +86,27 @@
   </tr>
 </table>
 </div>
-
+<!--
 <div class = "span12">
 		<h4>Company</h4>
 		<p><%= @company.name %></p>
 		<p><%= @company.address %>, <%= @company.zip_code %></p>
 		<p><%= @company.city + ', ' + @company.country %></p>
 	</div>
-	
+
 <button class="modalButton btn btn-info btn-large span2" id="1"> Preview </button>
   <div class="btn-group pull-right">
   <button type="button" id="invoice_save_draft" name="draft" class="btn span2 btn-large">Save draft</button>
   <button type="button" id="invoice_submit" class="btn btn-success btn-large span3">Submit Invoice <i class="icon-circle-arrow-right icon-white"></i></button>
   </div>
-  </form>
-  
-  
+  </form>  -->	
 </div>  
+
+<br>
+<hr class="bs-docs-separator">
+<div class = "span12">
+ 		<small><%= @company.name %></small>
+		<small><%= @company.address %>, <%= @company.zip_code %></small>
+		<small><%= @company.city + ', ' + @company.country %></small>
+	</div>
+	<br>
