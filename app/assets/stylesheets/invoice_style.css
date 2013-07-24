@@ -35,7 +35,7 @@ Author:
 body {
     font-size: 14px;
     margin: 0px;
-    text-align: center;
+    /*text-align: center;*/
     background: #ddd;
     color: #333;
     font-family: Helvetica, Arial, sans-serif;
