@@ -1,52 +1,57 @@
 <br> 
-  <div class="input-append">
-    <%= form_tag salesman_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => "Search a customer by first name, last name, account number, email or invoice number" %>
-           
-    <%= button_tag(type: 'submit', class: "btn") do %>
-   		 <i class="icon-search"></i> Search</button>
-    <% end %> 
-    <% end %>
+  <div class="input-append pull-left">
+    
+    <form accept-charset="UTF-8" id="searchForm" method="get">
+     <button type="button" class="btn btn-danger reset-search-button"/><i class="icon-remove-sign"></i></button>
+    <input type="text" class="span9" placeholder="Search a customer by first name, last name, account number, email or invoice number", id="search_field" name="search" autocomplete="off"/>
+    <button type="submit" class="btn btn-info" id="search-button"><i class="icon-search"></i></button>
+    
   </div>
    	<%= link_to customer_new_path, :class => "btn btn-success pull-right" do %>
    		<i class="icon-plus-sign"></i> Add customer
    	<% end %>
    	
-<table class="table table-hover table-striped">
-  <tr>
-	  <th>#</th>
-	  <th>First name</th>
-	  <th>Last name </th>
-	  <th>Email</th>
-	  <th>Account</th>
-	  <th>Open invoices</th>
-	  <th>Actions</th>
-  </tr>
-  <% index = 0 %>
-  <% @customer_detail.each do |details| %>
-	  <tr data-link="<%= customer_details_path(details[:customer].id)%>">
-	  <td><%= index = index + 1 %> </td>
-	  <td><%= details[:customer].first_name %></td>
-	  <td><%= details[:customer].last_name %></td>
-	  <td><%= details[:customer].email %></td>
-	  <td>
-		  <% if details[:customer].account %>
-		  <%= details[:customer].account%>
-		  <% end %>
-	  </td>
-	  <td><%= details[:open_invoices] %></td>
-	  <td> <%= link_to customer_details_path(details[:customer].id) do %>
-	  			 <span class="label label-info"><i class="icon-eye-open"></i> Details</span>
-	  	   <% end %>
-	  	   <%= link_to customer_delete_path(details[:customer].id) do %>
-	  			 <span class="label label-important">Delete</span>
-	  	   <% end %>
-	  	   
-	  </td>
-	  </tr>
-  <% end %>
-</table>
-
+   	<div id="server">
+       	
+   	</div>
+   	
+<div class="clearfix"></div>
+<div class="table-div">
+    <table class="table table-hover table-striped" id="customers-table">
+      <tr>
+    	  <th>#</th>
+    	  <th>First name</th>
+    	  <th>Last name </th>
+    	  <th>Email</th>
+    	  <th>Account</th>
+    	  <th>Open invoices</th>
+    	  <th>Actions</th>
+      </tr>
+      <% index = 0 %>
+      <% @customer_detail.each do |details| %>
+    	  <tr data-link="<%= customer_details_path(details[:customer].id)%>">
+    	  <td><%= index = index + 1 %> </td>
+    	  <td><%= details[:customer].first_name %></td>
+    	  <td><%= details[:customer].last_name %></td>
+    	  <td><%= details[:customer].email %></td>
+    	  <td>
+    		  <% if details[:customer].account %>
+    		  <%= details[:customer].account%>
+    		  <% end %>
+    	  </td>
+    	  <td><%= details[:open_invoices] %></td>
+    	  <td> <%= link_to customer_details_path(details[:customer].id) do %>
+    	  			 <span class="label label-info"><i class="icon-eye-open"></i> Details</span>
+    	  	   <% end %>
+    	  	   <%= link_to customer_delete_path(details[:customer].id) do %>
+    	  			 <span class="label label-important">Archive</span>
+    	  	   <% end %>
+    	  	   
+    	  </td>
+    	  </tr>
+      <% end %>
+    </table>
+</div>
 <br><br> 
 <!-- Static Example of Table --> 
 <table class="table table-hover table-striped">

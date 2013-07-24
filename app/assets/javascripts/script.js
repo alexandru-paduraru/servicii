@@ -3,6 +3,67 @@ $(document).ready(function() {
 	index = 1
 	amount = 0;
 	
+	$('#search_field').keyup(function(){
+        val = $('#search_field').val().trim();
+        if(val != ''){
+            $('.reset-search-button').animate({
+              left: '-33px'
+            },300);
+            if(val.length >= 0){ 
+                requestSearch();               
+            }
+        } else {
+            $('.reset-search-button').animate({
+              left: '5px'
+            },300);
+            requestSearch();
+        }
+    });
+    
+    function requestSearch(){
+        $('#server').html('');
+        index = 1;
+        
+        var serializedData = $('#searchForm').serialize();
+        request = $.ajax({
+    	url: '/customers/search',
+    	type: 'get',
+    	dataType: 'JSON',
+    	data: serializedData,
+        success: function(data){
+            $('#customers-table').find("tr:gt(0)").remove();
+           $.each(data, function(i, val){
+	      		var customer = data[i].customer;
+	      		var open_invoices = data[i].open_invoices;
+	      		insertRowTable(customer.first_name, customer.last_name, customer.email, customer.account, open_invoices, customer.id);
+      		});		
+  		},
+  		error: function(xhr){
+      		$('#server').html("user inexistent");
+      		return;
+      	}
+    });
+    }
+    function insertRowTable(first_name, last_name, email, account, open_invoices, id){
+        td_number = '<td>' + index + '</td>';
+		first_name = '<td>' + first_name + '</td>';
+		last_name = '<td>' + last_name + '</td>';
+		email = '<td>' + email + '</td>';
+		account = '<td>' + account + '</td>';
+		open_invoices = '<td>' + open_invoices + '</td>'; 
+		actions = '<td><a href="/customer_details/'+ id +'"/> <span class="label label-info"><i class="icon-eye-open"></i> Details</span> </a> <a href="/delete/'+ id +'"/> <span class="label label-important">Archive</span> </a></td>';
+		$('#customers-table tr:last').after('<tr>' + td_number + first_name + last_name + email + account + open_invoices + actions+ '</tr>');
+		index++;
+    }
+    
+    $('.reset-search-button').click(function(){
+        $('#search_field').val('');
+        $(this).animate({
+            left: '5px'
+        },200);
+        requestSearch();
+    });
+    
 	$('.datepicker').datepicker();
 	
 	//rich-text-editor
@@ -106,8 +167,8 @@ $(document).ready(function() {
 		td_value = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[value]" value="' + value +'"></td>';
 		td_qty = '<td><input readonly="readonly" class="span2" type="text" name="service_'+ index +'[qty]" value="' + qty + '"></td>';
 		td_actions = '<td></td>';
-		td_total = '<td><span class="pull-right">$ ' + total + ',00</span></td>'
-		$('#services_table tr:first').after('<tr>' + service_id + td_number + td_service + td_value + td_qty + td_actions + td_total + '</tr>');
+		td_total = '<td><span class="pull-right">$' + total + ',00</span></td>'
+		$('#services_table tr:first').after('<tr>' + service_id + td_number + td_service + td_qty + td_value + td_actions + td_total + '</tr>');
 		amount += total;
 		$('#invoice_amount').val(amount);
 		$('#services_table tr:last td:last').html('<span class="amount_info">Total: </span> <span class="total_due_amount">$' + amount + ',00</span>');
@@ -155,6 +216,7 @@ $(document).ready(function() {
 		      	}
 	        });
 		
-	});
+	   });
+	
 	
 });

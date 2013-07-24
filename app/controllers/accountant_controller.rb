@@ -85,7 +85,7 @@ class AccountantController < ApplicationController
    				end 
    			end
    			if ok == 1
-   				if Notifier.send_email_invoice(@invoice, @services, @customer).deliver
+   				if Notifier.send_email_invoice_template(@invoice, @services, @customer).deliver
    					render :text => "Invoice was succesfully created! An email was sent to customer!"
    				Action.create(:sent_at => Time.now, :customer_id => @customer.id, :invoice_id => @invoice.id, :user_id => current_user.id, :company_id => @customer.company_id, :action_type => "email")
    				else
@@ -251,4 +251,35 @@ class AccountantController < ApplicationController
             redirect_to invoice_details_path(invoice_id), :alert => "Error sending email."
        end
    end
+   
+   	def invoice_template
+       	invoice_id = params[:invoice_id]
+       	@invoice = Invoice.find_by_id(invoice_id)
+       	@customer = @invoice.customer
+       	@company = @invoice.company
+       	@user = User.find_by_id(@invoice.user_id)	
+        @services = Invoice.index_services(@invoice)
+       	
+	render 'send_email_invoice_template'
+	end
+	
+	def invoice_pdf
+        invoice_id = params[:invoice_id]
+       	@invoice = Invoice.find_by_id(invoice_id)
+       	@customer = @invoice.customer
+       	@company = @invoice.company
+       	@user = User.find_by_id(@invoice.user_id)	
+        @services = Invoice.index_services(@invoice)
+        respond_to do |format|
+            html = render_to_string(:layout => false , :action => "invoice_template_pdf.html.erb")
+            kit = PDFKit.new(html, :page_size => 'Letter')
+            kit.stylesheets << 'app/assets/stylesheets/invoice_style.css'
+            kit.stylesheets << 'app/assets/stylesheets/invoice_reset.css' 
+            kit.stylesheets << 'app/assets/stylesheets/invoice_pdf.css'
+            kit.stylesheets << 'app/assets/stylesheets/invoice_bootstrap.css'
+            
+    	   	format.html {send_data(kit.to_pdf, :filename => "invoice#{@invoice.number}.pdf", :type => 'application/pdf')}
+        end
+        return
+        end
 end

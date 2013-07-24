@@ -325,7 +325,20 @@ input[disabled]{
 	margin-left:130px; 
 	text-align:left;
 }
-
 .img {
 	padding-bottom: 20px;
 } 
+
+#searchForm{
+    position: relative;
+}
+.reset-search-button{
+    position: absolute;
+    left:5px;
+}
+.input-append .reset-search-button{
+    border-radius: 4px;
+}
+.table-div{
+    min-height: 300px;
+}

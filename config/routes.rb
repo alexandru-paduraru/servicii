@@ -30,6 +30,8 @@ patch '/employee/:id', to: 'user#update', :as => "user_update"
 #view customers
 
 get '/customers', to: 'salesman#index', :as => "customers"
+
+get '/customers/search', to: 'salesman#search_ajax', :as => "customers_search"
 #create customers
 post '/customers', to: 'user#customer_create', :as => "customer_create"
 get '/customers/new', to: 'user#customer_new', :as => "customer_new"
@@ -86,6 +88,11 @@ post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => 
 
 post '/send_email_invoice/:invoice_id', to: 'accountant#send_email', :as => "send_email_invoice"
 
+
+#testing invoice template
+
+get '/invoice_template/:invoice_id', to: 'accountant#invoice_template', :as => "invoice_template"
+get '/invoice_pdf/:invoice_id', to: 'accountant#invoice_pdf', :as => "invoice_pdf"
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#home'
