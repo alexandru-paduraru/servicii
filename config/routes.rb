@@ -30,6 +30,8 @@ patch '/employee/:id', to: 'user#update', :as => "user_update"
 #view customers
 
 get '/customers', to: 'salesman#index', :as => "customers"
+
+get '/customers/search', to: 'salesman#search_ajax', :as => "customers_search"
 #create customers
 post '/customers', to: 'user#customer_create', :as => "customer_create"
 get '/customers/new', to: 'user#customer_new', :as => "customer_new"

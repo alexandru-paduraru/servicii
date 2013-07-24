@@ -3,9 +3,9 @@ class SalesmanController < ApplicationController
 	def index
 	    @customer_detail = []
 	    if params[:search]
-	    customers = Customer.search(params[:search], current_user)
+	       customers = Customer.search(params[:search], current_user)
 	    else
-	    customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
+	       customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
 	    end
 	    	customers.each do |customer|
 	    		@details = {}
@@ -25,6 +25,26 @@ class SalesmanController < ApplicationController
 	    end
 	end
 	
+	def search_ajax
+	    @customer_detail = []
+	    if params[:search]
+	       customers = Customer.search(params[:search], current_user)
+	    else
+	       customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
+	    end
+	    	customers.each do |customer|
+	    		@details = {}
+	    		@details[:customer] = customer
+	    		  invoices = Customer.open_invoices(customer)
+	    		  index = 0
+	    		  invoices.each do |open_invoice|
+	    		  	index += 1
+	    		  end
+	    		@details[:open_invoices] = index
+	    		@customer_detail.append(@details)
+	    	end
+          render :json => @customer_detail
+	end
 	def create
 		pass = {}
 		object = params[:salesman]
