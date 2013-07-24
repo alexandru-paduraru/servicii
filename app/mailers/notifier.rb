@@ -18,8 +18,15 @@ class Notifier < ActionMailer::Base
 	  		mail :to => @customer.email, :subject => "Invoice"
   end
   
+  def send_email_invoice_template(invoice, services, customer)
+    @invoice = invoice
+    @services = services
+    @customer = customer
+    mail :to => @customer.email, :subject => "Invoice"
+  end
+  
   def send_email(to, cc, subject, message)
     @message = message
-    mail :to => to, :subject => subject
+    mail :to => to, :bcc => cc, :subject => subject
   end
 end
