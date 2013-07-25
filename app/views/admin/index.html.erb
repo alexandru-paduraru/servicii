@@ -74,21 +74,12 @@
 		</div>
   <div class="span6"> <legend></legend></div>  
 </div>	
+<% vector = 1%>
+<% @activities.each do |activity| %>
+<%= render_activity activity %>
+<% end %>
 
-	<!--Static Example 6 -->
- 	<div class="row">
-  			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
-		</div>
-			<div class="span5">
-		<strong><a class="muted" href="#">Kevin J. Liew</a></strong> &nbsp;<a class="muted" href="#">#collections</a><small class="pull-right muted">23h</small> 
-		<p>Made a <a class="muted" href="#">#change</a> on <a class="muted" href="#">Jenna White</a>'s email address from emailAD@example.com to emailaddress@example.com</p>									
-		</div>
-		
-  <div class="span6"><legend></legend><h5 class="muted"><a href="#" class="muted">More</a></h5>
- 
- 
-  </div>  
-</div>
+
 	
  
   	<!--

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-#ruby '2.0.0'
+ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 
@@ -78,3 +78,6 @@ gem "wkhtmltopdf-binary", "~> 0.9.9.1"
 
 #rich-text-editor
 gem 'bootstrap-wysihtml5-rails'
+
+#public activity feed
+gem 'public_activity'

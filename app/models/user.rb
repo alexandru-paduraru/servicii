@@ -1,13 +1,16 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  attr_accessible :company_id, :email, :first_name, :last_name, :password_hash, :password_salt, :type, :job
   include BCrypt
+  include PublicActivity::Model
+  tracked owner: -> (controller, model) {controller && controller.current_user}
+  attr_accessible :company_id, :email, :first_name, :last_name, :password_hash, :password_salt, :type, :job
+
 
   #  belongs_to :user_type
   belongs_to :company
-  has_many :worksons, :foreign_key => "user_id"
-
+  has_many :worksons
+  
   validates :first_name, :last_name, :email, :job, :presence => true
   validates :email, :length => { :minimum => 5 } 
   validates_uniqueness_of :email

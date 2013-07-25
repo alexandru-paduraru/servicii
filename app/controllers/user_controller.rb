@@ -1,6 +1,7 @@
 
 
 class UserController < ApplicationController
+
 require 'mandrill'    
 	def login
 	  
