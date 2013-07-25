@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
 
   #  belongs_to :user_type
   belongs_to :company
-  has_many :worksons, :foreign_key => "user_id"
-
+  has_many :worksons
+  
   validates :first_name, :last_name, :email, :job, :presence => true
   validates :email, :length => { :minimum => 5 } 
   validates_uniqueness_of :email

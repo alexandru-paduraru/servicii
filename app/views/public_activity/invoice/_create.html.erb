@@ -1,4 +1,5 @@
   <% vector = ["Accounts", "Financials", "Collections"] %>
+  <% customer = activity.trackable.customer %>
    <% if activity.owner && activity.trackable %>
  	<div class="row">
   			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
@@ -17,7 +18,9 @@
 
             </a>
     		<small class="pull-right muted">23h</small> 
-    		<p>added <a class="muted" href="#">#new user</a><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %> <a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> </p>					
+    		<p>added <a class="muted" href="#">#new invoice</a> for 
+    		<a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %></u> </a>
+    		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> <a class="muted" href="#"><u>Invoice <%= activity.trackable.number %></u></a></p>					
     		</div>
        <div class="span6"> <legend></legend>
        </div>  
