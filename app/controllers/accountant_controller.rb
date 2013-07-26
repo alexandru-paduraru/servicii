@@ -39,6 +39,36 @@ class AccountantController < ApplicationController
          details[:customer] = Customer.find_by_id(action.customer_id)	     
 		 @action_details.append(details)
      end
+     
+     #activity feed
+        _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
+
+	    _invoice_action_id = @invoice.actions.select(:id) 
+	    _invoice_action_id_array = []
+	    _invoice_action_id.each do |action_id|
+	        _invoice_action_id_array.append(action_id.id)
+	    end
+	    _activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id)
+	    @invoice_activities = []
+	    _activities.each do |act|   
+            ok = 0
+            _type = act.trackable_type
+            _id = act.trackable_id
+#             if _type == "Customer" && _id == @customer.id
+#                 ok = 1
+#             end
+            if _type == "Invoice" && _id == @invoice.id
+                ok = 1
+            end
+            if _type == "Action" && _invoice_action_id_array.include?(_id)
+                ok = 1
+            end
+            if ok == 1
+                @invoice_activities.append(act)
+            end
+	    end
+	    
+
      	 
 	 respond_to do |format|
 	 	format.html {render 'invoice_details'}

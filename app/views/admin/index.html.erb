@@ -74,11 +74,13 @@
 		</div>
   <div class="span6"> <legend></legend></div>  
 </div>	
-<% vector = 1%>
-<% @activities.each do |activity| %>
-<%= render_activity activity %>
+<% if @activities != []%>
+    <% @activities.each do |activity| %>
+    <%= render_activity(activity) %>
+    <% end %>
+<% else %>
+    No data to be displayed yet.
 <% end %>
-
 
 	
  

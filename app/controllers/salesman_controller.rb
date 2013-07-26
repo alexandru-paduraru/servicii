@@ -77,6 +77,7 @@ class SalesmanController < ApplicationController
 	def customer_details
 	 @customer_id = params[:customer_id]
 	 @customer = Customer.find_by_id(@customer_id)
+	    
 	 @customer_last_invoice = Customer.last_invoice(@customer)
 	 _customer_last_action = Action.last_action(@customer)
 	 if _customer_last_action
@@ -102,18 +103,48 @@ class SalesmanController < ApplicationController
 		 end
 		 
 		 @actions = @customer.actions
-# 		 @emails.each do |email|
-# 		   EmailAction.refresh_info(email)
-# 		 end
+
          @action_details = []
 		 @actions.each do |email|
 		     details = {}
 		     details[:email] = email
 		     details[:user] = User.find_by_id(email.user_id)
 		     details[:invoice] = Invoice.find_by_id(email.invoice_id)
-			# EmailAction.refresh_info(email)
 			 @action_details.append(details)
 	     end
+	     
+	     	 #activity feed
+	    _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
+	    _customer_invoice_id = @customer.invoices.select(:id)
+	    _customer_invoice_id_array = []
+	    _customer_invoice_id.each do |invoice_id|
+	        _customer_invoice_id_array.append(invoice_id.id)
+	    end
+	    _customer_action_id = @customer.actions.select(:id) 
+	    _customer_action_id_array = []
+	    _customer_action_id.each do |action_id|
+	        _customer_action_id_array.append(action_id.id)
+	    end
+	    _activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id)
+	    @customer_activities = []
+	    _activities.each do |act|   
+            ok = 0
+            _type = act.trackable_type
+            _id = act.trackable_id
+            if _type == "Customer" && _id == @customer.id
+                ok = 1
+            end
+            if _type == "Invoice" && _customer_invoice_id_array.include?(_id)
+                ok = 1
+            end
+            if _type == "Action" && _customer_action_id_array.include?(_id)
+                ok = 1
+            end
+            if ok == 1
+                @customer_activities.append(act)
+            end
+	    end
+	    
 		 
 	 end
 
@@ -127,8 +158,8 @@ class SalesmanController < ApplicationController
 	def customer_update
 		_post = params[:customer]
 		@customer = Customer.find_by_id(params[:customer_id])
-		@customer.update_attributes(:first_name => _post[:first_name],:last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code])
-		if @customer.save
+        if @customer.update_attributes(:first_name => _post[:first_name],:last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code])
+
 			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
 		else
 			render 'customer_edit'
