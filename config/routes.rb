@@ -81,7 +81,7 @@ get '/send_email/:customer_id', to: 'user#send_email', :as => "send_email"
 get '/send_to_collector/:customer_id', to: 'user#send_to_collector', :as => "send_to_collector"
 
 #for viewing invoice as pdf
-get '/pdf_invoice', to: 'accountant#pdf_invoice', :as => "pdf_invoice"
+get '/pdf_invoice', to: 'invoicetemplate#pdf_invoice', :as => "pdf_invoice"
 
 #for creating a note on an invoice
 post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => "add_note"
@@ -91,8 +91,9 @@ post '/send_email_invoice/:invoice_id', to: 'accountant#send_email', :as => "sen
 
 #testing invoice template
 
-get '/invoice_template/:invoice_id', to: 'accountant#invoice_template', :as => "invoice_template"
-get '/invoice_pdf/:invoice_id', to: 'accountant#invoice_pdf', :as => "invoice_pdf"
+get '/invoice_template/:invoice_id', to: 'invoicetemplate#invoice_template', :as => "invoice_template"
+get '/invoice_pdf/:invoice_id', to: 'invoicetemplate#invoice_pdf', :as => "invoice_pdf"
+
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#home'

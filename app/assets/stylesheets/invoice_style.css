@@ -1,5 +1,10 @@
 /* global mixins */
 
+/* for text that needs to be aligned */
+
+.center-text{
+    text-align: center;
+}
 .clip {
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
@@ -25,7 +30,7 @@
 body {
     font-size: 14px;
     margin: 0px;
-    /*text-align: center;*/
+/*     text-align: center; */
     background: #ddd;
     color: #333;
     font-family: Helvetica, Arial, sans-serif;
@@ -35,7 +40,7 @@ body {
 
 a {
     color: #333;
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 strong { font-weight: bold }
