@@ -6,26 +6,18 @@ $(document).ready(function() {
 	$('#search_field').keyup(function(){
         val = $('#search_field').val().trim();
         if(val != ''){
-            $('.reset-search-button').animate({
-              left: '-33px'
-            },300);
+            $('.reset-search-button').fadeIn('fast');
             if(val.length >= 0){ 
                 requestSearch();               
             }
         } else {
-            $('.reset-search-button').animate({
-              left: '5px'
-            },300);
+            $('.reset-search-button').fadeOut('fast');
             requestSearch();
         }
     });
-    $('#search-button').click(function(){
-        requestSearch();
-    });
+    
     function requestSearch(){
         $('#server').html('');
-        index = 1;
-        
         var serializedData = $('#searchForm').serialize();
         request = $.ajax({
     	url: '/customers/search',
@@ -33,37 +25,107 @@ $(document).ready(function() {
     	dataType: 'JSON',
     	data: serializedData,
         success: function(data){
-            $('#customers-table').find("tr:gt(0)").remove();
+           clearTable($('#customers-table'));
            $.each(data, function(i, val){
 	      		var customer = data[i].customer;
 	      		var open_invoices = data[i].open_invoices;
-	      		insertRowTable(customer.first_name, customer.last_name, customer.email, customer.account, open_invoices, customer.id);
+	      		insertRowTable(i+1, customer.organization_name, customer.first_name, customer.last_name, customer.email, customer.account, open_invoices, customer.id);
       		});		
   		},
   		error: function(xhr){
-      		$('#server').html("user inexistent");
+      		clearTable($('#customers-table'));
+      		displayNoSearchResult(xhr.responseText);
       		return;
       	}
     });
     }
-    function insertRowTable(first_name, last_name, email, account, open_invoices, id){
-        td_number = '<td>' + index + '</td>';
-		first_name = '<td>' + first_name + '</td>';
-		last_name = '<td>' + last_name + '</td>';
+    
+    function clearTable(table){
+        table.find("tr:gt(0)").remove();
+    }
+    function insertRowTable(rowNumber, organization_name, first_name, last_name, email, account, open_invoices, id){
+        td_number = '<td>' + rowNumber + '</td>';
+		organization = '<td>' + organization_name + ' / ';
+		customer_name = first_name + ' ' + last_name + '</td>';
 		email = '<td>' + email + '</td>';
 		account = '<td>' + account + '</td>';
 		open_invoices = '<td>' + open_invoices + '</td>'; 
-		actions = '<td><a href="/customer_details/'+ id +'"/> <span class="label label-info"><i class="icon-eye-open"></i> Details</span> </a> <a href="/delete/'+ id +'"/> <span class="label label-important">Archive</span> </a></td>';
-		$('#customers-table tr:last').after('<tr>' + td_number + first_name + last_name + email + account + open_invoices + actions+ '</tr>');
-		index++;
+		icon = '<td><i class="icon-chevron-right"/></td>';
+		actions = '<td><a href="/customer_details/' + id +'"><span class="label label-info"><i class="icon-eye-open"></i> Details</span></a> <a href="/delete/'+ id +'"> <span class="label label-important">Archive</span> </a></td>';
+		$('#customers-table tr:last').after('<tr data-link="/customer_details/' + id + '">' + td_number + organization + customer_name + email + open_invoices + icon + '</tr>');
+		$("tr[data-link]").click(function() {
+    		window.location = $(this).data("link");
+        });
+    }
+    
+    $('#search_field_invoices').keyup(function(){
+        val = $(this).val().trim();
+        if(val != ''){
+            $('.reset-search-button-invoices').fadeIn('fast');
+            if(val.length >= 0){ 
+                requestSearchInvoices();               
+            }
+        } else {
+            $('.reset-search-button-invoices').fadeOut('fast');
+            requestSearchInvoices();
+        }
+    });
+    
+    function requestSearchInvoices(){
+        var serializedData = $('#searchForm').serialize();
+        request = $.ajax({
+    	url: '/invoices/search',
+    	type: 'get',
+    	dataType: 'JSON',
+    	data: serializedData,
+        success: function(data){
+           clearTable($('#invoices-table'));
+           $.each(data, function(i, val){
+	      		var customer = data[i].customer;
+	      		var invoice = data[i].invoice;
+	      		insertRowTable(i+1, customer.organization_name, customer.first_name, customer.last_name, invoice.number, invoice.amount, invoice.id);
+      		});		
+  		},
+  		error: function(xhr){
+      		clearTable($('#invoices-table'));
+      		displayNoSearchResult(xhr.responseText);
+      		return;
+      	}
+    });
+    }
+    
+    function insertRowTable(rowNumber, organization_name, first_name, last_name, number, amount, id){
+        td_number = '<td>' + rowNumber + '</td>';
+		organization = '<td>' + organization_name + ' / ';
+		customer_name = first_name + ' ' + last_name + '</td>'; 
+		number = '<td>' + number + '</td>';
+		amount = '<td>$' + amount + ',00</td>';
+		status = '<td>Due</td>';
+		icon = '<td><i class="icon-chevron-right"/></td>';
+		actions = '<td><a href="/customer_details/' + id +'"><span class="label label-info"><i class="icon-eye-open"></i> Details</span></a> <a href="/delete/'+ id +'"> <span class="label label-important">Archive</span> </a></td>';
+		$('#invoices-table tr:last').after('<tr data-link="/invoice_details/'+ id +'">' + td_number + organization + customer_name + number + amount + status + icon + '</tr>');
+		$("tr[data-link]").click(function() {
+    		window.location = $(this).data("link");
+        });
+    }
+    
+    
+    
+    function displayNoSearchResult(message){
+       // message = "No results have been found for your search! :(";
+        $("#customers-table tr:last, #invoices-table tr:last").after('<tr><td colspan=5><h4 class="muted" style="text-align:center">' + message + '</h4></td></tr>');
     }
     
     $('.reset-search-button').click(function(){
         $('#search_field').val('');
-        $(this).animate({
-            left: '5px'
-        },200);
+        $(this).fadeOut('fast');
         requestSearch();
+    });
+    
+    $('.reset-search-button-invoices').click(function(){
+        $('#search_field_invoices').val('');
+        $(this).fadeOut('fast');
+        requestSearchInvoices(); 
     });
     
 	$('.datepicker').datepicker();
@@ -83,9 +145,11 @@ $(document).ready(function() {
 	  //for making row in table click-able
 	$("tr[data-link]").click(function() {
        window.location = $(this).data("link");
- 
     });
-        
+    
+    $('tr').hover(function(){
+        $('.customer_actions').css('opacity','1');
+    });
 	$("#create_employee_button").click(function(){
 	    $("#employee_form").slideDown('slow',function(){
 			$("#create_employee_button").attr("type","sumbit");

@@ -1,16 +1,16 @@
 <table class="table plain_table">
 <tr>
  <td>
-  <div class="input-append">
+  <div class="input-prepend pull-left">
     
-    <%= form_tag accountant_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => 'Search an invoice by invoice number, customer account, first name or last name' %>
-    <%= button_tag(type: 'submit', class: "btn") do %>
-   		 <i class="icon-search"></i> Search</button>
-    <% end %>    
-    <% end %>
+    <form accept-charset="UTF-8" id="searchForm">
+     <button type="button" class="btn disabled" id="search-button"><i class="icon-search"></i></button>
+     
+    <input type="text" class="span9" placeholder="Search an invoice by invoice number, customer account, first name or last name", id="search_field_invoices" name="search" autocomplete="off"/>
+    <button type="button" class="btn btn-danger reset-search-button-invoices"/><i class="icon-remove-sign"></i></button>
     
   </div>
+
  </td>
  <td>
  
@@ -20,31 +20,25 @@
 </table>
  
    
-<table class="table table-hover">
+<table class="table table-hover" id="invoices-table">
   <tr>
   	  <th>#</th>
-	  <th>Invoice number</th>
-	  <th>Customer name</th>
-	  <th>Customer account </th>
-	  
+  	  <th>Organization Name and Customer Name </th>
+	  <th>Invoice number</th>	  
 	  <th>Amount</th>
+	  <th>Status</th>
 	  <th></th>
   </tr>
   
   <% index = 0 %>
   <% @invoice_details.each do |invoice_details| %>
   <tr data-link="<%= invoice_details_path(invoice_details[:invoice].id)%>">
-  
   <td><%= index = index + 1 %></td>
+  <td><%= invoice_details[:customer].organization_name + ' / ' +invoice_details[:customer].first_name + ' ' + invoice_details[:customer].last_name %></td>
   <td><%= invoice_details[:invoice].number %></td>
-  <td><%= invoice_details[:customer].first_name + ' ' + invoice_details[:customer].last_name %></td>
-  <td><%= invoice_details[:customer].account %></td>
-  <td><%= invoice_details[:invoice].amount %> $ </td>
-    <td><%= link_to invoice_details_path(invoice_details[:invoice].id) do %>
-	  			 <span class="label label-info"><i class="icon-eye-open"></i> Details</span>
-	  	   <% end %>
-	</td>
-    
+  <td>$<%= invoice_details[:invoice].amount.to_i %></td>
+  <td>Due</td>
+    <td><i class="icon-chevron-right"></i></td>
   </tr>
   <% end %>
   

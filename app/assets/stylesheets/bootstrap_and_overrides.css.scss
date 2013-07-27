@@ -332,13 +332,21 @@ input[disabled]{
 #searchForm{
     position: relative;
 }
-.reset-search-button{
+.reset-search-button, .reset-search-button-invoices{
     position: absolute;
-    left:5px;
+    right: 0;
+    z-index: 2;
+    border-radius: 0 4px 4px 0 !important;
+    display: none;
 }
+
 .input-append .reset-search-button{
     border-radius: 4px;
 }
 .table-div{
     min-height: 300px;
+}
+
+tr[data-link]{
+    cursor: pointer;
 }

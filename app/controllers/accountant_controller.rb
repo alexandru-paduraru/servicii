@@ -19,6 +19,27 @@ class AccountantController < ApplicationController
  	render 'index'
  end
  
+ def search_ajax
+     if  params[:search]
+ 		invoices = Invoice.search(params[:search], current_user)
+ 	else 
+ 		invoices = Invoice.all.where(:company_id => current_user.company_id)
+ 	end 
+ 	
+ 	@invoice_details = []
+ 	invoices.each do |invoice|
+ 		details = {}
+ 		details[:customer] = invoice.customer
+ 		details[:invoice] = invoice
+ 		@invoice_details.append(details)
+ 	end
+ 	if @invoice_details.count > 0
+ 	  render :json => @invoice_details
+ 	else
+ 	  render text: 'No results have been found for your search :(', :status => 422
+ 	end
+ end
+ 
  def invoice_details
   	 @invoice_id = params[:invoice_id]
 	 @invoice = Invoice.find_by_id(@invoice_id)
