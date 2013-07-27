@@ -1,4 +1,6 @@
 class Action < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked except: [:update,:destroy], owner: -> (controller, model) {controller && controller.current_user}
   attr_accessible :sent_at, :viewed_at, :user_id, :customer_id, :action_type, :text_note, :company_id, :invoice_id
   
   belongs_to :customer

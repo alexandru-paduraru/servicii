@@ -1,6 +1,9 @@
 require 'date'
 class Invoice < ActiveRecord::Base
-  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id
+  include PublicActivity::Model
+  tracked except: [:update,:destroy],  owner: -> (controller, model) {controller && controller.current_user}
+
+           attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id
   
   belongs_to :company
   belongs_to :customer

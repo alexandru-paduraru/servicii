@@ -1,0 +1,172 @@
+<!doctype html>
+<html dir="ltr" lang="en" class="no-js">
+<head>
+<!-- js HTML class -->
+<!-- <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script> -->
+
+</head>
+<body>
+<!-- begin markup -->
+
+
+
+<div id="invoice" class="new span11">
+
+
+        <div class="this-is">
+                <strong>Invoice</strong>
+        </div><!-- invoice headline -->
+
+    <br>
+        <header id="header" class="row span10">
+                <div class="invoice-intro company_name span4  pull-left">
+                        <h3><%= @company.name %></h3>
+<!--                    <p>Building a Better Tomorrow Through Your Destruction</p> -->
+                </div>
+
+                <dl class="invoice-meta  pull-right span5">
+                        <dt class="invoice-number">Invoice #</dt>
+                        <dd><%= @invoice.number %></dd>
+                        <dt class="invoice-date">Date of Invoice</dt>
+                        <dd><%= @invoice.date %></dd>
+                        <dt class="invoice-due">Due Date</dt>
+                        <dd><%= @invoice.due_date %></dd>
+                </dl>
+        </header>
+        <!-- e: invoice header -->
+
+
+        <section id="parties" class="row span10">
+
+                <div class="invoice-to pull-left span3">
+                        <h4>Invoice To:</h4>
+                        <div id="hcard-Hiram-Roth" class="vcard">
+                                <div class="url fn"><%= @customer.first_name + ' ' +  @customer.last_name %></div>
+                                <div class="org"><%= @customer.organization_name %></div>
+                                <div class="email"><%= @customer.email%></div>
+                                
+                                <div class="adr">
+                                        <div class="street-address"><%= @customer.address1 %></div>
+                                        <span class="locality"><%= @customer.city %></span>
+                                        <span class="country-name"><%= @customer.state %></span>
+                                </div>
+
+                                <div class="tel"><%= @customer.phone %></div>
+                        </div><!-- e: vcard -->
+                </div><!-- e invoice-to -->
+
+
+                <div class="invoice-from span3">
+                        <h4>Invoice From:</h4>
+                        <div id="hcard-Admiral-Valdore" class="vcard">
+                                <div class="url fn"><%= @user.first_name + ' ' + @user.last_name %></div>
+                                <div class="org"><%= @company.name %></div>
+                                <div class="email"><%= @user.email %></div>
+                                
+<!--
+                                <div class="adr">
+                                        <div class="street-address">5151 Pardek Memorial Way</div>
+                                        <span class="locality">Krocton Segment</span>
+                                        <span class="country-name">Romulus</span>
+                                </div>
+-->
+<!--
+
+                                <div class="tel"><%= @customer.phone %></div>
+-->
+                        </div><!-- e: vcard -->
+                </div><!-- e invoice-from -->
+
+
+                <div class="invoice-status pull-right span3">
+                        <h4>Invoice Status</h4>
+                        <strong>Invoice is <em>Unpaid</em></strong>
+                </div><!-- e: invoice-status -->
+
+        </section><!-- e: invoice partis -->
+
+
+        <section class="invoice-financials">
+
+                <div class="invoice-items">
+                        <table>
+                                <caption>Your Invoice</caption>
+                                <thead>
+                                        <tr>
+                                                <th>Item &amp; Description</th>
+                                                <th>Quantity</th>
+                                                <th>Price ($)</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                  <% if @services %>
+                              <% @services.each do |service| %>
+                              <tr>
+                              <th> <%= service[:name]%></th>
+                              <td> <%= service[:qty].to_i %> </td>
+                              <td> <%= '$' + service[:value].to_s + ',00'%></td>
+<!--
+                              <td><span class="pull-right"> $<%= service[:amount] %> </span>
+                              </td>
+-->
+                              </tr>
+                              <% end %>
+                      <% end %>
+                                </tbody>
+                                <tfoot>
+        <!--
+                                <tr>
+                                                <td colspan="3">Amounts in bars of Gold Pressed Latinum</td>
+                                        </tr>
+-->
+                                </tfoot>
+                        </table>
+                </div><!-- e: invoice items -->
+
+
+                <div class="invoice-totals">
+                        <table>
+                                <caption>Totals:</caption>
+                                <tbody>
+                                        <tr>
+                                                <th>Subtotal:</th>
+                                                <td></td>
+                                                <td><%= @invoice.amount %></td>
+                                        </tr>
+                                        <tr>
+                                                <th>Tax:</th>
+                                                <td>20%</td>
+                                                <td>$0,2</td>
+                                        </tr>
+                                        <tr>
+                                                <th>Total:</th>
+                                                <td></td>
+                                                <td>$1,2</td>
+                                        </tr>
+                                </tbody>
+                        </table>
+
+                </div><!-- e: invoice totals -->
+
+
+                <div class="invoice-notes">
+                        <h6>Notes &amp; Information:</h6>
+                        <p>This invoice contains a incomplete list of items destroyed by the Federation ship Enterprise on Startdate 5401.6 in an unprovked attacked on a peaceful &amp; wholly scientific mission to Outpost 775.</p>
+
+                </div><!-- e: invoice-notes -->
+
+        </section><!-- e: invoice financials -->
+
+
+        <footer id="footer">
+                <p>
+         Invoice created using <a href = "invoiceflow.com">InvoiceFlow</a> .
+                </p>
+        </footer>
+
+
+</div><!-- e: invoice -->
+
+
+</body>
+</html>

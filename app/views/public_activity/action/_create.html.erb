@@ -1,0 +1,38 @@
+  <% vector = ["Accounts", "Financials", "Collections"] %>
+  <% customer = activity.trackable.customer %>
+  <% invoice = activity.trackable.invoice %>
+   <% if activity.owner && activity.trackable %>
+ 	<div class="row">
+  			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
+		    </div>
+           <div class="span5">
+    		<strong><a class="muted" href="#">	    <%= activity.owner.first_name + ' ' + activity.owner.last_name %></a></strong> &nbsp;
+    		<a class="muted" href="#">
+            <% if activity.owner.job == 1 %>
+            #admin
+            <% else %>  
+        		<% jobs = activity.owner.worksons %>
+        		<% jobs.each do |job|%>
+        		#<%= vector[job.job_id-2] %>
+        		<% end %>
+    		<% end %>
+
+            </a>
+    		<small class="pull-right muted">23h</small> 
+    		<% if activity.trackable.action_type == 'note' %>
+        		<p>Added a <a class="muted" href="#">#note</a>
+        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for <a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %>'s</u> </a><a class="muted" href="#"><u>Invoice <%= invoice.number %></u></a>
+        		</p>	
+    		<% end %>	<!---end for note--->
+            <% if activity.trackable.action_type == 'email' %>
+        		<p>Sent an <a class="muted" href="#">#email</a>
+        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for <a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %>'s</u> </a><a class="muted" href="#"><u>Invoice <%= invoice.number %></u></a>
+        		</p>	
+    		<% end %>	<!---end for note--->
+    					
+    		</div>
+       <div class="span6"> <legend></legend>
+       </div>  
+   </div>
+		
+   <% end %>
