@@ -29,7 +29,7 @@ $(document).ready(function() {
            $.each(data, function(i, val){
 	      		var customer = data[i].customer;
 	      		var open_invoices = data[i].open_invoices;
-	      		insertRowTable(i+1, customer.organization_name, customer.first_name, customer.last_name, customer.email, customer.account, open_invoices, customer.id);
+	      		insertRowTableCustomers(i+1, customer.organization_name, customer.first_name, customer.last_name, customer.email, customer.account, open_invoices, customer.id);
       		});		
   		},
   		error: function(xhr){
@@ -43,7 +43,7 @@ $(document).ready(function() {
     function clearTable(table){
         table.find("tr:gt(0)").remove();
     }
-    function insertRowTable(rowNumber, organization_name, first_name, last_name, email, account, open_invoices, id){
+    function insertRowTableCustomers(rowNumber, organization_name, first_name, last_name, email, account, open_invoices, id){
         td_number = '<td>' + rowNumber + '</td>';
 		organization = '<td>' + organization_name + ' / ';
 		customer_name = first_name + ' ' + last_name + '</td>';
