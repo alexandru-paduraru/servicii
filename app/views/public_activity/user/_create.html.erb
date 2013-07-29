@@ -1,4 +1,5 @@
   <% vector = ["Accounts", "Financials", "Collections"] %>
+  <% time = Time.now - activity.created_at %>
    <% if activity.owner && activity.trackable %>
  	<div class="row">
   			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
@@ -6,7 +7,7 @@
            <div class="span5">
     		<strong><a class="muted" href="#">	    <%= activity.owner.first_name + ' ' + activity.owner.last_name %></a></strong> &nbsp;
     		<a class="muted" href="#">
-            <% if activity.owner.job == 1 %>
+            <% if activity.owner.job == User::ADMIN %>
             #admin
             <% else %>  
         		<% jobs = activity.owner.worksons %>
@@ -16,8 +17,18 @@
     		<% end %>
 
             </a>
-    		<small class="pull-right muted">23h</small> 
-    		<p>added <a class="muted" href="#">#new user</a><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %> <a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> </p>					
+    		<small class="pull-right muted">
+    		<% if  (time/1.day).to_i > 0 %>
+    		    <%= (time/1.day).to_i %>d
+            <% else %>
+                <% if (time/1.hour).to_i > 0%>
+                 <%= (time/1.hour).to_i %>h
+                 <% else %>
+                    <%= (time/1.minute).to_i%>m
+                <% end %>
+            <% end %>
+    		</small> 
+    		<p>Added <a class="muted" href="#">#new user</a><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %> <a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> </p>					
     		</div>
         <div class="span6"> <legend></legend>   
        </div> 

@@ -1,6 +1,8 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
+    ADMIN = 1
+    EMPLOYEE = 0
   include BCrypt
   include PublicActivity::Model
   tracked owner: -> (controller, model) {controller && controller.current_user}
