@@ -109,11 +109,64 @@ $(document).ready(function() {
         });
     }
     
+    $('#search_field_invoices_collections').keyup(function(){
+        val = $(this).val().trim();
+        if(val != ''){
+            $('.reset-search-button-collections').fadeIn('fast');
+            if(val.length >= 0){ 
+                requestSearchInvoicesCollections();               
+            }
+        } else {
+            $('.reset-search-button-collections').fadeOut('fast');
+            requestSearchInvoicesCollections();
+        }
+    });
+    
+    function requestSearchInvoicesCollections(){
+        var serializedData = $('#searchForm').serialize();
+        request = $.ajax({
+    	url: '/collections/invoices/search',
+    	type: 'get',
+    	dataType: 'JSON',
+    	data: serializedData,
+        success: function(data){
+           clearTable($('#invoices-collections-table'));
+           $.each(data, function(i, val){
+	      		var customer = data[i].customer;
+	      		var invoices = data[i].open_invoices;
+	      		insertRowTableCollections(i+1, customer.organization_name, customer.first_name, customer.last_name, invoices, customer.id);
+      		});		
+  		},
+  		error: function(xhr){
+      		clearTable($('#invoices-collections-table'));
+      		displayNoSearchResult(xhr.responseText);
+      		return;
+      	}
+    });
+    }
+    
+    function insertRowTableCollections(rowNumber, organization_name, first_name, last_name, invoices, id){
+        td_number = '<td>' + rowNumber + '</td>';
+		organization = '<td>' + organization_name + ' / ';
+		customer_name = first_name + ' ' + last_name + '</td>'; 
+		customer_id = '<td>' + id + '</td>';
+		icon = '<td><i class="icon-chevron-right"/></td>';
+		response = '<td>ok</td>';
+		invoices_list = '<td><ul class="unstyled">';
+		$.each(invoices, function(i, val){
+		      invoices_list += '<li> # ' + invoices[i].number + ' issued ' + invoices[i].date + '</li>'; 
+		});
+		invoices_list += '</ul></td>';
+		$('#invoices-collections-table tr:last').after('<tr data-link="/customer_details/'+ id +'">' + td_number + organization + customer_name + customer_id + invoices_list + response +  icon + '</tr>');
+		$("tr[data-link]").click(function() {
+    		window.location = $(this).data("link");
+        });
+    }
     
     
     function displayNoSearchResult(message){
        // message = "No results have been found for your search! :(";
-        $("#customers-table tr:last, #invoices-table tr:last").after('<tr><td colspan=5><h4 class="muted" style="text-align:center">' + message + '</h4></td></tr>');
+        $("#customers-table tr:last, #invoices-table tr:last,#invoices-collections-table tr:last").after('<tr><td colspan=5><h4 class="muted" style="text-align:center">' + message + '</h4></td></tr>');
     }
     
     $('.reset-search-button').click(function(){
@@ -126,6 +179,12 @@ $(document).ready(function() {
         $('#search_field_invoices').val('');
         $(this).fadeOut('fast');
         requestSearchInvoices(); 
+    });
+    
+    $('.reset-search-button-collections').click(function(){
+        $('#search_field_invoices_collections').val('');
+        $(this).fadeOut('fast');
+        requestSearchInvoicesCollections(); 
     });
     
 	$('.datepicker').datepicker();

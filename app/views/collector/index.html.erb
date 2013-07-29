@@ -1,42 +1,40 @@
 
-  <div class="input-append">
-    <%= form_tag collector_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search], :class => "span9", :placeholder => "Search a customer by first name, last name, account number or invoice number" %>    
-    <%= button_tag(type: 'submit', class: "btn") do %>
-   		 <i class="icon-ml-search"></i> Search</button>
-    <% end %> 
-    <% end %>
+   <div class="input-prepend pull-left">
+    <form accept-charset="UTF-8" id="searchForm">
+     <button type="button" class="btn disabled" id="search-button"><i class="icon-search"></i></button>
+    <input type="text" class="span9" placeholder="Search an invoice by invoice number, customer account, first name or last name", id="search_field_invoices_collections" name="search" autocomplete="off"/>
+    <button type="button" class="btn btn-danger reset-search-button-collections"/><i class="icon-remove-sign"></i></button>
   </div>
    
-<table class="table table-bordered table-hover table-striped">
+<table class="table table-hover table-striped" id="invoices-collections-table">
   
   <tr>
   <th>#</th>
-  <th>First name</th>
-  <th>Last name </th>
+  <th>Organization Name and Contact Name</th>
   <th>Account number</th>
   <th>Open invoices</th>
   <th>Response</th>
-  <th>Actions</th>
+  <th></th>
   </tr>
   
   <% index = 0 %>
   <% @customer_details.each do |customer_details| %>
-  <tr data-link="<%= customer_details_path(customer_details[:customer].id)%>">
+  <% customer = customer_details[:customer] %>
+  <tr data-link="<%= customer_details_path(customer.id)%>">
   <td><%= index = index + 1 %> </td>
-  <td><%= customer_details[:customer].first_name %></td>
-  <td><%= customer_details[:customer].last_name %></td>
-  <td><%= customer_details[:customer].account %></>
-  <td>
+  <td><%= customer.organization_name + ' / ' + customer.first_name + ' ' + customer.last_name %></td>
+  <td><%= customer.account %></>
+  <td><ul class="unstyled">
 	  <% if customer_details[:open_invoices]%>
 	      <% customer_details[:open_invoices].each do |open_invoice| %>
 	      <li> # <%= open_invoice.number %> issued <%= open_invoice.date %>
 	      </li>
 	      <% end %>
 	  <% end %>
+	  </ul>
   </td>
   <td> </td>
-  <td> <a href="customer_details/<%= customer_details[:customer].id %>" class = "btn" >Details</a></td>
+  <td> <i class="icon-chevron-right"/></td>
   </tr>
   <% end %>
  
