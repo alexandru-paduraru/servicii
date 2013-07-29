@@ -41,8 +41,12 @@
         		<p>Sent an <a class="muted" href="#">#email</a>
         		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for <a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %>'s</u> </a><a class="muted" href="#"><u>Invoice <%= invoice.number %></u></a>
         		</p>	
-    		<% end %>	<!---end for note--->
-    					
+    		<% end %>	<!---end for email--->
+            <% if activity.trackable.action_type == 'sms' %>
+        		<p>Sent a <a class="muted" href="#">#sms message</a>
+        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for <a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %>'s</u> </a><a class="muted" href="#"><u>Invoice <%= invoice.number %></u></a>
+        		</p>	
+    		<% end %>	<!---end for sms--->		
     		</div>
        <div class="span6"> <legend></legend>
        </div>  

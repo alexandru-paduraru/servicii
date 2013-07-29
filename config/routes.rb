@@ -67,6 +67,7 @@ post '/customers/:customer_id/invoices/new/services/new', to: 'accountant#create
 get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
 get '/invoice_pay/:invoice_id', to: 'accountant#invoice_pay', :as => "invoice_pay"
 get '/invoices/search', to: 'accountant#search_ajax', :as => "invoice_search"
+post "/invoice_details/send_sms", to: "accountant#send_sms", :as => "send_sms_invoice"
 
 #company details
 get '/company_new', to: 'admin#company_new', :as => "company_new"

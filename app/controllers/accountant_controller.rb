@@ -302,5 +302,19 @@ class AccountantController < ApplicationController
             redirect_to invoice_details_path(invoice_id), :alert => "Error sending email."
        end
    end
+   
+   def send_sms
+    invoice = Invoice.find_by_id(params[:invoice_id])
+    customer = invoice.customer
+    #customer.send_sms(params[:sms_body], params[:sms_number])
+    
+    ## saving the action to be displayed in the activity feed
+    action = Action.create(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "sms", :text_note => params[:sms_body])
+    
+    respond_to do |format|
+      format.html { redirect_to invoice_details_path(params[:invoice_id]) }
+      format.json { render :json => "1".to_json }
+    end
+  end
 
 end

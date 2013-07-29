@@ -70,8 +70,14 @@ class SalesmanController < ApplicationController
 
   def send_sms
     customer = Customer.find(params[:customer_id])
-    customer.send_sms(params[:sms_body], params[:sms_number])
+#     customer.send_sms(params[:sms_body], params[:sms_number])
+    
+    #saving the action in the database to be displayed in the activity feed
+    #the action refers the customer as the one being passed in the params and the last invoice issued 
+    last_invoice = Customer.last_invoice(customer)
+    action = Action.create(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => last_invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "sms", :text_note => params[:sms_body])
 
+    
     respond_to do |format|
       format.html { redirect_to customer_details_path(params[:customer_id]) }
       format.json { render :json => "1".to_json }

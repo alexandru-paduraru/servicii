@@ -84,12 +84,13 @@
       			Account standing: <strong>on time</strong><br>
       			Last contact: <strong>60 days ago</strong>
       		</div>
-	      <a href="#" class="btn btn-success btn-large btn-block"><i class="icon-headphones icon-white"></i> Call</a>
-
+          <%= link_to "#", :class => "btn btn-success btn-large btn-block", :id => "select-call" do %>
+            <i class="icon-headphones icon-white"></i> Call
+          <% end %>
 	      <button class="btn btn-info btn-large btn-block modalButton" id="1" > 
 	      <i class="icon-envelope icon-white"></i> Send email</button>
 	      
-	      <a href="#" class="btn btn-warning btn-large btn-block"><i class="icon-comment icon-white"></i> Message</a>
+	      <a href="#" class="btn btn-warning btn-large btn-block" id="send_sms_invoice_btn"><i class="icon-comment icon-white"></i> Send SMS Text </a>
 <!--
 	      <% if @customer.sent_to_collector%>
 	      		<a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>

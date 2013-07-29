@@ -18,5 +18,6 @@
 //= require bootstrap-wysihtml5/locales
 //= require calls
 //= require salesman
+//= require accountant
 //= require invoice_dev
 //= require script

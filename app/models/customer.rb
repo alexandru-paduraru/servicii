@@ -110,6 +110,7 @@ class Customer < ActiveRecord::Base
 
     # TODO: Add a timeline message with this
     # puts message.sid
+
   end
 
   def self.to_csv(customers)
