@@ -43,7 +43,11 @@ class SalesmanController < ApplicationController
 	    		@details[:open_invoices] = index
 	    		@customer_detail.append(@details)
 	    	end
-          render :json => @customer_detail
+	      if @customer_detail.count > 0 
+            render :json => @customer_detail
+          else 
+            render text: 'No results have been found for your search :(', :status => 422
+          end
 	end
 	def create
 		pass = {}

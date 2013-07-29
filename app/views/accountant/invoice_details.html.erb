@@ -44,8 +44,8 @@
 			      <td><%= index = index +1 %></td>
 			      <td> <%= service[:name]%></td>
 			      <td> <%= service[:qty].to_i %> </td>
-			      <td> <%= '$' + service[:value].to_s + ',00'%></td>
-			      <td><span class="pull-right"> <%= '$' + service[:amount].to_s + ',00'%></span>
+			      <td> <%= '$' + service[:value].to_s %></td>
+			      <td><span class="pull-right"> <%= '$' + service[:amount].to_i.to_s %></span>
 			      </td>
 			      </tr>
 			      <% end %>
@@ -54,7 +54,7 @@
 		      	<td colspan="4"></td>
 		      	<td>
 		      		<span class="amount_info">Total:</span>
-		      		<span class="total_due_amount">$<%= @invoice.amount %></span>
+		      		<span class="total_due_amount">$<%= @invoice.amount.to_i %></span>
 		      	</td>
 		      </tr> 
 	      </table>

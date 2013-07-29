@@ -20,7 +20,7 @@ class Customer < ActiveRecord::Base
   	if search != ''
   		search = search.downcase
 		 if Invoice.all.where(:company_id => current_user.company_id ) != []
-             all :joins => 'LEFT JOIN "invoices" ON customers.id = invoices.customer_id' , :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and customers.active = ?', search, search, "#{search}%", "#{search}%", "#{search}%", current_user.company_id, true], :select => 'distinct customers.first_name, customers.last_name, customers.account, customers.email, customers.id'
+             all :joins => 'LEFT JOIN "invoices" ON customers.id = invoices.customer_id' , :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and customers.active = ?', search, search, "#{search}%", "#{search}%", "#{search}%", current_user.company_id, true], :select => 'distinct customers.organization_name, customers.first_name, customers.last_name, customers.account, customers.email, customers.id'
 		 else
 		    find(:all, :conditions => ['(lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) = ?) and active = ? and company_id = ?', "#{search}%" , "#{search}%", "#{search}%", search, true, current_user.company_id])
 		 end  	
