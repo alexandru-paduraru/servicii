@@ -22,7 +22,7 @@ layout "invoicetemplate"
         @services = Invoice.index_services(@invoice)
         respond_to do |format|
             html = render_to_string(:layout => false , :action => "invoice_template_pdf.html.erb")
-            kit = PDFKit.new(html.html_safe, :page_size => 'Letter')
+            kit = PDFKit.new(html.html_safe, :page_size => 'Letter', :orientation => 'Portrait')
             kit.stylesheets << 'app/assets/stylesheets/invoice_reset.css' 
             kit.stylesheets << 'app/assets/stylesheets/invoice_style.css'
             kit.stylesheets << 'app/assets/stylesheets/invoice_bootstrap.css'
