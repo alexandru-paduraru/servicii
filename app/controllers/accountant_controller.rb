@@ -19,6 +19,27 @@ class AccountantController < ApplicationController
  	render 'index'
  end
  
+ def search_ajax
+     if  params[:search]
+ 		invoices = Invoice.search(params[:search], current_user)
+ 	else 
+ 		invoices = Invoice.all.where(:company_id => current_user.company_id)
+ 	end 
+ 	
+ 	@invoice_details = []
+ 	invoices.each do |invoice|
+ 		details = {}
+ 		details[:customer] = invoice.customer
+ 		details[:invoice] = invoice
+ 		@invoice_details.append(details)
+ 	end
+ 	if @invoice_details.count > 0
+ 	  render :json => @invoice_details
+ 	else
+ 	  render text: 'No results have been found for your search :(', :status => 422
+ 	end
+ end
+ 
  def invoice_details
   	 @invoice_id = params[:invoice_id]
 	 @invoice = Invoice.find_by_id(@invoice_id)
@@ -39,6 +60,36 @@ class AccountantController < ApplicationController
          details[:customer] = Customer.find_by_id(action.customer_id)	     
 		 @action_details.append(details)
      end
+     
+     #activity feed
+        _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
+
+	    _invoice_action_id = @invoice.actions.select(:id) 
+	    _invoice_action_id_array = []
+	    _invoice_action_id.each do |action_id|
+	        _invoice_action_id_array.append(action_id.id)
+	    end
+	    _activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id)
+	    @invoice_activities = []
+	    _activities.each do |act|   
+            ok = 0
+            _type = act.trackable_type
+            _id = act.trackable_id
+#             if _type == "Customer" && _id == @customer.id
+#                 ok = 1
+#             end
+            if _type == "Invoice" && _id == @invoice.id
+                ok = 1
+            end
+            if _type == "Action" && _invoice_action_id_array.include?(_id)
+                ok = 1
+            end
+            if ok == 1
+                @invoice_activities.append(act)
+            end
+	    end
+	    
+
      	 
 	 respond_to do |format|
 	 	format.html {render 'invoice_details'}
@@ -251,35 +302,5 @@ class AccountantController < ApplicationController
             redirect_to invoice_details_path(invoice_id), :alert => "Error sending email."
        end
    end
-   
-   	def invoice_template
-       	invoice_id = params[:invoice_id]
-       	@invoice = Invoice.find_by_id(invoice_id)
-       	@customer = @invoice.customer
-       	@company = @invoice.company
-       	@user = User.find_by_id(@invoice.user_id)	
-        @services = Invoice.index_services(@invoice)
-       	
-	render 'send_email_invoice_template'
-	end
-	
-	def invoice_pdf
-        invoice_id = params[:invoice_id]
-       	@invoice = Invoice.find_by_id(invoice_id)
-       	@customer = @invoice.customer
-       	@company = @invoice.company
-       	@user = User.find_by_id(@invoice.user_id)	
-        @services = Invoice.index_services(@invoice)
-        respond_to do |format|
-            html = render_to_string(:layout => false , :action => "invoice_template_pdf.html.erb")
-            kit = PDFKit.new(html, :page_size => 'Letter')
-            kit.stylesheets << 'app/assets/stylesheets/invoice_style.css'
-            kit.stylesheets << 'app/assets/stylesheets/invoice_reset.css' 
-            kit.stylesheets << 'app/assets/stylesheets/invoice_pdf.css'
-            kit.stylesheets << 'app/assets/stylesheets/invoice_bootstrap.css'
-            
-    	   	format.html {send_data(kit.to_pdf, :filename => "invoice#{@invoice.number}.pdf", :type => 'application/pdf')}
-        end
-        return
-        end
+
 end
