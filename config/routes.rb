@@ -44,6 +44,7 @@ get '/customer_details/:customer_id', to: 'salesman#customer_details', :as => "c
 get '/customer_details/:customer_id/edit', to: 'salesman#customer_edit', :as => "customer_edit"
 patch '/customer_details/:customer_id', to: 'salesman#customer_update', :as => "customer_update"
 post "/customer_details/send_sms", to: "salesman#send_sms"
+get '/customers/save_call', to: "salesman#save_call", :as => "customer_save_call"
 
 #customer import
 post '/customers/import_export', to: 'user#customer_import', :as => "import_customers"
@@ -69,6 +70,7 @@ get '/invoice_pay/:invoice_id', to: 'accountant#invoice_pay', :as => "invoice_pa
 get '/invoices/search', to: 'accountant#search_ajax', :as => "invoice_search"
 post "/invoice_details/send_sms", to: "accountant#send_sms", :as => "send_sms_invoice"
 get '/collections/invoices/search', to: 'collector#search_ajax', :as => "collections_invoice_search"
+get '/invoices/save_call', to: "accountant#save_call", :as => "invoice_save_call"
 
 #company details
 get '/company_new', to: 'admin#company_new', :as => "company_new"

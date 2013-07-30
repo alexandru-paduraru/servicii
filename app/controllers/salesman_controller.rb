@@ -177,7 +177,7 @@ class SalesmanController < ApplicationController
 		end
 	end
 	
-		def delete_customer
+   def delete_customer
 		customer_id = params[:customer_id]
 		customer = Customer.find_by_id(customer_id)
 				
@@ -186,6 +186,13 @@ class SalesmanController < ApplicationController
 		else
 		    redirect_to salesman_path, :notice => "Error! Couldn't make customer inactive."
 		end
+	end
+	
+	def save_call
+	customer = Customer.find_by_id(params[:customer_id])
+    last_invoice = Customer.last_invoice(customer)
+    action = Action.create(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => last_invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "call")
+	render :json => "1".to_json 
 	end
 	
 

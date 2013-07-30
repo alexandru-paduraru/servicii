@@ -316,5 +316,12 @@ class AccountantController < ApplicationController
       format.json { render :json => "1".to_json }
     end
   end
+  
+  	def save_call
+	invoice = Invoice.find_by_id(params[:invoice_id])
+    customer = invoice.customer
+    action = Action.create(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "call")
+	render :json => "1".to_json 
+	end
 
 end
