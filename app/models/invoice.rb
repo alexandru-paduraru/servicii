@@ -38,7 +38,7 @@ class Invoice < ActiveRecord::Base
   	if search != ''
   		search = search.downcase
   		if Customer.all.where(:company_id => current_user.company_id)
-		all :joins => :customer, :conditions => ['(invoices.number = ? or customers.account = ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ?) and invoices.company_id = ?', search, search,"#{search}%", "#{search}%",current_user.company_id]
+		all :joins => :customer, :conditions => ['(invoices.number = ? or customers.account = ? or lower(customers.organization_name) LIKE ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ?) and invoices.company_id = ?', search, search,"#{search}%","#{search}%", "#{search}%",current_user.company_id]
 		else
 		find(:all, :conditions => ['number = ? and company_id = ?', search, current_user.company_id])
 		end
@@ -111,5 +111,9 @@ class Invoice < ActiveRecord::Base
 		  services.append(service_details)
 		end
 	services
+   end
+   
+   def latest_activity
+        return Action.order('sent_at desc').find(:all,:conditions => ['(action_type = ? or action_type = ? or action_type = ?) and invoice_id = ? ', 'email', 'sms', 'call', self.id])
    end
 end

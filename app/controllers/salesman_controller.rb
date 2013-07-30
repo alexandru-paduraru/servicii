@@ -103,6 +103,7 @@ class SalesmanController < ApplicationController
 			 	       open_invoice[:date] = invoice.date
 			 	       open_invoice[:due_date] = invoice.due_date
 			 	       open_invoice[:number] = invoice.number
+			 	       open_invoice[:latest_activity] = invoice.latest_activity[0]
 			 	       @open_invoices.append(open_invoice)
 			 end
 		 
