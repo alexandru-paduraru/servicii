@@ -65,6 +65,7 @@
 		<p><%= @company.address %>, <%= @company.zip_code %></p>
 		<p><%= @company.city + ', ' + @company.country %></p>
 	</div>
+    
 	<div class="span5">
 	<%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
     <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
@@ -174,9 +175,9 @@
 <% end %>
 -->
 <div class="row">
- 	<div class="span6 well-white">
+ 	<div class="span5 well-white">
 	<div class="row">
-	  	  <div class="span4">
+	  	  <div class="span3">
 	  	    <h5 class="muted">Activity Feed</h5>
 	      </div>
 
@@ -188,17 +189,33 @@
     	   		</div>
             </div>
 	   </div>
-	   <div class="span6"> <legend></legend></div>
+	   <div class="span5"> <legend></legend></div>
 	</div> 
 	<% if @invoice_activities != [] %>
     	<% @invoice_activities.each do |activity|%>
-    	    <%= render_activity activity %>
+    	    <%= render_activity(activity, params = {:page => 'invoice'}) %>
     	<% end %>
     <% else %>
     No data to be displayed yet.
 	<% end %>
 	
  	</div>  <!-- end div well white for activity feed -->
+ 	
+     <div class="span3 well-white">
+     <h5 class="muted">Notes</h5>
+	<legend></legend>
+	<% if @action_details %>
+	<ul>
+		<% @action_details.each do |action_detail| %>
+		<% if action_detail[:action].action_type == "note" %>
+		<li>
+		<%= action_detail[:action].text_note %>
+		</li>
+		<% end %>
+		<% end %>
+	</ul>
+	<% end %>
+	</div><!-- end notes --->
 </div> <!-- end row -->
 	
 	

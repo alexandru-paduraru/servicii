@@ -7,7 +7,12 @@
  	<div class="row">
   			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
 		    </div>
+       <% if params[:page] == 'admin' %>
            <div class="span5">
+        <% end %>
+        <% if params[:page] == 'customer' || params[:page] == 'invoice' %>
+            <div class="span4">
+        <% end %>
     		<strong><a class="muted" href="#">	    <%= activity.owner.first_name + ' ' + activity.owner.last_name %></a></strong> &nbsp;
     		<a class="muted" href="#">
             <% if activity.owner.job == User::ADMIN %>
@@ -48,8 +53,12 @@
         		</p>	
     		<% end %>	<!---end for sms--->		
     		</div>
-       <div class="span6"> <legend></legend>
-       </div>  
+    		<% if params[:page] == 'admin'%>
+                <div class="span6"> <legend></legend></div>  
+            <% end %>
+            <% if params[:page] == 'customer' || params[:page] == 'invoice'%>
+                <div class="span5"> <legend></legend></div> 
+            <% end %>  
    </div>
 		
    <% end %>

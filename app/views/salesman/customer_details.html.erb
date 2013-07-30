@@ -268,12 +268,12 @@
 </table><br><br><br>
 
 <div class="row">
- 	<div class="span6 well-white">
+ 	<div class="span5 well-white">
 	
 	<!-- Static Example Activity Feed -->
 <!---- am modificat activity feed de la span5 la span6, deoarece altfel dau erori render-urile de partiale pe actiunile implicite de activity feed; daca ne vom hotari ca este necesar sa fie span5, voi rezolva conflictele de afisare -->
 	<div class="row">
-	  		<div class="span4">
+	  		<div class="span3">
 	  	 <h5 class="muted">Activity Feed</h5>
 	</div>
 
@@ -286,7 +286,7 @@
 	   	</div>
 	  
 	   </div>
-	   <div class="span6"> <legend></legend></div>
+	   <div class="span5"> <legend></legend></div>
 	</div>  
  
 	<!--
@@ -315,7 +315,7 @@
 -->
 <% if @customer_activities != [] %>
     <% @customer_activities.each do |activity|%>
-    <%= render_activity(activity) %>
+    <%= render_activity(activity, params = {:page => 'customer'}) %>
     <% end %>
 <% else %>
     No data to be displayed yet.
