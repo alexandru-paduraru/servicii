@@ -18,7 +18,7 @@ class SalesmanController < ApplicationController
 	    		@details[:open_invoices] = index
 	    		@customer_detail.append(@details)
 	    	end
-
+	    @customers_count = @customer_detail.count
 	    respond_to do |format|
 		    format.html {render 'index'}
 # 		    format.csv  {render text: Customer.to_csv(@customers) }
@@ -26,13 +26,10 @@ class SalesmanController < ApplicationController
 	end
 	
 	def search_ajax
-	    @customer_detail = []
-	    if params[:search]
+	    @customers_details = []
+	    if params[:search] != ''	    
 	       customers = Customer.search(params[:search], current_user)
-	    else
-	       customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
-	    end
-	    	customers.each do |customer|
+	       customers.each do |customer|
 	    		@details = {}
 	    		@details[:customer] = customer
 	    		  invoices = Customer.open_invoices(customer)
@@ -41,13 +38,19 @@ class SalesmanController < ApplicationController
 	    		  	index += 1
 	    		  end
 	    		@details[:open_invoices] = index
-	    		@customer_detail.append(@details)
+	    		@customers_details.append(@details)
 	    	end
-	      if @customer_detail.count > 0 
-            render :json => @customer_detail
-          else 
-            render text: 'No results have been found for your search :(', :status => 422
-          end
+	    	
+    	    if @customers_details.count > 0 
+                render :json => @customers_details
+            else 
+                render text: 'No results have been found for your search :(', :status => 422
+            end
+        else
+	       #customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
+	       render text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit'
+	    end
+
 	end
 	def create
 		pass = {}
