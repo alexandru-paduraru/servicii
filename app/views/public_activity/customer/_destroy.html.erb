@@ -33,7 +33,12 @@
                 <% end %>
             <% end %>
     		</small> 
-    		<p>Archived <a class="muted" href="#">#customer</a><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %> <a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> </p>					
+    		<p>Archived <a class="muted" href="#">#customer</a>
+    	    <%= link_to customer_details_path(activity.trackable.id), :class => "muted" do %>
+    		<u><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %></u> 
+    		<% end %>
+
+    		 <%= activity.created_at.strftime("on %m/%d/%Y") %> </p>					
     		</div>
     		<% if params[:page] == 'admin'%>
                 <div class="span6"> <legend></legend></div>  

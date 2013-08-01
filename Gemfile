@@ -81,3 +81,6 @@ gem 'bootstrap-wysihtml5-rails'
 
 #public activity feed
 gem 'public_activity'
+
+#for undo actions
+gem 'paper_trail', github: 'airblade/paper_trail'

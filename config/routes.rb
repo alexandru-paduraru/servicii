@@ -99,6 +99,10 @@ post '/send_email_invoice/:invoice_id', to: 'accountant#send_email', :as => "sen
 get '/invoice_template/:invoice_id', to: 'invoicetemplate#invoice_template', :as => "invoice_template"
 get '/invoice_pdf/:invoice_id', to: 'invoicetemplate#invoice_pdf', :as => "invoice_pdf"
 
+#adding undo to actions
+post 'versions/revert', to: 'version#revert', :as => "revert_version"
+post 'versions/archive_customer', to: 'version#archive_customer', :as => "archive_customer"
+
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#home'

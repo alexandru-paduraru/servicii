@@ -39,18 +39,37 @@
     		</small> 
     		<% if activity.trackable.action_type == 'note' %>
         		<p>Added a <a class="muted" href="#">#note</a>
-        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for <a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %>'s</u> </a><a class="muted" href="#"><u>Invoice <%= invoice.number %></u></a>
+        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for 
+        		<%= link_to customer_details_path(customer.id), :class => "muted" do %>
+        		<u><%= ' ' + customer.first_name + ' ' +customer.last_name %></u> 
+        		<% end %>
+        		's
+        		<%= link_to invoice_details_path(invoice.id), :class => "muted" do  %>
+        		<u>Invoice <%= invoice.number %></u>
+        		<% end %>
         		</p>	
     		<% end %>	<!---end for note--->
             <% if activity.trackable.action_type == 'email' %>
         		<p>Sent an <a class="muted" href="#">#email</a>
-        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for <a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %>'s</u> </a><a class="muted" href="#"><u>Invoice <%= invoice.number %></u></a>
-        		</p>	
+        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for 
+        		<%= link_to customer_details_path(customer.id), :class => "muted" do %>
+        		<u><%= ' ' + customer.first_name + ' ' +customer.last_name %></u> 
+        		<% end %>
+        		's
+        		<%= link_to invoice_details_path(invoice.id), :class => "muted" do  %>
+        		<u>Invoice <%= invoice.number %></u>
+        		<% end %>        		</p>	
     		<% end %>	<!---end for email--->
             <% if activity.trackable.action_type == 'sms' %>
         		<p>Sent a <a class="muted" href="#">#sms message</a>
-        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for <a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %>'s</u> </a><a class="muted" href="#"><u>Invoice <%= invoice.number %></u></a>
-        		</p>	
+        		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> for 
+        		<%= link_to customer_details_path(customer.id), :class => "muted" do %>
+        		<u><%= ' ' + customer.first_name + ' ' +customer.last_name %></u> 
+        		<% end %>
+        		's
+        		<%= link_to invoice_details_path(invoice.id), :class => "muted" do  %>
+        		<u>Invoice <%= invoice.number %></u>
+        		<% end %>         		</p>	
     		<% end %>	<!---end for sms--->		
     		</div>
     		<% if params[:page] == 'admin'%>

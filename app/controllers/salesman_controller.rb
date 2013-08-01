@@ -170,7 +170,7 @@ class SalesmanController < ApplicationController
 		_post = params[:customer]
 		@customer = Customer.find_by_id(params[:customer_id])
         if @customer.update_attributes(:first_name => _post[:first_name],:last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code])
-
+            undo_link = view_context.link_to("undo",revert_version_path(@customer.versions.last), :method => :post)
 			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
 		else
 			render 'customer_edit'
