@@ -39,8 +39,15 @@
 		
       <div class="span8">
 		  <ul class="breadcrumb">
-		    <li><a href="#">Accounts List</a><span class="divider">/</span></li>
-		    <li class="active">Bloom Brothers</li>
+		  <li>
+		  <%= link_to 'Accounts List',salesman_path %> 
+		    <span class="divider">/</span>
+		  </li>
+		    <% if @customer.organization_name %>
+		    <li class="active"><%= @customer.organization_name %></li>
+		    <% else %>
+		    <li class="active">Home</li>
+		    <% end %>
  		  </ul>
 		  <div class="well-white">
 	      <!--  <legend class="muted"> Customer details </legend> -->
@@ -48,7 +55,20 @@
 		       		<i class= "icon-edit"></i></a>
 				<% end %> 
 	        	<address>		
-	           	<h1 class="organization-name"><%= @customer.organization_name %></h1><blockquote><div class="muted">Internet Publishing, 25-50 employees</div></blockquote>
+    	           	<h1 class="organization-name"><%= @customer.organization_name %>
+    	           	</h1>
+    	       <% if @customer.industry || @customer.company_size %>
+	           	<blockquote>
+    	           	<div class="muted">
+    	           	     <% if @customer.industry %>
+    	           	     <%= @customer.industry %>, 
+    	           	     <% end %>
+    	           	     <% if @customer.company_size %>
+    	           	     <%= @customer.size %>employees
+    	           	     <% end %>
+    	           	</div>
+	           	</blockquote>
+	           	<% end %>
               <h4><%= @customer.first_name + ' ' + @customer.last_name %></h4><br> 
               <div class="span6">
                 <dl class="dl-inline">
@@ -140,26 +160,31 @@
 	      <tr>
 -->
 	      <tr>
-	      	<th>#</th>
+	      	<th>Invoice number </th>
 	      	<th>Issue date</th>
 	      	<th>Due date</th>
+	      	<th>Amount</th>
 	      	<th>Status</th>
-	      	<th><span class="pull-right">Amount</span></th>
+	      	<th>Latest Activity</th>
 	      </tr>
 	      <% if @open_invoices %>
 		      <% @open_invoices.each do |invoice| %>
 		      <tr data-link="<%= invoice_details_path(invoice[:id])%>">
 		      <td> <%= invoice[:number] %></td>
-		      <td> <%= invoice[:date] %></td>
-		      <td> <%= invoice[:due_date] %> </td>
-		      <td> <span class="label label-warning">Pending</span></td>
-		      <td><span class="pull-right"> $<%= invoice[:due_amount] %> </span></td>
+		      <td> <%= invoice[:date].strftime("%m/%d/%Y") %></td>
+		      <td> <%= invoice[:due_date].strftime("%m/%d/%Y") %> </td>
+		      <td>$<%= invoice[:due_amount] %></td>
+		      <td></td>
+		      <td><% if invoice[:latest_activity] %>
+		            <%= invoice[:latest_activity].action_type.upcase %>
+                   <% end %>
+		      </td>
 		      </tr>
 		      <% end %>
 	      <% end %>
 <!-- 		      <td><button class="modalButton btn btn-success" id="1"><i class="icon-plus-sign icon-white"></i> Create invoice</button></td> -->
 		  <tr>
-		  	<td colspan="4"></td>
+		  	<td colspan="5"></td>
 		  	<td class="span3">
 		  		<span class="amount_info">Total:</span>
 		  	    <span class="total_due_amount">$<%= @total_due_amount %></span>
@@ -171,6 +196,7 @@
 
 <!-- V4 Static Example of Table -->
  
+<!--
 <h6 class="muted">5 OPEN INVOICES</h6>
 <table class="table table-hover table-striped">
   <tr>
@@ -231,6 +257,7 @@
   </tr>
  
 </table> 
+-->
 <br><br> 
 
 <h6 class="muted">3 RECURRING INVOICES</h6>
@@ -268,12 +295,12 @@
 </table><br><br><br>
 
 <div class="row">
- 	<div class="span6 well-white">
+ 	<div class="span5 well-white">
 	
 	<!-- Static Example Activity Feed -->
 <!---- am modificat activity feed de la span5 la span6, deoarece altfel dau erori render-urile de partiale pe actiunile implicite de activity feed; daca ne vom hotari ca este necesar sa fie span5, voi rezolva conflictele de afisare -->
 	<div class="row">
-	  		<div class="span4">
+	  		<div class="span3">
 	  	 <h5 class="muted">Activity Feed</h5>
 	</div>
 
@@ -286,7 +313,7 @@
 	   	</div>
 	  
 	   </div>
-	   <div class="span6"> <legend></legend></div>
+	   <div class="span5"> <legend></legend></div>
 	</div>  
  
 	<!--
@@ -315,7 +342,7 @@
 -->
 <% if @customer_activities != [] %>
     <% @customer_activities.each do |activity|%>
-    <%= render_activity(activity) %>
+    <%= render_activity(activity, params = {:page => 'customer'}) %>
     <% end %>
 <% else %>
     No data to be displayed yet.
@@ -341,36 +368,7 @@
 	</div>
  
 </div>
-<!--
-	<div class="span6 ">
-	<legend><h5>Future Actions</h5></legend>
-	
-	</div>
-</div>
- 
- 
-  <div class="acordeon">
-<div class="accordion" id="accordion2">
 
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        <h4>All invoices</h4>
-      </a>
-    </div>
-    <div id="collapseOne" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <% @invoices.each do |invoice|%>
-        <div class="well">
-        <p># <%= invoice.number %> -
-        Date: <%= invoice.date %> - 
-        Amount: <%= invoice.amount %><%= %></p>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
---> 
   
 </div>
 </div>

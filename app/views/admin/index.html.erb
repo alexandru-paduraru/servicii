@@ -76,7 +76,8 @@
 </div>	
 <% if @activities != []%>
     <% @activities.each do |activity| %>
-    <%= render_activity(activity) %>
+    
+    <%= render_activity(activity,params = {:page => 'admin'}) %>
     <% end %>
 <% else %>
     No data to be displayed yet.

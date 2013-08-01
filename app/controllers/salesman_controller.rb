@@ -18,7 +18,7 @@ class SalesmanController < ApplicationController
 	    		@details[:open_invoices] = index
 	    		@customer_detail.append(@details)
 	    	end
-
+	    @customers_count = @customer_detail.count
 	    respond_to do |format|
 		    format.html {render 'index'}
 # 		    format.csv  {render text: Customer.to_csv(@customers) }
@@ -26,13 +26,10 @@ class SalesmanController < ApplicationController
 	end
 	
 	def search_ajax
-	    @customer_detail = []
-	    if params[:search]
+	    @customers_details = []
+	    if params[:search] != ''	    
 	       customers = Customer.search(params[:search], current_user)
-	    else
-	       customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
-	    end
-	    	customers.each do |customer|
+	       customers.each do |customer|
 	    		@details = {}
 	    		@details[:customer] = customer
 	    		  invoices = Customer.open_invoices(customer)
@@ -41,13 +38,19 @@ class SalesmanController < ApplicationController
 	    		  	index += 1
 	    		  end
 	    		@details[:open_invoices] = index
-	    		@customer_detail.append(@details)
+	    		@customers_details.append(@details)
 	    	end
-	      if @customer_detail.count > 0 
-            render :json => @customer_detail
-          else 
-            render text: 'No results have been found for your search :(', :status => 422
-          end
+	    	
+    	    if @customers_details.count > 0 
+                render :json => @customers_details
+            else 
+                render text: 'No results have been found for your search :(', :status => 422
+            end
+        else
+	       #customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
+	       render text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit'
+	    end
+
 	end
 	def create
 		pass = {}
@@ -70,8 +73,14 @@ class SalesmanController < ApplicationController
 
   def send_sms
     customer = Customer.find(params[:customer_id])
-    customer.send_sms(params[:sms_body], params[:sms_number])
+#     customer.send_sms(params[:sms_body], params[:sms_number])
+    
+    #saving the action in the database to be displayed in the activity feed
+    #the action refers the customer as the one being passed in the params and the last invoice issued 
+    last_invoice = Customer.last_invoice(customer)
+    action = Action.create(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => last_invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "sms", :text_note => params[:sms_body])
 
+    
     respond_to do |format|
       format.html { redirect_to customer_details_path(params[:customer_id]) }
       format.json { render :json => "1".to_json }
@@ -97,6 +106,7 @@ class SalesmanController < ApplicationController
 			 	       open_invoice[:date] = invoice.date
 			 	       open_invoice[:due_date] = invoice.due_date
 			 	       open_invoice[:number] = invoice.number
+			 	       open_invoice[:latest_activity] = invoice.latest_activity[0]
 			 	       @open_invoices.append(open_invoice)
 			 end
 		 
@@ -170,7 +180,7 @@ class SalesmanController < ApplicationController
 		end
 	end
 	
-		def delete_customer
+   def delete_customer
 		customer_id = params[:customer_id]
 		customer = Customer.find_by_id(customer_id)
 				
@@ -179,6 +189,13 @@ class SalesmanController < ApplicationController
 		else
 		    redirect_to salesman_path, :notice => "Error! Couldn't make customer inactive."
 		end
+	end
+	
+	def save_call
+	customer = Customer.find_by_id(params[:customer_id])
+    last_invoice = Customer.last_invoice(customer)
+    action = Action.create(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => last_invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "call")
+	render :json => "1".to_json 
 	end
 	
 

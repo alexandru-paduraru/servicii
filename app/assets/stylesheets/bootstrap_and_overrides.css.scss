@@ -332,7 +332,7 @@ input[disabled]{
 #searchForm{
     position: relative;
 }
-.reset-search-button, .reset-search-button-invoices{
+.reset-search-button, .reset-search-button-invoices, .reset-search-button-collections{
     position: absolute;
     right: 0;
     z-index: 2;
@@ -340,7 +340,7 @@ input[disabled]{
     display: none;
 }
 
-.input-append .reset-search-button{
+.input-append .reset-search-button, .reset-search-button-collections{
     border-radius: 4px;
 }
 .table-div{

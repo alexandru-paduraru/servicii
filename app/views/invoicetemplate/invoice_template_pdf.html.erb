@@ -10,21 +10,21 @@
 
 
 
-<div id="invoice" class="new span11">
+<div id="invoice" class="new span12">
 
 
-        <div class="this-is">
+        <div class="this-is text-center">
                 <strong>Invoice</strong>
         </div><!-- invoice headline -->
 
     <br>
-        <header id="header" class="row span10">
-                <div class="invoice-intro company_name span4  pull-left">
-                        <h3><%= @company.name %></h3>
-<!--                    <p>Building a Better Tomorrow Through Your Destruction</p> -->
+        <header id="header" class="row">
+                <div class="pull-left" >
+                        <h3 style="margin-left: 20px; border-bottom: 0px; padding-bottom: 0px; margin-bottom: 0px;"><%= @company.name %></h3>
                 </div>
 
-                <dl class="invoice-meta  pull-right span5">
+<!--
+                <dl class="invoice-meta pull-right">
                         <dt class="invoice-number">Invoice #</dt>
                         <dd><%= @invoice.number %></dd>
                         <dt class="invoice-date">Date of Invoice</dt>
@@ -32,11 +32,24 @@
                         <dt class="invoice-due">Due Date</dt>
                         <dd><%= @invoice.due_date %></dd>
                 </dl>
+-->
+                <table class="invoice-meta pull-right">
+                <tr><td><strong>Invoice#</strong></td>
+                    <td style="width: 150px;"><%= @invoice.number %></td>
+                </tr>
+                <tr><td><strong>Date of Invoice</strong></td>
+                    <td><%= @invoice.date %></td>
+                </tr>
+                <tr><td><strong>Due Date</strong></td>
+                    <td><%= @invoice.due_date %></td>
+                </tr>
+                </table>
+                
         </header>
         <!-- e: invoice header -->
 
 
-        <section id="parties" class="row span10">
+        <section id="parties" class="row">
 
                 <div class="invoice-to pull-left span3">
                         <h4>Invoice To:</h4>
@@ -56,7 +69,7 @@
                 </div><!-- e invoice-to -->
 
 
-                <div class="invoice-from span3">
+                <div class="invoice-from span3" style="margin-left: 65px;">
                         <h4>Invoice From:</h4>
                         <div id="hcard-Admiral-Valdore" class="vcard">
                                 <div class="url fn"><%= @user.first_name + ' ' + @user.last_name %></div>
@@ -150,7 +163,7 @@
 
 
                 <div class="invoice-notes">
-                        <h6>Notes &amp; Information:</h6>
+                        <h5>Notes &amp; Information:</h5>
                         <p>This invoice contains a incomplete list of items destroyed by the Federation ship Enterprise on Startdate 5401.6 in an unprovked attacked on a peaceful &amp; wholly scientific mission to Outpost 775.</p>
 
                 </div><!-- e: invoice-notes -->
@@ -159,7 +172,7 @@
 
 
         <footer id="footer">
-                <p>
+                <p class="text-center">
          Invoice created using <a href = "invoiceflow.com">InvoiceFlow</a> .
                 </p>
         </footer>

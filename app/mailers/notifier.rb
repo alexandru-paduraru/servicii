@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   default from: "invoices@company.com"
-
+  layout 'invoice_mailer_template'
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
