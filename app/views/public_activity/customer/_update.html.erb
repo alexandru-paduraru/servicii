@@ -24,6 +24,13 @@
 
             </a>
     		<small class="pull-right muted">
+<!--         		adding revert to actions only for admin -->
+            <% if current_user.job == User::ADMIN %>
+                <%= link_to revert_version_path(:id => activity.trackable.versions.last, :activity_id => activity.id), :method => :post do %>
+                    <span class="label"><i class="icon-undo"></i></span>
+                <% end %>
+            <% end %>
+            &nbsp
             <% if  (time/1.day).to_i > 0 %>
     		    <%= (time/1.day).to_i %>d
             <% else %>
@@ -33,8 +40,93 @@
                     <%= (time/1.minute).to_i%>m
                 <% end %>
             <% end %>
+
     		</small> 
-    		<p>Updated <a class="muted" href="#">#customer</a><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %> <a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> </p>					
+
+      <% if a = activity.trackable.versions.last %>
+                <% previous_version = a.reify %>
+<!--        if customer was archived/activated show specific messages -->
+            <% index = 0 %>
+            <% if previous_version.active == true && activity.trackable.active == false %>
+           <p> Archived <a class="muted" href="#">#customer</a>
+    	    <%= link_to customer_details_path(activity.trackable.id), :class => "muted" do %>
+    		<u><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %></u> 
+    		<% end %>
+            <% index = index + 1 %>
+            <% end %>
+            <% if previous_version.active == false && activity.trackable.active == true %>
+            <p>Activated <a class="muted" href="#">#customer</a>
+    	    <%= link_to customer_details_path(activity.trackable.id), :class => "muted" do %>
+    		<u><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %></u> 
+    		<% end %>
+            <% index = index + 1 %>
+            <% end %>
+<!--             for the other actions show the specific changes -->
+        <% if index == 0 %>
+    		<p>Changed <a class="muted" href="#">#customer</a>
+    	    <%= link_to customer_details_path(activity.trackable.id), :class => "muted" do %>
+    		<u><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %></u> 
+    		<% end %>
+    		's
+
+
+<!--     		         first_name change -->
+                <% if previous_version.first_name != activity.trackable.first_name %>        
+                first name from <%= previous_version.first_name %> to <%= activity.trackable.first_name %>
+                <% end %>
+<!--                     last_name change -->
+                <% if previous_version.last_name != activity.trackable.last_name %>        
+                last name from <%= previous_version.last_name %> to <%= activity.trackable.last_name %>
+                <% end %>
+<!--                     organization_name change -->
+                <% if previous_version.organization_name != activity.trackable.organization_name %>        
+                organization name from <%= previous_version.organization_name %> to <%= activity.trackable.organiation_name %>
+                <% end %>
+<!--                     phone change -->
+                <% if previous_version.phone != activity.trackable.phone %>        
+                phone from <%= previous_version.phone %> to <%= activity.trackable.phone %>
+                <% end %>
+<!--                     email change -->
+                <% if previous_version.email != activity.trackable.email %>        
+                email from <%= previous_version.email %> to <%= activity.trackable.email %>
+                <% end %>
+<!--                     state change -->
+                <% if previous_version.state != activity.trackable.state %>        
+                state from <%= previous_version.state %> to <%= activity.trackable.state %>
+                <% end %>
+<!--                     city change -->
+                <% if previous_version.city != activity.trackable.city %>        
+                city from <%= previous_version.city %> to <%= activity.trackable.city %>
+                <% end %>
+<!--     		         zipcode change -->
+    		    <% if previous_version.zip_code != activity.trackable.zip_code %>
+    		    zipcode from <%= previous_version.zip_code %> to <%= activity.trackable.zip_code %>
+    		    <% end %>
+<!--     		        description change -->
+    		    <% if previous_version.description != activity.trackable.description %>
+    		    description from <%= previous_version.description %> to <%= activity.trackable.description %>
+    		    <% end %>
+<!--     		        address1 change -->
+    		    <% if previous_version.address1 != activity.trackable.address1 %>
+    		    primary address from <%= previous_version.address1 %> to <%= activity.trackable.address1 %>
+    		    <% end %>
+<!--     		        address2 change -->
+    		    <% if previous_version.address2 != activity.trackable.address2 %>
+    		     secondary address from <%= previous_version.address2 %> to <%= activity.trackable.address2 %>
+    		    <% end %>
+<!--     		        industry change -->
+    		    <% if previous_version.industry != activity.trackable.industry %>
+    		     industry from <%= previous_version.industry %> to <%= activity.trackable.industry %>
+    		    <% end %>
+<!--     		        company_size change -->
+                <% if previous_version.company_size != activity.trackable.company_size %>
+    		     company size from <%= previous_version.company_size %> to <%= activity.trackable.company_size %>
+    		    <% end %>
+            <% end %>
+    		    
+    		 <% end %>
+    		 <%= activity.created_at.strftime("on %m/%d/%Y") %>
+             </p>			
     		</div>
     		<% if params[:page] == 'admin'%>
                 <div class="span6"> <legend></legend></div>  

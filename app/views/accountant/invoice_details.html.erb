@@ -204,17 +204,23 @@
      <div class="span3 well-white">
      <h5 class="muted">Notes</h5>
 	<legend></legend>
-	<% if @action_details %>
+	<% if @action_details && @action_details != [] %>
 	<ul>
+	    <% index = 0 %>
 		<% @action_details.each do |action_detail| %>
-		<% if action_detail[:action].action_type == "note" %>
-		<li>
-		<%= action_detail[:action].text_note %>
-		</li>
-		<% end %>
+    		<% if action_detail[:action].action_type == "note" %>
+        		<li>
+        		<%= action_detail[:action].text_note %>
+        		<% index = index + 1 %>
+        		</li>
+    		<% end %>
 		<% end %>
 	</ul>
 	<% end %>
+     <% if index == 0 %>
+	    No data to be displayed yet.
+	<% end %>
+	
 	</div><!-- end notes --->
 </div> <!-- end row -->
 	

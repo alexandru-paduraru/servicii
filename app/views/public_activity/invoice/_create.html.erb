@@ -36,8 +36,14 @@
             <% end %>
     		</small> 
     		<p>Added <a class="muted" href="#">#new invoice</a> for 
-    		<a class="muted" href="#"><u><%= ' ' + customer.first_name + ' ' +customer.last_name %></u> </a>
-    		<a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> <a class="muted" href="#"><u>Invoice <%= activity.trackable.number %></u></a></p>					
+            <%= link_to customer_details_path(customer.id), :class => "muted" do %>
+        		<u><%= ' ' + customer.first_name + ' ' +customer.last_name %></u> 
+        		<% end %>
+    		 <%= activity.created_at.strftime("on %m/%d/%Y") %> 
+        		<%= link_to invoice_details_path(activity.trackable.id), :class => "muted" do  %>
+        		<u>Invoice <%= activity.trackable.number %></u>
+        		<% end %>
+    		</p>					
     		</div>
     		<% if params[:page] == 'admin'%>
                 <div class="span6"> <legend></legend></div>  
