@@ -48,7 +48,7 @@
 	<%= f.label :available_jobs, :class => "control-label" %>
 	<div class="controls">
 	<%= f.fields_for :workson do |f| %>
-		<%= f.check_box :salesman %><label class="checkbox inline" for="user_workson_salesman"><span></span>Salesman</label><br>
+		<%= f.check_box :salesman %><label class="checkbox inline" for="user_workson_salesman" id="1"><span></span>Salesman</label><br>
 		<%= f.check_box :accountant %><label class="checkbox inline" for="user_workson_accountant"><span></span>Accountant</label><br> 
 		<%= f.check_box :collector %> <label class="checkbox inline" for="user_workson_collector"><span></span>Collector</label>
 	<% end %>

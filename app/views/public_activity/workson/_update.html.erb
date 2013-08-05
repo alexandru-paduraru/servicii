@@ -1,4 +1,4 @@
-   <% vector = ["Accounts", "Financials", "Collections"] %>
+    <% vector = ["Accounts", "Financials", "Collections"] %>
    <% time = Time.now - activity.created_at %>
    <% if activity.owner && activity.trackable %>
  	<div class="row">
@@ -10,8 +10,8 @@
         <% if params[:page] == 'customer' || params[:page] == 'invoice' %>
             <div class="span4">
         <% end %>
-    		<strong><a class="muted" href="#">	    <%= activity.owner.first_name + ' ' + activity.owner.last_name %></a></strong> &nbsp;
-            <a class="muted" href="#">
+    		<strong><a class="muted" href="#"> <%= activity.owner.first_name + ' ' + activity.owner.last_name %></a></strong> &nbsp;
+    		<a class="muted" href="#">
             <% if activity.owner.job == User::ADMIN %>
             #admin
             <% else %>  
@@ -22,9 +22,15 @@
     		<% end %>
 
             </a>
-    		
     		<small class="pull-right muted">
-    		   		<% if  (time/1.day).to_i > 0 %>
+<!--         		adding revert to actions only for admin -->
+            <% if current_user.job == User::ADMIN %>
+                <%= link_to revert_version_path(:id => activity.trackable.versions.last, :activity_id => activity.id), :method => :post do %>
+                    <span class="label"><i class="icon-undo"></i></span>
+                <% end %>
+            <% end %>
+            &nbsp
+            <% if  (time/1.day).to_i > 0 %>
     		    <%= (time/1.day).to_i %>d
             <% else %>
                 <% if (time/1.hour).to_i > 0%>
@@ -34,7 +40,16 @@
                 <% end %>
             <% end %>
     		</small> 
-    		<p>Deleted <a class="muted" href="#">#user</a><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %> <a class="muted" href="#"></a><%= activity.created_at.strftime("on %m/%d/%Y") %> </p>					
+    		<p>Updated <a class="muted" href="#">#user</a>
+    		<%= activity.trackable.user_id %>
+<!--
+    	    <%= link_to user_edit_path(activity.trackable.id), :class => "muted" do %>
+    		<u><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %></u> 
+    		<% end %>
+-->
+                
+<% end %> <!-- end if there is a previous version -->
+    		<%= activity.created_at.strftime("on %m/%d/%Y") %> </p>				
     		</div>
     		<% if params[:page] == 'admin'%>
                 <div class="span6"> <legend></legend></div>  
