@@ -102,6 +102,7 @@ get '/invoice_pdf/:invoice_id', to: 'invoicetemplate#invoice_pdf', :as => "invoi
 #adding undo to actions
 post 'versions/revert', to: 'version#revert', :as => "revert_version"
 post 'versions/archive_customer', to: 'version#archive_customer', :as => "archive_customer"
+post 'versions/delete_user', to: 'version#delete_user', :as => "delete_user"
 
 #for testing
 get '/verifica', to: 'user#show', :as => "verifica"

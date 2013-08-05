@@ -167,7 +167,7 @@
 	      	<th>Status</th>
 	      	<th>Latest Activity</th>
 	      </tr>
-	      <% if @open_invoices %>
+	      <% if @open_invoices && @open_invoices != [] %>
 		      <% @open_invoices.each do |invoice| %>
 		      <tr data-link="<%= invoice_details_path(invoice[:id])%>">
 		      <td> <%= invoice[:number] %></td>
@@ -181,8 +181,7 @@
 		      </td>
 		      </tr>
 		      <% end %>
-	      <% end %>
-<!-- 		      <td><button class="modalButton btn btn-success" id="1"><i class="icon-plus-sign icon-white"></i> Create invoice</button></td> -->
+	      
 		  <tr>
 		  	<td colspan="5"></td>
 		  	<td class="span3">
@@ -190,6 +189,10 @@
 		  	    <span class="total_due_amount">$<%= @total_due_amount %></span>
 		  	 </td>
 		  </tr>
+		  <% else %>
+		  <tr><td colspan="6">No data to be displayed yet.</td>
+		  </tr>
+		  <% end %>
 		    
 </table>
 <br>
