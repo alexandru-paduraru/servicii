@@ -16,6 +16,9 @@ ActiveRecord::Schema.define(version: 20130805093356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "actions", force: true do |t|
     t.datetime "sent_at"
     t.datetime "viewed_at"
