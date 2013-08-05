@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+# ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 
@@ -9,6 +9,8 @@ gem 'rails', '4.0.0'
 
 gem 'bootstrap-sass'
 gem 'heroku'
+
+gem "rufus-scheduler"
 
 # Gems used only for assets and not required
 # in production environments by default.

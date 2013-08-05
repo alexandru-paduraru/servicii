@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
   include PublicActivity::Model
-  tracked owner: -> (controller, model) {controller && controller.current_user}
+  tracked owner: ->(controller,model) {controller && controller.current_user}
   attr_accessible :first_name, :last_name, :email, :phone, :description, :sent_to_collector, :user_id, :account, :state, :city, :zip_code, :address1, :address2, :organization_name, :industry, :company_size
   
   belongs_to :company

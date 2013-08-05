@@ -1,5 +1,3 @@
-require 'mandrill' 
-
 class AccountantController < ApplicationController
 
  def index
@@ -288,26 +286,27 @@ class AccountantController < ApplicationController
 	        redirect_to invoice_details_path(invoice_id), :alert => "Note must contain something."
 	end
    end
-   
+
    def send_email
-   invoice_id = params[:invoice_id]
-   note = params[:text_note]
-   message = note[:body]
-   to = params[:to]
-   cc = params[:cc]
-   subject = params[:subject]
-       if Notifier.send_email(to, cc, subject, message).deliver
-            redirect_to invoice_details_path(invoice_id), :notice => "Email sent."
-       else
-            redirect_to invoice_details_path(invoice_id), :alert => "Error sending email."
-       end
+     invoice_id = params[:invoice_id]
+     note = params[:text_note]
+     message = note[:body]
+     to = params[:to]
+     cc = params[:cc]
+     subject = params[:subject]
+     if Notifier.send_email(to, cc, subject, message).deliver
+          redirect_to invoice_details_path(invoice_id), :notice => "Email sent."
+     else
+          redirect_to invoice_details_path(invoice_id), :alert => "Error sending email."
+     end
    end
-   
+
    def send_sms
     invoice = Invoice.find_by_id(params[:invoice_id])
     customer = invoice.customer
-    #customer.send_sms(params[:sms_body], params[:sms_number])
-    
+    customer.send_sms(params[:sms_body], params[:sms_number])
+    invoice.update_recurrency_settings!(params[:set_recurrency].present?, params[:recurrent], "sms")
+
     ## saving the action to be displayed in the activity feed
     action = Action.create(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "sms", :text_note => params[:sms_body])
     

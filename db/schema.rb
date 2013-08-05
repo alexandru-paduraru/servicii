@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130725134904) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20130730065735) do
 
   create_table "actions", force: true do |t|
     t.datetime "sent_at"
@@ -110,6 +107,28 @@ ActiveRecord::Schema.define(version: 20130725134904) do
   add_index "invoices", ["company_id"], name: "index_invoices_on_company_id", using: :btree
   add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id", using: :btree
   add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
+
+  create_table "recurring_contact_data", force: true do |t|
+    t.string   "sms_number"
+    t.string   "sms_body"
+    t.string   "email_to"
+    t.string   "email_from"
+    t.text     "email_body"
+    t.text     "email_cc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recurring_invoices", force: true do |t|
+    t.boolean  "sms_notification"
+    t.boolean  "email_notification"
+    t.boolean  "daily"
+    t.boolean  "weekly"
+    t.boolean  "monthly"
+    t.integer  "invoice_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "services", force: true do |t|
     t.string   "name"
