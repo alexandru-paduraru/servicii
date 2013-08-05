@@ -287,16 +287,18 @@ input[disabled]{
 }
 
 .total_due_amount{
-	color: #999;
+	color: #000;
     float: right;
     font-size: 16px;
-    font-weight: 300;
+/*  font-weight: 300; */
 	padding-top: 10px;
+	font-weight:bold;
 }
 
 .amount_info{
 	float: left;
-	color:#646464;
+/*	color:#646464; */
+	color: #333;
 	font-size: 14px;
 	text-transform: uppercase;
 	padding-top: 10px;
@@ -306,11 +308,6 @@ input[disabled]{
 	width: 570px;
 }
 
-/*
-.padded { 
-	padding: 14px; 
-}
-*/
 
 .dl-inline dt {
 	float:left;
@@ -329,10 +326,16 @@ input[disabled]{
 	padding-bottom: 20px;
 } 
 
+td.vcenter{
+ padding-bottom:0;
+}
+ 
 #searchForm{
     position: relative;
 }
+
 .reset-search-button, .reset-search-button-invoices, .reset-search-button-collections{
+
     position: absolute;
     right: 0;
     z-index: 2;
@@ -343,8 +346,9 @@ input[disabled]{
 .input-append .reset-search-button, .reset-search-button-collections{
     border-radius: 4px;
 }
+
 .table-div{
-    min-height: 300px;
+   min-height: 300px;
 }
 
 tr[data-link]{

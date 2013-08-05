@@ -43,44 +43,51 @@ class UserController < ApplicationController
 		@user.last_name = _post[:last_name]
 		@user.job = 0
 		@user.company_id = current_user.company_id
-		
+		@user.salesman = _post[:workson][:salesman].to_i == 1 ? true : false
+        @user.accountant = _post[:workson][:accountant].to_i == 1 ? true : false
+        @user.collector = _post[:workson][:collector].to_i == 1 ? true : false
+        
+        ok = 1
+        if !@user.salesman && !@user.accountant && !@user.collector
+            ok = 0
+        end
+        
 		@users_details = []
-			@users = User.all
-			
-			@users.each do |user|
-				@user_details = User.details(user.id)
-				@users_details.append(@user_details)
-			end
+		@users = User.all
+		
+		@users.each do |user|
+			@user_details = User.details(user.id)
+			@users_details.append(@user_details)
+		end
 
-		#render 'verifica'
 		 if @user.save
-	 			if _post[:workson][:salesman].to_i == 1
-				workson = Workson.new
- 				workson.user_id = @user[:id]
- 				workson.job_id = 2
- 				if workson.save
- 					ok = 1
- 				else ok = 0
- 				end
- 			end
-			if _post[:workson][:accountant].to_i == 1
-				workson = Workson.new
-				workson.user_id = @user[:id]
-				workson.job_id = 3
-				if workson.save
-					ok = 1
-				else ok = 0
-				end
-			end
-			if _post[:workson][:collector].to_i == 1
-				workson = Workson.new
-				workson.user_id = @user[:id]
-				workson.job_id = 4
-				if workson.save
-					ok = 1
-				else ok = 0
-				end
-			end
+# 	 			if _post[:workson][:salesman].to_i == 1
+# 				workson = Workson.new
+#  				workson.user_id = @user[:id]
+#  				workson.job_id = 2
+#  				if workson.save
+#  					ok = 1
+#  				else ok = 0
+#  				end
+#  			end
+# 			if _post[:workson][:accountant].to_i == 1
+# 				workson = Workson.new
+# 				workson.user_id = @user[:id]
+# 				workson.job_id = 3
+# 				if workson.save
+# 					ok = 1
+# 				else ok = 0
+# 				end
+# 			end
+# 			if _post[:workson][:collector].to_i == 1
+# 				workson = Workson.new
+# 				workson.user_id = @user[:id]
+# 				workson.job_id = 4
+# 				if workson.save
+# 					ok = 1
+# 				else ok = 0
+# 				end
+# 			end
  			if ok == 1
  				redirect_to admin_path, :notice => "Employee was created."
  			else redirect_to admin_path, :notice => "Employee was created! Info: you didn't choose any job for your employee, you can do this by editing your employee from the bottom list!"
@@ -91,7 +98,6 @@ class UserController < ApplicationController
 	end
 	
 	def edit
-		#@user = User.find(params[:id])
 		@user = User.find(:first, :conditions => 'id='+ params[:id]) 
 		if @user
 			if @user.company_id == current_user.company_id
@@ -112,41 +118,48 @@ class UserController < ApplicationController
 		@user.password = _post[:password]
 		@user.first_name = _post[:first_name]
 		@user.last_name = _post[:last_name]
-		
+        @user.salesman = _post[:workson][:salesman].to_i == 1 ? true : false
+        @user.accountant = _post[:workson][:accountant].to_i == 1 ? true : false
+        @user.collector = _post[:workson][:collector].to_i == 1 ? true : false
+
+        ok = 1
+        if !@user.salesman && !@user.accountant && !@user.collector
+            ok = 0
+        end
 		if @user.save
-			@worksons = Workson.all(:conditions => { :user_id => params[:id] })
-			@worksons.each do |job|
-				job.destroy
-			end
-			if _post[:workson] 
-			if _post[:workson][:salesman].to_i == 1
- 				workson = Workson.new
- 				workson.user_id = @user[:id]
- 				workson.job_id = 2
- 				if workson.save
- 					ok = 1
- 				else ok = 0
- 				end
- 			end
-			if _post[:workson][:accountant].to_i == 1
-				workson = Workson.new
-				workson.user_id = @user[:id]
-				workson.job_id = 3
-				if workson.save
-					ok = 1
-				else ok = 0
-				end
-			end
-			if _post[:workson][:collector].to_i == 1
-				workson = Workson.new
-				workson.user_id = @user[:id]
-				workson.job_id = 4
-				if workson.save
-					ok = 1
-				else ok = 0
-				end
-			end
-			end
+# 			@worksons = Workson.all(:conditions => { :user_id => params[:id] })
+# 			@worksons.each do |job|
+# 				job.destroy
+# 			end
+# 			if _post[:workson] 
+# 			if _post[:workson][:salesman].to_i == 1
+#  				workson = Workson.new
+#  				workson.user_id = @user[:id]
+#  				workson.job_id = 2
+#  				if workson.save
+#  					ok = 1
+#  				else ok = 0
+#  				end
+#  			end
+# 			if _post[:workson][:accountant].to_i == 1
+# 				workson = Workson.new
+# 				workson.user_id = @user[:id]
+# 				workson.job_id = 3
+# 				if workson.save
+# 					ok = 1
+# 				else ok = 0
+# 				end
+# 			end
+# 			if _post[:workson][:collector].to_i == 1
+# 				workson = Workson.new
+# 				workson.user_id = @user[:id]
+# 				workson.job_id = 4
+# 				if workson.save
+# 					ok = 1
+# 				else ok = 0
+# 				end
+# 			end
+# 			end
  			if ok == 1
  				redirect_to admin_path, :notice => "Employee updated successfully"
  			else redirect_to admin_path, :notice => "Employee was updated! Info: you didn't choose any job for your employee, you can do this by editing your employee from the bottom list!"
@@ -186,12 +199,7 @@ class UserController < ApplicationController
 		@customer = Customer.new
 		_post = params[:customer]
 		@customer = Customer.new(:first_name => _post[:first_name], :last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code])
-#         @customer[:first_name] = _post[:first_name]
-#         @customer[:last_name] = _post[:last_name]
-#         @customer[:phone] = _post[:phone]
-#         @customer[:email] = _post[:email]
-#         @customer[:address1] = _post[:address1]
-#         @customer[:address2] = _post[:address2]
+
         @customer[:company_id] = current_user[:company_id]
         @customer[:sent_to_collector] = false
         @customer[:active] = true
