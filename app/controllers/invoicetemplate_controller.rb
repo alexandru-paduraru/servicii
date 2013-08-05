@@ -32,5 +32,22 @@ layout "invoicetemplate"
         end
         return
     end
+    
+    def invoice_xml
+        invoice_id = params[:invoice_id]
+        @invoice = Invoice.find_by_id(invoice_id)
+        respond_to do |format|
+            format.xml {send_data(:xml => @invoice.to_xml(:except => [:created_at, :updated_at])) }
+        end
+    end
+    
+    def invoice_csv
+        invoice_id = params[:invoice_id]
+        @invoice = Invoice.find_by_id(invoice_id)
+        @customer = @invoice.customer
+        respond_to do |format|
+            format.csv {send_data(Invoice.to_csv(@customer,@invoice))}
+        end
+    end
 
 end

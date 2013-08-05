@@ -83,6 +83,15 @@ class Invoice < ActiveRecord::Base
   	end
   end
   
+  def self.to_csv(customer,invoice)
+    customer_columns = Customer.column_names - ["id", "created_at", "updated_at", "company_id", "sent_to_collector", "active","user_id"]
+    invoice_columns = Invoice.column_names - ["id", "created_at", "updated_at", "user_id", "customer_id", "company_id"]
+    CSV.generate do |csv|
+        csv << customer_columns + invoice_columns
+        csv << customer.attributes.values_at(*customer_columns) + invoice.attributes.values_at(*invoice_columns)
+  	end
+  end
+  
   def self.generate_number(current_user)
   	number = 1
      if Invoice.all.where(:company_id => current_user.company_id) != []
