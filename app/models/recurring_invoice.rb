@@ -1,7 +1,7 @@
 class RecurringInvoice < ActiveRecord::Base
   attr_accessible :sms_notification, :email_notification, :daily, :weekly, :monthly, :invoice_id, :sms_phone, :sms_body
   belongs_to :invoice
-  has_one recurring
+  #has_one recurring
 
   def check_or_send(r_i)
     if self.daily == true
