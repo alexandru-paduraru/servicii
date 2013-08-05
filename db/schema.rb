@@ -111,6 +111,28 @@ ActiveRecord::Schema.define(version: 20130801092658) do
   add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id", using: :btree
   add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
 
+  create_table "recurring_contact_data", force: true do |t|
+    t.string   "sms_number"
+    t.string   "sms_body"
+    t.string   "email_to"
+    t.string   "email_from"
+    t.text     "email_body"
+    t.text     "email_cc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recurring_invoices", force: true do |t|
+    t.boolean  "sms_notification"
+    t.boolean  "email_notification"
+    t.boolean  "daily"
+    t.boolean  "weekly"
+    t.boolean  "monthly"
+    t.integer  "invoice_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "services", force: true do |t|
     t.string   "name"
     t.integer  "company_id"

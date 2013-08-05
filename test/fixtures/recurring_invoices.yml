@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sms_notification: false
+  email_notification: false
+  daily: false
+  weekly: false
+  monthly: false
+  invoice_id: 1
+
+two:
+  sms_notification: false
+  email_notification: false
+  daily: false
+  weekly: false
+  monthly: false
+  invoice_id: 1

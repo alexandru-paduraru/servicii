@@ -39,7 +39,7 @@ $(function(){
       $("#call-contact-modal").modal("hide");
     });
 
-    $(".select-call").click(function(){
+    $("#select-call").click(function(){
       var phone_number = $(".customer-phone").text();
       $("#call-number").text(phone_number);
       $("#call-contact").text($(".organization-name").text());
