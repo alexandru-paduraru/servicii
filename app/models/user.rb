@@ -5,9 +5,11 @@ class User < ActiveRecord::Base
     EMPLOYEE = 0
   include BCrypt
   include PublicActivity::Model
-  tracked owner: ->(controller,model) {controller && controller.current_user}
-  attr_accessible :company_id, :email, :first_name, :last_name, :password_hash, :password_salt, :type, :job
 
+  tracked owner: ->(controller,model) {controller && controller.current_user}
+
+  has_paper_trail
+  attr_accessible :company_id, :email, :first_name, :last_name, :password_hash, :password_salt, :type, :job, :salesman, :accountant, :collector
 
   #  belongs_to :user_type
   belongs_to :company

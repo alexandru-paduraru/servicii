@@ -1,39 +1,72 @@
+<div class="row"> 
+ 	<div class="span6">
+			<h4>Invoice #0094</h4>
+			<!--
+		<ul class="nav nav-pills">
+     	  <li><a href="#">Accounts List</a></li>	
+   		  <li><a href="#">Bloom Brothers</a></li>
+		  <li class="disabled"><a href="#">Create Invoice</a></li>
+		   
+		</ul> -->
+	</div>
+
+	<div class="span6"><button type="button" id="invoice_submit" class="btn btn-success pull-right" type="button">Save &nbsp;<i class="icon-circle-arrow-right icon-white"></i></button>  
+ 	</div>
+	<div class="span12">
+		<legend></legend>
+	</div> 
+</div> 
+<br>
+<!--
 <div class="row">
-	<div class="span2">
-		<button class="btn btn-link" type="button">Back</button>
-		</div>
-		<div class="span8"><button class="btn pull-right" type="button">Preview</button>  
-			</div> 
-<!--  	<div class="span2"><button class="btn btn-primary pull-right" type="button">Save as Draft</button>-->
- 		<div class="span2"><button type="button" id="invoice_submit" class="btn btn-success pull-right" type="button">Send Invoice <i class="icon-circle-arrow-right icon-white"></i></button>  
-
-			</div>
-</div>
-<hr class="bs-docs-separator">
-<br> 
+	<div class="span12 text-center">
+	<h3>Invoice #0094</h3>
+	</div>
+</div>  
+ -->
+ 
 <form accept-charset="UTF-8" id="new_invoice" action=<%= customer_create_invoice_path(@customer) %> method="post">
-
+<!-- 
+<div class="row">
+	<div class="span4">
+	<img src="http://upload.wikimedia.org/wikipedia/en/9/95/Stack_Overflow_website_logo.png" class="img-polaroid pull-right">
+	</div> 
+</div>
+--> 
+ 
 <div class ="row">
-	<div class = "span6 well-white">
-		<h4>Customer</h4>
+	<div class ="span3 well-white">
+ 	    <h4>Invoice To</h4>  
+		<p>Bloom Brothers</p>
 		<p><%= @customer.first_name + ' ' + @customer.last_name %></p>
 		<p><%= @customer.address1 %> <%= @customer.zip_code %></p>
 		<p><%= @customer.city + ' ' + @customer.state %></p>
 		<div id="ajax_response">
-		</div><br><br>
-	</div>	 
-
+	</div> 
+</div>	 
+ 	<div class ="span3 well-white">
+		<h4>Invoice From</h4>
+		<p><%= @company.name %></p>
+		<p>Michael Moore</p>
+		<p><%= @company.address %>, <%= @company.zip_code %></p>
+		<p><%= @company.city + ', ' + @company.country %></p>
+	</div>
+  
 <div class="span4 well-white pull-right">
-	<h4>Invoice details</h4>
+ 	<h4>Invoice details</h4>  
 	<fieldset>
 	<div class="control-group">
 	<%= fields_for :invoice do |i| %>
-		<%= i.label :due_date, :class => "control-label" %>
+		<!--<%= i.label :due_date, :class => "control-label" %> -->
 		<div class="controls">
-			<%= i.text_field :due_date, :class => "datepicker", :placeholder => "Due date" %>
+ 			<input type="text" class="input-medium" value="30/07/2013" ><br> 
+			<input type="text" class="input-mini"  placeholder="Net" >&nbsp; 
+			<%= i.text_field :due_date, :class => "datepicker input-small", :placeholder => "Due date" %>
 			<%= i.hidden_field :amount %>
-			<%= i.hidden_field :number_of_services, :value => 0 %>
-		</div>
+			<%= i.hidden_field :number_of_services, :value => 0 %>  
+			<input type="text" class="input-medium" placeholder="PO Number" >
+ 			
+   		</div>
 	<% end %>	
 	</div>
 	
@@ -44,32 +77,34 @@
 	  
 	<% end %>
 	<!-- Text input-->
-	</fieldset>
+	</fieldset><br><br>
 </div>
+
 
 <div class="span12">
 <table class="table table-striped" id="services_table">
   <tr>
-  <th>#</th>
+  <th>&nbsp;</th>
   <th>Service</th>
   <th>Quantity</th>
   <th>Unit Cost</th>
   <th></th>
-  <th><span class="pull-right">Total</span></th>
-  </tr>
+  <th><span class="pull-right">&nbsp;</span></th> 
+    </tr>
+  
   <tr>
   <%= fields_for :service do |f| %>
   			<td></td>
-			<td><%= f.text_field :name, :class => "span2", :placeholder => "Service name" %>
+			<td class="vcenter"><%= f.text_field :name, :class => "span2", :placeholder => "Service name" %>
 			</td>
-			<td>
+			<td class="vcenter">
 			<%= f.number_field :qty, :class => "span2", :placeholder => "0" %>
 			</td>
-			<td>
-			<%= f.number_field :value, :class => "span2", :placeholder => "0" %>
+			<td class="vcenter">
+			<%= f.text_field :value, :class => "span2", :placeholder => "0" %>
 			</td>
-			<td>
-			<button class="btn btn-success" type="button" id="add_service_button"><i class="icon-plus icon-white"></i> Add</button>
+			<td class="vcenter">
+			<button class="btn" type="button" id="add_service_button"><i class="icon-plus icon-white"></i> Add</button>
 			</td>
 			<td>
 				
@@ -85,8 +120,8 @@
 	  </td>
   </tr>
 </table>
-</div>
-<!--
+</div> 
+ <!--
 <div class = "span12">
 		<h4>Company</h4>
 		<p><%= @company.name %></p>
@@ -101,12 +136,22 @@
   </div>
   </form>  -->	
 </div>  
-
-<br>
-<hr class="bs-docs-separator">
-<div class = "span12">
- 		<small><%= @company.name %></small>
-		<small><%= @company.address %>, <%= @company.zip_code %></small>
-		<small><%= @company.city + ', ' + @company.country %></small>
+  
+<div class="row">
+	<div class="control-group span5">
+		<label class="control-label" for="textarea">Invoice note for Customer:</label>
+		<div class="controls">
+	    <textarea class="input-xlarge span12" id="textarea" placeholder="This text is going to be found on the invoice." rows="4"></textarea>
+		</div>
 	</div>
-	<br>
+</div>
+			<!--
+	  <div class="span6 pull-right well-white">
+		  	<label class="control-label ">Attachments</label>
+		    <button class="btn btn-small" type="submit">Add File</button> <small class="muted">Maximum size: 25MB</small>
+	  </div>
+	  -->
+ 
+	
+  
+   

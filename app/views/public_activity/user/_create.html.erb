@@ -23,6 +23,13 @@
 
             </a>
     		<small class="pull-right muted">
+<!--         		adding revert to actions only for admin -->
+            <% if current_user.job == User::ADMIN %>
+                <%= link_to delete_user_path(:id => activity.trackable.id), :method => :post do %>
+                    <span class="label"><i class="icon-undo"></i></span>
+                <% end %>
+            <% end %>
+            &nbsp
     		<% if  (time/1.day).to_i > 0 %>
     		    <%= (time/1.day).to_i %>d
             <% else %>
@@ -33,7 +40,12 @@
                 <% end %>
             <% end %>
     		</small> 
-    		<p>Added <a class="muted" href="#">#new user</a><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %> <a class="muted" href="#"></a> <%= activity.created_at.strftime("on %m/%d/%Y") %> </p>					
+    		<p>Added <a class="muted" href="#">#new user</a>
+    	    <%= link_to user_edit_path(activity.trackable.id), :class => "muted" do %>
+    		<u><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %></u> 
+    		<% end %>
+    		
+    		<%= activity.created_at.strftime("on %m/%d/%Y") %> </p>			
     		</div>
     		<% if params[:page] == 'admin'%>
                 <div class="span6"> <legend></legend></div>  

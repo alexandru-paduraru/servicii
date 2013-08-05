@@ -16,7 +16,7 @@
 </head>
 <body>
  <div class="navbar navbar-inverse navbar-fixed-top">
-      <nav class="navbar-inner">
+      <nav class="navbar-inner"> 
         <div class="container">
               <% if current_user && current_user.company_id != 0 %>
               <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
@@ -35,6 +35,7 @@
               <ul class="nav pull-right">
 	              <% if current_user[:job] == 1 %>
               	  <li><a href="/"></a></li>
+				  <li class="dropdown"><a href="#">Settings</a></li>
 	              <% else%>
 	              <li><a href="/user">Employee</a></li>
 	              <% end %>
@@ -57,7 +58,6 @@
     <% else %>
       <div class="container container-login">
     <% end %>
-
         <div class="content">
            <div class="row">
             <% if current_user && current_user.company_id != 0 %>
