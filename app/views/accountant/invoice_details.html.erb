@@ -17,16 +17,14 @@
 			    Email: <strong><%= @customer.email %></strong><br>
 			    Phone: <strong><%= @customer.phone %></strong>
 			    </address>
-			     
+
 			    <address>
-			    <strong>Address</strong><br>
-			    <%= @customer.state %>
-			    <%= @customer.city %>
-			    <!-- <%= @customer.zip_code %> -->
-			    <%= @customer.address1 %>
-			    <% if @customer.address2 %>
-			     <%= @customer.address2%>
-			    <% end %>
+            <strong>Address</strong><br>
+            <%= @customer.state %>,
+            <%= @customer.city %>
+            <br />
+            <%= @customer.address1 %>
+            <%= "<br />#{@customer.address2}".html_safe if @customer.address2 %>
 			    </address>
 		
 		<table class="table table-striped table-hover">
@@ -45,7 +43,7 @@
 			      <td> <%= service[:name]%></td>
 			      <td> <%= service[:qty].to_i %> </td>
 			      <td> <%= '$' + service[:value].to_s %></td>
-			      <td><span class="pull-right"> <%= '$' + service[:amount].to_i.to_s %></span>
+            <td><span class="pull-right"> <%= "$ #{(service[:amount] || 0).to_i}" %></span>
 			      </td>
 			      </tr>
 			      <% end %>
@@ -65,15 +63,15 @@
 		<p><%= @company.address %>, <%= @company.zip_code %></p>
 		<p><%= @company.city + ', ' + @company.country %></p>
 	</div>
-    
+
 	<div class="span5">
-	<%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
-    <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
-    <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
-   		 <i class="icon-plus-sign icon-white"></i> Note</button>
-    <% end %>    
+    <%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+      <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
+      <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
+         <i class="icon-plus-sign icon-white"></i> Note</button>
+      <% end %>
     <% end %>
-    </div>
+  </div>
 </div>
 
 
@@ -110,7 +108,8 @@
 	      		<!-- <i class="icon-download-alt"></i> -->  Download PDF
 	      <% end %>
 	      </div> <!-- btn-group -->
-     	<legend class="muted">Future Action</legend>
+
+        <legend class="muted">Future Action</legend>
       </div>
      
   </div>

@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20130801092658) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "actions", force: true do |t|
     t.datetime "sent_at"
     t.datetime "viewed_at"
@@ -120,6 +117,7 @@ ActiveRecord::Schema.define(version: 20130801092658) do
     t.text     "email_cc"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "recurring_invoice_id"
   end
 
   create_table "recurring_invoices", force: true do |t|
