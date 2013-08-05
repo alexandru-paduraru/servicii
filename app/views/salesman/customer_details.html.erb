@@ -37,7 +37,8 @@
 				
         </div>
 		
-      <div class="span8">
+	<!--	
+       <div class="span8">
 		  <ul class="breadcrumb">
 		  <li>
 		  <%= link_to 'Accounts List',salesman_path %> 
@@ -49,11 +50,64 @@
 		    <li class="active">Home</li>
 		    <% end %>
  		  </ul>
-		  <div class="well-white">
-	      <!--  <legend class="muted"> Customer details </legend> -->
+		</div>
+ 	 -->
+	<!-- Navigation  
+ 		<div class="span12"> 
+ 			<ul class="nav nav-pills">
+	  		  <li><a href="#">Accounts List &nbsp; </a></li>
+ 			  <li class="disabled"><a href="#">Bloom Brothers</a></li> 
+			</ul> 
+			<legend></legend>
+		</div> 
+	 end Navigation -->
+	 
+         <div class="span3 pull-right actions ">
+           	<h5>Last contact:
+        	 <% if @last_action %>
+        	   <% if @last_action == 0 %>
+        	        today 
+        	   <% else %>
+  	  	   		<%= @last_action %> &nbsp days ago
+        	 	<% end %>
+        	 <% end %>
+        	 </h5>
+			 
+	  	 
+			 <div class="well">
+  	  <!-- <p>Invoice Flow Actions</p>
+ 	  
+        <%= link_to "#", :class => "btn btn-success btn-primary btn-block", :id => "select-call" do %>
+          <i class="icon-headphones icon-white"></i> Call
+        <% end %>
+  -->	 <%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success btn-block" do %><i class="icon-plus-sign icon-white"></i> Add Invoice 
+ 			<% end %>		   	  
+        <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
+  	     	 <i class="icon-envelope icon-white "></i> Send Email
+  	    <% end %>
+  <!--		
+  		<a href="#" class="btn btn-warning btn-primary btn-block" id="send_sms_btn"><i class="icon-comment icon-white"></i> Send SMS Text</a>
+
+      <% if @customer.sent_to_collector%>
+        <a href="#" class="btn btn-danger btn-primary btn-block disabled">
+          <i class="icon-exclamation-sign icon-white"></i> Sent to collector
+        </a>
+      <% else %>
+  	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-primary btn-block" do %>
+  	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
+  	    <% end %>
+  	<% end %>
+  -->
+       	 </div>
+      </div> 
+		
+ 		<div class="row">
+		  <div class="span6 well-white">
+ 		  <div class="span6"> 
+ 
 		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right" do %>
 		       		<i class= "icon-edit"></i></a>
-				<% end %> 
+				<% end %>  
 	        	<address>		
     	           	<h1 class="organization-name"><%= @customer.organization_name %>
     	           	</h1>
@@ -92,6 +146,7 @@
 			    </dl>
 			    </address>
 			</div>
+		</div>
  		
  		<!--	<div class="span4 pull-left">
 			    <address>
@@ -105,52 +160,16 @@
 	            <% end %>
 			    </address>
 			</div> -->
-        </div>  
-	</div>
-	
-      <div class="span3 pull-right actions ">
-        	<h5>Last contact:
-      	 <% if @last_action %>
-      	   <% if @last_action == 0 %>
-      	        today 
-      	   <% else %>
-	  	   		<%= @last_action %> &nbsp days ago
-      	 	<% end %>
-      	 <% end %>
-      	 </h5>
-	
-		 <div class="well">
-	      <p>Invoice Flow Actions</p>
-      <%= link_to "#", :class => "btn btn-success btn-primary btn-block", :id => "select-call" do %>
-        <i class="icon-headphones icon-white"></i> Call
-      <% end %>
-      <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
-	      <i class="icon-envelope icon-white "></i> Send Email
-	    <% end %>
-		
-		<a href="#" class="btn btn-warning btn-primary btn-block" id="send_sms_btn"><i class="icon-comment icon-white"></i> Send SMS Text</a>
-<!--
-    <% if @customer.sent_to_collector%>
-      <a href="#" class="btn btn-danger btn-primary btn-block disabled">
-        <i class="icon-exclamation-sign icon-white"></i> Sent to collector
-      </a>
-    <% else %>
-	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-primary btn-block" do %>
-	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
-	    <% end %>
-	<% end %>
--->
-      </div>
-   </div> 
+        </div>   
+</div> 
 </div>
   
- <!-- end row   -->
- 
-
+ <!-- end row   --> 
+<!--
 <%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success pull-right span2" do %>
 	     <i class="icon-plus-sign icon-white"></i> Add Invoice 
 <% end %><br><br>
-
+ -->
 <h6 class="muted">OPEN INVOICES</h6>
 <table class="table table-hover table-striped">
 		<!--	
@@ -302,44 +321,23 @@
 	<div class="row">
 	  		<div class="span3">
 	  	 <h5 class="muted">Activity Feed</h5>
-	</div>
+			</div>
+			<!-- Activity Feed Calendar Filter -->
 
 	 	<div class="span2">
 	   		<div class="pull-right">
-	   	<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-	   		  <input class="span2" size="16" type="text" value="20/07/2013">
-	   		  <span class="add-on"><i class="icon-calendar"></i></span>
-	   		</div>
+	   			<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+	   		  	  <input class="span2" size="16" type="text" value="20/07/2013">
+	   		  	  <span class="add-on"><i class="icon-calendar"></i></span>
+	   			</div>
+	   	 	</div> 
 	   	</div>
-	  
+	   <div class="span5"> 
+		    <legend></legend>
 	   </div>
-	   <div class="span5"> <legend></legend></div>
+	   <!-- end Activity Feed Calendar Filter --> 
 	</div>  
  
-	<!--
- 
-	 	<div class="row">
-	  			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
-			</div>
-				<div class="span4">
-			<strong><a class="muted" href="#">Kevin J. Liew</a></strong> &nbsp;<a class="muted" href="#">#collections</a><small class="pull-right muted">26m</small>  
-			<p>Scheduled a <a class="muted" href="#">#letter mail</a> on 21/07/2013 for invoice  <a class="muted" href="#"><u>000875</u></a></p>									
-			</div>
-	  <div class="span5"> <legend></legend></div>  
-	</div>
-
-			
-	 	<div class="row">
-	  			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
-			</div>
-				<div class="span4">
-			<strong><a class="muted" href="#">Kevin J. Liew</a></strong> &nbsp;<a class="muted" href="#">#accounts</a><small class="pull-right muted">35m</small> 
-			<p>Send an <a class="muted" href="#">#email</a> remainder for invoice <a class="muted" href="#"><u>000845</u></a></p>									
-			</div>
-	  <div class="span5"> <legend></legend></div>  
-	</div>
-
--->
 <% if @customer_activities != [] %>
     <% @customer_activities.each do |activity|%>
     <%= render_activity(activity, params = {:page => 'customer'}) %>
@@ -347,21 +345,7 @@
 <% else %>
     No data to be displayed yet.
 <% end %>			
-<!--
-	 	<div class="row">
-	  			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
-			    </div>
-                <div class="span4">
-    			<strong><a class="muted" href="#">Kevin J. Liew</a></strong>
-    			 &nbsp;<a class="muted" href="#">#collections</a>
-    			 <small class="pull-right muted">2h</small> 
-    			<p>Added a <a class="muted" href="#">#new</a> note for invoice <a class="muted" href="#"><u>000875</u></a></p>									
-    			</div>
-	            <div class="span5"> <legend></legend></div>  
-	   </div>
--->
-
-  	
+  
 	 </div>
    
  
@@ -375,4 +359,4 @@
 
 </div>
 </div>
-<% end %>
+<% end %> 
