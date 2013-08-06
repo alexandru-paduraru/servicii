@@ -7,7 +7,7 @@ class AccountantController < ApplicationController
  		  @invoices = Invoice.where(:company_id => current_user.company_id)
  	  end
 
-    @paid_invoices = Invoice.get_paid_for_company(current_user.company_id)
+    @paid_invoices   = Invoice.get_paid_for_company(current_user.company_id)
     @unpaid_invoices = Invoice.get_unpaid_for_company(current_user.company_id)
 
 	
