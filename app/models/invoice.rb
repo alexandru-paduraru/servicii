@@ -3,11 +3,11 @@ class Invoice < ActiveRecord::Base
   include PublicActivity::Model
   tracked except: [:update,:destroy],  owner: ->(controller,model) {controller && controller.current_user}
 
-           attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id
-  
+  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state
+
   belongs_to :company
   belongs_to :customer
-  
+
   has_one :recurring_invoice
 
 # completari many to many  
@@ -33,7 +33,69 @@ class Invoice < ActiveRecord::Base
 #         errors.add(:due_date, 'must be a valid date')
 #      end
 #    end
-    
+
+
+  DRAFT             = 1
+  SENT              = 2
+  VIEWED            = 3
+  DISPUTED          = 4
+  CURRENT           = 5
+  DUE               = 6
+  OVERDUE           = 7
+  COLLECTION        = 8
+  PAID              = 9
+  PARTIAL           = 10
+  PROMISE_TO_PAY    = 11
+  DRAFT_AND_PARTIAL = 12
+
+  state_machine :initial => :draft do
+
+    event :sent_invoice do
+      transition :draft => :sent
+    end
+
+    event :invoice_was_viewed do
+      transition :sent => :viewed
+    end
+
+    event :mark_current do
+      transition :viewed => :current, :sent => :current
+    end
+
+    event :mark_due do
+      transition :current => :due
+    end
+
+    event :overdue do
+      transition :due => :overdue
+    end
+
+    event :collection do
+      transition :overdue => :collection
+    end
+
+    event :paid do
+      transition :overdue => :paid, :due => :paid, :current => :paid
+    end
+
+    state :draft
+    state :sent
+    state :viewed
+    state :current
+    state :due
+    state :overdue
+    state :collection
+    state :paid
+  end
+
+  def self.get_accountant_invoices()
+    where(:state => [:draft, :sent, :viewed, :current, :due, :paid, :collection])
+  end
+
+  def self.get_collector_invoices()
+    where(:state => [:collection])
+  end
+
 
   def update_recurrency_settings!(set_recurrency, recurrent, recurrent_for)
     if set_recurrency == true

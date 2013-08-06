@@ -1,0 +1,31 @@
+<table class="table table-hover" id="invoices-table">
+  <tr>
+    <th>#</th>
+    <th>Organization Name and Customer Name</th>
+	  <th>Invoice number</th>
+	  <th>Amount</th>
+	  <th>Status</th>
+    <th>Action</th>
+	  <th></th>
+  </tr>
+
+  <% index = 0 %>
+  <% invoices.each do |invoice| %>
+    <tr data-link="<%= invoice_details_path(invoice.id)%>">
+      <td><%= index = index + 1 %></td>
+      <td><%= invoice.customer.organization_name + ' / ' +invoice.customer.first_name + ' ' + invoice.customer.last_name %></td>
+      <td><%= invoice.number %></td>
+      <td>$<%= invoice.amount.to_i %></td>
+      <td><%= invoice.state.capitalize rescue "" %></td>
+      <% if list_type == :paid %>
+        <td></td>
+      <% elsif list_type == :unpaid %>
+        <td></td>
+      <% else %>
+        <td></td>
+      <% end %>
+      <td><i class="icon-chevron-right"></i></td>
+    </tr>
+  <% end %>
+</table>
+

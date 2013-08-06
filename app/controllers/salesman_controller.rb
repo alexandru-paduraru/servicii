@@ -98,24 +98,27 @@ class SalesmanController < ApplicationController
 	 end
 	 if @customer
 		 @invoices = @customer.invoices
-		 @open_invoices = []
-			 @invoices.each do |invoice|
-			 	       open_invoice = {}
-			 	       open_invoice[:id] = invoice.id
-			 	       open_invoice[:due_amount] = invoice.amount
-			 	       open_invoice[:date] = invoice.date
-			 	       open_invoice[:due_date] = invoice.due_date
-			 	       open_invoice[:number] = invoice.number
-			 	       open_invoice[:latest_activity] = invoice.latest_activity[0]
-			 	       @open_invoices.append(open_invoice)
-			 end
-		 
+     @open_invoices = @invoices
+
+#     @open_invoices = []
+     #@invoices.each do |invoice|
+             #open_invoice = {}
+             #open_invoice[:id] = invoice.id
+             #open_invoice[:due_amount] = invoice.amount
+             #open_invoice[:date] = invoice.date
+             #open_invoice[:due_date] = invoice.due_date
+             #open_invoice[:number] = invoice.number
+             #open_invoice[:latest_activity] = invoice.latest_activity[0]
+             #@open_invoices.append(open_invoice)
+     #end
+		
 		 @total_due_amount = 0
-		 
-		 @open_invoices.each do |invoice|
-		 	@total_due_amount += invoice[:due_amount]
-		 end
-		 
+		
+     @total_due_amount = @open_invoices.sum(:amount)
+     #@open_invoices.each do |invoice|
+       #@total_due_amount += invoice[:due_amount]
+     #end
+		
 		 @actions = @customer.actions
 
          @action_details = []

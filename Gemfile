@@ -10,6 +10,10 @@ gem 'rails', '4.0.0'
 gem 'bootstrap-sass'
 
 gem "rufus-scheduler"
+gem "state_machine"
+
+gem 'delayed_job', git: 'git://github.com/collectiveidea/delayed_job.git'
+gem 'delayed_job_active_record', git: 'git://github.com/collectiveidea/delayed_job_active_record.git'
 
 # Gems used only for assets and not required
 # in production environments by default.

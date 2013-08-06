@@ -1,7 +1,7 @@
 class Workson < ActiveRecord::Base
 
     include PublicActivity::Model
-    tracked except: [:create, :destroy], owner: -> (controller, model) {controller && controller.current_user}
+    tracked except: [:create,:destroy], owner: ->(controller,model) {controller && controller.current_user}
   
     has_paper_trail
     
