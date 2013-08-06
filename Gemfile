@@ -84,3 +84,6 @@ gem 'public_activity'
 
 #for undo actions
 gem 'paper_trail' #, github: 'airblade/paper_trail'
+
+#for xml builder
+gem 'builder'

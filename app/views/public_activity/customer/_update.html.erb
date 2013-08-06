@@ -46,6 +46,7 @@
       <% if a = activity.trackable.versions.last %>
                 <% previous_version = a.reify %>
 <!--        if customer was archived/activated show specific messages -->
+
             <% index = 0 %>
             <% if previous_version.active == true && activity.trackable.active == false %>
            <p> Archived <a class="muted" href="#">#customer</a>
@@ -122,9 +123,8 @@
                 <% if previous_version.company_size != activity.trackable.company_size %>
     		     company size from <%= previous_version.company_size %> to <%= activity.trackable.company_size %>
     		    <% end %>
-            <% end %>
-    		    
-    		 <% end %>
+            <% end %>    
+<% end %>
     		 <%= activity.created_at.strftime("on %m/%d/%Y") %>
              </p>			
     		</div>
