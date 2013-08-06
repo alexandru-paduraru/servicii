@@ -1,19 +1,17 @@
   <div class="input-prepend pull-left">
-    
     <form accept-charset="UTF-8" id="searchForm">
-     <button type="button" class="btn disabled" id="search-button"><i class="icon-search"></i></button>
-     
-    <input type="text" class="span9" placeholder="Search a customer by first name, last name, account number, email or invoice number", id="search_field" name="search" autocomplete="off"/>
-    <button type="button" class="btn btn-danger reset-search-button"/><i class="icon-remove-sign"></i></button>
-    
+      <button type="button" class="btn disabled" id="search-button"><i class="icon-search"></i></button>
+      <input type="text" class="span9" placeholder="Search a customer by first name, last name, account number, email or invoice number", id="search_field" name="search" autocomplete="off"/>
+      <button type="button" class="btn btn-danger reset-search-button"/><i class="icon-remove-sign"></i></button>
+    </form>
   </div>
-   	<%= link_to customer_new_path, :class => "btn btn-success span2 pull-right" do %>
-   		<i class="icon-plus-sign"></i> Add customer
-   	<% end %>
-   	
-   	<div id="server">
-       	
-   	</div>
+
+  <%= link_to customer_new_path, :class => "btn btn-success span2 pull-right" do %>
+    <i class="icon-plus-sign"></i> Add customer
+  <% end %>
+	
+  <div id="server">
+  </div>
    	
 <div class="clearfix"></div>
 <div class="table-div">
@@ -23,21 +21,19 @@
     	  <th>Organization Name and Contact Name</th>
     	  <th>Email</th>
     	  <th>Open invoices</th>
-    	  
     	  <th></th>
       </tr>
       <% index = 0 %>
       <% if @customers_count < 4 %>
       <% @customer_detail.each do |details| %>
     	  <tr data-link="<%= customer_details_path(details[:customer].id)%>">
-    	  <td><%= index = index + 1 %> </td>
-    	  <td><%= details[:customer].organization_name + ' / ' + details[:customer].first_name + ' ' +details[:customer].last_name %></td>
-    	  <td><%= details[:customer].email %></td>
-    	  <td><%= details[:open_invoices] %></td>
-    	  <td>
-        	  <i class="icon-chevron-right"></i>
-    	  </td>
-    	  
+          <td><%= index = index + 1 %> </td>
+          <td><%= details[:customer].organization_name + ' / ' + details[:customer].first_name + ' ' +details[:customer].last_name %></td>
+          <td><%= details[:customer].email %></td>
+          <td><%= details[:open_invoices] %></td>
+          <td>
+              <i class="icon-chevron-right"></i>
+          </td>
     	  </tr>
       <% end %>
       <% else %>
