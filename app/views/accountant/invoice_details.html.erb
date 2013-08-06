@@ -101,15 +101,23 @@
 	     <% end %>
 -->
 	      <br/>
-	      <div class="btn-group btn-block">
-		  <%= link_to invoice_template_path(@invoice.id) , :class => "btn btn-primary" do %>
+	     
+		  <%= link_to invoice_template_path(@invoice.id) , :class => "btn btn-primary btn-block" do %>
 	      		<i class="icon-eye-open"></i>  Preview
 	      <% end %>
 	      
+	     <div class="btn-group btn-block">
 	      <%= link_to invoice_pdf_path(@invoice.id) , :class => "btn btn-info" do %>
-	      		<!-- <i class="icon-download-alt"></i> -->  Download PDF
+	      		<i class="icon-download-alt"></i>&nbsp PDF
+	      <% end %>
+	      <%= link_to invoice_csv_path(@invoice.id, format: "csv") , :class => "btn btn-info" do %>
+	      		<i class="icon-download-alt"></i>&nbsp CSV
+	      <% end %>
+	      <%= link_to invoice_xml_path(@invoice.id, format: "xml") , :class => "btn btn-info" do %>
+	      		<i class="icon-download-alt"></i>&nbsp XML 
 	      <% end %>
 	      </div> <!-- btn-group -->
+	      
      	<legend class="muted">Future Action</legend>
       </div>
      
