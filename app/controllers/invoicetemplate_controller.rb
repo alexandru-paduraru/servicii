@@ -49,5 +49,16 @@ layout "invoicetemplate"
             format.csv {send_data(Invoice.to_csv(@customer,@invoice))}
         end
     end
+    
+    def invoice_xls
+        invoice_id = params[:invoice_id]
+        @invoice = Invoice.find_by_id(invoice_id)
+        @customer = @invoice.customer
+        @company = @invoice.company
+        @services = Invoice.index_services(@invoice)
+        respond_to do |format|
+            format.xls
+        end
+    end
 
 end

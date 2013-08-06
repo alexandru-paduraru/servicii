@@ -68,7 +68,7 @@
         	   <% if @last_action == 0 %>
         	        today 
         	   <% else %>
-  	  	   		<%= @last_action %> &nbsp days ago
+  	  	   		<%= @last_action %> days ago
         	 	<% end %>
         	 <% end %>
         	 </h5>
@@ -111,18 +111,19 @@
 	        	<address>		
     	           	<h1 class="organization-name"><%= @customer.organization_name %>
     	           	</h1>
-    	       <% if @customer.industry || @customer.company_size %>
-	           	<blockquote>
-    	           	<div class="muted">
-    	           	     <% if @customer.industry %>
-    	           	     <%= @customer.industry %>, 
-    	           	     <% end %>
-    	           	     <% if @customer.company_size %>
-    	           	     <%= @customer.size %>employees
-    	           	     <% end %>
-    	           	</div>
-	           	</blockquote>
-	           	<% end %>
+        	       <% if @customer.industry || @customer.company_size %>
+    	           	<blockquote>
+        	           	<div class="muted">
+        	           	     <% if @customer.industry %>
+        	           	     <%= @customer.industry %>, 
+        	           	     <% end %>
+        	           	     
+        	           	     <% if @customer.company_size %>
+        	           	     <%= @customer.company_size %>
+        	           	     <% end %>
+        	           	</div>
+    	           	</blockquote>
+    	           	<% end %>
               <h4><%= @customer.first_name + ' ' + @customer.last_name %></h4><br> 
               <div class="span6">
                 <dl class="dl-inline">
@@ -209,7 +210,7 @@
 		  	 </td>
 		  </tr>
 		  <% else %>
-		  <tr><td colspan="6">No data to be displayed yet.</td>
+		  <tr><td colspan="6"><%= render :partial => "partials/no_data" %></td>
 		  </tr>
 		  <% end %>
 		    
@@ -346,7 +347,7 @@
     <%= render_activity(activity, params = {:page => 'customer'}) %>
     <% end %>
 <% else %>
-    No data to be displayed yet.
+   	<%= render :partial => "partials/no_data" %>
 <% end %>			
   
 	 </div>
