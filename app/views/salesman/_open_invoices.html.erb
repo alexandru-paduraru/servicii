@@ -31,7 +31,10 @@
             </td>
           </tr>
 		  <% else %>
+        <tr><td colspan="6"><%= render :partial => "partials/no_data" %></td>
+        <!--
         <tr><td colspan="6">No invoice existent. <%= link_to "Please add one", "/customers/#{params[:id]}/invoices/new" %></td></tr>
+        -->
 		  <% end %>
 </table>
 
