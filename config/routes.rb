@@ -85,8 +85,6 @@ get '/send_email/:customer_id', to: 'user#send_email', :as => "send_email"
 #send to collector
 get '/send_to_collector/:customer_id', to: 'user#send_to_collector', :as => "send_to_collector"
 
-#for viewing invoice as pdf
-get '/pdf_invoice', to: 'invoicetemplate#pdf_invoice', :as => "pdf_invoice"
 
 #for creating a note on an invoice
 post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => "add_note"
@@ -94,10 +92,13 @@ post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => 
 post '/send_email_invoice/:invoice_id', to: 'accountant#send_email', :as => "send_email_invoice"
 
 
-#testing invoice template
+#invoice template
 
 get '/invoice_template/:invoice_id', to: 'invoicetemplate#invoice_template', :as => "invoice_template"
 get '/invoice_pdf/:invoice_id', to: 'invoicetemplate#invoice_pdf', :as => "invoice_pdf"
+get 'invoice_xml/:invoice_id', to: 'invoicetemplate#invoice_xml', :as => "invoice_xml"
+get 'invoice_csv/:invoice_id', to: 'invoicetemplate#invoice_csv', :as => "invoice_csv"
+get 'invoice_xls/:invoice_id', to: 'invoicetemplate#invoice_xls', :as => "invoice_xls"
 
 #adding undo to actions
 post 'versions/revert', to: 'version#revert', :as => "revert_version"
