@@ -78,6 +78,10 @@ class Invoice < ActiveRecord::Base
       transition :overdue => :paid, :due => :paid, :current => :paid
     end
 
+    event :next_status do
+      transition :draft => :sent, :sent => :current, :current => :paid, :due => :paid, :overdue => :paid
+    end
+
     state :draft
     state :sent
     state :viewed
@@ -86,6 +90,23 @@ class Invoice < ActiveRecord::Base
     state :overdue
     state :collection
     state :paid
+    state :promised_to_pay
+  end
+
+  def next_status_based_on_current()
+    if state == "draft"
+      "sent"
+    elsif state == "sent"
+      "current"
+    elsif state == "current"
+      "paid"
+    elsif state == "current"
+      "paid"
+    end
+  end
+
+  def show_state
+    self.state.gsub("_", " ").capitalize rescue ""
   end
 
   def self.get_accountant_invoices()
@@ -96,6 +117,13 @@ class Invoice < ActiveRecord::Base
     where(:state => [:collection])
   end
 
+  def self.get_paid_for_company(company_id)
+ 		where(:company_id => company_id, :state => "paid")
+  end
+
+  def self.get_unpaid_for_company(company_id)
+ 		where("company_id = ? and (state != ? or state is NULL)", company_id, "paid")
+  end
 
   def update_recurrency_settings!(set_recurrency, recurrent, recurrent_for)
     if set_recurrency == true
@@ -156,6 +184,15 @@ class Invoice < ActiveRecord::Base
         csv << invoice.attributes.values_at(*column_names)
       end
     end
+  end
+  
+  def self.to_csv(customer,invoice)
+    customer_columns = Customer.column_names - ["id", "created_at", "updated_at", "company_id", "sent_to_collector", "active","user_id"]
+    invoice_columns = Invoice.column_names - ["id", "created_at", "updated_at", "user_id", "customer_id", "company_id"]
+    CSV.generate do |csv|
+        csv << customer_columns + invoice_columns
+        csv << customer.attributes.values_at(*customer_columns) + invoice.attributes.values_at(*invoice_columns)
+  	end
   end
   
   def self.generate_number(current_user)

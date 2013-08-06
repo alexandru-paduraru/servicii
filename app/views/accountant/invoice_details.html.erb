@@ -6,6 +6,16 @@
 	        <legend class="muted">Invoice  #<%= @invoice.number %>
 	        </legend>
 	        <div class="span3 pull-right">
+            <h5>Current Status <span class="label invoice_status_<%= @invoice.id %>"><%= @invoice.show_state rescue "" %></span></h5>
+
+            <div class="change_status_<%= @invoice.id %>">
+              <%= render :partial => "invoices/change_status", :locals => {:invoice => @invoice} %>
+            </div>
+            <% if @invoice.state != "paid" %>
+              <br />
+              <br />
+            <% end %>
+
 		        <address><strong>Issued on :</strong> <%= @invoice.date %><br>
 		        		 <strong>Due on:</strong> <%= @invoice.due_date %><br>
 		        </address>
@@ -99,19 +109,24 @@
 	     <% end %>
 -->
 	      <br/>
-	      <div class="btn-group btn-block">
-		  <%= link_to invoice_template_path(@invoice.id) , :class => "btn btn-primary" do %>
+	     
+		  <%= link_to invoice_template_path(@invoice.id) , :class => "btn btn-primary btn-block" do %>
 	      		<i class="icon-eye-open"></i>  Preview
 	      <% end %>
-	      
+
+	     <div class="btn-group btn-block">
 	      <%= link_to invoice_pdf_path(@invoice.id) , :class => "btn btn-info" do %>
-	      		<!-- <i class="icon-download-alt"></i> -->  Download PDF
+	      		<i class="icon-download-alt"></i>&nbsp; PDF
+	      <% end %>
+	      <%= link_to invoice_csv_path(@invoice.id, format: "csv") , :class => "btn btn-info" do %>
+	      		<i class="icon-download-alt"></i>&nbsp; CSV
+	      <% end %>
+	      <%= link_to invoice_xml_path(@invoice.id, format: "xml") , :class => "btn btn-info" do %>
+	      		<i class="icon-download-alt"></i>&nbsp; XML 
 	      <% end %>
 	      </div> <!-- btn-group -->
-
         <legend class="muted">Future Action</legend>
       </div>
-     
   </div>
 <!-- end row   -->
 
@@ -181,14 +196,15 @@
 
 	 	<div class="span2">
 	   		<div class="pull-right">
-                <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+            <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
                 <input class="span2" size="16" type="text" value="20/07/2013">
                 <span class="add-on"><i class="icon-calendar"></i></span>
     	   		</div>
-            </div>
-	   </div>
-	   <div class="span5"> <legend></legend></div>
-	</div> 
+        </div>
+	  </div>
+	  <div class="span5"><legend></legend></div>
+	</div>
+
 	<% if @invoice_activities != [] %>
     	<% @invoice_activities.each do |activity|%>
     	    <%= render_activity(activity, params = {:page => 'invoice'}) %>

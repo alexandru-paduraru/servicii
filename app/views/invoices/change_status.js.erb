@@ -1,0 +1,4 @@
+$(".invoice_status_<%= @invoice.id %>").text("<%= @invoice.state.gsub("_", " ").capitalize %>");
+
+$(".change_status_<%= @invoice.id %>").html("<%= escape_javascript( render( :partial => 'invoices/change_status',
+                                                                           :locals => {:invoice => @invoice} )) %>");

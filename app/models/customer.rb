@@ -1,15 +1,15 @@
 class Customer < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller,model) {controller && controller.current_user}
-  
+
   has_paper_trail
   attr_accessible :first_name, :last_name, :email, :phone, :description, :sent_to_collector, :user_id, :account, :state, :city, :zip_code, :address1, :address2, :organization_name, :industry, :comcodepany_size
-  
+
   belongs_to :company
   has_many :invoices
   has_many :transactions
   has_many :actions
-  
+
   validates :first_name, :last_name, :email, :phone,:address1, :state, :city, :zip_code, :presence => true
   validates :first_name, :last_name,:organization_name, :state, :city, :zip_code, :length => { :minimum => 2 }
   validates :address1, :length => {:minimum => 5}
@@ -17,7 +17,7 @@ class Customer < ActiveRecord::Base
   validates :email, :length => { :minimum => 5 } 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates_format_of :zip_code, :with => /\A[0-9]+\Z/i  
-  
+
   def self.search(search, current_user)
   	if search != ''
   		search = search.downcase
@@ -37,22 +37,40 @@ class Customer < ActiveRecord::Base
 # 	end
   end
   
+  def self.get_collector_users()
+    includes(:invoices).where("invoices.status" => "overdue")
+  end
+
   def self.search_collector_list(search, current_user)
-  	if search != ''
+  	if search.present?
   		search = search.downcase
-		 if Invoice.all.where(:company_id => current_user.company_id ) != []  
-             all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(organization_name) LIKE ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and active = ? and sent_to_collector = ?', search, search,"#{search}%","#{search}%","#{search}%", "#{search}%", current_user.company_id, true, true], :select => 'distinct customers.organization_name, customers.first_name, customers.last_name, customers.account, customers.email, customers.id'
-		 else
-		     all.where(:active => true,:sent_to_collector => true, :company_id => current_user.company_id ).find(:all, :conditions => ['lower(organization_name) LIKE ? or lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) = ?', "#{search}%" , "#{search}%", "#{search}%", "%#{search}%", search])
-		 end  	
+		  if Invoice.all.where(:company_id => current_user.company_id ).any?
+        #all :joins => :invoices, :conditions => ['(lower(invoices.number) = ? or lower(customers.account) = ? or lower(organization_name) LIKE ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and active = ? and sent_to_collector = ?',
+                              #search, search,"#{search}%","#{search}%","#{search}%", "#{search}%",
+                              #current_user.company_id, true, true], :select => 'distinct customers.organization_name,
+                              #customers.first_name, customers.last_name, customers.account, customers.email, customers.id')
+
+        Customer.joins(:invoices).where('(lower(invoices.number) = ? or lower(customers.account) = ? or lower(organization_name) LIKE ? or lower(customers.first_name) LIKE ? or lower(customers.last_name) LIKE ? or lower(customers.email) LIKE ?) and customers.company_id = ? and active = ? and invoices.state = ?',
+                                search, search,"#{search}%","#{search}%","#{search}%", "#{search}%",
+                                current_user.company_id, true, "overdue").select('distinct customers.organization_name,
+                                customers.first_name, customers.last_name, customers.account, customers.email, customers.id')
+		  else
+		    all.where(:active => true,:sent_to_collector => true, :company_id => current_user.company_id ).find(:all,
+                  :conditions => ['lower(organization_name) LIKE ? or lower(first_name) LIKE ? or lower(last_name) LIKE ? or lower(email) LIKE ? or lower(account) = ?',
+                                  "#{search}%" , "#{search}%", "#{search}%", "%#{search}%", search])
+		  end	
     else
     	all.where(:active => true, :company_id => current_user.company_id, :sent_to_collector => true )
     end
   end
-  
+
+  def count_open_invoices
+    self.invoices.where("amount > ?", 0)
+  end
+
   def self.open_invoices(customer)
   	if customer
-  	    customer.invoices.find(:all, :conditions => ['amount > ?', "0"])
+  	  customer.invoices.find(:all, :conditions => ['amount > ?', "0"])
   	else
   		nil
   	end

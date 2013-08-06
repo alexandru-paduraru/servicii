@@ -16,14 +16,8 @@
       <td><%= invoice.customer.organization_name + ' / ' +invoice.customer.first_name + ' ' + invoice.customer.last_name %></td>
       <td><%= invoice.number %></td>
       <td>$<%= invoice.amount.to_i %></td>
-      <td><%= invoice.state.capitalize rescue "" %></td>
-      <% if list_type == :paid %>
-        <td></td>
-      <% elsif list_type == :unpaid %>
-        <td></td>
-      <% else %>
-        <td></td>
-      <% end %>
+      <td class="invoice_status_<%= invoice.id %>"><%= invoice.state.capitalize rescue "" %></td>
+      <td class="change_status_<%= invoice.id %>"><%= render :partial => "invoices/change_status", :locals => {:invoice => invoice} %></td>
       <td><i class="icon-chevron-right"></i></td>
     </tr>
   <% end %>

@@ -6,6 +6,10 @@ class AccountantController < ApplicationController
  	  else
  		  @invoices = Invoice.where(:company_id => current_user.company_id)
  	  end
+
+    @paid_invoices = Invoice.get_paid_for_company(current_user.company_id)
+    @unpaid_invoices = Invoice.get_unpaid_for_company(current_user.company_id)
+
 	
 #    @invoice_details = []
     #invoices.each do |invoice|
@@ -38,17 +42,17 @@ class AccountantController < ApplicationController
  end
  
  def invoice_details
-  	 @invoice_id = params[:invoice_id]
+   @invoice_id = params[:invoice_id]
 	 @invoice = Invoice.find_by_id(@invoice_id)
-	 
+
 	 @customer_id = @invoice.customer_id
 	 @customer = Customer.find_by_id(@customer_id)
-	 
+
 	 @company = Company.find_by_id(current_user.company_id)
 	 @services = Invoice.index_services(@invoice)
-	 
+
 	 @action_details = []
-	 
+
 	 @actions = @invoice.actions
 	 @actions.each do |action|
 	     details = {}
@@ -57,15 +61,16 @@ class AccountantController < ApplicationController
          details[:customer] = Customer.find_by_id(action.customer_id)	     
 		 @action_details.append(details)
      end
-     
-     #activity feed
-        _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
 
-	    _invoice_action_id = @invoice.actions.select(:id) 
-	    _invoice_action_id_array = []
-	    _invoice_action_id.each do |action_id|
+     #activity feed
+     _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
+
+	   _invoice_action_id = @invoice.actions.select(:id) 
+	   _invoice_action_id_array = []
+	   _invoice_action_id.each do |action_id|
 	        _invoice_action_id_array.append(action_id.id)
-	    end
+	 end
+
 	    _activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id)
 	    @invoice_activities = []
 	    _activities.each do |act|   

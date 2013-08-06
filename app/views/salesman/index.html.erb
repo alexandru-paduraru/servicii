@@ -12,8 +12,9 @@
 	
   <div id="server">
   </div>
-   	
+
 <div class="clearfix"></div>
+
 <div class="table-div">
     <table class="table table-hover table-striped" id="customers-table">
       <tr>
@@ -25,27 +26,29 @@
       </tr>
       <% index = 0 %>
       <% if @customers_count < 4 %>
-      <% @customer_detail.each do |details| %>
-    	  <tr data-link="<%= customer_details_path(details[:customer].id)%>">
-          <td><%= index = index + 1 %> </td>
-          <td><%= details[:customer].organization_name + ' / ' + details[:customer].first_name + ' ' +details[:customer].last_name %></td>
-          <td><%= details[:customer].email %></td>
-          <td><%= details[:open_invoices] %></td>
-          <td>
-              <i class="icon-chevron-right"></i>
-          </td>
-    	  </tr>
-      <% end %>
+        <% @customer_detail.each do |details| %>
+          <tr data-link="<%= customer_details_path(details[:customer].id)%>">
+            <td><%= index = index + 1 %> </td>
+            <td><%= details[:customer].organization_name + ' / ' + details[:customer].first_name + ' ' + details[:customer].last_name %></td>
+            <td><%= details[:customer].email %></td>
+            <td><%= details[:open_invoices] %></td>
+            <td>
+                <i class="icon-chevron-right"></i>
+            </td>
+          </tr>
+        <% end %>
       <% else %>
         <tr>
           <td colspan="5">
-            <h4 class="muted" style="text-align:center">Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4>
+            <h4 class="muted" style="text-align:center">There are no customers matching your search. Please change your search status.</h4>
           </td>
         </tr>
       <% end %>
     </table>
 </div>
+
 <br><br> 
+
 <!-- Static Example of Table --> 
 <table class="table table-hover table-striped">
   <tr>

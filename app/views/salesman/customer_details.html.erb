@@ -81,7 +81,7 @@
           <i class="icon-headphones icon-white"></i> Call
         <% end %>
   -->	 <%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success btn-block" do %><i class="icon-plus-sign icon-white"></i> Add Invoice 
- 			<% end %>		   	  
+ 			<% end %>
         <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
   	     	 <i class="icon-envelope icon-white "></i> Send Email
   	    <% end %>
@@ -160,7 +160,7 @@
 	            <% end %>
 			    </address>
 			</div> -->
-        </div>   
+    </div>   
 </div> 
 </div>
   
@@ -169,75 +169,44 @@
 <%= render :partial => "salesman/open_invoices" %>
 
 <!-- V4 Static Example of Table -->
- 
-<br><br> 
 
-<h6 class="muted">3 RECURRING INVOICES</h6>
-<table class="table table-hover table-striped">
-	      <tr>
-	      	<th>Invoice Number</th>
-			<th>Issue Date</th>
-	      	<th>Due date</th>
-	      	<th>Amount</th>
-	      	<th>Status</th>
-	      </tr>
-		  <tr>
-			  <td>000283</td>
-			  <td>21/07/2013</td>
-			  <td>20/08/2013</td>
-			  <td>$645.00</td>
-			  <td>SENT</td> 
-		   </tr>
-		  <tr>
-			  <td>000273</td>
-			  <td>21/07/2013</td>
-			  <td>20/08/2013</td>
-			  <td>$1945.00</td>
- 		 	  <td>DUE (1w)</td> 
-			 
-		  </tr>
-		  <tr>
-			  <td>000249</td>
-			  <td>21/07/2013</td>
-			  <td>20/08/2013</td>
-			  <td>$1945.00</td>
-		 	  <td class="text-success">PAID</td>
-		 
-		  </tr>
-</table><br><br><br>
+<br /><br />
+
+<%= render :partial => "recurring_invoices" %>
+
+<br /><br /><br />
 
 <div class="row">
  	<div class="span5 well-white">
-	
-	<!-- Static Example Activity Feed -->
-<!---- am modificat activity feed de la span5 la span6, deoarece altfel dau erori render-urile de partiale pe actiunile implicite de activity feed; daca ne vom hotari ca este necesar sa fie span5, voi rezolva conflictele de afisare -->
-	<div class="row">
-	  		<div class="span3">
-	  	 <h5 class="muted">Activity Feed</h5>
-			</div>
-			<!-- Activity Feed Calendar Filter -->
+    <!-- Static Example Activity Feed -->
+    <!---- am modificat activity feed de la span5 la span6, deoarece altfel dau erori render-urile de partiale pe actiunile implicite de activity feed; daca ne vom hotari ca este necesar sa fie span5, voi rezolva conflictele de afisare -->
+    <div class="row">
+          <div class="span3">
+         <h5 class="muted">Activity Feed</h5>
+        </div>
+        <!-- Activity Feed Calendar Filter -->
 
-	 	<div class="span2">
-	   		<div class="pull-right">
-	   			<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-	   		  	  <input class="span2" size="16" type="text" value="20/07/2013">
-	   		  	  <span class="add-on"><i class="icon-calendar"></i></span>
-	   			</div>
-	   	 	</div> 
-	   	</div>
-	   <div class="span5"> 
-		    <legend></legend>
-	   </div>
-	   <!-- end Activity Feed Calendar Filter --> 
-	</div>  
+      <div class="span2">
+          <div class="pull-right">
+            <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                <input class="span2" size="16" type="text" value="20/07/2013">
+                <span class="add-on"><i class="icon-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+       <div class="span5"> 
+          <legend></legend>
+       </div>
+       <!-- end Activity Feed Calendar Filter --> 
+    </div>  
  
-<% if @customer_activities != [] %>
-    <% @customer_activities.each do |activity|%>
-    <%= render_activity(activity, params = {:page => 'customer'}) %>
-    <% end %>
-<% else %>
-    No data to be displayed yet.
-<% end %>			
+    <% if @customer_activities != [] %>
+        <% @customer_activities.each do |activity|%>
+        <%= render_activity(activity, params = {:page => 'customer'}) %>
+        <% end %>
+    <% else %>
+        No data to be displayed yet.
+    <% end %>			
   
 	 </div>
    

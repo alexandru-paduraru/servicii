@@ -21,3 +21,4 @@
 //= require accountant
 //= require invoice_dev
 //= require script
+//= require invoice

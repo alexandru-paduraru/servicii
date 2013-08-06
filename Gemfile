@@ -88,4 +88,4 @@ gem 'bootstrap-wysihtml5-rails'
 gem 'public_activity'
 
 #for undo actions
-gem 'paper_trail', github: 'airblade/paper_trail'
+gem 'paper_trail' #, github: 'airblade/paper_trail'

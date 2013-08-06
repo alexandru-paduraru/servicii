@@ -94,7 +94,7 @@ class SalesmanController < ApplicationController
 	 @customer_last_invoice = Customer.last_invoice(@customer)
 	 _customer_last_action = Action.last_action(@customer)
 	 if _customer_last_action
-	 @last_action = ((Time.now.to_date - _customer_last_action[:sent_at].to_date)/1.day).to_i
+     @last_action = ((Time.now.to_date - _customer_last_action[:sent_at].to_date)/1.day).to_i
 	 end
 	 if @customer
 		 @invoices = @customer.invoices
@@ -161,8 +161,6 @@ class SalesmanController < ApplicationController
                 @customer_activities.append(act)
             end
 	    end
-	    
-		 
 	 end
 
 	render 'customer_details'
