@@ -187,6 +187,7 @@ class Invoice < ActiveRecord::Base
   end
   
   def self.to_csv(customer,invoice)
+    services = Invoice.index_services(invoice)
     customer_columns = Customer.column_names - ["id", "created_at", "updated_at", "company_id", "sent_to_collector", "active","user_id"]
     invoice_columns = Invoice.column_names - ["id", "created_at", "updated_at", "user_id", "customer_id", "company_id"]
     CSV.generate do |csv|

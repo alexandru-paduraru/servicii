@@ -99,6 +99,7 @@ get '/invoice_template/:invoice_id', to: 'invoicetemplate#invoice_template', :as
 get '/invoice_pdf/:invoice_id', to: 'invoicetemplate#invoice_pdf', :as => "invoice_pdf"
 get 'invoice_xml/:invoice_id', to: 'invoicetemplate#invoice_xml', :as => "invoice_xml"
 get 'invoice_csv/:invoice_id', to: 'invoicetemplate#invoice_csv', :as => "invoice_csv"
+get 'invoice_xls/:invoice_id', to: 'invoicetemplate#invoice_xls', :as => "invoice_xls"
 
 #adding undo to actions
 post 'versions/revert', to: 'version#revert', :as => "revert_version"

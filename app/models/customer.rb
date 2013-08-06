@@ -3,7 +3,7 @@ class Customer < ActiveRecord::Base
   tracked owner: ->(controller,model) {controller && controller.current_user}
 
   has_paper_trail
-  attr_accessible :first_name, :last_name, :email, :phone, :description, :sent_to_collector, :user_id, :account, :state, :city, :zip_code, :address1, :address2, :organization_name, :industry, :comcodepany_size
+  attr_accessible :first_name, :last_name, :email, :phone, :description, :sent_to_collector, :user_id, :account, :state, :city, :zip_code, :address1, :address2, :organization_name, :industry, :company_size
 
   belongs_to :company
   has_many :invoices

@@ -90,7 +90,16 @@
       	 <legend class="muted">Account action</legend>	
       	 <div class="well">
       			Account standing: <strong>on time</strong><br>
-      			Last contact: <strong>60 days ago</strong>
+      			Last contact: 
+      			          <strong>
+                      		 <% if @latest_activity %>
+                        	   <% if @latest_activity == 0 %>
+                        	        today 
+                        	   <% else %>
+                  	  	   		<%= @latest_activity %> days ago
+                               <% end %>
+                        	 <% end %>
+      			         </strong>
       		</div>
           <%= link_to "#", :class => "btn btn-success btn-large btn-block", :id => "select-call" do %>
             <i class="icon-headphones icon-white"></i> Call
@@ -116,13 +125,16 @@
 
 	     <div class="btn-group btn-block">
 	      <%= link_to invoice_pdf_path(@invoice.id) , :class => "btn btn-info" do %>
-	      		<i class="icon-download-alt"></i>&nbsp; PDF
+	      		<i class="icon-download-alt"></i>PDF
 	      <% end %>
 	      <%= link_to invoice_csv_path(@invoice.id, format: "csv") , :class => "btn btn-info" do %>
-	      		<i class="icon-download-alt"></i>&nbsp; CSV
+	      		CSV
 	      <% end %>
 	      <%= link_to invoice_xml_path(@invoice.id, format: "xml") , :class => "btn btn-info" do %>
-	      		<i class="icon-download-alt"></i>&nbsp; XML 
+	      		XML
+	      <% end %>
+          <%= link_to invoice_xls_path(@invoice.id, format: "xls") , :class => "btn btn-info" do %>
+	      		XLS
 	      <% end %>
 	      </div> <!-- btn-group -->
         <legend class="muted">Future Action</legend>
@@ -210,7 +222,7 @@
     	    <%= render_activity(activity, params = {:page => 'invoice'}) %>
     	<% end %>
     <% else %>
-    No data to be displayed yet.
+    <%= render :partial => "partials/no_data" %>
 	<% end %>
 	
  	</div>  <!-- end div well white for activity feed -->
@@ -218,9 +230,10 @@
      <div class="span3 well-white">
      <h5 class="muted">Notes</h5>
 	<legend></legend>
+    <% index = 0 %>
 	<% if @action_details && @action_details != [] %>
 	<ul>
-	    <% index = 0 %>
+
 		<% @action_details.each do |action_detail| %>
     		<% if action_detail[:action].action_type == "note" %>
         		<li>
@@ -232,8 +245,8 @@
 	</ul>
 	<% end %>
      <% if index == 0 %>
-	    No data to be displayed yet.
-	<% end %>
+	    <%= render :partial => "partials/no_data" %>
+	 <% end %>
 	
 	</div><!-- end notes --->
 </div> <!-- end row -->

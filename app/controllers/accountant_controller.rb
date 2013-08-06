@@ -51,8 +51,14 @@ class AccountantController < ApplicationController
 	 @company = Company.find_by_id(current_user.company_id)
 	 @services = Invoice.index_services(@invoice)
 
-	 @action_details = []
+	 @invoice_latest_activity = @invoice.latest_activity[0]
+	 if @invoice_latest_activity 
+     @latest_activity = ((Time.now - @invoice_latest_activity[:sent_at])/1.day).to_i
+   else
+     @latest_activity = ((Time.now - @invoice[:date])/1.day).to_i
+   end
 
+	 @action_details = []
 	 @actions = @invoice.actions
 	 @actions.each do |action|
 	     details = {}

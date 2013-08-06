@@ -94,8 +94,9 @@ class SalesmanController < ApplicationController
 	 @customer_last_invoice = Customer.last_invoice(@customer)
 	 _customer_last_action = Action.last_action(@customer)
 	 if _customer_last_action
-     @last_action = ((Time.now.to_date - _customer_last_action[:sent_at].to_date)/1.day).to_i
+     @last_action = ((Time.now - _customer_last_action[:sent_at])/1.day).to_i
 	 end
+
 	 if @customer
 		 @invoices = @customer.invoices
      @open_invoices = @invoices
@@ -173,8 +174,8 @@ class SalesmanController < ApplicationController
 	def customer_update
 		_post = params[:customer]
 		@customer = Customer.find_by_id(params[:customer_id])
-        if @customer.update_attributes(:first_name => _post[:first_name],:last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code])
-            undo_link = view_context.link_to("undo",revert_version_path(@customer.versions.last), :method => :post)
+        if @customer.update_attributes(:first_name => _post[:first_name],:last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code], :industry => _post[:industry], :company_size => _post[:company_size], :description => _post[:description])
+#             undo_link = view_context.link_to("undo",revert_version_path(@customer.versions.last), :method => :post)
 			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
 		else
 			render 'customer_edit'

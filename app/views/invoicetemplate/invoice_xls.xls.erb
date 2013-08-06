@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:x="urn:schamas-microsoft-com:office:excel"
+    xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+    xmlns:html="http://www.w3.org/TR/REC-html40">
+    
+    <Worksheet ss:Name="Sheet1">
+     <Table>
+        <Row>
+            <Cell><Data ss:Type="String"><%= @company.name %></Data></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String">Invoice#</Data></Cell>
+            <Cell><Data ss:Type="Number"><%= @invoice.number %></Data></Cell>
+        </Row>
+        <Row>
+            <Cell></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String">Date of Invoice</Data></Cell>
+            <Cell><Data ss:Type="String"><%= @invoice.date %></Data></Cell>
+        </Row>
+        <Row>
+            <Cell></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String">Due Date</Data></Cell>
+            <Cell><Data ss:Type="String"><%= @invoice.due_date %></Data></Cell>
+        </Row>
+        <Row>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="String">Invoice To:</Data></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String">Invoice From:</Data></Cell>
+            <Cell></Cell>
+            <Cell><Data ss:Type="String">Invoice Status</Data></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="String"><%= @customer.first_name%> <%= @customer.last_name %></Data></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String"><%= @company.name %></Data></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="String"><%= @customer.organization_name%> </Data></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String"><%= @company.country %><%= @company.county%><%= @company.city %></Data></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+        </Row>
+                <Row>
+            <Cell><Data ss:Type="String"><%= @customer.email %></Data></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String"><%= @company.country %> <%= @company.county%> <%= @company.city %></Data></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="String"><%= @customer.phone %></Data></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String"><%= @company.address %></Data></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="String"><%= @customer.address1 %></Data></Cell>
+            <Cell></Cell>
+
+            <Cell><Data ss:Type="String"><%= @company.zip_code %></Data></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="String"><%= @customer.state %> <%= @customer.city%></Data></Cell>
+            <Cell></Cell>
+
+            <Cell></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="String"><%= @customer.zip_code %></Data></Cell>
+            <Cell></Cell>
+
+            <Cell></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+        </Row>
+        <Row>
+        </Row>
+        <Row>
+            <Cell><Data ss:Type="String">Item</Data></Cell>
+            <Cell><Data ss:Type="String">Quantaty</Data></Cell>
+            <Cell><Data ss:Type="String">Price($)</Data></Cell>
+        </Row>
+        <% @services.each do |service| %>
+            <Row>
+            <Cell><Data ss:Type="String"><%= service[:name] %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= service[:qty] %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= service[:value] %></Data></Cell>
+            </Row>
+            <Row>
+            </Row>
+            <Row>
+            <Cell></Cell>
+            <Cell><Data ss:Type="String">Total</Data></Cell>
+            <Cell><Data ss:Type="Number"><%= @invoice.amount %></Data></Cell>
+            </Row>
+        <% end %>
+      </Table>   
+    </Worksheet>
+</Workbook>
