@@ -192,6 +192,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-sass
   bootstrap-wysihtml5-rails
+  builder
   coffee-rails (~> 4.0.0)
   heroku
   jquery-rails
