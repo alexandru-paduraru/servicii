@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sms_number: MyString
+  sms_body: MyString
+  email_to: MyString
+  email_from: MyString
+  email_body: MyText
+  email_cc: MyText
+
+two:
+  sms_number: MyString
+  sms_body: MyString
+  email_to: MyString
+  email_from: MyString
+  email_body: MyText
+  email_cc: MyText

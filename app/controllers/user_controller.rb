@@ -2,13 +2,11 @@
 
 class UserController < ApplicationController
 
-require 'mandrill'    
 	def login
-	  
-	 respond_to do |format|
-      	format.html  {render 'login'}
-      	format.json { render json: @user }
-      end
+   respond_to do |format|
+      format.html  {render 'login'}
+      format.json { render json: @user }
+   end
 	end
 	
 	def show 

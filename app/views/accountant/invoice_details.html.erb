@@ -6,6 +6,16 @@
 	        <legend class="muted">Invoice  #<%= @invoice.number %>
 	        </legend>
 	        <div class="span3 pull-right">
+            <h5>Current Status <span class="label invoice_status_<%= @invoice.id %>"><%= @invoice.show_state rescue "" %></span></h5>
+
+            <div class="change_status_<%= @invoice.id %>">
+              <%= render :partial => "invoices/change_status", :locals => {:invoice => @invoice} %>
+            </div>
+            <% if @invoice.state != "paid" %>
+              <br />
+              <br />
+            <% end %>
+
 		        <address><strong>Issued on :</strong> <%= @invoice.date %><br>
 		        		 <strong>Due on:</strong> <%= @invoice.due_date %><br>
 		        </address>
@@ -17,16 +27,14 @@
 			    Email: <strong><%= @customer.email %></strong><br>
 			    Phone: <strong><%= @customer.phone %></strong>
 			    </address>
-			     
+
 			    <address>
-			    <strong>Address</strong><br>
-			    <%= @customer.state %>
-			    <%= @customer.city %>
-			    <!-- <%= @customer.zip_code %> -->
-			    <%= @customer.address1 %>
-			    <% if @customer.address2 %>
-			     <%= @customer.address2%>
-			    <% end %>
+            <strong>Address</strong><br>
+            <%= @customer.state %>,
+            <%= @customer.city %>
+            <br />
+            <%= @customer.address1 %>
+            <%= "<br />#{@customer.address2}".html_safe if @customer.address2 %>
 			    </address>
 		
 		<table class="table table-striped table-hover">
@@ -45,7 +53,7 @@
 			      <td> <%= service[:name]%></td>
 			      <td> <%= service[:qty].to_i %> </td>
 			      <td> <%= '$' + service[:value].to_s %></td>
-			      <td><span class="pull-right"> <%= '$' + service[:amount].to_i.to_s %></span>
+            <td><span class="pull-right"> <%= "$ #{(service[:amount] || 0).to_i}" %></span>
 			      </td>
 			      </tr>
 			      <% end %>
@@ -65,20 +73,19 @@
 		<p><%= @company.address %>, <%= @company.zip_code %></p>
 		<p><%= @company.city + ', ' + @company.country %></p>
 	</div>
-    
+
 	<div class="span5">
-	<%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
-    <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
-    <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
-   		 <i class="icon-plus-sign icon-white"></i> Note</button>
-    <% end %>    
+    <%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+      <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
+      <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
+         <i class="icon-plus-sign icon-white"></i> Note</button>
+      <% end %>
     <% end %>
-    </div>
+  </div>
 </div>
 
 
 </div>
-        
       <div class="span3 pull-right actions">
       	 <legend class="muted">Account action</legend>	
       	 <div class="well">
@@ -115,7 +122,7 @@
 		  <%= link_to invoice_template_path(@invoice.id) , :class => "btn btn-primary btn-block" do %>
 	      		<i class="icon-eye-open"></i>  Preview
 	      <% end %>
-	      
+
 	     <div class="btn-group btn-block">
 	      <%= link_to invoice_pdf_path(@invoice.id) , :class => "btn btn-info" do %>
 	      		<i class="icon-download-alt"></i>PDF
@@ -124,16 +131,14 @@
 	      		CSV
 	      <% end %>
 	      <%= link_to invoice_xml_path(@invoice.id, format: "xml") , :class => "btn btn-info" do %>
-	      		XML 
+	      		XML
 	      <% end %>
           <%= link_to invoice_xls_path(@invoice.id, format: "xls") , :class => "btn btn-info" do %>
-	      		XLS 
+	      		XLS
 	      <% end %>
 	      </div> <!-- btn-group -->
-	      
-     	<legend class="muted">Future Action</legend>
+        <legend class="muted">Future Action</legend>
       </div>
-     
   </div>
 <!-- end row   -->
 
@@ -203,14 +208,15 @@
 
 	 	<div class="span2">
 	   		<div class="pull-right">
-                <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+            <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
                 <input class="span2" size="16" type="text" value="20/07/2013">
                 <span class="add-on"><i class="icon-calendar"></i></span>
     	   		</div>
-            </div>
-	   </div>
-	   <div class="span5"> <legend></legend></div>
-	</div> 
+        </div>
+	  </div>
+	  <div class="span5"><legend></legend></div>
+	</div>
+
 	<% if @invoice_activities != [] %>
     	<% @invoice_activities.each do |activity|%>
     	    <%= render_activity(activity, params = {:page => 'invoice'}) %>
@@ -244,8 +250,6 @@
 	
 	</div><!-- end notes --->
 </div> <!-- end row -->
-	
-	
 
 			   
  <div class="modal hide fade custom_width_modal" id="modal1">
@@ -275,12 +279,9 @@
         </div>
       <div class="modal-footer">
       <button type="button" class="btn pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
-<!--       <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Send email</button>  -->
       <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
    		 <i class="icon-envelope icon-white"></i> Send Email
       <% end %>       
       </div>
       <% end %> <!-- end of form -->
  </div>
-
-

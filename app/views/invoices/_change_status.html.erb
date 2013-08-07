@@ -1,0 +1,10 @@
+<% if invoice.state == "draft" || invoice.state == "sent" || invoice.state == "viewed" %>
+  <%= link_to "Mark Current", "/change_status?id=#{invoice.id}&state=current", :class => "btn change_invoice_status" %>
+<% elsif invoice.state == "current" || invoice.state == "due" || invoice.state == "overdue" %>
+  <%= link_to "Mark Paid", "/change_status?id=#{invoice.id}&state=paid", :class => "btn change_invoice_status" %>
+  <%= link_to "Promised to Pay", "/change_status?id=#{invoice.id}&state=promised_to_pay", :class => "btn change_invoice_status" %>
+<% elsif invoice.state == "paid" %>
+  <span class="label label-success">Paid</span>
+<% else %>
+  <%= link_to "Mark Paid", "/change_status?id=#{invoice.id}&state=paid", :class => "btn change_invoice_status" %>
+<% end %>

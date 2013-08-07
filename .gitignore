@@ -9,6 +9,8 @@
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
+/db/schema.rb
+db/schema.rb
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
@@ -22,6 +24,7 @@
 
 #GitHub .gitignore
 
+*.swp
 *.rbc
 *.sassc
 .sass-cache

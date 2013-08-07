@@ -1,158 +1,46 @@
 
-  <div class="input-prepend pull-left">
-    
-    <form accept-charset="UTF-8" id="searchForm">
-     <button type="button" class="btn disabled" id="search-button"><i class="icon-search"></i></button>
-     
-    <input type="text" class="span9" placeholder="Search an invoice by invoice number, customer account, first name or last name", id="search_field_invoices" name="search" autocomplete="off"/>
-    <button type="button" class="btn btn-danger reset-search-button-invoices"/><i class="icon-remove-sign"></i></button>
-  </div>
- 
-   
-<table class="table table-hover" id="invoices-table">
-  <tr>
-  	  <th>#</th>
-  	  <th>Organization Name and Customer Name </th>
-	  <th>Invoice number</th>	  
-	  <th>Amount</th>
-	  <th>Status</th>
-	  <th></th>
-  </tr>
-  
-  <% index = 0 %>
-  <% @invoice_details.each do |invoice_details| %>
-  <tr data-link="<%= invoice_details_path(invoice_details[:invoice].id)%>">
-  <td><%= index = index + 1 %></td>
-  <td><%= invoice_details[:customer].organization_name + ' / ' +invoice_details[:customer].first_name + ' ' + invoice_details[:customer].last_name %></td>
-  <td><%= invoice_details[:invoice].number %></td>
-  <td>$<%= invoice_details[:invoice].amount.to_i %></td>
-  <td>Due</td>
-    <td><i class="icon-chevron-right"></i></td>
-  </tr>
+<div class="input-prepend pull-left">
+  <%= form_tag ({}), ({:id => "searchForm"}) do %>
+   <button type="button" class="btn disabled" id="search-button"><i class="icon-search"></i></button>
+   <input type="text" class="span9" placeholder="Search an invoice by invoice number, customer account, first name or last name", id="search_field_invoices" name="search" autocomplete="off"/>
+   <button type="button" class="btn btn-danger reset-search-button-invoices"/><i class="icon-remove-sign"></i></button>
   <% end %>
-  
-</table>
+</div>
+
+<%= render :partial => "all_invoices", :locals => {:invoices => @invoices, :list_type => :all} %>
 
 </div>
+
 <div class="clearfix">
 </div>
 
-<div class="modal hide fade" id="modal1">
-<div class="form-horizontal">
-  <%= form_for :invoice, url: '/invoice_create', :class => "form-horizontal" do |f|%>
-
-  <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4>Add invoice</h4>
-          
-	<div class="input-prepend control-group">
-		<%= f.label :amount, :class => "control-label" %>
-		<div class="controls">
-		    <span class="add-on">$</span>
-			<%= f.text_field :amount, :class => "input-xlarge amount", :placeholder => "Amount" %>
-		</div>
-	</div>
-	
-	<div class="control-group">
-		<%= f.label :due_date, :class => "control-label" %>
-		<div class="controls">
-			<%= f.text_field :due_date, :class => "datepicker input-xlarge", :placeholder => "Due date" %>
-		</div>
-	</div>
-	
-	<div class="control-group">
-		<%= f.label :customer_id, :class => "control-label" %>
-		<div class="controls">
-			<%= f.text_field :customer_id, :class => "input-xlarge", :placeholder => "Customer id" %>
-		</div>
-	</div>
-		
-  </div>
-  
-  <div class="modal-footer">
-      <button type="button" class="btn btn-danger span2 pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      <%= submit_tag("Add", :class => "btn btn-info span2 pull-right") %>
-
-  </div>
-  
-  <% end %>  <!-- #form end -->
-</div>
-</div>
-<br>
-<!-- Filter-->
- 
+<%= render :partial => "some_weird_modal" %>
 
 <!-- Static Example of Table -->
+<!--
 <div class="span12"><button type="button" class="btn btn-success disabled pull-right"><i class=" icon-ok-sign icon-white"></i> Mark as PAID</button><br><br> 
- 
-<table class="table table-hover table-striped">
-  <tr>
-	  <th>#</th>
-	  <th>Organization Name</th>
-	  <th>Invoice Number</th>
-	  <th>Amount</th>
-	  <th>Status</th>
-  </tr>
-  <tr>
-	  <td>1</td>
- 	  <td>Bloom Brothers</td>
-	  <td>000190</td>
-	  <td>$805.00</td>
-	  <td>DUE</td>
-  </tr>
-  <tr>
-	  <td>2</td>
-	  <td>Samantha Lynch</td>
-	  <td>000283</td>
-	  <td>$645.00</td>
-	  <td>DUE</td>
-  </tr>
-  <tr>
-	  <td>3</td>
-	  <td>Soft Warehouse Source Inc.</td>
-	  <td>000233</td>
-	  <td>$1945.00</td>
-	  <td>SENT</td>
-  </tr>
- 
-</table> 
-<br>
+-->
+
+<h3 class="span12">Unpaid Invoices</h3>
+<div class="span12">
+  <%= render :partial => "all_invoices", :locals => {:invoices => @unpaid_invoices, :list_type => :unpaid} %>
+</div>
+
+<br />
 
 <!-- Static Example of Table with selected row -->
-<button type="button" class="btn btn-success pull-right"><i class=" icon-ok-sign icon-white"></i> Mark as PAID</button><br><br> 
- 
-<table class="table table-hover table-striped">
-    <tr>
-  	  <th>#</th>
-  	  <th>Organization Name</th>
-  	  <th>Invoice Number</th>
-  	  <th>Amount</th>
-  	  <th>Status</th>
-    </tr>
-    <tr>
-  	  <td>1</td>
-  	  <td>Bloom Brothers</td>
-  	  <td>000190</td>
-  	  <td>$805.00</td>
-  	  <td>DUE</td>
-    </tr>
-    <tr class="success">
-  	  <td>2</td>
-  	  <td>Samantha Lynch</td>
-  	  <td>000283</td>
-  	  <td>$645.00</td>
-  	  <td>DUE</td>
-    </tr>
-    <tr>
-  	  <td>3</td>
-  	  <td>Soft Warehouse Source Inc.</td>
-  	  <td>000233</td>
-  	  <td>$1945.00</td>
-  	  <td>SENT</td>
-    </tr>
+<!--
+<button type="button" class="btn btn-success pull-right"><i class=" icon-ok-sign icon-white"></i> Mark as PAID</button>
+-->
+<br /><br />
 
-</table>
-<br>
+<div class="span12">
+  <h3>Paid Invoices</h3>
+</div>
+<div class="span12">
+  <%= render :partial => "all_invoices", :locals => {:invoices => @paid_invoices, :list_type => :paid } %>
+</div>
+<br />
 <!-- Basic example of payment info. This has to be a modal after clicking Marked as Paid. --> 
 
 <div class="row">
