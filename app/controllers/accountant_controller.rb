@@ -1,29 +1,32 @@
 class AccountantController < ApplicationController
 
- def index
- 	if  params[:search]
- 		invoices = Invoice.search(params[:search], current_user)
- 	else 
- 		invoices = Invoice.all.where(:company_id => current_user.company_id)
- 	end 
- 	
- 	@invoice_details = []
- 	invoices.each do |invoice|
- 		details = {}
- 		details[:customer] = invoice.customer
- 		details[:invoice] = invoice
- 		@invoice_details.append(details)
- 	end
- 	render 'index'
- end
- 
- def search_ajax
-     if  params[:search]
- 		invoices = Invoice.search(params[:search], current_user)
- 	else 
- 		invoices = Invoice.all.where(:company_id => current_user.company_id)
- 	end 
- 	
+  def index
+  	if  params[:search]
+      @invoices = Invoice.search(params[:search], current_user)
+ 	  else
+ 		  @invoices = Invoice.where(:company_id => current_user.company_id)
+ 	  end
+
+    @paid_invoices   = Invoice.get_paid_for_company(current_user.company_id)
+    @unpaid_invoices = Invoice.get_unpaid_for_company(current_user.company_id)
+
+	
+#    @invoice_details = []
+    #invoices.each do |invoice|
+      #details = {}
+      #details[:customer] = invoice.customer
+      #details[:invoice] = invoice
+      #@invoice_details.append(details)
+    #end
+  end
+
+  def search_ajax
+    if  params[:search]
+      invoices = Invoice.search(params[:search], current_user)
+    else
+ 		  invoices = Invoice.all.where(:company_id => current_user.company_id)
+    end
+	
  	@invoice_details = []
  	invoices.each do |invoice|
  		details = {}
@@ -39,24 +42,27 @@ class AccountantController < ApplicationController
  end
  
  def invoice_details
-  	 @invoice_id = params[:invoice_id]
+   @invoice_id = params[:invoice_id]
 	 @invoice = Invoice.find_by_id(@invoice_id)
-	 
+
 	 @customer_id = @invoice.customer_id
 	 @customer = Customer.find_by_id(@customer_id)
-	 
+
 	 @company = Company.find_by_id(current_user.company_id)
 	 @services = Invoice.index_services(@invoice)
-	 
+
 	 @invoice_latest_activity = @invoice.latest_activity[0]
-	 if @invoice_latest_activity 
-    	 @latest_activity = ((Time.now - @invoice_latest_activity[:sent_at])/1.day).to_i
+   begin
+     if @invoice_latest_activity 
+       @latest_activity = ((Time.now - @invoice_latest_activity[:sent_at])/1.day).to_i
      else
-         @latest_activity = ((Time.now - @invoice[:date])/1.day).to_i
+       @latest_activity = ((Time.now - @invoice[:date]) / 1.day.to_i).to_i
      end
-	 
+   rescue => e
+     @latest_activity = 10
+   end
+
 	 @action_details = []
-	 
 	 @actions = @invoice.actions
 	 @actions.each do |action|
 	     details = {}
@@ -65,15 +71,16 @@ class AccountantController < ApplicationController
          details[:customer] = Customer.find_by_id(action.customer_id)	     
 		 @action_details.append(details)
      end
-     
-     #activity feed
-        _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
 
-	    _invoice_action_id = @invoice.actions.select(:id) 
-	    _invoice_action_id_array = []
-	    _invoice_action_id.each do |action_id|
+     #activity feed
+     _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
+
+	   _invoice_action_id = @invoice.actions.select(:id) 
+	   _invoice_action_id_array = []
+	   _invoice_action_id.each do |action_id|
 	        _invoice_action_id_array.append(action_id.id)
-	    end
+	 end
+
 	    _activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id)
 	    @invoice_activities = []
 	    _activities.each do |act|   
@@ -174,83 +181,77 @@ class AccountantController < ApplicationController
 			end
 		end
    end
-   
-   
+
+
    def invoice_create
-        if params[:send] || params[:draft]
-        _post = params[:invoice]
-        ok = true
-        @services = []
-		@services[1] = Service.new
-		@invoice = Invoice.new(:date => Time.now, :customer_id => _post[:customer_id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => _post[:due_date], :amount => _post[:amount])
-		@invoice.number = Invoice.generate_number
-		if !@invoice.save
-			ok = false
-		else
-			if s1 = _post[:service_1]
-			    existing_service = Service.search_name_value(s1[:service_name], s1[:service_value])
-			    if existing_service != nil
-				    @services[1] = existing_service
-				    @rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @services[1].id, :qty => s1[:service_qty])
-		        	if !@rel.save 
-		        		ok = false
-		        	end
-			    else
-	        	@services[1] = Service.new(:name => s1[:service_name], :value => s1[:service_value], :company_id => @invoice[:company_id])
-	        		if @services[1].save
-	        			@rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @services[1].id, :qty => s1[:service_qty])
-	        			if !@rel.save 
-	        				ok = false
-	        			end
-	        		else
-	        		 ok = false
-	        		end
-	        	 end
-			 end
-			
-		end
-		
-		
-        
-        if ok
-           if params[:send]
-           redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
-#            EmailAction.send_email(_post,@invoice.id,current_user) 
-           end
-           if params[:draft]
-           redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice saved as draft."
-           end
+     if params[:send] || params[:draft]
+        _post           = params[:invoice]
+        ok              = true
+        @services       = []
+        @services[1]    = Service.new
+        @invoice        = Invoice.new(:date => Time.now, :customer_id => _post[:customer_id],
+                                      :user_id => current_user.id, :company_id => current_user.company_id,
+                                      :due_date => _post[:due_date], :amount => _post[:amount])
+        @invoice.number = Invoice.generate_number
+
+        if !@invoice.save
+          ok = false
         else
-#            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :alert => "Error creating invoice ! "
- 			@customer = Customer.find_by_id(_post[:customer_id])
- 			render 'customer_new_invoice'
+          if s1 = _post[:service_1]
+              existing_service = Service.search_name_value(s1[:service_name], s1[:service_value])
+
+              if existing_service.present?
+                @services[1] = existing_service
+                @rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @services[1].id, :qty => s1[:service_qty])
+
+                if !@rel.save
+                  ok = false
+                end
+              else
+                @services[1] = Service.new(:name => s1[:service_name], :value => s1[:service_value], :company_id => @invoice[:company_id])
+                if @services[1].save
+                  @rel = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => @services[1].id, :qty => s1[:service_qty])
+                  if !@rel.save
+                    ok = false
+                  end
+                else
+                  ok = false
+                end
+              end
+           end
+        end
+
+        if ok
+          if params[:send]
+            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice created. An email with details was sent to customer."
+            # EmailAction.send_email(_post,@invoice.id,current_user) 
+          end
+          if params[:draft]
+            redirect_to customer_details_path(:customer_id => _post[:customer_id]), :notice => "Success! Invoice saved as draft."
+          end
+        else
+          # redirect_to customer_details_path(:customer_id => _post[:customer_id]), :alert => "Error creating invoice ! "
+          @customer = Customer.find_by_id(_post[:customer_id])
+          render 'customer_new_invoice'
         end
      end
-
- 
    end
-   
+
    def invoices_import_export
-   
 	   respond_to do |format|
 	   	format.html {render 'invoices_import_export'}
 	   end
-   
    end
-   
-   def invoice_import
-   	     @errors = []
-	    
-	    if(params[:file])
-	 		@errors = Invoice.import(params[:file], current_user)
 
-	    
-	    
-		    if @errors != []
+   def invoice_import
+     @errors = []
+	   if(params[:file])
+	 		 @errors = Invoice.import(params[:file], current_user)
+		   if @errors != []
 		        string = ""
 		        @errors.each do |error|
 		        string += "Row " + error[:row].to_s+ ": " + error [:message] + "\n"
-		        end
+          end
 		 		redirect_to invoices_import_export_path, :notice => string
 		 	else
 		 	 	redirect_to invoices_import_export_path, :notice => "Invoices imported."

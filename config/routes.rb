@@ -26,7 +26,6 @@ post '/admin', to: 'user#create', :as => "user_create"
 get '/employee/:id/edit', to: 'user#edit', :as => "user_edit"
 patch '/employee/:id', to: 'user#update', :as => "user_update"
 
-
 #view customers
 
 get '/customers', to: 'salesman#index', :as => "customers"
@@ -45,6 +44,8 @@ get '/customer_details/:customer_id/edit', to: 'salesman#customer_edit', :as => 
 patch '/customer_details/:customer_id', to: 'salesman#customer_update', :as => "customer_update"
 post "/customer_details/send_sms", to: "salesman#send_sms"
 get '/customers/save_call', to: "salesman#save_call", :as => "customer_save_call"
+match "/next_status" => "invoices#next_status", via: [:get, :post]
+match "/change_status" => "invoices#change_status", via: [:get, :post]
 
 #customer import
 post '/customers/import_export', to: 'user#customer_import', :as => "import_customers"

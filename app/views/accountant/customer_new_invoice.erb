@@ -1,29 +1,24 @@
 <div class="row"> 
  	<div class="span6">
-			<h4>Invoice #0094</h4>
-			<!--
-		<ul class="nav nav-pills">
-     	  <li><a href="#">Accounts List</a></li>	
-   		  <li><a href="#">Bloom Brothers</a></li>
-		  <li class="disabled"><a href="#">Create Invoice</a></li>
-		   
-		</ul> -->
+			<h4>Create Invoice #0094</h4>
+		<!--<h4>Edit Invoice #0094</h4>-->
 	</div>
-
+	<!-- First State -->
 	<div class="span6"><button type="button" id="invoice_submit" class="btn btn-success pull-right" type="button">Save &nbsp;<i class="icon-circle-arrow-right icon-white"></i></button>  
+ 	</div> 
+	<!-- Second State 	
+	<div class="span4"> 
+		<button type="button" id="invoice_submit" class="btn pull-right" type="button">Save</button>  
  	</div>
+	<div class="span2">
+		<button type="button" id="invoice_submit" class="btn btn-success btn-block pull-right" type="button">Send &nbsp;<i class="icon-circle-arrow-right icon-white"></i></button>  
+	</div>	
+	-->	
 	<div class="span12">
 		<legend></legend>
 	</div> 
 </div> 
-<br>
-<!--
-<div class="row">
-	<div class="span12 text-center">
-	<h3>Invoice #0094</h3>
-	</div>
-</div>  
- -->
+<br> 
  
 <form accept-charset="UTF-8" id="new_invoice" action=<%= customer_create_invoice_path(@customer) %> method="post">
 <!-- 
@@ -37,7 +32,7 @@
 <div class ="row">
 	<div class ="span3 well-white">
  	    <h4>Invoice To</h4>  
-		<p>Bloom Brothers</p>
+		<p>[Company Name here]</p>
 		<p><%= @customer.first_name + ' ' + @customer.last_name %></p>
 		<p><%= @customer.address1 %> <%= @customer.zip_code %></p>
 		<p><%= @customer.city + ' ' + @customer.state %></p>
@@ -47,8 +42,7 @@
  	<div class ="span3 well-white">
 		<h4>Invoice From</h4>
 		<p><%= @company.name %></p>
-		<p>Michael Moore</p>
-		<p><%= @company.address %>, <%= @company.zip_code %></p>
+ 		<p><%= @company.address %>, <%= @company.zip_code %></p>
 		<p><%= @company.city + ', ' + @company.country %></p>
 	</div>
   
@@ -59,8 +53,8 @@
 	<%= fields_for :invoice do |i| %>
 		<!--<%= i.label :due_date, :class => "control-label" %> -->
 		<div class="controls">
- 			<input type="text" class="input-medium" value="30/07/2013" ><br> 
-			<input type="text" class="input-mini"  placeholder="Net" >&nbsp; 
+ 			<input type="text" class="input-medium" value="[current date]" placeholder="Issued Date" ><br> 
+			<input type="text" class="input-mini"  value="[Net 30]" placeholder="Net 30" >&nbsp; 
 			<%= i.text_field :due_date, :class => "datepicker input-small", :placeholder => "Due date" %>
 			<%= i.hidden_field :amount %>
 			<%= i.hidden_field :number_of_services, :value => 0 %>  
@@ -139,9 +133,9 @@
   
 <div class="row">
 	<div class="control-group span5">
-		<label class="control-label" for="textarea">Invoice note for Customer:</label>
+		<label class="control-label" for="textarea">[Invoice note for Customer:]</label>
 		<div class="controls">
-	    <textarea class="input-xlarge span12" id="textarea" placeholder="This text is going to be found on the invoice." rows="4"></textarea>
+	    <textarea class="input-xlarge span12" id="textarea" placeholder="[This text is going to be found on the invoice.]" rows="4"></textarea>
 		</div>
 	</div>
 </div>

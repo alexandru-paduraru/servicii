@@ -1,0 +1,40 @@
+<h6 class="muted">OPEN INVOICES</h6>
+<table class="table table-hover table-striped">
+	      <tr>
+	      	<th>Invoice number </th>
+	      	<th>Issue date</th>
+	      	<th>Due date</th>
+	      	<th>Amount</th>
+	      	<th>Latest Activity</th>
+	      	<th>Status</th>
+          <th>Action</th>
+	      </tr>
+	      <% if @open_invoices.any? %>
+		      <% @open_invoices.each do |invoice| %>
+            <tr data-link="<%= invoice_details_path(invoice[:id])%>">
+              <td> <%= invoice.number %></td>
+              <td> <%= invoice.date.strftime("%m/%d/%Y") rescue "N/A" %></td>
+              <td> <%= invoice.due_date.strftime("%m/%d/%Y") rescue "N/A" %> </td>
+              <td>$ <%= invoice.amount %></td>
+              <td><%= invoice.latest_activity[0].action_type.upcase rescue "" %></td>
+              <td class="invoice_status_<%= invoice.id %>"><%= invoice.show_state %></td>
+              <td class="change_status_<%= invoice.id %>">
+                <%= render :partial => "invoices/change_status", :locals => {:invoice => invoice} %>
+              </td>
+            </tr>
+		      <% end %>
+          <tr>
+            <td colspan="5"></td>
+            <td class="span3">
+              <span class="amount_info">Total:</span>
+              <span class="total_due_amount">$<%= @total_due_amount %></span>
+            </td>
+          </tr>
+		  <% else %>
+        <tr><td colspan="6"><%= render :partial => "partials/no_data" %></td>
+        <!--
+        <tr><td colspan="6">No invoice existent. <%= link_to "Please add one", "/customers/#{params[:id]}/invoices/new" %></td></tr>
+        -->
+		  <% end %>
+</table>
+
