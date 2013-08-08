@@ -88,8 +88,8 @@ gem 'bootstrap-wysihtml5-rails'
 gem 'public_activity'
 
 #for undo actions
-# gem 'paper_trail', "2.7.2"#, github: 'airblade/paper_trail'
-gem "paper_trail", :git => "https://github.com/airblade/paper_trail.git", :branch => "rails4"
-
+# gem 'paper_trail', "2.7.2" #, github: 'airblade/paper_trail'
+gem "paper_trail" , :git => "https://github.com/airblade/paper_trail.git", :branch => "master"
+ 
 #for xml builder
 gem 'builder'
