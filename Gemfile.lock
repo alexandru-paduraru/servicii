@@ -34,10 +34,6 @@ GIT
       activerecord (~> 4.0)
       railties (~> 4.0)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 180ce66eade4feb97ccff24d9cf95fdf3bef7e48
 GEM
   remote: https://rubygems.org/
   specs:
