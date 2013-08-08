@@ -394,4 +394,18 @@ $(document).ready(function() {
 	   });
 	
 	$("[rel='tooltip']").tooltip();
+	$(".edit-btn").hover(function(){
+    	  $(this).animate({
+        	  width: '44'
+    	  },70, function(){
+            $(this).html('<i class="icon-edit"></i> Edit');	  
+    	  });  
+	}, function(){
+	    $(this).html('<i class="icon-edit"></i>');
+    	$(this).animate({
+        	 width: '18'
+    	  },70);  
+	});
+	
+	
 });

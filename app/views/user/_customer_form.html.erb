@@ -1,0 +1,56 @@
+      <div class="controls controls-row">
+		    <%= f.text_field :organization_name, :class => "span3", :placeholder => "Organization name" %>
+	      <%= f.text_field :email, :class => "span3", :placeholder => "Email" %>
+      </div> 
+	        <div class="controls controls-row">
+	 	    <%= f.text_field :first_name, :class => "span2", :placeholder => "First name" %>
+		    <%= f.text_field :last_name, :class => "span2", :placeholder => "Last name" %>
+	        <%= f.text_field :phone, :class => "span2", :placeholder => "Phone" %>
+	        </div><br>
+			
+			<p class="test-info">Address Info</p>
+	        <div class="controls controls-row">
+	        <%= f.text_field :state, :class => "span2", :placeholder => "State" %>
+	        <%= f.text_field :city, :class => "span2", :placeholder => "City" %>
+	        <%= f.text_field :zip_code, :class => "span2", :placeholder => "Zipcode" %>
+
+	        </div>
+	        <div class="controls controls-row">
+	        <%= f.text_field :address1, :class => "span3", :placeholder => "Address1" %>
+	        <%= f.text_field :address2, :class => "span3", :placeholder => "Address2" %>
+	        </div><br>
+	       	
+			<p>Other Info</p>
+	        <div class="controls controls-row">
+	        <%= f.text_field :industry, :class => "span3", :placeholder => "Industry" %>
+	        <%= f.text_field :company_size, :class => "span2", :placeholder => "Company size" %>
+	        </div><br>
+			<!--
+		    <div class="controls controls-row">
+	        <%= f.text_area :description, :class => "span7", :placeholder => "Description", :rows => "3" %>
+	        </div>
+	        -->
+	        
+	        
+	        
+      <!--  
+      <div class="span3 pull-right actions well">
+      	<h5>Last contact: - </h5>
+	      <h5 class="muted">Account actions:</h5>
+	      <a href="#" class="btn btn-success btn-large btn-block disabled"><i class="icon-headphones icon-white"></i> Call</a>
+		<%= link_to '#', :class => "btn btn-info btn-large btn-block disabled" do %>
+			<i class="icon-envelope icon-white"></i> Send email
+		<% end %>
+		
+		<a href="#" class="btn btn-warning btn-large btn-block disabled"><i class="icon-comment icon-white"></i> Message</a>
+    <% if @customer.sent_to_collector%>
+        <a href="#" class="btn btn-danger btn-large btn-block disabled"><i class="icon-exclamation-sign icon-white"></i> Sent to collector</a>
+    <% else %>
+	    <%= link_to send_to_collector_path(@customer.id), :class => "btn btn-danger btn-large btn-block disabled" do %>
+	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
+	    <% end %>
+	<% end %>
+      </div>
+    	  -->
+  
+<!-- end row   -->

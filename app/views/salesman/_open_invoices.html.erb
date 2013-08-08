@@ -9,27 +9,29 @@
 	      	<th>Status</th>
           <th>Action</th>
 	      </tr>
-	      <% if @open_invoices.any? %>
-		      <% @open_invoices.each do |invoice| %>
-            <tr data-link="<%= invoice_details_path(invoice[:id])%>">
-              <td> <%= invoice.number %></td>
-              <td> <%= invoice.date.strftime("%m/%d/%Y") rescue "N/A" %></td>
-              <td> <%= invoice.due_date.strftime("%m/%d/%Y") rescue "N/A" %> </td>
-              <td>$ <%= invoice.amount %></td>
-              <td><%= invoice.latest_activity[0].action_type.upcase rescue "" %></td>
-              <td class="invoice_status_<%= invoice.id %>"><%= invoice.show_state %></td>
-              <td class="change_status_<%= invoice.id %>">
-                <%= render :partial => "invoices/change_status", :locals => {:invoice => invoice} %>
-              </td>
-            </tr>
-		      <% end %>
-          <tr>
-            <td colspan="5"></td>
-            <td class="span3">
-              <span class="amount_info">Total:</span>
-              <span class="total_due_amount">$<%= @total_due_amount %></span>
-            </td>
-          </tr>
+	      <% if @open_invoices %>
+    	      <% if @open_invoices.any? %>
+    		      <% @open_invoices.each do |invoice| %>
+                <tr data-link="<%= invoice_details_path(invoice[:id])%>">
+                  <td> <%= invoice.number %></td>
+                  <td> <%= invoice.date.strftime("%m/%d/%Y") rescue "N/A" %></td>
+                  <td> <%= invoice.due_date.strftime("%m/%d/%Y") rescue "N/A" %> </td>
+                  <td>$ <%= invoice.amount %></td>
+                  <td><%= invoice.latest_activity[0].action_type.upcase rescue "" %></td>
+                  <td class="invoice_status_<%= invoice.id %>"><%= invoice.show_state %></td>
+                  <td class="change_status_<%= invoice.id %>">
+                    <%= render :partial => "invoices/change_status", :locals => {:invoice => invoice} %>
+                  </td>
+                </tr>
+    		      <% end %>
+              <tr>
+                <td colspan="5"></td>
+                <td class="span3">
+                  <span class="amount_info">Total:</span>
+                  <span class="total_due_amount">$<%= @total_due_amount %></span>
+                </td>
+              </tr>
+              <% end %>
 		  <% else %>
         <tr><td colspan="6"><%= render :partial => "partials/no_data" %></td>
         <!--

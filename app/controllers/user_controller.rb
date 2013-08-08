@@ -206,7 +206,7 @@ class UserController < ApplicationController
         @customer[:account] = Customer.generate_number
         @customer[:user_id] = current_user.id
         if @customer.save
-           redirect_to customers_path
+           redirect_to customer_details_path(@customer), :notice => "Customer was created!"
         else
            render 'customer_new'
         end
