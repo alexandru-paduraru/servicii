@@ -356,7 +356,7 @@ tr[data-link]{
 }
 
 th.header { 
-    background-image: url('bg.gif');     
+    background-image: url("bg.gif");     
     cursor: pointer; 
     font-weight: bold; 
     background-repeat: no-repeat; 
@@ -371,11 +371,11 @@ th.headerSortUp, th.headerSortDown{
     color:#5f5f5f;
 }
 th.headerSortUp { 
-    background-image: url('asc.gif');  
+    background-image: url("asc.gif");  
 } 
 
 th.headerSortDown{ 
-    background-image: url('desc.gif'); 
+    background-image: url("desc.gif"); 
 }
 
 #info-message{
