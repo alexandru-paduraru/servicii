@@ -16,14 +16,17 @@
 <div class="clearfix"></div>
 
 <div class="table-div">
-    <table class="table table-hover table-striped" id="customers-table">
-      <tr>
-    	  <th>#</th>
-    	  <th>Organization Name and Contact Name</th>
-    	  <th>Email</th>
-    	  <th>Open invoices</th>
-    	  <th></th>
-      </tr>
+    <table class="table table-hover table-striped tablesorter" id="customers-table">
+      <thead>
+          <tr>
+        	  <td>#</td>
+        	  <th><div rel="tooltip" title="Click to sort">Organization Name and Contact Name</div></th>
+        	  <th><div rel="tooltip" title="Click to sort by Email">Email</div></th>
+        	  <th><div rel="tooltip" title="Click to sort by Open Invoices">Open Invoices</div></th>
+        	  <td></td>
+          </tr>
+      </thead>
+      <tbody>
       <% index = 0 %>
       <% if @customers_count < 4 %>
         <% @customer_detail.each do |details| %>
@@ -44,8 +47,11 @@
           </td>
         </tr>
       <% end %>
+      </tbody>
     </table>
+    <h4 class="muted" id="info-message"></h4>
 </div>
+
 
 <br><br> 
 

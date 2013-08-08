@@ -48,7 +48,7 @@ class SalesmanController < ApplicationController
             end
         else
 	       #customers = Customer.all.where(:company_id => current_user.company_id, :active => true)
-	       render text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit'
+	       render text: 'There are no customers matching your search. Please change your search status.'
 	    end
 
 	end
