@@ -1,8 +1,8 @@
 require 'date'
 class Invoice < ActiveRecord::Base
   include PublicActivity::Model
-  tracked except: [:update,:destroy],  owner: ->(controller,model) {controller && controller.current_user}
-
+  tracked except: [:destroy],  owner: ->(controller,model) {controller && controller.current_user}
+  has_paper_trail
   attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state
 
   belongs_to :company
