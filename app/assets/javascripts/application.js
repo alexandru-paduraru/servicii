@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.tablesorter.js
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-wysihtml5

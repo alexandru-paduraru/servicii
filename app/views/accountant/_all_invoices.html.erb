@@ -1,14 +1,16 @@
-<table class="table table-hover" id="invoices-table">
+<table class="table table-hover" id=<%= table_id %>>
+  <thead>
   <tr>
     <th>#</th>
-    <th>Organization Name and Customer Name</th>
-	  <th>Invoice number</th>
-	  <th>Amount</th>
-	  <th>Status</th>
+    <th><div rel="tooltip" title="Click to sort">Organization Name and Customer Name</div></th>
+    <th><div rel="tooltip" title="Click to sort by Invoice Number">Invoice Number</div></th>
+    <th><div rel="tooltip" title="Click to sort by Amount">Amount</div></th>
+    <th><div rel="tooltip" title="Click to sort by Status">Status</div></th>
     <th>Action</th>
-	  <th></th>
+    <th></th>
   </tr>
-
+  </thead>
+  <tbody>
   <% index = 0 %>
   <% invoices.each do |invoice| %>
     <tr data-link="<%= invoice_details_path(invoice.number)%>">
@@ -21,5 +23,6 @@
       <td><i class="icon-chevron-right"></i></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
 

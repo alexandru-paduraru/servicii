@@ -3,6 +3,7 @@ $(document).ready(function() {
 	index = 1
 	amount = 0;
 	
+	
 	$('#search_field').keyup(function(){
         val = $('#search_field').val().trim();
         if(val != ''){
@@ -16,33 +17,52 @@ $(document).ready(function() {
         }
     });
     
+    $('.tablesorter').tablesorter();
+    $('#invoices-table').tablesorter({
+        headers:{
+            0:{
+                sorter: false
+            },
+            5:{
+                sorter:false
+            },
+            6:{
+                sorter: false
+            }
+        }
+    });
+    
     function requestSearch(){
-        $('#server').html('');
         var serializedData = $('#searchForm').serialize();
+        var table = $('.tablesorter');
         request = $.ajax({
     	url: '/customers/search',
     	type: 'get',
     	dataType: 'JSON',
     	data: serializedData,
         success: function(data){
+           showTable(table);
            clearTable($('#customers-table'));
            $.each(data, function(i, val){
+                var count = data.length;
 	      		var customer = data[i].customer;
 	      		var open_invoices = data[i].open_invoices;
 	      		insertRowTableCustomers(i+1, customer.organization_name, customer.first_name, customer.last_name, customer.email, customer.account, open_invoices, customer.id);
+	      		if(i==count-1){
+    	      	    $(".tablesorter").trigger("update"); 
+	      		}
       		});		
   		},
   		error: function(xhr){
       		clearTable($('#customers-table'));
-      		displayNoSearchResult(xhr.responseText);
+      		//displayNoSearchResult(xhr.responseText);
+      		hideTable(table, xhr.responseText);
       		return;
       	}
     });
     }
     
-    function clearTable(table){
-        table.find("tr:gt(0)").remove();
-    }
+
     function insertRowTableCustomers(rowNumber, organization_name, first_name, last_name, email, account, open_invoices, id){
         td_number = '<td>' + rowNumber + '</td>';
 		organization = '<td>' + organization_name + ' / ';
@@ -52,7 +72,7 @@ $(document).ready(function() {
 		open_invoices = '<td>' + open_invoices + '</td>'; 
 		icon = '<td><i class="icon-chevron-right"/></td>';
 		actions = '<td><a href="/customer_details/' + id +'"><span class="label label-info"><i class="icon-eye-open"></i> Details</span></a> <a href="/delete/'+ id +'"> <span class="label label-important">Archive</span> </a></td>';
-		$('#customers-table tr:last').after('<tr data-link="/customer_details/' + id + '">' + td_number + organization + customer_name + email + open_invoices + icon + '</tr>');
+		$('#customers-table tbody').append('<tr data-link="/customer_details/' + id + '">' + td_number + organization + customer_name + email + open_invoices + icon + '</tr>');
 		$("tr[data-link]").click(function() {
     		window.location = $(this).data("link");
         });
@@ -73,37 +93,49 @@ $(document).ready(function() {
     
     function requestSearchInvoices(){
         var serializedData = $('#searchForm').serialize();
+        table = $('#invoices-table');
         request = $.ajax({
     	url: '/invoices/search',
     	type: 'get',
     	dataType: 'JSON',
     	data: serializedData,
         success: function(data){
-           clearTable($('#invoices-table'));
+           showTable(table);
+           clearTable(table);
            $.each(data, function(i, val){
+	      		count = data.length;
 	      		var customer = data[i].customer;
 	      		var invoice = data[i].invoice;
-	      		insertRowTable(i+1, customer.organization_name, customer.first_name, customer.last_name, invoice.number, invoice.amount, invoice.id);
+	      		insertRowTable(i+1, customer.organization_name, customer.first_name, customer.last_name, invoice.number, invoice.amount, invoice.id, invoice.state);
+	      		if(i==count-1){
+    	      	    table.trigger("update"); 
+	      		}
       		});		
   		},
   		error: function(xhr){
-      		clearTable($('#invoices-table'));
-      		displayNoSearchResult(xhr.responseText);
+      		clearTable(table);
+      		//displayNoSearchResult(xhr.responseText);
+      		hideTable(table, xhr.responseText);
       		return;
       	}
     });
     }
     
-    function insertRowTable(rowNumber, organization_name, first_name, last_name, number, amount, id){
+    function insertRowTable(rowNumber, organization_name, first_name, last_name, number, amount, id, state){
+        var state_string = "";
+        if(state){
+            state_string = state;
+        }
         td_number = '<td>' + rowNumber + '</td>';
 		organization = '<td>' + organization_name + ' / ';
 		customer_name = first_name + ' ' + last_name + '</td>'; 
 		number = '<td>' + number + '</td>';
 		amount = '<td>$' + amount + ',00</td>';
-		status = '<td>Due</td>';
+		status = '<td>'+ state_string  +'</td>';
 		icon = '<td><i class="icon-chevron-right"/></td>';
+		action = '<td></td>';
 		actions = '<td><a href="/customer_details/' + id +'"><span class="label label-info"><i class="icon-eye-open"></i> Details</span></a> <a href="/delete/'+ id +'"> <span class="label label-important">Archive</span> </a></td>';
-		$('#invoices-table tr:last').after('<tr data-link="/invoice_details/'+ id +'">' + td_number + organization + customer_name + number + amount + status + icon + '</tr>');
+		$('#invoices-table tbody').append('<tr data-link="/invoice_details/'+ id +'">' + td_number + organization + customer_name + number + amount + status + action + icon + '</tr>');
 		$("tr[data-link]").click(function() {
     		window.location = $(this).data("link");
         });
@@ -164,10 +196,28 @@ $(document).ready(function() {
     }
     
     
+    function clearTable(table){
+      //  alert('intrat in ' + table.id);
+         table.find("tbody tr").remove();
+        $(".tablesorter tbody").children().remove();
+    }
+    
     function displayNoSearchResult(message){
        // message = "No results have been found for your search! :(";
-        $("#customers-table tr:last, #invoices-table tr:last,#invoices-collections-table tr:last").after('<tr><td colspan=5><h4 class="muted" style="text-align:center">' + message + '</h4></td></tr>');
+       // $("#customers-table tbody, #invoices-table tbody, #invoices-collections-table tbody").append('<tr><td colspan=5><h4 class="muted" style="text-align:center">' + message + '</h4></td></tr>');
+        $(".tablesorter").css('opacity','0');
+        $("#info-message").html(message).fadeIn();
     }
+    
+    function hideTable(table,message){
+        table.css('opacity','0');
+        $("#info-message").html(message).fadeIn();
+    };
+    
+    function showTable(table){
+        table.css('opacity','1');
+        $("#info-message").hide();
+    };
     
     $('.reset-search-button').click(function(){
         $('#search_field').val('');
@@ -342,6 +392,20 @@ $(document).ready(function() {
 	        });
 		
 	   });
+	
+	$("[rel='tooltip']").tooltip();
+	$(".edit-btn").hover(function(){
+    	  $(this).animate({
+        	  width: '44'
+    	  },70, function(){
+            $(this).html('<i class="icon-edit"></i> Edit');	  
+    	  });  
+	}, function(){
+	    $(this).html('<i class="icon-edit"></i>');
+    	$(this).animate({
+        	 width: '18'
+    	  },70);  
+	});
 	
 	
 });
