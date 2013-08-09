@@ -33,12 +33,36 @@
 		             <%= render 'layouts/top_menu' %>
 		         </ul>
               <ul class="nav pull-right">
-	              <% if current_user[:job] == 1 %>
-              	  <li><a href="/"></a></li>
-				  <li class="dropdown"><a href="#">Settings</a></li>
-	              <% else%>
-	              <li><a href="/user">Employee</a></li>
-	              <% end %>
+              	  <li class="dropdown">
+                  	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  	     Settings<b class="caret"></b>
+                  	  </a>
+                  	  <ul class="dropdown-menu">
+                  	  
+<!--                ADMIN MENU               -->
+                  	  
+                  	  <% if current_user[:job] == 1 %>
+			              <li><a href="#"><i class="icon-file-text"></i> Billing Settings</a></li>
+			              <li><a href="#"><i class="icon-user"></i> Profile Settings</a></li>
+			              <li>
+    			              <%= link_to employees_settings_path do %>
+    			                 <i class="icon-group"></i> Users Settings
+    			              <% end %>
+			              </li>
+			              <li><a href="/invoices/import_export"><i class="icon-sort"></i> Import/Export invoices</a></li>
+			              <li class="divider"></li>
+			              <li> 
+    			              <%= link_to company_edit_path(current_user[:company_id]) do %>
+    			              <i class="icon-gear"></i> Edit company
+    			              <% end %>
+			              </li>
+			          <% else %>
+			          
+<!-- 			      USER MENU                 -->
+			             <li><a hre="#"><i class="icon-gear"></i> Edit account</a></li>
+			          <% end %>
+			          </ul>
+			      </li>
 	              <li><a href="/logout">Logout</a></li>
               </ul>
               <% else %>

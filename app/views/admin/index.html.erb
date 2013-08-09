@@ -26,8 +26,11 @@
     <%= render_activity(activity,params = {:page => 'admin'}) %>
     <% end %>
 <% else %>
-   	<%= render :partial => "partials/no_data" %>
+   	<%= render partial: "partials/no_data" %>
+
 <% end %>
+
+
 
   	<!--
 	<ul>
@@ -100,6 +103,7 @@
 	</div>
 <div class="span6">
 	<div class="span4">
+<!--  Nu se pune span in span... in interiorul unui span se pune un row, apoi in acel row poti pune iar span, daca dai inspect element pe div-uri in pagina ai sa vezi cum ies din cointainer :)	 -->
 		<div class="alert alert-info text-center ">
 		<a href ="#"><strong>Heads up!</strong> Add company logo!</a> 
 		</div>
@@ -198,42 +202,5 @@
 	</div>
 </div> 
  
-  
-<!-- <h4>Employees</h4>  
-<table class="table table-hover table-striped">
-<tr>
-	<th>#</th>
-	<th>First Name</th>
-	<th>Last Name</th>
-	<th>Email</th>
-	<th>Jobs</th>
-	<th>Actions</th>
-</tr>
-<% vector = ["Salesman", "Accountant", "Collector"] %>
-
-<% if (@users_details)%>
-<% @users_details.each do |user_details| %>
-<tr>
-	<td><%= user_details[:id] %></td>
-	<td><%= user_details[:first_name] %></td>
-	<td><%= user_details[:last_name] %></td>
-	<td><%= user_details[:email] %></td>
-	<td>
-		<ul>
-		<% user_details[:job].each do |job|%>
-		<li>
-			<%= vector[job[:job_id]-2] %>
-		</li>
-		<% end %>
-		</ul>
-	</td>
-	<td><%= link_to 'Edit', user_edit_path(user_details[:id]) %> </td>
-</tr>
-<% end %>
-<% else %>
-	<p>No employees in database</p>
-<% end %>
-</table>
 
 </div>
-In pagina de User Settings/Admin -->

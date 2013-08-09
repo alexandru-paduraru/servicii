@@ -25,6 +25,7 @@ post '/admin', to: 'user#create', :as => "user_create"
 #edit users
 get '/employee/:id/edit', to: 'user#edit', :as => "user_edit"
 patch '/employee/:id', to: 'user#update', :as => "user_update"
+get '/employees', to: 'admin#employees_settings', :as => "employees_settings"
 
 #view customers
 
@@ -66,7 +67,7 @@ post '/customers/:customer_id/invoices', to: 'accountant#invoice_create_test', :
 post '/customers/:customer_id/invoices/new/services/new', to: 'accountant#create_service', :as => "create_service_for_invoice"
 
 #invoice details
-get '/invoice_details/:invoice_id', to: 'accountant#invoice_details', :as => "invoice_details"
+get '/invoice_details/:invoice_number', to: 'accountant#invoice_details', :as => "invoice_details"
 get '/invoice_pay/:invoice_id', to: 'accountant#invoice_pay', :as => "invoice_pay"
 get '/invoices/search', to: 'accountant#search_ajax', :as => "invoice_search"
 post "/invoice_details/send_sms", to: "accountant#send_sms", :as => "send_sms_invoice"
@@ -88,18 +89,18 @@ get '/send_to_collector/:customer_id', to: 'user#send_to_collector', :as => "sen
 
 
 #for creating a note on an invoice
-post '/invoice_details/:invoice_id/add_note', to: 'accountant#add_note', :as => "add_note"
+post '/invoice_details/:invoice_number/add_note', to: 'accountant#add_note', :as => "add_note"
 
 post '/send_email_invoice/:invoice_id', to: 'accountant#send_email', :as => "send_email_invoice"
 
 
 #invoice template
 
-get '/invoice_template/:invoice_id', to: 'invoicetemplate#invoice_template', :as => "invoice_template"
-get '/invoice_pdf/:invoice_id', to: 'invoicetemplate#invoice_pdf', :as => "invoice_pdf"
-get 'invoice_xml/:invoice_id', to: 'invoicetemplate#invoice_xml', :as => "invoice_xml"
-get 'invoice_csv/:invoice_id', to: 'invoicetemplate#invoice_csv', :as => "invoice_csv"
-get 'invoice_xls/:invoice_id', to: 'invoicetemplate#invoice_xls', :as => "invoice_xls"
+get '/invoice_template/:invoice_number', to: 'invoicetemplate#invoice_template', :as => "invoice_template"
+get '/invoice_pdf/:invoice_number', to: 'invoicetemplate#invoice_pdf', :as => "invoice_pdf"
+get 'invoice_xml/:invoice_number', to: 'invoicetemplate#invoice_xml', :as => "invoice_xml"
+get 'invoice_csv/:invoice_number', to: 'invoicetemplate#invoice_csv', :as => "invoice_csv"
+get 'invoice_xls/:invoice_number', to: 'invoicetemplate#invoice_xls', :as => "invoice_xls"
 
 #adding undo to actions
 post 'versions/revert', to: 'version#revert', :as => "revert_version"

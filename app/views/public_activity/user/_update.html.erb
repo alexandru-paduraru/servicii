@@ -25,9 +25,9 @@
     		<small class="pull-right muted">
 <!--         		adding revert to actions only for admin -->
             <% if current_user.job == User::ADMIN %>
-                <%= link_to revert_version_path(:id => activity.trackable.versions.last, :activity_id => activity.id), :method => :post do %>
-                    <span class="label"><i class="icon-undo"></i></span>
-                <% end %>
+            <a class="revert_action" id="<%= activity.id %>">
+                <span class="label"><i class="icon-undo"></i></span>
+            </a>
             <% end %>
             &nbsp
             <% if  (time/1.day).to_i > 0 %>
@@ -86,5 +86,23 @@
                 <div class="span5"> <legend></legend></div> 
             <% end %> 
    </div>
+   
+   <!--   modal for reverting action -->
+<div id="revert-action-modal-<%= activity.id %>" class="modal hide fade in" style="display: none;">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Revert action</h3>
+  </div>
+    <div class="modal-body">
+        Are you sure you want to change back user <b><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %></b>'s data ?
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <%= link_to revert_version_path(:id => activity.trackable.versions.last, :activity_id => activity.id), :method => :post , :class => "btn btn-danger" do %>
+   		 <i class="icon-undo"></i> Revert
+      <% end %> 
+    </div>
+</div>
 		
    <% end %>

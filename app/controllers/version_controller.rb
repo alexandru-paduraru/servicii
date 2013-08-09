@@ -7,6 +7,13 @@ class VersionController < ApplicationController
         end
         if PaperTrail::Version.find_by_id(params[:id])
             @version = PaperTrail::Version.find_by_id(params[:id])
+# if i am updating an invoice that has the previous state set to nil
+#             if @version.item_type == "Invoice"
+#                 if @version.reify.state == nil
+#                     @version.reify.state = "sent"
+#                 end
+#             end
+# return to previous version
             @version.reify.save!
         end
         redirect_to :back# , :notice => "Undid #{@version.event}."

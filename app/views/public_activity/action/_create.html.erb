@@ -44,7 +44,7 @@
         		<u><%= ' ' + customer.first_name + ' ' +customer.last_name %></u> 
         		<% end %>
         		's
-        		<%= link_to invoice_details_path(invoice.id), :class => "muted" do  %>
+        		<%= link_to invoice_details_path(invoice.number), :class => "muted" do  %>
         		<u>Invoice <%= invoice.number %></u>
         		<% end %>
         		</p>	
