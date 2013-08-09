@@ -26,8 +26,11 @@
     <%= render_activity(activity,params = {:page => 'admin'}) %>
     <% end %>
 <% else %>
-   	<%= render :partial => "partials/no_data" %>
+   	<%= render partial: "partials/no_data" %>
+
 <% end %>
+
+
 
   	<!--
 	<ul>

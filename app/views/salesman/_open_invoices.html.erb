@@ -9,10 +9,11 @@
 	      	<th>Status</th>
           <th>Action</th>
 	      </tr>
+
 	      <% if @open_invoices %>
     	      <% if @open_invoices.any? %>
     		      <% @open_invoices.each do |invoice| %>
-                <tr data-link="<%= invoice_details_path(invoice[:id])%>">
+                <tr data-link="<%= invoice_details_path(invoice[:number])%>">
                   <td> <%= invoice.number %></td>
                   <td> <%= invoice.date.strftime("%m/%d/%Y") rescue "N/A" %></td>
                   <td> <%= invoice.due_date.strftime("%m/%d/%Y") rescue "N/A" %> </td>
@@ -32,6 +33,7 @@
                 </td>
               </tr>
               <% end %>
+
 		  <% else %>
         <tr><td colspan="6"><%= render :partial => "partials/no_data" %></td>
         <!--
