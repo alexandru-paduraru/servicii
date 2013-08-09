@@ -11,7 +11,7 @@
 
   <% index = 0 %>
   <% invoices.each do |invoice| %>
-    <tr data-link="<%= invoice_details_path(invoice.id)%>">
+    <tr data-link="<%= invoice_details_path(invoice.number)%>">
       <td><%= index = index + 1 %></td>
       <td><%= invoice.customer.organization_name + ' / ' +invoice.customer.first_name + ' ' + invoice.customer.last_name %></td>
       <td><%= invoice.number %></td>

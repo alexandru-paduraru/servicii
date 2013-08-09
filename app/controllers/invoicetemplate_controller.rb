@@ -3,8 +3,8 @@ layout "invoicetemplate"
 
    
    	def invoice_template
-       	invoice_id = params[:invoice_id]
-       	@invoice = Invoice.find_by_id(invoice_id)
+       	invoice_number = params[:invoice_number]
+       	@invoice = Invoice.find_by_number(invoice_number)
        	@customer = @invoice.customer
        	@company = @invoice.company
        	@user = User.find_by_id(@invoice.user_id)	
@@ -14,8 +14,8 @@ layout "invoicetemplate"
 	end
 	
 	def invoice_pdf
-        invoice_id = params[:invoice_id]
-       	@invoice = Invoice.find_by_id(invoice_id)
+        invoice_number = params[:invoice_number]
+       	@invoice = Invoice.find_by_number(invoice_number)
        	@customer = @invoice.customer
        	@company = @invoice.company
        	@user = User.find_by_id(@invoice.user_id)	
@@ -34,8 +34,8 @@ layout "invoicetemplate"
     end
     
     def invoice_xml
-        invoice_id = params[:invoice_id]
-        @invoice = Invoice.find_by_id(invoice_id)
+        invoice_number = params[:invoice_number]
+        @invoice = Invoice.find_by_number(invoice_number)
         @customer = @invoice.customer
         @company = @invoice.company
         @services = Invoice.index_services(@invoice)
@@ -48,8 +48,8 @@ layout "invoicetemplate"
     end
     
     def invoice_csv
-        invoice_id = params[:invoice_id]
-        @invoice = Invoice.find_by_id(invoice_id)
+        invoice_number = params[:invoice_number]
+        @invoice = Invoice.find_by_number(invoice_number)
         @customer = @invoice.customer
         respond_to do |format|
             format.csv {send_data(Invoice.to_csv(@customer,@invoice))}
@@ -57,8 +57,8 @@ layout "invoicetemplate"
     end
     
     def invoice_xls
-        invoice_id = params[:invoice_id]
-        @invoice = Invoice.find_by_id(invoice_id)
+        invoice_number = params[:invoice_number]
+        @invoice = Invoice.find_by_number(invoice_number)
         @customer = @invoice.customer
         @company = @invoice.company
         @services = Invoice.index_services(@invoice)

@@ -19,6 +19,7 @@
 //= require calls
 //= require salesman
 //= require accountant
+//= require admin
 //= require invoice_dev
 //= require script
 //= require invoice
