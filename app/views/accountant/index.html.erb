@@ -43,6 +43,166 @@
   <%= render :partial => "all_invoices", :locals => {:invoices => @paid_invoices, :list_type => :paid, :table_id => "bla" } %>
 
 <br />
+
+
+<!-- Example of a Table in Financials. --> 
+<br /><br /><br /><br />
+<h6 class="muted">6 ACTIVE INVOICES</h6>
+<table class="table table-hover table-striped">
+  <tr>
+ 	  <th>[Doar Organization Name sau Contact Name]</th>
+	  <!-- Doar cand Custumerul nu e Companie atunci punem Persoana de contact ca Persoana Fizica. Daca exista si Organization Name si Contact Name, atunci lasam decat Organization Name -->   
+</div>	   
+ 	  <th>Invoice #</th> 
+	  <th>Issue Date</th>
+	  <th>Amount</th>
+	  <th>Status</th>
+	  <th>Action</th>
+	  <th></th>
+  </tr>
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+	  <td>0018</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1000</td>
+	  <td class="text-error">PTP <small>(0d left)</small></td>
+	  <td><button class="btn btn-danger btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td>
+</td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+	  <td>0018</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1000</td>
+	  <td class="text-error">OVERDUE</td>
+	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td>
+</td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Barbara Lauterbach</td>
+	  <td>0029</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1900</td>
+	  <td>DUE</td>
+	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td>
+	  <td><i class="icon-chevron-right"></i></span></td>
+  </tr> 
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+	  <td>0019</td>
+	  <td>21 Jul 2013</td>
+	  <td>$2000</td>
+	  <td class="text-error">PARTIAL</td>
+	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+	  <td>0017</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1200</td>
+	  <td class="text-success">PAID</td>
+	  <td><button class="btn btn-small" type="button"><i class="icon-refresh"></i> UNDO</button></td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Bloom Brothers</td>
+	  <td>0021</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1000</td>
+	  <td>SENT</td>
+	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+
+   
+</table> 
+<br /><br /> 
+
+
+<!-- Example of a Table in Financials. --> 
+<br /><br /><br /><br />
+<h6 class="muted">6 PAID INVOICES</h6>
+<table class="table table-hover table-striped">
+  <tr>
+ 	  <th>[Doar Organization Name sau Contact Name]</th>
+	  <!-- Doar cand Custumerul nu e Companie atunci punem Persoana de contact ca Persoana Fizica. Daca exista si Organization Name si Contact Name, atunci lasam decat Organization Name -->   
+</div>	   
+ 	  <th>Invoice #</th> 
+	  <th>Issue Date</th>
+	  <th>Amount</th>
+	  <th>Status</th>
+	  <th>Action</th>
+	  <th></th>
+  </tr>
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+	  <td>0018</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1000</td>
+	  <td class="text-success">PAID</td>
+	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td>
+</td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+	  <td>0018</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1000</td>
+	  <td class="text-success">PAID</td>
+	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td>
+</td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Barbara Lauterbach</td>
+	  <td>0029</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1900</td>
+	  <td class="text-success">PAID</td>
+	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td>
+	  <td><i class="icon-chevron-right"></i></span></td>
+  </tr> 
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+	  <td>0019</td>
+	  <td>21 Jul 2013</td>
+	  <td>$2000</td>
+	  <td class="text-success">PAID</td>
+	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+	  <td>0017</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1200</td>
+	  <td class="text-success">PAID</td>
+      <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td>	  
+ 	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Bloom Brothers</td>
+	  <td>0021</td>
+	  <td>21 Jul 2013</td>
+	  <td>$1000</td>
+	  <td class="text-success">PAID</td>
+	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td>
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+</table> 
+<br />
+<div class="row">
+	<div class="span12">
+ 	<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download PDF</button> 
+ 	<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download CSV</button>
+ 	<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download XML</button><br><br>
+ 	</div>	
+</div> 
+<br /><br /><br />
 <!-- Basic example of payment info. This has to be a modal after clicking Marked as Paid. --> 
 
 <div class="row">
@@ -65,12 +225,27 @@
   	<div class="span4 pull-right">
   		<select class="span3 pull-right">
 		 	<option>Check</option>
-		 	<option>2</option>
-		  	<option>3</option>
-		 	<option>4</option>
-		 	<option>5</option>
+		 	<option>Bank Transfer</option>
+		  	<option>Credit</option>
+		 	<option>Cash</option>
+		 	<option>Debit</option>
+		 	<option>ACH</option>
+		 	<option>Credit Card</option>
+		 	<option>Online Payment</option> 
 		</select>
-		  
+		<!-- Credit card options  
+  		<select class="span3 pull-right">
+		 	<option>VISA</option>
+		 	<option>MASTERCARD</option>
+		  	<option>AMEX</option>
+		 	<option>DISCOVER</option>
+		 	<option>DINERS</option>
+		 	<option>EUROCARD</option>
+		 	<option>JCB</option>
+		 	<option>NOVA</option>
+		 	<option>Credit Card</option>
+		</select> 	 
+		  end Credit card options --> 
  		<div class="input-append date pull-right" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
    			<input class="span2" size="16" type="text" value="20/07/2013">
    		 	<span class="add-on"><i class="icon-calendar"></i></span>
@@ -86,13 +261,19 @@
 		<label class="checkbox"> 
 			<input type="checkbox"><small class="text-center">Send Bloom Brother a payment notification email &nbsp;&nbsp; <a> edit default email </a></small>
 		</label> <br> 	-->
- 		<div class="form-actions">
-			 <button type="submit" class="btn btn-success pull-right">Save</button>
-			 <button type="button" class="btn">Cancel</button> 
+ 		<div class="form-actions"> 
+ 			<div class="span1">
+			 <button type="button" class="btn pull-left">Cancel</button> 
+			</div> 
+ 			<div class="span4">
+			 <button type="submit" class="btn btn-danger pull-right">Unpaid</button>
+		 	</div>
+			<div class="span2">
+			 <button type="submit" class="btn btn-success pull-right">Record Payment</button>
+		 	</div> 
 		</div>
 	</div>		
 </div>
-
 </div>
-
+<!-- End Basic example of payment info. This has to be a modal after clicking Marked as Paid. --> 
 
