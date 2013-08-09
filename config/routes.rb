@@ -25,6 +25,7 @@ post '/admin', to: 'user#create', :as => "user_create"
 #edit users
 get '/employee/:id/edit', to: 'user#edit', :as => "user_edit"
 patch '/employee/:id', to: 'user#update', :as => "user_update"
+get '/employees', to: 'admin#employees_settings', :as => "employees_settings"
 
 #view customers
 

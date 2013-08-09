@@ -1,27 +1,16 @@
-
-<% @user_details = User.details(current_user[:id])%>
-			<% is_admin = current_user[:job] %>
-            <% if is_admin == 1 %>
-				<%= render 'layouts/top_admin_menu' %>			
-            	<%= render 'layouts/top_salesman_menu'%>
-            	<%= render 'layouts/top_accountant_menu'%>
-            	<%= render 'layouts/top_collector_menu'%>
-
-            <% end %>
-            <% @user_jobs = @user_details[:job]%>
-            <% if @user_jobs %>
-	            <% @user_jobs.each do |user_job|%>
-		            <% if user_job.job_id == 2 %>
-			          <%=  render 'layouts/top_salesman_menu' %>
-		            <% end %>
-		            <% if user_job.job_id == 3 %>
-			            <%= render 'layouts/top_accountant_menu' %>
-		            <% end %>
-		            <% if user_job.job_id == 4 %>
-			            <%= render 'layouts/top_collector_menu' %>
-		            <% end %>
-	            <% end %>
-            <% end %>
+<% is_admin = current_user[:job] %>
+<% if is_admin == 1 %>
+	<%= render 'layouts/top_admin_menu' %>			
+<% end %>
+<% if current_user[:salesman] || is_admin == 1 %>
+          <%=  render 'layouts/top_salesman_menu' %>
+<% end %>
+<% if current_user[:salesman] || is_admin == 1 %>
+          <%= render 'layouts/top_accountant_menu' %>
+<% end %>
+<% if current_user[:salesman] || is_admin == 1 %>
+          <%= render 'layouts/top_collector_menu' %>
+<% end %>
    
 
     

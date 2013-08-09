@@ -56,4 +56,13 @@ class AdminController < ApplicationController
 		end
 		 render 'index'
 	end
+	
+	def employees_settings
+	   @users_details = []
+	   @users = User.index_by_company(current_user.company_id)
+	   @users.each do |user|
+	       @user_details = User.details(user.id)
+	       @users_details.append(@user_details)
+	   end
+	end
 end
