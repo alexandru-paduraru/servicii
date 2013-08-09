@@ -27,9 +27,10 @@
     		<small class="pull-right muted">
 <!--         		adding revert to actions only for admin -->
             <% if current_user.job == User::ADMIN %>
-                <%= link_to revert_version_path(:id => activity.trackable.versions.last, :activity_id => activity.id), :method => :post do %>
+            
+                <a class="revert_action" id="<%= activity.id %>">
                     <span class="label"><i class="icon-undo"></i></span>
-                <% end %>
+                </a>
             <% end %>
             &nbsp
             <% if  (time/1.day).to_i > 0 %>
@@ -44,7 +45,7 @@
 
     		</small> 
     		<p>Updated 
-    		    <%= link_to invoice_details_path(activity.trackable.id), :class => "muted" do  %>
+    		    <%= link_to invoice_details_path(activity.trackable.number), :class => "muted" do  %>
         		<u>Invoice <%= activity.trackable.number %></u>
         		<% end %>
     		for <%= link_to customer_details_path(customer.id), :class => "muted" do %>
@@ -66,5 +67,29 @@
             <% end %>
        
    </div>
+   
+      <!--   modal for reverting action -->
+<div id="revert-action-modal-<%= activity.id %>" class="modal hide fade in" style="display: none;">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Revert action</h3>
+  </div>
+    <div class="modal-body">
+        Are you sure you want to change customer's  <b><%= ' ' + customer.first_name + ' ' + customer.last_name %></b> invoice # <b><%= activity.trackable.number %> </b> status         
+        <% if a = activity.trackable.versions.last %>
+            <% previous_version = a.reify %>
+             from<%= activity.trackable.state %>
+		    to  <%= previous_version.state %>
+		<% end %>      
+         ?
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <%= link_to revert_version_path(:id => activity.trackable.versions.last, :activity_id => activity.id), :method => :post , :class => "btn btn-danger" do %>
+   		 <i class="icon-undo"></i> Revert
+      <% end %> 
+    </div>
+</div>
 		
    <% end %>

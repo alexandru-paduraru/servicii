@@ -42,8 +42,8 @@ class AccountantController < ApplicationController
  end
  
  def invoice_details
-   @invoice_id = params[:invoice_id]
-	 @invoice = Invoice.find_by_id(@invoice_id)
+     @invoice_number = params[:invoice_number]
+	 @invoice = Invoice.find_by_number(@invoice_number)
 
 	 @customer_id = @invoice.customer_id
 	 @customer = Customer.find_by_id(@customer_id)
@@ -56,7 +56,7 @@ class AccountantController < ApplicationController
      if @invoice_latest_activity 
        @latest_activity = ((Time.now - @invoice_latest_activity[:sent_at])/1.day).to_i
      else
-       @latest_activity = ((Time.now - @invoice[:date]) / 1.day.to_i).to_i
+       @latest_activity = ((Time.now - @invoice[:date]) / 1.day).to_i
      end
    rescue => e
      @latest_activity = 10
@@ -278,8 +278,8 @@ class AccountantController < ApplicationController
    end
    
    def add_note
-   	invoice_id = params[:invoice_id]
-   	invoice = Invoice.find_by_id(invoice_id)
+   	invoice_number = params[:invoice_number]
+   	invoice = Invoice.find_by_number(invoice_number)
    	customer = invoice.customer
    	note = params[:text_note]
    	text_note = note[:body]
