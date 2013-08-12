@@ -218,7 +218,7 @@
 	</div>
 
 	<div class="span5">
-    <%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+    <%= form_tag add_note_path(@invoice.number), :method => 'post' do %>
       <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
       <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
          <i class="icon-plus-sign icon-white"></i> Note</button>
