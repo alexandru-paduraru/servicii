@@ -286,12 +286,12 @@ class AccountantController < ApplicationController
    	if text_note
    		action = Action.new(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "note", :text_note => text_note)
    	    if action.save
-			redirect_to invoice_details_path(invoice_id), :notice => "Note added successfully."
+			redirect_to invoice_details_path(invoice.number), :notice => "Note added successfully."
 		else
-			redirect_to invoice_details_path(invoice_id), :alert => "Something went wronf. Try again. "
+			redirect_to invoice_details_path(invoice.number), :alert => "Something went wronf. Try again. "
 		end
 	else
-	        redirect_to invoice_details_path(invoice_id), :alert => "Note must contain something."
+	        redirect_to invoice_details_path(invoice.number), :alert => "Note must contain something."
 	end
    end
 
