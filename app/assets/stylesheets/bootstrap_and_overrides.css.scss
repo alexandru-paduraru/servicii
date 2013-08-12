@@ -385,4 +385,11 @@ th.headerSortDown{
 .revert_action{
     cursor: pointer;
     text-decoration: none;
-    }
+}
+
+#editCustomerForm{
+    display: none;
+}
+.customer-details{
+    min-height: 430px;
+}

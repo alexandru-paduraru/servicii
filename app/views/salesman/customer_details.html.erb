@@ -1,113 +1,30 @@
-<% if @customer %>
-   <div class="row">
-        <div class="span5" style="display:none">
-	        <legend class="muted">Customer details
-		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right" do %>
-		       		<i class="icon-edit"></i> Edit</a>
-				<% end %> 
-	        </legend>
-	         <address>
-	            <strong><%= @customer.organization_name %></strong><br><br>
-			    <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
-			    <%= @customer.email %><br>
-			    <%= @customer.phone %>
-			    </address>
-			     
-			    <address>
-			    <strong>Address</strong><br>
-			    <%= @customer.state %>
-			    <%= @customer.city %>
-			    <!-- <%= @customer.zip_code %> -->
-			    <%= @customer.address1 %>
-			    <% if @customer.address2 %>
-			     <%= @customer.address2%>
-			    <% end %>
-			    </address>
-			    
-			    <address>
-			    <strong>Description</strong><br>
-			    <%= @customer.description %><br>
-				<strong>Sent to collector:</strong> 
-			    <% if @customer.sent_to_collector %>
-			    	 Yes
-	            <% else %>
-	            	 No
-	            <% end %>
-			    </address>
-				
-        </div>
-		
-	<!--	
-       <div class="span8">
-		  <ul class="breadcrumb">
-		  <li>
-		  <%= link_to 'Accounts List',salesman_path %> 
-		    <span class="divider">/</span>
-		  </li>
-		    <% if @customer.organization_name %>
-		    <li class="active"><%= @customer.organization_name %></li>
-		    <% else %>
-		    <li class="active">Home</li>
-		    <% end %>
- 		  </ul>
-		</div>
- 	 -->
-	<!-- Navigation  
- 		<div class="span12"> 
- 			<ul class="nav nav-pills">
-	  		  <li><a href="#">Accounts List &nbsp; </a></li>
- 			  <li class="disabled"><a href="#">Bloom Brothers</a></li> 
-			</ul> 
-			<legend></legend>
-		</div> 
-	 end Navigation -->
-	 
-         <div class="span3 pull-right actions ">
-           	<h5>Last contact:
-        	 <% if @last_action %>
-        	   <% if @last_action == 0 %>
-        	        today 
-        	   <% else %>
-  	  	   		<%= @last_action %> days ago
-        	 	<% end %>
-        	 <% end %>
-        	 </h5>
-			 
-	  	 
-			 <div class="well">
-  	  <!-- <p>Invoice Flow Actions</p>
- 	  
-        <%= link_to "#", :class => "btn btn-success btn-primary btn-block", :id => "select-call" do %>
-          <i class="icon-headphones icon-white"></i> Call
-        <% end %>
-  -->	 <%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success btn-block" do %><i class="icon-plus-sign icon-white"></i> Add Invoice 
- 			<% end %>
-        <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
-  	     	 <i class="icon-envelope icon-white "></i> Send Email
-  	    <% end %>
-  <!--		
-  		<a href="#" class="btn btn-warning btn-primary btn-block" id="send_sms_btn"><i class="icon-comment icon-white"></i> Send SMS Text</a>
+	<div class="row customer-details">
+	
+	  <div class="span6" id="editCustomerForm">	   
+        <%= form_for @customer, url: customer_update_path, html: { :class => "form"} do |f| %>
+        <p>
+        <button type="button" class="btn btn-danger" id="closeEditForm"><i class="icon-remove icon-white"></i></button>
+        <button type="submit" class="btn btn-success pull-right"><i class="icon-ok icon-white"></i> Update</button>
+        </p>
+            <% if @customer.errors.any? %>
+    			<div class="alert alert-error">
+    			<h4>Errors:</h4>
+    			<ul>
+    				<% @customer.errors.full_messages.each do |message| %>
+    				<li><%= message %></li>
+    				<% end %>
+    			</ul>
+    			</div>
+    		<% end %>
+    		<%= render :partial => "user/customer_form", :locals => {:customer => @customer, :f => f} %>    
+          <% end %>
+    </div>
 
-      <% if @customer.sent_to_collector%>
-        <a href="#" class="btn btn-danger btn-primary btn-block disabled">
-          <i class="icon-exclamation-sign icon-white"></i> Sent to collector
-        </a>
-      <% else %>
-  	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-primary btn-block" do %>
-  	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
-  	    <% end %>
-  	<% end %>
-  -->
-       	 </div>
-      </div> 
-		
- 		<div class="row">
-		  <div class="span6 well-white">
- 		  <div class="span6"> 
- 
-		       <%= link_to customer_edit_path(@customer.id), :class => "btn pull-right edit-btn" do %>
-		       		<i class= "icon-edit"></i></a>
-				<% end %>  
+
+	  <div class="span6">
+		  <button type="button" class="btn pull-right" id="editCustomerButton"><i class="icon-edit"></i> Edit</button>
+		  <div id="detailsCustomerForm">
+		        <input type="hidden" value="<%= @customer.id %>" id="customerId"/>
 	        	<address>		
     	           	<h1 class="organization-name"><%= @customer.organization_name %>
     	           	</h1>
@@ -147,9 +64,49 @@
 			    </dl>
 			    </address>
 			</div>
-		</div>
-    </div>   
-</div> 
+			</div>
+	 
+</div>
+
+         <div class="span3 pull-right actions ">
+           	<h5>Last contact:
+        	 <% if @last_action %>
+        	   <% if @last_action == 0 %>
+        	        today 
+        	   <% else %>
+  	  	   		<%= @last_action %> days ago
+        	 	<% end %>
+        	 <% end %>
+        	 </h5>
+			 
+	  	 
+			 <div class="well">
+  	  <!-- <p>Invoice Flow Actions</p>
+ 	  
+        <%= link_to "#", :class => "btn btn-success btn-primary btn-block", :id => "select-call" do %>
+          <i class="icon-headphones icon-white"></i> Call
+        <% end %>
+  -->	 <%= link_to customer_new_invoice_path(@customer.id) , :class => "btn btn-success btn-block" do %><i class="icon-plus-sign icon-white"></i> Add Invoice 
+ 			<% end %>
+        <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
+  	     	 <i class="icon-envelope icon-white "></i> Send Email
+  	    <% end %>
+  <!--		
+  		<a href="#" class="btn btn-warning btn-primary btn-block" id="send_sms_btn"><i class="icon-comment icon-white"></i> Send SMS Text</a>
+
+      <% if @customer.sent_to_collector%>
+        <a href="#" class="btn btn-danger btn-primary btn-block disabled">
+          <i class="icon-exclamation-sign icon-white"></i> Sent to collector
+        </a>
+      <% else %>
+  	    <%= link_to send_to_collector_path(@customer.id) , :class => "btn btn-danger btn-primary btn-block" do %>
+  	     <i class="icon-exclamation-sign icon-white"></i> Send to collector
+  	    <% end %>
+  	<% end %>
+  -->
+       	 </div>
+      </div> 
+ 
 </div>
   
  <!-- end row   --> 
@@ -206,4 +163,5 @@
 
 </div>
 </div>
-<% end %> 
+</div>
+

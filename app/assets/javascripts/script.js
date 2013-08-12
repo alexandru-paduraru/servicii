@@ -407,5 +407,18 @@ $(document).ready(function() {
     	  },70);  
 	});
 	
+	$('#editCustomerButton').click(function(){
+	   $('#detailsCustomerForm').fadeOut('fast',function(){
+	       $('#editCustomerButton').hide();
+    	   $('#editCustomerForm').fadeIn();   
+	   });
+	   
+	});
+	$('#closeEditForm').click(function(){
+	   $('#editCustomerForm').fadeOut('fast',function(){
+    	   $('#editCustomerButton').show();
+    	   $('#detailsCustomerForm').fadeIn();   
+	   });
+	});
 	
 });

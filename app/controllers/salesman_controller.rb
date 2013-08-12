@@ -169,6 +169,11 @@ class SalesmanController < ApplicationController
 	
 	def customer_edit
 		@customer = Customer.find_by_id(params[:customer_id])
+		if @customer
+		      render :json => @customer
+		else
+		      render :text => "There is no user with this id", :status => 422 
+		end
 	end
 	
 	def customer_update
