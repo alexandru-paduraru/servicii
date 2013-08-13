@@ -1,7 +1,5 @@
-
-
 class UserController < ApplicationController
-
+	
 	def login
    respond_to do |format|
       format.html  {render 'login'}

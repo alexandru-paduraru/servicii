@@ -53,6 +53,7 @@ gem 'bootstrap-datepicker-rails'
 #gem for choosing date?
 gem 'american_date'
 
+gem 'breadcrumbs_on_rails'
 
 #gem for csv and excel conversion
 gem 'roo'

@@ -82,6 +82,11 @@
     <% else %>
       <div class="container container-login">
     <% end %>
+        <div class="breadcrumb-navigation">
+                <ul class="breadcrumb">
+                    <%= render_breadcrumbs :separator => ' / ' %>
+                </ul>
+        </div>
         <div class="content">
            <div class="row">
             <% if current_user && current_user.company_id != 0 %>

@@ -436,6 +436,7 @@ $(document).ready(function() {
     		   $('#detailsCustomerForm').fadeIn();   
     		   });
     		   response.html('');
+    		   response.hide();
   		},
   		error: function(xhr){
   		    var errors = $.parseJSON(xhr.responseText)

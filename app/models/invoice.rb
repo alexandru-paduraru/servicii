@@ -33,7 +33,13 @@ class Invoice < ActiveRecord::Base
 #         errors.add(:due_date, 'must be a valid date')
 #      end
 #    end
-
+    validate :due_date_should_be_after_issue_date
+    
+    def due_date_should_be_after_issue_date
+        return unless due_date and date
+        errors.add(:due_date, "must be after current date") unless
+            self.due_date >= self.date
+    end 
 
   DRAFT             = 1
   SENT              = 2
