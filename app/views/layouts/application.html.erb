@@ -85,7 +85,7 @@
         <div class="content">
            <div class="row">
             <% if current_user && current_user.company_id != 0 %>
-              <div class="span12">
+              <div class="span12" id="main-span">
 	            <% flash.each do |name, msg| %>
 		            <% if name == :notice %>
 		            	<div class="alert alert-success">

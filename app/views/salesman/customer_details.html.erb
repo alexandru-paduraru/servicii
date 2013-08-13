@@ -1,11 +1,15 @@
 	<div class="row customer-details">
 	
 	  <div class="span6" id="editCustomerForm">	   
-        <%= form_for @customer, url: customer_update_path, html: { :class => "form"} do |f| %>
+        <%= form_for @customer, url: customer_update_path, html: { :class => "form" } do |f| %>
         <p>
         <button type="button" class="btn btn-danger" id="closeEditForm"><i class="icon-remove icon-white"></i></button>
-        <button type="submit" class="btn btn-success pull-right"><i class="icon-ok icon-white"></i> Update</button>
+        <button type="button" class="btn btn-success pull-right" id="submitEditForm"><i class="icon-ok icon-white"></i> Update</button>
         </p>
+        <input type="hidden" name="customerId" value="<%= @customer.id %>"/>
+        <div class="alert alert-error" id="errorAjaxDiv">
+            
+        </div>
             <% if @customer.errors.any? %>
     			<div class="alert alert-error">
     			<h4>Errors:</h4>
