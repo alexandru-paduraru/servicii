@@ -8,8 +8,8 @@
 <!-- Activity Feed Calendar Filter -->
  	<div class="span2">
    		<div class="pull-right">
-   			<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-   			<input class="span2" size="16" type="text" value="20/07/2013">
+   			<div class="input-append date" data-date-format="dd-mm-yyyy">
+   			<input class="span2" type="text" value="20/07/2013">
    		 	<span class="add-on"><i class="icon-calendar"></i></span>
    			</div>
    	 	</div>  
@@ -100,76 +100,22 @@
 	   
 	<!-- Text input	-->
 	</fieldset>
-	</div>
-<div class="span6">
-	<div class="span4">
+	</div>	
+	
+<div class="row">	
+	<div class="span4"> 
 <!--  Nu se pune span in span... in interiorul unui span se pune un row, apoi in acel row poti pune iar span, daca dai inspect element pe div-uri in pagina ai sa vezi cum ies din cointainer :)	 -->
 		<div class="alert alert-info text-center ">
-		<a href ="#"><strong>Heads up!</strong> Add company logo!</a> 
+			<a href ="#"><strong>Heads up!</strong> Add company logo!</a> 
 		</div>
-	</div>  
-	<div class="span4"> 
-		<br>  
-	<h1 id="emphasis">Get everybody on board!</h1> 
-	<p>Simplify your invoice flow! Add now an <strong>account manager</strong>, a <strong>financial representative</strong> and a <strong>collecting agent</strong> with specific rights and responsabilities!</p> 
-		<!--	
-	<h4>Recent Activity</h4> <hr> 
-	<div class="media">
-	 	<a class="pull-left" href="#">
-		<img class="media-object img-rounded" img class="img-rounded" src="https://i0.wp.com/d3oaxc4q5k2d6q.cloudfront.net/m/c208b19f4374/img/default_avatar/32/user_blue.png?ssl=1">
-		</a>
-		<div class="media-body">
-			<strong>Kevin J. Liew</strong>
-			<i><small class="muted pull-right">1m ago</small></i></br>
-			<small class="muted" href="#">#collections</small>	
-		</div>
-	</div>
-	<div class="media">
-	 	<a class="pull-left" href="#">
-		<img class="media-object img-rounded" img class="img-rounded" src="https://i0.wp.com/d3oaxc4q5k2d6q.cloudfront.net/m/c208b19f4374/img/default_avatar/32/user_blue.png?ssl=1">
-		</a>
-		<div class="media-body">
-			<strong>Dolores W. Johnson</strong>
-			<i><small class="muted pull-right">1m ago</small></i></br>
-			<small class="muted" href="#">#collections</small>	 
-		</div>
-	</div>
-	<div class="media">
-		<a class="pull-left" href="#">
-		<img class="media-object img-rounded" img  src="https://secure.gravatar.com/avatar/c726f2dbeae8066ef58dd60b0df93c36?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2Fc208b19f4374%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32">
-		</a>
-		<div class="media-body">
-			<strong>Tracy J. Montgomery</strong>
-		 	<i><small class="muted pull-right">1m ago</small></i><br>
-			<small class="muted" href="#">#collections</small>	 
-		</div>
-	</div> 
-	<div class="media">
-		<a class="pull-left" href="#">
-		<img class="media-object img-rounded" img  src="https://secure.gravatar.com/avatar/412a6c617e80508547bc26dffa9afea2?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2Fc208b19f4374%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32">
-		</a>
-		<div class="media-body">
-			<strong>Shannon M. Calvert</strong>
-			<i><small class="muted pull-right">1m ago</small></i><br>
-			<small class="muted" href="#">#collections</small>	
-		</div>
-	</div>
-	<div class="media">
-		<a class="pull-left" href="#">
-		<img class="media-object img-rounded" img  src="https://secure.gravatar.com/avatar/412a6c617e80508547bc26dffa9afea2?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2Fc208b19f4374%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32">
-		</a>
-		<div class="media-body">
-			<strong>Shannon M. Calvert</strong>
-			<i><small class="muted pull-right">1m ago</small></i><br>
-			<small class="muted" href="#">#collections</small>	
-		</div>
- 	</div>-->
- 
- <br>
-	<button type="button" id="create_employee_button" class="btn btn-success btn-block pull-right"><i class="icon-plus icon-white "></i> Add employee</button>  
-	</div>
+	</div> <!-- end span4--> 
+	<div class="span4"><br> 
+		<h1>Get everybody on board!</h1> 
+		<p>Simplify your invoice flow! Add now an <strong>account manager</strong>, a <strong>financial representative</strong> and a <strong>collecting agent</strong> with specific rights and responsabilities!</p><br>   
+		<button type="button" id="create_employee_button" class="btn btn-success btn-block pull-right"><i class="icon-plus icon-white "></i> Add employee</button>  
+	</div><!-- end row -->
 		
-</div>
+
 </div>
 
 	<% end %> 
@@ -199,8 +145,7 @@
 	<div class="form-actions">
 		 <button type="submit" class="btn btn-success pull-right">Submit</button>
 		 <button type="button" class="btn">Cancel</button>
-	</div>
-</div> 
+	</div><!-- end form-actions -->
+</div><!-- end span6 --> 
  
-
-</div>
+ 
