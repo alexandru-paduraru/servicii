@@ -101,25 +101,10 @@ class SalesmanController < ApplicationController
 		 @invoices = @customer.invoices
      @open_invoices = @invoices
 
-#     @open_invoices = []
-     #@invoices.each do |invoice|
-             #open_invoice = {}
-             #open_invoice[:id] = invoice.id
-             #open_invoice[:due_amount] = invoice.amount
-             #open_invoice[:date] = invoice.date
-             #open_invoice[:due_date] = invoice.due_date
-             #open_invoice[:number] = invoice.number
-             #open_invoice[:latest_activity] = invoice.latest_activity[0]
-             #@open_invoices.append(open_invoice)
-     #end
-		
 		 @total_due_amount = 0
 		
      @total_due_amount = @open_invoices.sum(:amount)
-     #@open_invoices.each do |invoice|
-       #@total_due_amount += invoice[:due_amount]
-     #end
-		
+
 		 @actions = @customer.actions
 
          @action_details = []
@@ -174,9 +159,11 @@ class SalesmanController < ApplicationController
 	def customer_update
 		_post = params[:customer]
 		@customer = Customer.find_by_id(params[:customer_id])
-#         if @customer.update_attributes(:first_name => _post[:first_name],:last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code], :industry => _post[:industry], :company_size => _post[:company_size], :description => _post[:description])
         if @customer.update_attributes(_post)
-#             undo_link = view_context.link_to("undo",revert_version_path(@customer.versions.last), :method => :post)
+#saving the previous version to display in the activity feed
+            activity = PublicActivity::Activity.all.last
+            activity.pre_version_id = activity.trackable.versions.last.id
+            activity.save!
 			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
 		else
 			render 'customer_edit'
