@@ -42,7 +42,203 @@
   <% end %>
  
 </table>
+<br /><br /> 
 
+<!-- Example of Table inside dashboard page for collection -->   
+
+<h6 class="muted">4 ACTIVE CUSTOMERS</h6>
+<table class="table table-hover table-striped">
+  <tr>
+ 	  <th>[Doar Organization Name sau Contact Name]</th>  
+ 	  <th>Days Overdue</th>
+	  <th>Total Amount</th>
+	  <th>Last Contact</th>
+	  <th>Status</th>
+ 	  <th></th>
+  </tr>
+  <tr>
+ 	  <td>Bloom Brothers</td>
+ 	  <td>51 Days</td>
+	  <td>$3262</td>
+	  <td><i class="icon-envelope"></i> 3 Days ago </td>
+	  <td class="text-error">PTP <small>(0d left)</small></td> 
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Advanced Ideas Inc.</td>
+ 	  <td>65 Days</td>
+	  <td>$100</td>
+	  <td>@ 1 Day ago</td> 
+	  <td class="text-error">OVERDUE</td> 
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr> 
+  <tr>
+ 	  <td>Soft Warehouse Source Inc.</td>
+ 	  <td>41 Days</td>
+	  <td>$290</td>
+	  <td><i class="icon-headphones"></i> 3 Days ago </td>
+	  <td class="text-error">PARTIAL</td> 
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>Barbara Lauterbach</td>
+ 	  <td>32 Days</td>
+	  <td>$820</td>
+	  <td><i class="icon-comment"></i> 1 Day ago </td>
+	  <td class="text-success"> PAID</td> 
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+     
+</table> 
+
+<!-- Example of Table inside customer page for collection agents-->   
+ 
+<br /><br /> 
+//---- Example of Table inside customer page for collection users ----//
+
+<h6 class="muted">4 ACTIVE INVOICES</h6>
+<table class="table table-hover table-striped">
+  <tr>
+ 	  <th>Invoice Number</th> 
+ 	  <th>Days Overdue</th>
+ 	  <th>Amount</th>
+	  <th>Last Contact</th>
+	  <th>Status</th>
+	  <th>Action</th>
+ 	  <th></th>
+  </tr>
+  <tr>
+ 	  <td>00025</td>
+ 	  <td>51 Days</td>
+ 	  <td>$552</td>
+	  <td><i class="icon-envelope"></i> 3 Days ago </td>
+	  <td class="text-error">PTP <small>(0d left)</small></td>
+	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; UPDATE</button></td>  
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>00043</td>
+ 	  <td>30 Days</td>
+ 	  <td>$1200</td>
+	  <td><span class="add-on">@</span> 1 Day ago</td> 
+	  <td class="text-error">OVERDUE</td>
+	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; UPDATE</button></td> 
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr> 
+  <tr>
+ 	  <td>00038</td>
+ 	  <td>12 Days</td>
+ 	  <td>$310</td>
+	  <td><i class="icon-headphones"></i> 3 Days ago </td>
+	  <td class="text-error">PARTIAL</td>
+	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; UPDATE</button></td> 
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  <tr>
+ 	  <td>00023</td>
+ 	  <td>10 Days</td>
+ 	  <td>$1200</td>
+	  <td><i class="icon-comment"></i> 1 Day ago </td>
+	  <td class="text-success"> PAID</td>
+	  <td><button class="btn disabled btn-small" type="button"><i class="icon-ok"></i>&nbsp; PAID</button></td> 
+	  <td><i class="icon-chevron-right"></i></td>
+  </tr>
+  
+</table> 
+<br/><br/>
+
+<br /><br /><br />
+<!-- Action info modal after clicking Update BTN in Collections--> 
+
+<div class="row">
+	<div class="span8">
+ 		<h4>Enter Action<button class="close">&times;</button></h4><hr>
+		<h4 class="text-center">Invoice #0049 for Bloom Brothers</h4><br>
+ 	</div><!-- end span8 -->
+</div><!-- end row -->
+<div class="row">
+	<div class="span8">
+		<div class="row">	
+  		  	<div class="span3 well"> 
+		   		<h5>Action Taken</h5>
+ 	  				<select class="span3">
+ 					   <option>Call</option>
+					   <option>Email</option>
+					   <option>SMS</option>
+			 		   <option>Letter Mail</option> 
+				   	</select>
+ 				   <h5>Feedback Received</h5>
+	  				<select class="span3">
+ 				  	   <option>Did not answer</option>
+				  	   <option>Payment was sent</option>
+		 		  	   <option>Promise To Pay</option> 
+			 	  	</select>  
+			</div><!-- end span3 -->  
+  			 		<textarea class="input-xlarge span4 pull-right" id="textarea" placeholder="Add note for internal reference" rows="9"></textarea>
+		</div><!-- end row --> 
+	</div><!-- end span8 -->
+</div><!-- end row -->
+   
+  
+<div class="row"> 
+	<div class="span8"> 
+ 		<div class="form-actions">  
+			 <button type="button" class="btn pull-left">Cancel</button>  
+			 <button type="submit" class="btn btn-success pull-right">Save Action</button>
+		</div><!-- end form actions-->
+	</div><!-- end span8 -->
+</div><!-- end row -->
+<!-- Action info modal after clicking Update BTN in Collections--> 
+
+<br /><br /><br />
+
+<!-- Action info modal after clicking Update BTN in Collections--> 
+
+<div class="row">
+	<div class="span8">
+ 		<h4>Enter Action<button class="close">&times;</button></h4><hr>
+		<h4 class="text-center">Invoice #0049 for Bloom Brothers</h4><br>
+ 	</div><!-- end span8 -->
+</div><!-- end row -->
+<div class="row">
+	<div class="span8">
+		<div class="row">	
+  		  	<div class="span3 well"> 
+			   		<h5>Action Taken</h5>
+ 	  				<select class="span3">
+ 					   <option>Call</option>
+					   <option>Email</option>
+					   <option>SMS</option>
+			 		   <option>Letter Mail</option> 
+				   </select>
+				   <h5>Feedback Received</h5>
+	  				<select class="span3">
+	 		 	  	   <option>Promise To Pay</option> 
+				       <option>Did not answer</option>
+				       <option>Payment was sent</option>
+		 		       <option>Promise To Pay</option> 
+			       </select>
+				   <h5>On Following Date</h5> 
+	 			   <div class="input date pull-left" data-date-format="dd-mm-yyyy">
+	   					<input class="span3" type="text" placeholder="14/08/2013"value="">
+	  			   </div>
+			</div><!-- end span3 --> 
+   			 		<textarea class="input-xlarge span4 pull-right" id="textarea" placeholder="Add note for internal reference" rows="9"></textarea>
+	  </div><!-- end row --> 
+   </div><!-- end span8 -->
+</div><!-- end row --> 
+
+<div class="row"> 
+	<div class="span8"> 
+ 		<div class="form-actions">  
+			 <button type="button" class="btn pull-left">Cancel</button>  
+			 <button type="submit" class="btn btn-danger pull-right">Save & Send to Financial</button>
+		</div><!-- end form actions-->
+	</div><!-- end span8 -->
+</div><!-- end row -->
+<!-- Action info modal after clicking Update BTN in Collections--> 
+
+ 
 </div>
 <div class="clearfix">
 </div>

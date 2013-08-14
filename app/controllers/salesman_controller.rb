@@ -1,5 +1,7 @@
 class SalesmanController < ApplicationController
 
+    add_breadcrumb "Customers", :salesman_path
+    
 	def index
 	    @customer_detail = []
 	    if params[:search]
@@ -90,7 +92,9 @@ class SalesmanController < ApplicationController
 	def customer_details
 	 @customer_id = params[:customer_id]
 	 @customer = Customer.find_by_id(@customer_id)
-	    
+	 name = @customer.organization_name != nil ? @customer.organization_name : @customer.first_name + ' ' + @customer.last_name
+     add_breadcrumb name, @customer.id.to_s
+     
 	 @customer_last_invoice = Customer.last_invoice(@customer)
 	 _customer_last_action = Action.last_action(@customer)
 	 if _customer_last_action
@@ -154,19 +158,25 @@ class SalesmanController < ApplicationController
 	
 	def customer_edit
 		@customer = Customer.find_by_id(params[:customer_id])
+		if @customer
+		      render :json => @customer
+		else
+		      render :text => "There is no user with this id", :status => 422 
+		end
 	end
 	
 	def customer_update
 		_post = params[:customer]
 		@customer = Customer.find_by_id(params[:customer_id])
-        if @customer.update_attributes(_post)
-#saving the previous version to display in the activity feed
+        if !@customer.update_attributes(_post)
+            # render 'customer_edit'
+			render :json => @customer.errors.full_messages, :status => 422
+		else
+#			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
             activity = PublicActivity::Activity.all.last
             activity.pre_version_id = activity.trackable.versions.last.id
             activity.save!
-			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
-		else
-			render 'customer_edit'
+            render :text => "Customer updated successfully!"
 		end
 	end
 	
@@ -188,5 +198,16 @@ class SalesmanController < ApplicationController
 	render :json => "1".to_json 
 	end
 	
+	 def customer_new_invoice
+    	@invoice = Invoice.new
+    	@services = []
+    	customer_id = params[:customer_id]
+		@customer = Customer.find_by_id(customer_id)
+		name = @customer.organization_name != nil ? @customer.organization_name : @customer.first_name + ' ' + @customer.last_name
+		add_breadcrumb name, customer_details_path(@customer.id)
+		add_breadcrumb "New Invoice"
+		@company = Company.find_by_id(current_user.company_id)
+		render 'customer_new_invoice'
+    end
 
 end
