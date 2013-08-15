@@ -1,5 +1,7 @@
 class AccountantController < ApplicationController
 
+  add_breadcrumb "Invoices", '/accountant/'
+  
   def index
   	if  params[:search]
       @invoices = Invoice.search(params[:search], current_user)
@@ -44,9 +46,12 @@ class AccountantController < ApplicationController
  def invoice_details
      @invoice_number = params[:invoice_number]
 	 @invoice = Invoice.find_by_number(@invoice_number)
-
+	 
 	 @customer_id = @invoice.customer_id
 	 @customer = Customer.find_by_id(@customer_id)
+     name = @customer.organization_name != nil ? @customer.organization_name : @customer.first_name + ' ' + @customer.last_name
+	 add_breadcrumb name, customer_details_path(@customer_id)
+	 add_breadcrumb 'Invoice #' + @invoice_number
 
 	 @company = Company.find_by_id(current_user.company_id)
 	 @services = Invoice.index_services(@invoice)
@@ -117,15 +122,6 @@ class AccountantController < ApplicationController
 	 end
 
 #### view for opening a new invoice from a customer details
-
-    def customer_new_invoice
-    	@invoice = Invoice.new
-    	@services = []
-    	customer_id = params[:customer_id]
-		@customer = Customer.find_by_id(customer_id)
-		@company = Company.find_by_id(current_user.company_id)
-		render 'customer_new_invoice'
-    end
  
    
    def invoice_create_test
@@ -286,12 +282,12 @@ class AccountantController < ApplicationController
    	if text_note
    		action = Action.new(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "note", :text_note => text_note)
    	    if action.save
-			redirect_to invoice_details_path(invoice_id), :notice => "Note added successfully."
+			redirect_to invoice_details_path(invoice.number), :notice => "Note added successfully."
 		else
-			redirect_to invoice_details_path(invoice_id), :alert => "Something went wronf. Try again. "
+			redirect_to invoice_details_path(invoice.number), :alert => "Something went wronf. Try again. "
 		end
 	else
-	        redirect_to invoice_details_path(invoice_id), :alert => "Note must contain something."
+	        redirect_to invoice_details_path(invoice.number), :alert => "Note must contain something."
 	end
    end
 

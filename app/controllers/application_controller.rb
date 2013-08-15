@@ -1,9 +1,11 @@
+
 class ApplicationController < ActionController::Base
 
-  include PublicActivity::StoreController
+include PublicActivity::StoreController
   
   protect_from_forgery
   helper_method :current_user
+  helper_method :pre_version
 
   before_filter :require_login, :get_call_token
 
@@ -14,6 +16,11 @@ class ApplicationController < ActionController::Base
   end
   
   hide_action :current_user
+  
+  def pre_version
+    113
+  end
+  hide_action :pre_version
   
  private
 

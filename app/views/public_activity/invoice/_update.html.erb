@@ -1,8 +1,9 @@
   <% vector = ["Accounts", "Financials", "Collections"] %>
   <% customer = activity.trackable.customer %>
   <% time = Time.now - activity.created_at %>
-
+   <% changed_fields = [] %>
    <% if activity.owner && activity.trackable %>
+
  	<div class="row">
   			<div class="span1 img"><img class="img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg" />
 		    </div>
@@ -51,10 +52,24 @@
     		for <%= link_to customer_details_path(customer.id), :class => "muted" do %>
         		<u><%= ' ' + customer.first_name + ' ' +customer.last_name %></u> 
         		<% end %>
-            <% if a = activity.trackable.versions.last %>
+        		
+            <% if activity.pre_version_id != nil %>
+                    <% a = PaperTrail::Version.find(activity.pre_version_id)%>
+                        <% if a.next != nil %>
+                            <% post_version = a.next.reify %>
+                        <% else %>
+                            <% post_version = activity.trackable %>
+                        <% end %>
+            <% else %>
+                    <% a = activity.trackable.versions.last %>
+                    <% post_version = activity.trackable %>
+            <% end %>
+        		
+            <% if a %>
                 <% previous_version = a.reify %>
                 from <%= previous_version.state %>
-    		    to <%= activity.trackable.state %>
+    		    to <%= post_version.state %>
+    		    <% changed_fields.append("state") %>
     		<% end %>
             <%= activity.created_at.strftime("on %m/%d/%Y") %> 
     		</p>					
@@ -76,20 +91,22 @@
   </div>
     <div class="modal-body">
         Are you sure you want to change customer's  <b><%= ' ' + customer.first_name + ' ' + customer.last_name %></b> invoice # <b><%= activity.trackable.number %> </b> status         
-        <% if a = activity.trackable.versions.last %>
+        <% if a %>
             <% previous_version = a.reify %>
-             from<%= activity.trackable.state %>
-		    to  <%= previous_version.state %>
-		<% end %>      
+             from  <%= activity.trackable.state %>
+		    back to  <%= previous_version.state %>
+
          ?
     </div>
 
     <div class="modal-footer">
       <button type="button" class="btn pull-left" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      <%= link_to revert_version_path(:id => activity.trackable.versions.last, :activity_id => activity.id), :method => :post , :class => "btn btn-danger" do %>
+      <%= link_to revert_update_version_path(:id => a.id, :activity_id => activity.id, :changed_fields => changed_fields), :method => :post , :class => "btn btn-danger" do %>
    		 <i class="icon-undo"></i> Revert
       <% end %> 
+      
     </div>
 </div>
+       <% end %> <!-- end if a -->
 		
    <% end %>

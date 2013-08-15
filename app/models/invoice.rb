@@ -1,9 +1,11 @@
 require 'date'
 class Invoice < ActiveRecord::Base
   include PublicActivity::Model
-  tracked except: [:destroy],  owner: ->(controller,model) {controller && controller.current_user}
-  has_paper_trail
-  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state
+  tracked except: [:destroy],  owner: ->(controller,model) {controller && controller.current_user}, # :params => {:pre_version_id => this.trackable.versions.last.id}
+#           pre_version_id: ->(controller,model) {controller && controller.pre_version}
+            pre_version_id: :trackable
+    has_paper_trail
+    attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state
 
   belongs_to :company
   belongs_to :customer
@@ -33,7 +35,13 @@ class Invoice < ActiveRecord::Base
 #         errors.add(:due_date, 'must be a valid date')
 #      end
 #    end
-
+    validate :due_date_should_be_after_issue_date
+    
+    def due_date_should_be_after_issue_date
+        return unless due_date and date
+        errors.add(:due_date, "must be after current date") unless
+            self.due_date >= self.date
+    end 
 
   DRAFT             = 1
   SENT              = 2
