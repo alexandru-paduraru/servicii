@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  invoice_id: 1
+  sms_notification: false
+  email_notification: false
+  duration_type: 1
+  starting_day: 1
+  starting_week_day: 1
+
+two:
+  invoice_id: 1
+  sms_notification: false
+  email_notification: false
+  duration_type: 1
+  starting_day: 1
+  starting_week_day: 1

@@ -1,0 +1,37 @@
+<h1>Listing future_actions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Invoice</th>
+      <th>Sms notification</th>
+      <th>Email notification</th>
+      <th>Duration type</th>
+      <th>Starting day</th>
+      <th>Starting week day</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @future_actions.each do |future_action| %>
+      <tr>
+        <td><%= future_action.invoice_id %></td>
+        <td><%= future_action.sms_notification %></td>
+        <td><%= future_action.email_notification %></td>
+        <td><%= future_action.duration_type %></td>
+        <td><%= future_action.starting_day %></td>
+        <td><%= future_action.starting_week_day %></td>
+        <td><%= link_to 'Show', future_action %></td>
+        <td><%= link_to 'Edit', edit_future_action_path(future_action) %></td>
+        <td><%= link_to 'Destroy', future_action, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Future action', new_future_action_path %>

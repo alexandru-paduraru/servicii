@@ -18,6 +18,12 @@ class Customer < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates_format_of :zip_code, :with => /\A[0-9]+\Z/i  
 
+
+  def recurring_invoices()
+    #invoices.includes(:future_actions).where("future_actions.invoice_creation" => true)
+    invoices.where("future_action_id is NOT NULL")
+  end
+
   def self.search(search, current_user)
   	if search != ''
   		search = search.downcase
@@ -40,6 +46,7 @@ class Customer < ActiveRecord::Base
   def self.get_collector_users()
     includes(:invoices).where("invoices.status" => "overdue")
   end
+
 
   def self.search_collector_list(search, current_user)
   	if search.present?

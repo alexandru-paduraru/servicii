@@ -1,5 +1,7 @@
 Services::Application.routes.draw do
 
+  resources :future_actions
+
 resources :user, :only => [:login]
 resources :admin, :only => [:signup] 
 
@@ -111,16 +113,8 @@ post 'versions/delete_user', to: 'version#delete_user', :as => "delete_user"
 get '/verifica', to: 'user#show', :as => "verifica"
 root :to => 'session#home'
 
-
-
-
-
-
-
-
-
-
-
+# invoice
+post "/mark_payment", to: "invoices#mark_payment"
 
 
   # The priority is based upon order of creation:

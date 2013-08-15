@@ -53,8 +53,8 @@
 	<%= fields_for :invoice do |i| %>
 		<!--<%= i.label :due_date, :class => "control-label" %> -->
 		<div class="controls">
- 			<input type="text" class="input-medium" value="[current date]" placeholder="Issued Date" ><br> 
-			<input type="text" class="input-mini"  value="[Net 30]" placeholder="Net 30" >&nbsp; 
+      <input type="text" class="input-medium datepicker" value="<%= DateTime.now.strftime("%m/%d/%Y") %>" placeholder="Issued Date" ><br> 
+			<input type="text" class="input-mini"  value="[Net 30]" placeholder="Net 30" >&nbsp;
 			<%= i.text_field :due_date, :class => "datepicker input-small", :placeholder => "Due date" %>
 			<%= i.hidden_field :amount %>
 			<%= i.hidden_field :number_of_services, :value => 0 %>  
@@ -62,6 +62,14 @@
  			
    		</div>
 	<% end %>	
+
+  <%#= check_box_tag :recurrent_invoice, true, false %>
+  <h4>Recurrent Invoice</h4>
+  <%= select_tag :recurrence, options_for_select([["None", 0], ["Daily", FutureAction::DAILY], ["Weekly", FutureAction::WEEKLY], ["Monthly", FutureAction::MONTHLY]]) %>
+  <br />
+  <%= label_tag :starting_day %>
+  <%= text_field_tag :starting_day %>
+
 	</div>
 	
 	<%= fields_for :customer do |c| %>
