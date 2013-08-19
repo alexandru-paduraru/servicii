@@ -121,13 +121,15 @@
         <% post_revert = activity.trackable.attributes %>
         <% first_el = 0 %>
         Are you sure you want to change back customer <b><%= ' ' + activity.trackable.first_name + ' ' +activity.trackable.last_name %></b>'s 
-        <% changed_fields.each do |change| %>
-            <% if first_el > 0 %>,
-            <% else first_el = 1 %>
-            <% end %>
-            <%= change %> 
-            from    <%= post_revert[change] %>
-            to      <%= prev_hash[change] %>
+        <% if changed_fields.any? %>
+          <% changed_fields.each do |change| %>
+              <% if first_el > 0 %>,
+              <% else first_el = 1 %>
+              <% end %>
+              <%= change %> 
+              from    <%= post_revert[change] if post_revert.present? %>
+              to      <%= prev_hash[change] if prev_hash.present? %>
+          <% end %>
         <% end %>
         
         ?
