@@ -10,7 +10,7 @@
         <% if params[:page] == 'customer' || params[:page] == 'invoice' %>
             <div class="span4">
         <% end %>
-    		<strong><a class="muted" href="#">	    <%= activity.owner.first_name + ' ' + activity.owner.last_name %></a></strong> &nbsp;
+    		<strong> <%= activity.owner.first_name + ' ' + activity.owner.last_name %> </strong> &nbsp;
     		<a class="muted" href="#">
             <% if activity.owner.job == User::ADMIN %>
             #admin

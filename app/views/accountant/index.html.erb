@@ -20,17 +20,17 @@
 <div class="clearfix">
 </div>
 
-<%= render :partial => "some_weird_modal" %>
+<!-- <%= render :partial => "some_weird_modal" %> -->
  
 
-<h3>Unpaid Invoices</h3>
+<h6 class="muted"><%= @unpaid_invoices.count %> ACTIVE INVOICES</h6>
   <%= render :partial => "all_invoices", :locals => {:invoices => @unpaid_invoices, :list_type => :unpaid, :table_id => "blabla"} %>
 
 
 <br />
  
 
-<h3>Paid Invoices</h3>
+<h6 class="muted"><%= @paid_invoices.count %> PAID INVOICES</h6>
   <%= render :partial => "all_invoices", :locals => {:invoices => @paid_invoices, :list_type => :paid, :table_id => "bla" } %>
 
 <br />

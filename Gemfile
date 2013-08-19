@@ -94,3 +94,6 @@ gem "paper_trail" , :git => "https://github.com/airblade/paper_trail.git", :bran
  
 #for xml builder
 gem 'builder'
+
+#for archiving
+gem "rubyzip"
