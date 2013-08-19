@@ -11,78 +11,9 @@
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 </head>
-<body>
- <div class="navbar navbar-inverse navbar-fixed-top">
-      <nav class="navbar-inner">
-        <div class="container">
-              <% if current_user && current_user.company_id != 0 %>
-              <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				</a>
+<body style="padding: 0 0;">
 
-			<a class="brand" href="">Invoice Flow</a>
-
-             <div class="nav-collapse collapse">
-		         <ul class="nav">
-		             <%= render 'layouts/top_menu' %>
-		         </ul>
-              <ul class="nav pull-right">
-	              <% if current_user[:job] == 1 %>
-              	  <li><a href="/"></a></li>
-	              <% else%>
-	              <li><a href="/user">Employee</a></li>
-	              <% end %>
-	              <li><a href="/logout">Logout</a></li>
-              </ul>
-              <% else %>
-              <ul class="nav pull-right">
-              	<li><a href="#">Login</a></li>
-              </ul>
-              <% end %>
-	           </ul>
-			</div>
-
-        </div>
-      </nav>
-    </div>
-    <div id="main" role="main">
-    <% if current_user && current_user.company_id != 0 %>
-      <div class="container">
-    <% else %>
-      <div class="container container-login">
-    <% end %>
-
-        <div class="content">
-           <div class="row">
-            <% if current_user && current_user.company_id != 0 %>
-              <div class="span12">
-	            <% flash.each do |name, msg| %>
-		            <% if name == :notice %>
-		            	<div class="alert alert-success">
-		            	<button type="button" class="close" data-dismiss="alert">&times;</button>
-			            	<%= msg %>
-		            	</div>
-		            <% end %>
-		            <% if name == :alert %>
-		            	<div class="alert alert-error">
-		            	<button type="button" class="close" data-dismiss="alert">&times;</button>
-		            		<%= msg %>
-		            	</div>
-		            <% end %>
-	            <% end %>
-            <% end %>
            <%= yield %>
-           </div>
-          </div>
-          <footer>
-          </footer>
-        </div>
-
-      </div> <!--! end of .container -->
-    </div> <!--! end of #main -->
 
 </body>
 </html>

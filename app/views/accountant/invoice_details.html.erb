@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="span8">
 		<div class="span2">  
-  			<h4>Invoice #0049</h4>
+  			<h4>Invoice #<%= @invoice.number %></h4>
 		</div><!-- end span2 -->
 		<div class="span5 pull-right"> 
 	  		<button type="button" id="" class="btn pull-right" type="button">Edit</button>  
@@ -18,17 +18,24 @@
 <div class="row">
 	<div class="span8">  
 		<div class="media-body">
-			<img class="media-object img-polaroid" img class="img-rounded"  src="http://www.tradeinvoice.com.au/images_website/InvoiceExample2.png">  
+<!-- 			<img class="media-object img-polaroid" img class="img-rounded"  src="http://www.tradeinvoice.com.au/images_website/InvoiceExample2.png">   -->
+		<iframe src=<%= invoice_template_path(@invoice.number) %> class="img-rounded input-block-level" style="min-height: 900px;" > </iframe>
 		</div>
-	<br/>
-			<button type="button" class="btn span2 pull-left"><i class=" icon-download icon-white"></i> Download PDF</button> 
-			<button type="button" class="btn span2 pull-left"><i class=" icon-download icon-white"></i> Download CSV</button>
-			<button type="button" class="btn span2 pull-left"><i class=" icon-download icon-white"></i> Download XML</button>
+	<br/>	
+            <%= link_to invoice_pdf_path(@invoice.number) , :class => "btn span2 pull-left" do %>
+	      		<i class="icon-download icon-white"></i> Download PDF
+	      <% end %>
+	      <%= link_to invoice_csv_path(@invoice.number, format: "csv") , :class => "btn span2 pull-left" do %>
+	      		<i class="icon-download icon-white"></i> Download CSV
+	      <% end %>
+	      <%= link_to invoice_xml_path(@invoice.number, format: "xml") , :class => "btn span2 pull-left" do %>
+	      		<i class="icon-download icon-white"></i> Download XML
+	      <% end %>
 	</div> <!--end span9 -->
  
    <div class="span3 pull-right actions">
 	   <div class="well">
-  			Invoice Status: <strong>DRAFT</strong><br>
+  			Invoice Status: <strong><%= @invoice.state rescue "" %></strong><br>
   			Last contact: 
   			          <strong>
                   		 <% if @latest_activity %>
@@ -45,6 +52,7 @@
   		</div> <!--end well -->
 		
 <!-- static example activity feed -->
+<!--
  	<h5 class="muted">Activity Feed</h5>
 	<legend></legend>
 		<div class="media">
@@ -59,9 +67,10 @@
 			<p>Added a <a class="muted">#note</a> on 08/12/2013 for <a class="muted">Mary R. Gilliam</a>'s <a href ="#" class="muted">Invoice 4</a></p>
 			
 		</div>
-		 
+		
+--> 
   
-<!-- end satic example activity feed -->
+<!-- end static example activity feed -->
  	<!-- activity feed -->
 	
 	<div class="row">
@@ -110,21 +119,13 @@
 		</div>
 	</div> <br />
 	<!-- static example -->
-       <% index = 0 %>
-   	<% if @action_details && @action_details != [] %>
-   	<ul>
 
-   		<% @action_details.each do |action_detail| %>
-       		<% if action_detail[:action].action_type == "note" %>
-           		<li>
-           		<%= action_detail[:action].text_note %>
-           		<% index = index + 1 %>
-           		</li>
-       		<% end %>
+
+   	<% if @notes.any? %>
+   		<% @notes.each do |note| %>
+       		   <%= render :partial => "note", :locals => {:note => note }%>
    		<% end %>
-   	</ul>
-   	<% end %>
-        <% if index == 0 %>
+   	<% else %>
    	    <%= render :partial => "partials/no_data" %>
    	 <% end %>
 	
@@ -137,7 +138,7 @@
 	</div> 
 
 </div>	
- 
+
 
 <br /><br /><br /><br /><br /><br />
 <!-- Invoice Page Updated by Petronela-->

@@ -1,0 +1,26 @@
+  <% time = Time.now - note.created_at %>
+  <% user = User.find_by_id(note.user_id) %>
+  
+  <div class="media">
+	 	<a class="pull-left" href="#">
+	<img class="media-object img-rounded" img class="img-rounded" src="https://secure.gravatar.com/avatar/c726f2dbeae8066ef58dd60b0df93c36?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2Fc208b19f4374%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32">
+	</a>
+	<div class="media-body">
+	<strong><%= user.first_name + ' ' + user.last_name %></strong>
+      <small class="muted pull-right">
+        <% if  (time/1.day).to_i > 0 %>
+    	    <%= (time/1.day).to_i %>d ago
+        <% else %>
+            <% if (time/1.hour).to_i > 0%>
+             <%= (time/1.hour).to_i %>h ago
+             <% else %>
+                <%= (time/1.minute).to_i%>m ago
+            <% end %>
+        <% end %>
+      </small>
+      </br>
+	  <p class="">
+   		<%= note.text_note %>
+   	  </p>
+	     </div>
+  </div>

@@ -1,9 +1,10 @@
-<table class="table table-hover" id=<%= table_id %>>
+<table class="table table-hover table-striped" id=<%= table_id %>>
   <thead>
   <tr>
-    <th>#</th>
-    <th><div rel="tooltip" title="Click to sort">Organization Name and Customer Name</div></th>
+<!--     <th>#</th> -->
+    <th><div rel="tooltip" title="Click to sort">Customer Name</div></th>
     <th><div rel="tooltip" title="Click to sort by Invoice Number">Invoice Number</div></th>
+    <th>Issue Date</th>
     <th><div rel="tooltip" title="Click to sort by Amount">Amount</div></th>
     <th><div rel="tooltip" title="Click to sort by Status">Status</div></th>
     <th>Action</th>
@@ -13,15 +14,42 @@
   <tbody>
   <% index = 0 %>
   <% invoices.each do |invoice| %>
+  <% invoice_state = invoice.state.capitalize rescue "" %>
     <tr data-link="<%= invoice_details_path(invoice.number)%>">
-      <td><%= index = index + 1 %></td>
-      <td><%= invoice.customer.organization_name + ' / ' +invoice.customer.first_name + ' ' + invoice.customer.last_name %></td>
+<!--       <td><%= index = index + 1 %></td> -->
+
+      <% if invoice.customer.organization_name %>
+        <td><%= invoice.customer.organization_name %></td>
+      <% else %>
+        <td><%= invoice.customer.first_name + ' ' + invoice.customer.last_name %></td>
+      <% end %>
       <td><%= invoice.number %></td>
+      <td><%= invoice.date.strftime("%d %b %Y") %></td>
       <td>$<%= invoice.amount.to_i %></td>
-      <td class="invoice_status_<%= invoice.id %>"><%= invoice.state.capitalize rescue "" %></td>
-      <td class="change_status_<%= invoice.id %>"><%= render :partial => "invoices/change_status", :locals => {:invoice => invoice} %></td>
+      <% if invoice_state == "Paid" %>
+          <td class="text-success">PAID</td>
+          <td>
+                <%= link_to invoice_pdf_path(invoice.number) , :class => "btn btn-small" do %>
+	      		<i class="icon-download"></i> Download
+	      <% end %>
+	      </td>
+      <% else %>
+          <td class="invoice_status_<%= invoice.id %>"><%= invoice.state.capitalize rescue "" %></td>
+          <td class="change_status_<%= invoice.id %>"><%= render :partial => "invoices/change_status", :locals => {:invoice => invoice} %></td>
+      <% end %>
       <td><i class="icon-chevron-right"></i></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+
+<% if list_type == :paid %>
+  <br />
+  <div class="row">
+    <div class="span12">
+      <button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download PDF</button> 
+      <button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download CSV</button>
+      <button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download XML</button><br><br>
+    </div
+  </div>
+<% end %>

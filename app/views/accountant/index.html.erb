@@ -21,11 +21,8 @@
 <div class="clearfix">
 </div>
 
-<%= render :partial => "some_weird_modal" %>
 
-  <!-- Static Example of Table -->
-
-  <h6 class="muted"><%= @unpaid_invoices.count %> ACTIVE INVOICES</h6>
+<h6 class="muted"><%= @unpaid_invoices.count %> ACTIVE INVOICES</h6>
   <%= render :partial => "all_invoices", :locals => {:invoices => @unpaid_invoices, :list_type => :unpaid, :table_id => "blabla"} %>
   <br />
 

@@ -12,14 +12,6 @@ class AccountantController < ApplicationController
     @paid_invoices   = Invoice.get_paid_for_company(current_user.company_id)
     @unpaid_invoices = Invoice.get_unpaid_for_company(current_user.company_id)
 
-	
-#    @invoice_details = []
-    #invoices.each do |invoice|
-      #details = {}
-      #details[:customer] = invoice.customer
-      #details[:invoice] = invoice
-      #@invoice_details.append(details)
-    #end
   end
 
   def search_ajax
@@ -68,15 +60,16 @@ class AccountantController < ApplicationController
      @latest_activity = 10
    end
 
-	 @action_details = []
-	 @actions = @invoice.actions
-	 @actions.each do |action|
-	   details = {}
-	   details[:action] = action
-	   details[:user] = User.find_by_id(action.user_id)
-     details[:customer] = Customer.find_by_id(action.customer_id)
-		 @action_details.append(details)
-   end
+ #  @action_details = []
+	 #@actions = @invoice.actions
+	 #@actions.each do |action|
+		 #details = {}
+		 #details[:action] = action
+		 #details[:user] = User.find_by_id(action.user_id)
+     #details[:customer] = Customer.find_by_id(action.customer_id)
+		 #@action_details.append(details)
+   #end
+   @notes = @invoice.actions.where(:action_type => "note")
 
    #activity feed
    _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
