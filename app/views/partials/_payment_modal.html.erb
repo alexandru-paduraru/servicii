@@ -1,28 +1,27 @@
-<div id="set-payment-modal" class="modal hide fade in" style="display: none;">
+<div id="set-payment-modal" class="modal hide fade in" style="width: auto; display: none;">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
     <h3>Send Payment</h3>
   </div>
     <div class="modal-body">
       <div class="call-status-bar" >
-        Send SMS:
-        <%= form_tag ({:controller => "invoices", :action => "mark_payment"}) do %>
-
+        <%= form_tag ({:controller => "invoices", :action => "mark_payment"}), ({:remote => true}) do %>
           <div class="row">
             <div class="span8">
-              <h4>Enter Payment<button class="close">&times;</button></h4><hr>
-              <h4 class="text-center">Invoice #0049 for Bloom Brothers</h4><br>
+              <h4 class="text-center">Invoice <span id="invoice-number"></span> for <span id="company-name"></span></h4><br>
             </div>
           </div>
+
           <div class="row">
             <br />
             <div class="span8">	
               <div class="span3">
-              Invoice Amount: <strong><%= invoice.amount %></strong></br><br>
-              <input class="input-small" type="text" placeholder="0.0"> 
+              Invoice Amount: <strong id="show-invoice-amount"><%= invoice.amount %></strong></br><br>
+              Paid Amount: <strong id="show-paid-invoice-amount"><%= invoice.amount %></strong></br><br>
+              <input class="input-small" type="text" placeholder="0.0" name="amount" value="0">
               <small class="">USD</small><br>
               <label class="checkbox"> 
-                <input type="checkbox" style="display: block;"><small>Pay in full</small>
+                <input type="checkbox" style="display: block;" id="pay-in-full"><small>Pay in full</small>
               </label>
               <br>
             </div>
@@ -48,6 +47,9 @@
             </div>
           </div>
 
+          <%= hidden_field_tag :id, invoice.id %>
+          <%= hidden_field_tag :invoice_value, invoice.amount %>
+
           <div class="row"> 
             <div class="span8">
               <!--<hr>
@@ -57,20 +59,27 @@
               -->
               <div class="form-actions"> 
                 <div class="span1">
+                  <!--
                  <button type="button" class="btn pull-left">Cancel</button> 
+                 -->
                 </div> 
                 <div class="span4">
-                 <button type="submit" class="btn btn-danger pull-right">Unpaid</button>
+                 <!--
+                 <button type="submit" class="btn btn-danger">Unpaid</button>
+                 <%#= submit_tag "Send", :class => "btn btn-success pull-right" %>
+                 -->
                 </div>
                 <div class="span2">
+                 <!--
                  <button type="submit" class="btn btn-success pull-right">Record Payment</button>
+                 -->
+                 <%= submit_tag "Send", :class => "btn btn-success pull-right" %>
                 </div> 
               </div>
             </div>		
           </div>
           </div>
 
-          <%= submit_tag "Send", :class => "btn btn-success" %>
         <% end %>
       </div>
     </div>

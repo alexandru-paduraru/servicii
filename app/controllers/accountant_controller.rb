@@ -87,7 +87,7 @@ class AccountantController < ApplicationController
      _invoice_action_id_array.append(action_id.id)
 	 end
 
-   get_invoice_activities()
+   get_invoice_activities(_company_users_id, _invoice_action_id_array)
 
 	 respond_to do |format|
 	 	format.html {render 'invoice_details'}
@@ -337,7 +337,7 @@ class AccountantController < ApplicationController
     end
   end
 
-   def get_invoice_activities()
+   def get_invoice_activities(_company_users_id, _invoice_action_id_array)
 	    _activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id)
 	    @invoice_activities = []
 	    _activities.each do |act|

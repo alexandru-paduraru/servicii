@@ -8,7 +8,7 @@ class Invoice < ActiveRecord::Base
 #           pre_version_id: ->(controller,model) {controller && controller.pre_version}
             pre_version_id: :trackable
   has_paper_trail
-  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state
+  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state, :paid_amount
 
   belongs_to :company
   belongs_to :customer
@@ -86,11 +86,19 @@ class Invoice < ActiveRecord::Base
     end
 
     event :paid do
-      transition :overdue => :paid, :due => :paid, :current => :paid
+      transition :overdue => :paid, :due => :paid, :current => :paid, :draft => :paid
     end
 
     event :next_status do
       transition :draft => :sent, :sent => :current, :current => :paid, :due => :paid, :overdue => :paid
+    end
+
+    event :undo_payment do
+      transition :paid => :due
+    end
+
+    event :partial do
+      transition :draft => :partial, :sent => :partial, :viewed => :partial, :current => :partial, :due => :partial, :overdue => :partial
     end
 
     state :draft
@@ -101,6 +109,7 @@ class Invoice < ActiveRecord::Base
     state :overdue
     state :collection
     state :paid
+    state :partial
     state :promised_to_pay
   end
 

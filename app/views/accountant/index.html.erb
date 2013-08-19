@@ -24,21 +24,23 @@
 <%= render :partial => "some_weird_modal" %>
 
   <!-- Static Example of Table -->
-  <h3>Unpaid Invoices</h3>
+
+  <h6 class="muted"><%= @unpaid_invoices.count %> ACTIVE INVOICES</h6>
   <%= render :partial => "all_invoices", :locals => {:invoices => @unpaid_invoices, :list_type => :unpaid, :table_id => "blabla"} %>
   <br />
 
   <!-- Static Example of Table with selected row -->
   <br /><br />
 
-<h3>Paid Invoices</h3>
+  <h6 class="muted"><%= @paid_invoices.count %> PAID INVOICES</h6>
   <%= render :partial => "all_invoices", :locals => {:invoices => @paid_invoices, :list_type => :paid, :table_id => "bla" } %>
 
 <br />
 
+<h3>BELOW - DESIGN ELEMENTS</h3>
 
 <!-- Example of a Table in Financials. --> 
-<br /><br /><br /><br />
+<br /><br />
 <h6 class="muted">6 ACTIVE INVOICES</h6>
 <table class="table table-hover table-striped">
   <tr>
@@ -110,7 +112,6 @@
 
 <!-- Example of a Table in Financials. --> 
 <br /><br /><br /><br />
-<h6 class="muted">6 PAID INVOICES</h6>
 <table class="table table-hover table-striped">
   <tr>
  	  <th>[Doar Organization Name sau Contact Name]</th> 

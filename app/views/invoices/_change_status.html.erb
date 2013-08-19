@@ -1,15 +1,17 @@
 <% if invoice.state == "draft" || invoice.state == "sent" || invoice.state == "viewed" %>
-  <%#= link_to "Mark Current", "/change_status?id=#{invoice.id}&state=current", :class => "btn change_invoice_status" %>
   <button class="btn btn-success btn-small set_payment" data-invoice-id="<%= invoice.id %>" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button>
 <% elsif invoice.state == "current" || invoice.state == "due" || invoice.state == "overdue" %>
-  <%#= link_to "Mark Paid", "/change_status?id=#{invoice.id}&state=paid", :class => "btn change_invoice_status" %>
   <button class="btn btn-success btn-small set_payment" data-invoice-id="<%= invoice.id %>" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button>
-  <%#= link_to "Promised to Pay", "/change_status?id=#{invoice.id}&state=promised_to_pay", :class => "btn change_invoice_status" %>
 <% elsif invoice.state == "paid" %>
+  <%= link_to "<i class='icon-refresh'></i> Undo".html_safe, "#", :id => "undo_invoice_#{invoice.id}", "data-id" => invoice.id, :class => "undo_invoice btn btn-small" %>
+  <%#= form_tag ({:controller => "invoices", :action => "undo", :id => invoice.id}), ({:remote => true, :method => :post}) do %>
+    <%#= submit_tag (raw "<i class='icon-refresh'></i> Undo".html_safe), :class => "btn btn-small" %>
+    <!--
+    <button class="btn btn-small" type="button"><i class="icon-refresh"></i> UNDO</button>
+    -->
+  <%# end %>
   <!--
-  <span class="label label-success">Paid</span>
   -->
-  <button class="btn btn-small" type="button"><i class="icon-refresh"></i> UNDO</button>
 <% else %>
   <button class="btn btn-success btn-small set_payment" data-invoice-id="<%= invoice.id %>" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button>
   <%#= link_to "Mark Paid", "/change_status?id=#{invoice.id}&state=paid", :class => "btn change_invoice_status" %>

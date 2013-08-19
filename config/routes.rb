@@ -64,6 +64,7 @@ get '/invoice_export', to: 'accountant#invoice_export', :as => "export_invoices"
 get '/customers/:customer_id/invoices', to: 'salesman#customer_details', :as => "customer_invoices"
 get '/customers/:customer_id/invoices/new', to: 'salesman#customer_new_invoice', :as => "customer_new_invoice"
 post '/customers/:customer_id/invoices', to: 'accountant#invoice_create_test', :as => "customer_create_invoice"
+get 'invoices/:id', to: 'invoices#show'
 
 #create service for invoice
 post '/customers/:customer_id/invoices/new/services/new', to: 'accountant#create_service', :as => "create_service_for_invoice"
@@ -75,6 +76,8 @@ get '/invoices/search', to: 'accountant#search_ajax', :as => "invoice_search"
 post "/invoice_details/send_sms", to: "accountant#send_sms", :as => "send_sms_invoice"
 get '/collections/invoices/search', to: 'collector#search_ajax', :as => "collections_invoice_search"
 get '/invoices/save_call', to: "accountant#save_call", :as => "invoice_save_call"
+post '/invoices/undo', to: "invoices#undo"
+
 
 #company details
 get '/company_new', to: 'admin#company_new', :as => "company_new"

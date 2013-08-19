@@ -11,14 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20130811144810) do
-=======
-ActiveRecord::Schema.define(version: 20130812172002) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
->>>>>>> master
+ActiveRecord::Schema.define(version: 20130819084254) do
 
   create_table "actions", force: true do |t|
     t.datetime "sent_at"
@@ -125,6 +118,7 @@ ActiveRecord::Schema.define(version: 20130812172002) do
     t.integer  "status"
     t.string   "state"
     t.integer  "future_action_id"
+    t.float    "paid_amount"
   end
 
   add_index "invoices", ["company_id"], name: "index_invoices_on_company_id", using: :btree
