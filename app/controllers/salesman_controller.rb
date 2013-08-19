@@ -1,5 +1,7 @@
 class SalesmanController < ApplicationController
 
+    add_breadcrumb "Customers", :salesman_path
+    
 	def index
 	    @customer_detail = []
 	    if params[:search]
@@ -90,7 +92,9 @@ class SalesmanController < ApplicationController
 	def customer_details
 	 @customer_id = params[:customer_id]
 	 @customer = Customer.find_by_id(@customer_id)
-	    
+	 name = @customer.organization_name != nil ? @customer.organization_name : @customer.first_name + ' ' + @customer.last_name
+     add_breadcrumb name, @customer.id.to_s
+     
 	 @customer_last_invoice = Customer.last_invoice(@customer)
 	 _customer_last_action = Action.last_action(@customer)
 	 if _customer_last_action
@@ -104,7 +108,6 @@ class SalesmanController < ApplicationController
      @open_invoices = @invoices
 
      @recurring_invoices = @customer.recurring_invoices()
-
      #@open_invoices = []
      #@invoices.each do |invoice|
              #open_invoice = {}
@@ -120,10 +123,7 @@ class SalesmanController < ApplicationController
 		 @total_due_amount = 0
 		
      @total_due_amount = @open_invoices.sum(:amount)
-     #@open_invoices.each do |invoice|
-       #@total_due_amount += invoice[:due_amount]
-     #end
-		
+
 		 @actions = @customer.actions
        @action_details = []
        @actions.each do |email|
@@ -172,16 +172,25 @@ class SalesmanController < ApplicationController
 	
 	def customer_edit
 		@customer = Customer.find_by_id(params[:customer_id])
+		if @customer
+		      render :json => @customer
+		else
+		      render :text => "There is no user with this id", :status => 422 
+		end
 	end
 	
 	def customer_update
 		_post = params[:customer]
 		@customer = Customer.find_by_id(params[:customer_id])
-        if @customer.update_columns(:first_name => _post[:first_name],:last_name => _post[:last_name],:phone => _post[:phone], :email => _post[:email], :address1 => _post[:address1], :address2 => _post[:address2] , :organization_name => _post[:organization_name], :state => _post[:state], :city => _post[:city], :zip_code => _post[:zip_code], :industry => _post[:industry], :company_size => _post[:company_size], :description => _post[:description])
-#             undo_link = view_context.link_to("undo",revert_version_path(@customer.versions.last), :method => :post)
-			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
+        if !@customer.update_attributes(_post)
+            # render 'customer_edit'
+			render :json => @customer.errors.full_messages, :status => 422
 		else
-			render 'customer_edit'
+#			redirect_to customer_details_path(@customer.id), :notice => "Customer updated successfully!"
+            activity = PublicActivity::Activity.all.last
+            activity.pre_version_id = activity.trackable.versions.last.id
+            activity.save!
+            render :text => "Customer updated successfully!"
 		end
 	end
 	
@@ -203,5 +212,16 @@ class SalesmanController < ApplicationController
 	render :json => "1".to_json 
 	end
 	
+	 def customer_new_invoice
+    	@invoice = Invoice.new
+    	@services = []
+    	customer_id = params[:customer_id]
+		@customer = Customer.find_by_id(customer_id)
+		name = @customer.organization_name != nil ? @customer.organization_name : @customer.first_name + ' ' + @customer.last_name
+		add_breadcrumb name, customer_details_path(@customer.id)
+		add_breadcrumb "New Invoice"
+		@company = Company.find_by_id(current_user.company_id)
+		render 'customer_new_invoice'
+    end
 
 end

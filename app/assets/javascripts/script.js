@@ -407,5 +407,50 @@ $(document).ready(function() {
     	  },70);  
 	});
 	
+	$('#editCustomerButton').click(function(){
+	   $('#detailsCustomerForm').fadeOut('fast',function(){
+	       $('#editCustomerButton').hide();
+    	   $('#editCustomerForm').fadeIn();   
+	   });
+	   
+	});
+	$('#closeEditForm').click(function(){
+	   $('#editCustomerForm').fadeOut('fast',function(){
+    	   $('#editCustomerButton').show();
+    	   $('#detailsCustomerForm').fadeIn();   
+	   });
+	});
+	
+	$('#submitEditForm').click(function(){
+	    var response = $('#errorAjaxDiv');
+	    var close_button = '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+    	var serializedData = $('#editCustomerForm > form').serialize();
+        request = $.ajax({
+    	url: '/customer_details/' + $('#customerId').val(),
+    	type: 'post',
+    	data: serializedData,
+        success: function(data){
+		      $('#main-span').prepend('<div class="alert alert-success">' + close_button + data + '</div>');
+		       $('#editCustomerForm').fadeOut('fast',function(){
+    		       $('#editCustomerButton').show();
+    		   $('#detailsCustomerForm').fadeIn();   
+    		   });
+    		   response.html('');
+    		   response.hide();
+  		},
+  		error: function(xhr){
+  		    var errors = $.parseJSON(xhr.responseText)
+      		response.html('');
+      		response.show();
+      		response.append('<h4>Service errors:</h4>');
+      		response.append('<ul>');
+      		$.each(errors, function(i, val){
+	      		response.append('<li>' + errors[i] + '</li>');
+      		});
+      		response.append('</ul>');
+      		return;
+      	}
+    });
+	});
 	
 });

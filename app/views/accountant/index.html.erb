@@ -18,10 +18,10 @@
 <h4 class="muted" id="info-message"></h4>
 </div>
 
-  <div class="clearfix">
-  </div>
+<div class="clearfix">
+</div>
 
-  <%= render :partial => "some_weird_modal" %>
+<%= render :partial => "some_weird_modal" %>
 
   <!-- Static Example of Table -->
   <h3>Unpaid Invoices</h3>
@@ -42,9 +42,7 @@
 <h6 class="muted">6 ACTIVE INVOICES</h6>
 <table class="table table-hover table-striped">
   <tr>
- 	  <th>[Doar Organization Name sau Contact Name]</th>
-	  <!-- Doar cand Custumerul nu e Companie atunci punem Persoana de contact ca Persoana Fizica. Daca exista si Organization Name si Contact Name, atunci lasam decat Organization Name -->   
-</div>	   
+ 	  <th>[Doar Organization Name sau Contact Name]</th>  
  	  <th>Invoice #</th> 
 	  <th>Issue Date</th>
 	  <th>Amount</th>
@@ -58,8 +56,7 @@
 	  <td>21 Jul 2013</td>
 	  <td>$1000</td>
 	  <td class="text-error">PTP <small>(0d left)</small></td>
-	  <td><button class="btn btn-danger btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td>
-</td>
+	  <td><button class="btn btn-danger btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td> 
 	  <td><i class="icon-chevron-right"></i></td>
   </tr>
   <tr>
@@ -68,8 +65,7 @@
 	  <td>21 Jul 2013</td>
 	  <td>$1000</td>
 	  <td class="text-error">OVERDUE</td>
-	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td>
-</td>
+	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td> 
 	  <td><i class="icon-chevron-right"></i></td>
   </tr>
   <tr>
@@ -107,9 +103,7 @@
 	  <td>SENT</td>
 	  <td><button class="btn btn-success btn-small" type="button"><i class="icon-pencil"></i>&nbsp; PAYMENT</button></td>
 	  <td><i class="icon-chevron-right"></i></td>
-  </tr>
-
-   
+  </tr> 
 </table> 
 <br /><br /> 
 
@@ -119,10 +113,8 @@
 <h6 class="muted">6 PAID INVOICES</h6>
 <table class="table table-hover table-striped">
   <tr>
- 	  <th>[Doar Organization Name sau Contact Name]</th>
-	  <!-- Doar cand Custumerul nu e Companie atunci punem Persoana de contact ca Persoana Fizica. Daca exista si Organization Name si Contact Name, atunci lasam decat Organization Name -->   
-</div>	   
- 	  <th>Invoice #</th> 
+ 	  <th>[Doar Organization Name sau Contact Name]</th> 
+  	  <th>Invoice #</th> 
 	  <th>Issue Date</th>
 	  <th>Amount</th>
 	  <th>Status</th>
@@ -135,8 +127,7 @@
 	  <td>21 Jul 2013</td>
 	  <td>$1000</td>
 	  <td class="text-success">PAID</td>
-	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td>
-</td>
+	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td> 
 	  <td><i class="icon-chevron-right"></i></td>
   </tr>
   <tr>
@@ -145,8 +136,7 @@
 	  <td>21 Jul 2013</td>
 	  <td>$1000</td>
 	  <td class="text-success">PAID</td>
-	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td>
-</td>
+	  <td><button class="btn btn-small" type="button"><i class="icon-download"></i> Download</button></td> 
 	  <td><i class="icon-chevron-right"></i></td>
   </tr>
   <tr>
@@ -189,84 +179,63 @@
 <br />
 <div class="row">
 	<div class="span12">
- 	<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download PDF</button> 
- 	<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download CSV</button>
- 	<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download XML</button><br><br>
+ 		<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download PDF</button> 
+ 		<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download CSV</button>
+ 		<button type="button" class="btn span2 pull-right"><i class=" icon-download icon-white"></i> Download XML</button><br><br>
  	</div>	
 </div> 
 <br /><br /><br />
-<!-- Basic example of payment info. This has to be a modal after clicking Marked as Paid. --> 
+<!-- Basic example of payment info. This has to be a modal after clicking Payment BTN --> 
 
 <div class="row">
 	<div class="span8">
  		<h4>Enter Payment<button class="close">&times;</button></h4><hr>
 		<h4 class="text-center">Invoice #0049 for Bloom Brothers</h4><br>
-	</div>
-</div>
+	</div><!-- end span8 -->
+</div><!-- end row -->
 <div class="row"><br>
-	<div class="span8">	
-  	<div class="span3">
-		Invoice Amount: <strong>$420</strong></br><br>
-		<input class="input-small" type="text" placeholder="0.0"> 
-		<small class="">USD</small><br>
- 	 	<label class="checkbox"> 
-	  		<input type="checkbox"><small>Pay in full</small>
-	 	</label> <br> 
-	</div>
-		
-  	<div class="span4 pull-right">
-  		<select class="span3 pull-right">
-		 	<option>Check</option>
-		 	<option>Bank Transfer</option>
-		  	<option>Credit</option>
-		 	<option>Cash</option>
-		 	<option>Debit</option>
-		 	<option>ACH</option>
-		 	<option>Credit Card</option>
-		 	<option>Online Payment</option> 
-		</select>
-		<!-- Credit card options  
-  		<select class="span3 pull-right">
-		 	<option>VISA</option>
-		 	<option>MASTERCARD</option>
-		  	<option>AMEX</option>
-		 	<option>DISCOVER</option>
-		 	<option>DINERS</option>
-		 	<option>EUROCARD</option>
-		 	<option>JCB</option>
-		 	<option>NOVA</option>
-		 	<option>Credit Card</option>
-		</select> 	 
-		  end Credit card options --> 
- 		<div class="input-append date pull-right" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-   			<input class="span2" size="16" type="text" value="20/07/2013">
-   		 	<span class="add-on"><i class="icon-calendar"></i></span>
-   		</div>
-	</div>
- 		 <textarea class="input-xlarge span4 pull-right" id="textarea" placeholder="Add note" rows="4"></textarea>
-	</div>  
-</div>	
-
-<div class="row"> 
 	<div class="span8">
-		<!--<hr>
-		<label class="checkbox"> 
-			<input type="checkbox"><small class="text-center">Send Bloom Brother a payment notification email &nbsp;&nbsp; <a> edit default email </a></small>
-		</label> <br> 	-->
- 		<div class="form-actions"> 
- 			<div class="span1">
-			 <button type="button" class="btn pull-left">Cancel</button> 
-			</div> 
- 			<div class="span4">
-			 <button type="submit" class="btn btn-danger pull-right">Unpaid</button>
-		 	</div>
-			<div class="span2">
+		<div class="row">	
+  		  	<div class="span4">
+				Invoice Amount: <strong>$420</strong></br><br>
+				<input class="input-small" type="text" placeholder="0.0"> 
+				<small class="">USD</small><br>
+ 	 		 	<label class="checkbox"> 
+	  				<input type="checkbox"><small>Pay in full</small>
+	 		 	</label> <br> 
+			</div><!-- end span4 -->
+		
+  			<div class="span4 pull-right">
+  				<select class="span3 pull-right">
+		 		   <option>Check</option>
+				   <option>Bank Transfer</option>
+				   <option>Credit</option>
+		 		   <option>Cash</option>
+		 		   <option>Debit</option>
+		 		   <option>ACH</option>
+		 	       <option>Credit Card</option>
+		 	       <option>Online Payment</option> 
+			   </select>
+			   <!-- Credit Card options end Online Payment options will be added --> 			
+			
+ 			   <div class="input-append date pull-right" data-date-format="dd-mm-yyyy">
+   					<input class="span2" type="text" value="20/07/2013">
+   		 			<span class="add-on"><i class="icon-calendar"></i></span> 
+  			   </div>
+			 </div><!-- end span4 pull-right -->
+ 			 		<textarea class="input-xlarge span4 pull-right" id="textarea" placeholder="Add note" rows="4"></textarea>
+	</div><!-- end row --> 
+</div><!-- end span8 -->
+</div><!-- end row -->
+ 
+<div class="row"> 
+	<div class="span8"> 
+ 		<div class="form-actions">  
+			 <button type="button" class="btn btn-danger pull-left">Unpaid</button>  
 			 <button type="submit" class="btn btn-success pull-right">Record Payment</button>
-		 	</div> 
-		</div>
-	</div>		
-</div>
-</div>
-<!-- End Basic example of payment info. This has to be a modal after clicking Marked as Paid. --> 
+		</div><!-- end form actions-->
+	</div><!-- end span8 -->
+</div><!-- end row -->
+<!-- End Basic example of payment info. This has to be a modal after clicking Payment BTN --> 
 
 <%= render :partial => "partials/payment_modal", :locals => {:invoice => @invoices.first} %>

@@ -62,7 +62,7 @@ get '/invoice_export', to: 'accountant#invoice_export', :as => "export_invoices"
 
 #create/view invoice
 get '/customers/:customer_id/invoices', to: 'salesman#customer_details', :as => "customer_invoices"
-get '/customers/:customer_id/invoices/new', to: 'accountant#customer_new_invoice', :as => "customer_new_invoice"
+get '/customers/:customer_id/invoices/new', to: 'salesman#customer_new_invoice', :as => "customer_new_invoice"
 post '/customers/:customer_id/invoices', to: 'accountant#invoice_create_test', :as => "customer_create_invoice"
 
 #create service for invoice
@@ -106,6 +106,7 @@ get 'invoice_xls/:invoice_number', to: 'invoicetemplate#invoice_xls', :as => "in
 
 #adding undo to actions
 post 'versions/revert', to: 'version#revert', :as => "revert_version"
+post 'versions/revert_update', to: 'version#revert_update', :as => "revert_update_version"
 post 'versions/archive_customer', to: 'version#archive_customer', :as => "archive_customer"
 post 'versions/delete_user', to: 'version#delete_user', :as => "delete_user"
 

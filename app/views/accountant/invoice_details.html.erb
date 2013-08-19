@@ -1,6 +1,149 @@
+<!-- Invoice Page Updated by Petronela - Static code reference + CopyPaste functionality. Can be used or redone.-->
+<div class="row">
+	<div class="span8">
+		<div class="span2">  
+  			<h4>Invoice #0049</h4>
+		</div><!-- end span2 -->
+		<div class="span5 pull-right"> 
+	  		<button type="button" id="" class="btn pull-right" type="button">Edit</button>  
+		</div><!-- end span5 --> 	
+	</div><!--end span8 -->
+	
+  	<div class="span3 pull-right">
+		<button type="button" id="" class="btn btn-success btn-block pull-right" type="button">Send &nbsp;<i class="icon-circle-arrow-right icon-white"></i></button> 
+	</div><!-- end span3 -->
+ 	 	<legend class="span12"></legend>  
+</div><!--end row -->
+	
+<div class="row">
+	<div class="span8">  
+		<div class="media-body">
+			<img class="media-object img-polaroid" img class="img-rounded"  src="http://www.tradeinvoice.com.au/images_website/InvoiceExample2.png">  
+		</div>
+	<br/>
+			<button type="button" class="btn span2 pull-left"><i class=" icon-download icon-white"></i> Download PDF</button> 
+			<button type="button" class="btn span2 pull-left"><i class=" icon-download icon-white"></i> Download CSV</button>
+			<button type="button" class="btn span2 pull-left"><i class=" icon-download icon-white"></i> Download XML</button>
+	</div> <!--end span9 -->
+ 
+   <div class="span3 pull-right actions">
+	   <div class="well">
+  			Invoice Status: <strong>DRAFT</strong><br>
+  			Last contact: 
+  			          <strong>
+                  		 <% if @latest_activity %>
+                    	   <% if @latest_activity == 0 %>
+                    	        today 
+                    	   <% else %>
+              	  	   		<%= @latest_activity %> days ago
+                           <% end %>
+                    	 <% end %>
+  			         </strong><hr>
+			         <%= link_to send_email_path(@customer.id) , :class => "btn btn-info btn-primary btn-block" do %>
+			   	     	 <i class="icon-envelope icon-white "></i> Send Email
+			   	    <% end %>
+  		</div> <!--end well -->
+		
+<!-- static example activity feed -->
+ 	<h5 class="muted">Activity Feed</h5>
+	<legend></legend>
+		<div class="media">
+		 	<a class="pull-left" href="#">
+			<img class="media-object img-rounded" img class=" img-rounded" src="https://si0.twimg.com/profile_images/3278714349/d509129a501a9c3c3686e0addaa10220_normal.jpeg">
+			</a>
+			<div class="media-body">
+				<strong>Kevin J. Liew</strong>
+				<small class="muted pull-right">1h ago</small>
+				<p class="muted" href="#">#collection</p>	
+			</div><br>
+			<p>Added a <a class="muted">#note</a> on 08/12/2013 for <a class="muted">Mary R. Gilliam</a>'s <a href ="#" class="muted">Invoice 4</a></p>
+			
+		</div>
+		 
+  
+<!-- end satic example activity feed -->
+ 	<!-- activity feed -->
+	
+	<div class="row">
+	<div class="span3">
+		<div class="row">
+		  	  <div class="span3">
+		  	    <h5 class="muted">Activity Feed</h5>
+		      </div> 
+		  <div class="span3"><legend></legend></div>
+		  </div>
+
+		<% if @invoice_activities != [] %>
+	    	<% @invoice_activities.each do |activity|%>
+	    	    <%= render_activity(activity, params = {:page => 'invoice'}) %>
+	    	<% end %>
+	    <% else %>
+	    <%= render :partial => "partials/no_data" %>
+		<% end %>
+	
+	 	</div>  <!-- end div well white for activity feed -->
+	</div>
+  	</div> 
+ 
+	<div class="span8"><br/> 
+        <h5 class="muted">Notes</h5>
+   	<legend></legend>
+	<!-- static example -->
+	<div class="media">
+	 	<a class="pull-left" href="#">
+		<img class="media-object img-rounded" img class="img-rounded" src="https://secure.gravatar.com/avatar/c726f2dbeae8066ef58dd60b0df93c36?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2Fc208b19f4374%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32">
+		</a>
+		<div class="media-body">
+			<strong>Kevin J. Liew</strong>
+			<small class="muted pull-right">1h ago</small>
+			<p class="" href="#">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas faucibus mollis interdum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatisum.</p>	
+		</div>
+	</div>
+	<div class="media">
+	 	<a class="pull-left" href="#">
+		<img class="media-object img-rounded" img class="img-rounded" src="https://secure.gravatar.com/avatar/c726f2dbeae8066ef58dd60b0df93c36?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2Fc208b19f4374%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32">
+		</a>
+		<div class="media-body">
+			<strong>Mark W. Johnson</strong>
+			<small class="muted pull-right">1m ago</small></br>
+			<p class="" href="#">Vestibulum id ligula porta felis euismod semper.</p>	 
+		</div>
+	</div> <br />
+	<!-- static example -->
+       <% index = 0 %>
+   	<% if @action_details && @action_details != [] %>
+   	<ul>
+
+   		<% @action_details.each do |action_detail| %>
+       		<% if action_detail[:action].action_type == "note" %>
+           		<li>
+           		<%= action_detail[:action].text_note %>
+           		<% index = index + 1 %>
+           		</li>
+       		<% end %>
+   		<% end %>
+   	</ul>
+   	<% end %>
+        <% if index == 0 %>
+   	    <%= render :partial => "partials/no_data" %>
+   	 <% end %>
+	
+	  <%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+	    <%= text_area(:text_note, :body, rows: 3, class: "span8")%>
+	    <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
+	       <i class="icon-plus-sign icon-white"></i> Note</button>
+	    <% end %>
+	  <% end %>
+	</div> 
+
+</div>	
+ 
+
+<br /><br /><br /><br /><br /><br />
+<!-- Invoice Page Updated by Petronela-->
   
   <% if @invoice %>
-       
+
    <div class="row">
         <div class="span9">
 	        <legend class="muted">Invoice  #<%= @invoice.number %>
@@ -75,7 +218,7 @@
 	</div>
 
 	<div class="span5">
-    <%= form_tag add_note_path(@invoice.id), :method => 'post' do %>
+    <%= form_tag add_note_path(@invoice.number), :method => 'post' do %>
       <%= text_area(:text_note, :body, rows: 5, class: "span5")%>
       <%= button_tag(type: 'submit', class: "btn btn-success pull-right btn-small") do %>
          <i class="icon-plus-sign icon-white"></i> Note</button>

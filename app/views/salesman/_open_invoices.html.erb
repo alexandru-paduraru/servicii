@@ -1,13 +1,11 @@
-<h6 class="muted">OPEN INVOICES</h6>
+<h5 class="muted"><%= @open_invoices.count %> OPEN INVOICES</h5>
 <table class="table table-hover table-striped">
 	      <tr>
 	      	<th>Invoice number </th>
 	      	<th>Issue date</th>
 	      	<th>Due date</th>
 	      	<th>Amount</th>
-	      	<th>Latest Activity</th>
 	      	<th>Status</th>
-          <th>Action</th>
 	      </tr>
 
 	      <% if @open_invoices %>
@@ -17,19 +15,21 @@
                   <td> <%= invoice.number %></td>
                   <td> <%= invoice.date.strftime("%m/%d/%Y") rescue "N/A" %></td>
                   <td> <%= invoice.due_date.strftime("%m/%d/%Y") rescue "N/A" %> </td>
-                  <td>$ <%= invoice.amount %></td>
-                  <td><%= invoice.latest_activity[0].action_type.upcase rescue "" %></td>
+                  <td>$ <%= number_with_precision(invoice.amount, :precision => 2) %></td>
+                 <!--  <td><%= invoice.latest_activity[0].action_type.upcase rescue "" %></td> -->
                   <td class="invoice_status_<%= invoice.id %>"><%= invoice.show_state %></td>
-                  <td class="change_status_<%= invoice.id %>">
+                 <!--
+ <td class="change_status_<%= invoice.id %>">
                     <%= render :partial => "invoices/change_status", :locals => {:invoice => invoice} %>
                   </td>
+-->
                 </tr>
     		      <% end %>
               <tr>
-                <td colspan="5"></td>
+                <td colspan="4"></td>
                 <td class="span3">
                   <span class="amount_info">Total:</span>
-                  <span class="total_due_amount">$<%= @total_due_amount %></span>
+                  <span class="total_due_amount">$<%= number_with_precision(@total_due_amount, :precision => 2) %></span>
                 </td>
               </tr>
               <% end %>

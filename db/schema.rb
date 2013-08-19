@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20130811144810) do
+=======
+ActiveRecord::Schema.define(version: 20130812172002) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+>>>>>>> master
 
   create_table "actions", force: true do |t|
     t.datetime "sent_at"
@@ -42,6 +49,7 @@ ActiveRecord::Schema.define(version: 20130811144810) do
     t.string   "recipient_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "pre_version_id"
   end
 
   create_table "companies", force: true do |t|

@@ -1,7 +1,5 @@
-
-
 class UserController < ApplicationController
-
+	
 	def login
    respond_to do |format|
       format.html  {render 'login'}
@@ -88,6 +86,9 @@ class UserController < ApplicationController
 # 				else ok = 0
 # 				end
 # 			end
+        
+
+
  			if ok == 1
  				redirect_to admin_path, :notice => "Employee was created."
  			else redirect_to admin_path, :notice => "Employee was created! Info: you didn't choose any job for your employee, you can do this by editing your employee from the bottom list!"
@@ -160,6 +161,10 @@ class UserController < ApplicationController
 # 				end
 # 			end
 # 			end
+#saving the previous version to display it in the activity feed
+            activity = PublicActivity::Activity.all.last
+            activity.pre_version_id = activity.trackable.versions.last.id
+            activity.save!
  			if ok == 1
  				redirect_to admin_path, :notice => "Employee updated successfully"
  			else redirect_to admin_path, :notice => "Employee was updated! Info: you didn't choose any job for your employee, you can do this by editing your employee from the bottom list!"
