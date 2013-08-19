@@ -127,8 +127,8 @@
               <% else first_el = 1 %>
               <% end %>
               <%= change %> 
-              from    <%= post_revert[change] %>
-              to      <%= prev_hash[change] %>
+              from    <%= post_revert[change] if post_revert.present? %>
+              to      <%= prev_hash[change] if prev_hash.present? %>
           <% end %>
         <% end %>
         
