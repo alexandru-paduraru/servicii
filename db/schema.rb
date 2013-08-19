@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130812172002) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20130819084254) do
 
   create_table "actions", force: true do |t|
     t.datetime "sent_at"
@@ -85,6 +82,18 @@ ActiveRecord::Schema.define(version: 20130812172002) do
   add_index "customers", ["company_id"], name: "index_customers_on_company_id", using: :btree
   add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
 
+  create_table "future_actions", force: true do |t|
+    t.integer  "invoice_id"
+    t.boolean  "sms_notification"
+    t.boolean  "email_notification"
+    t.integer  "duration_type"
+    t.integer  "starting_day"
+    t.integer  "starting_week_day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "invoice_creation"
+  end
+
   create_table "invoice_has_services", force: true do |t|
     t.integer  "invoice_id"
     t.integer  "service_id"
@@ -108,6 +117,8 @@ ActiveRecord::Schema.define(version: 20130812172002) do
     t.integer  "user_id"
     t.integer  "status"
     t.string   "state"
+    t.integer  "future_action_id"
+    t.float    "paid_amount"
   end
 
   add_index "invoices", ["company_id"], name: "index_invoices_on_company_id", using: :btree

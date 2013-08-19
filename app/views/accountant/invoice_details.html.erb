@@ -165,7 +165,7 @@
 		        </address>
 	        </div>
 	         <address>
-	            <h4>Customer</h4> 
+             <h4><%= link_to "Customer", "/customer_details/#{@customer.id}" %></h4> 
 	            Organization: <strong><%= @customer.organization_name %></strong><br>
 			    Name: <strong><%= @customer.first_name + ' ' + @customer.last_name %></strong><br>
 			    Email: <strong><%= @customer.email %></strong><br>
@@ -429,3 +429,5 @@
       </div>
       <% end %> <!-- end of form -->
  </div>
+
+<%= render :partial => "partials/payment_modal", :locals => {:invoice => @invoice} %>

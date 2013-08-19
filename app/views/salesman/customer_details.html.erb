@@ -115,9 +115,16 @@
   
  <!-- end row   --> 
   <%= render :partial => "salesman/open_invoices" %>
- 
+
+<!-- V4 Static Example of Table -->
+
+<br /><br />
+
+<%= render :partial => "recurring_invoices", :locals => {:recurring_invoices => @recurring_invoices} %>
+
+<br /><br /><br />
 <!-- Not for V1 
-<%= render :partial => "recurring_invoices" %>
+<%#= render :partial => "recurring_invoices" %>
 -->
 
 <div class="row">

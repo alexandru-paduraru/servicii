@@ -1,0 +1,41 @@
+<%= form_for(@future_action) do |f| %>
+  <% if @future_action.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@future_action.errors.count, "error") %> prohibited this future_action from being saved:</h2>
+
+      <ul>
+      <% @future_action.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :invoice_id %><br>
+    <%= f.number_field :invoice_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sms_notification %><br>
+    <%= f.check_box :sms_notification %>
+  </div>
+  <div class="field">
+    <%= f.label :email_notification %><br>
+    <%= f.check_box :email_notification %>
+  </div>
+  <div class="field">
+    <%= f.label :duration_type %><br>
+    <%= f.number_field :duration_type %>
+  </div>
+  <div class="field">
+    <%= f.label :starting_day %><br>
+    <%= f.number_field :starting_day %>
+  </div>
+  <div class="field">
+    <%= f.label :starting_week_day %><br>
+    <%= f.number_field :starting_week_day %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

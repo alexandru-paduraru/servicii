@@ -101,18 +101,32 @@ class SalesmanController < ApplicationController
      @last_action = ((Time.now - _customer_last_action[:sent_at])/1.day).to_i
 	 end
 
+
 	 if @customer
+
 		 @invoices = @customer.invoices
      @open_invoices = @invoices
 
+     @recurring_invoices = @customer.recurring_invoices()
+     #@open_invoices = []
+     #@invoices.each do |invoice|
+             #open_invoice = {}
+             #open_invoice[:id] = invoice.id
+             #open_invoice[:due_amount] = invoice.amount
+             #open_invoice[:date] = invoice.date
+             #open_invoice[:due_date] = invoice.due_date
+             #open_invoice[:number] = invoice.number
+             #open_invoice[:latest_activity] = invoice.latest_activity[0]
+             #@open_invoices.append(open_invoice)
+     #end
+		
 		 @total_due_amount = 0
 		
      @total_due_amount = @open_invoices.sum(:amount)
 
 		 @actions = @customer.actions
-
-         @action_details = []
-		 @actions.each do |email|
+       @action_details = []
+       @actions.each do |email|
 		     details = {}
 		     details[:email] = email
 		     details[:user] = User.find_by_id(email.user_id)

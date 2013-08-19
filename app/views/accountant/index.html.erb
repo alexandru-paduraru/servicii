@@ -1,17 +1,18 @@
 
 <div class="input-prepend pull-left">
-<!--   <%= form_tag ({}), ({:id => "searchForm"}) do %> -->
+<!--   <%#= form_tag ({}), ({:id => "searchForm"}) do %> -->
 <!--   Alex: Nu stiu care schimba din "form html" in "form_tag", dar nu mai schimbati ca se strica input-prependul... -->
+<!--   Gabi: Care input-prepend? :-) Si de ce anume tine acest input prepend? -->
   <form accept-charset="UTF-8" id="searchForm">
    <button type="button" class="btn disabled" id="search-button"><i class="icon-search"></i></button>
    <input type="text" class="span9" placeholder="Search an invoice by invoice number, customer account, first name or last name", id="search_field_invoices" name="search" autocomplete="off"/>
    <button type="button" class="btn btn-danger reset-search-button-invoices"/><i class="icon-remove-sign"></i></button>
-   </form>
-<!--   <% end %> -->
+  </form>
+<!--   <%# end %> -->
 </div>
 
-<div class="clearfix">
-</div>
+<div class="clearfix"></div>
+
 <div class="table-div">
 <%= render :partial => "all_invoices", :locals => {:invoices => @invoices, :list_type => :all, :table_id => "invoices-table"} %>
 <h4 class="muted" id="info-message"></h4>
@@ -20,24 +21,23 @@
 <div class="clearfix">
 </div>
 
-<!-- <%= render :partial => "some_weird_modal" %> -->
- 
 
 <h6 class="muted"><%= @unpaid_invoices.count %> ACTIVE INVOICES</h6>
   <%= render :partial => "all_invoices", :locals => {:invoices => @unpaid_invoices, :list_type => :unpaid, :table_id => "blabla"} %>
+  <br />
 
+  <!-- Static Example of Table with selected row -->
+  <br /><br />
 
-<br />
- 
-
-<h6 class="muted"><%= @paid_invoices.count %> PAID INVOICES</h6>
+  <h6 class="muted"><%= @paid_invoices.count %> PAID INVOICES</h6>
   <%= render :partial => "all_invoices", :locals => {:invoices => @paid_invoices, :list_type => :paid, :table_id => "bla" } %>
 
 <br />
 
+<h3>BELOW - DESIGN ELEMENTS</h3>
 
 <!-- Example of a Table in Financials. --> 
-<br /><br /><br /><br />
+<br /><br />
 <h6 class="muted">6 ACTIVE INVOICES</h6>
 <table class="table table-hover table-striped">
   <tr>
@@ -90,7 +90,7 @@
 	  <td>0017</td>
 	  <td>21 Jul 2013</td>
 	  <td>$1200</td>
-	  <td class="text-success">PAID</td>
+	  <td class="text-success">Active</td>
 	  <td><button class="btn btn-small" type="button"><i class="icon-refresh"></i> UNDO</button></td>
 	  <td><i class="icon-chevron-right"></i></td>
   </tr>
@@ -109,7 +109,6 @@
 
 <!-- Example of a Table in Financials. --> 
 <br /><br /><br /><br />
-<h6 class="muted">6 PAID INVOICES</h6>
 <table class="table table-hover table-striped">
   <tr>
  	  <th>[Doar Organization Name sau Contact Name]</th> 
@@ -237,3 +236,4 @@
 </div><!-- end row -->
 <!-- End Basic example of payment info. This has to be a modal after clicking Payment BTN --> 
 
+<%= render :partial => "partials/payment_modal", :locals => {:invoice => @invoices.first} %>

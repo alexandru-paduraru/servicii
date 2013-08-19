@@ -34,9 +34,9 @@ class AccountantController < ApplicationController
  	  render text: 'No results have been found for your search :(', :status => 422
  	end
  end
- 
+
  def invoice_details
-     @invoice_number = params[:invoice_number]
+   @invoice_number = params[:invoice_number]
 	 @invoice = Invoice.find_by_number(@invoice_number)
 	 
 	 @customer_id = @invoice.customer_id
@@ -47,6 +47,7 @@ class AccountantController < ApplicationController
 
 	 @company = Company.find_by_id(current_user.company_id)
 	 @services = Invoice.index_services(@invoice)
+
 
 	 @invoice_latest_activity = @invoice.latest_activity[0]
    begin
@@ -59,44 +60,33 @@ class AccountantController < ApplicationController
      @latest_activity = 10
    end
 
-    @notes = @invoice.actions.where(:action_type => "note")
+ #  @action_details = []
+	 #@actions = @invoice.actions
+	 #@actions.each do |action|
+		 #details = {}
+		 #details[:action] = action
+		 #details[:user] = User.find_by_id(action.user_id)
+     #details[:customer] = Customer.find_by_id(action.customer_id)
+		 #@action_details.append(details)
+   #end
+   @notes = @invoice.actions.where(:action_type => "note")
 
-     #activity feed
-     _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
+   #activity feed
+   _company_users_id = User.all.where(:company_id => current_user.company_id).select(:id)
 
-	   _invoice_action_id = @invoice.actions.select(:id) 
-	   _invoice_action_id_array = []
-	   _invoice_action_id.each do |action_id|
-	        _invoice_action_id_array.append(action_id.id)
+   _invoice_action_id = @invoice.actions.select(:id) 
+   _invoice_action_id_array = []
+   _invoice_action_id.each do |action_id|
+     _invoice_action_id_array.append(action_id.id)
 	 end
 
-	    _activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id)
-	    @invoice_activities = []
-	    _activities.each do |act|   
-            ok = 0
-            _type = act.trackable_type
-            _id = act.trackable_id
-#             if _type == "Customer" && _id == @customer.id
-#                 ok = 1
-#             end
-            if _type == "Invoice" && _id == @invoice.id
-                ok = 1
-            end
-            if _type == "Action" && _invoice_action_id_array.include?(_id)
-                ok = 1
-            end
-            if ok == 1
-                @invoice_activities.append(act)
-            end
-	    end
-	    
+   get_invoice_activities(_company_users_id, _invoice_action_id_array)
 
-     	 
 	 respond_to do |format|
 	 	format.html {render 'invoice_details'}
 	 end
  end
- 
+
 	 def invoice_new
 		 @invoice = Invoice.new
 		 respond_to do |format|
@@ -105,8 +95,15 @@ class AccountantController < ApplicationController
 	     end
 	 end
 
-#### view for opening a new invoice from a customer details
- 
+   #### view for opening a new invoice from a customer details
+   def customer_new_invoice
+     @invoice = Invoice.new
+     @services = []
+     customer_id = params[:customer_id]
+     @customer = Customer.find_by_id(customer_id)
+     @company = Company.find_by_id(current_user.company_id)
+   end
+
    
    def invoice_create_test
    		@customer = Customer.find_by_id(params[:customer_id])
@@ -118,6 +115,10 @@ class AccountantController < ApplicationController
    		@invoice = Invoice.new(:date => Time.now, :customer_id => _post_customer[:id], :user_id => current_user.id, :company_id => current_user.company_id, :due_date => _post_invoice[:due_date], :amount => _post_invoice[:amount])
    		@invoice.number = Invoice.generate_number(current_user)
    		if @invoice.save
+        @invoice.mark_draft!
+
+        add_recurrence_meta()
+
    			(1..numberOfServices).each do |i|
    				service = "service_" + i.to_s
    				_post_service = params[service]
@@ -125,24 +126,28 @@ class AccountantController < ApplicationController
    				@relation = InvoiceHasService.new(:invoice_id => @invoice.id, :service_id => _post_service[:id], :qty => _post_service[:qty])
    				if !@relation.save
    					ok = 0
-   				end 
+   				end
    			end
+
    			if ok == 1
    				if Notifier.send_email_invoice_template(@invoice, @services, @customer).deliver
+
+            # Mark the invoice as sent
+            @invoice.sent_invoice
+
    					render :text => "Invoice was succesfully created! An email was sent to customer!"
-   				Action.create(:sent_at => Time.now, :customer_id => @customer.id, :invoice_id => @invoice.id, :user_id => current_user.id, :company_id => @customer.company_id, :action_type => "email")
+            Action.create(:sent_at => Time.now, :customer_id => @customer.id, :invoice_id => @invoice.id, :user_id => current_user.id, :company_id => @customer.company_id, :action_type => "email")
    				else
    					render :text => "Invoice was succesfully created but email couldn't be sent!"
    				end
-   			else 
+   			else
    				render :text => "There was an error creating Invoice has service! Please contact admin!"
    			end
    		else
    			render :json => { :errors => @invoice.errors.full_messages }, :status => 422
    		end
-   		
    end
-   
+
    def create_service
    		@service = Service.new
    		_post = params[:service]
@@ -303,12 +308,48 @@ class AccountantController < ApplicationController
       format.json { render :json => "1".to_json }
     end
   end
-  
-  	def save_call
-	invoice = Invoice.find_by_id(params[:invoice_id])
+
+  def save_call
+  invoice = Invoice.find_by_id(params[:invoice_id])
     customer = invoice.customer
     action = Action.create(:sent_at => Time.now, :customer_id => customer.id, :invoice_id => invoice.id, :user_id => current_user.id, :company_id => current_user.company_id, :action_type => "call")
 	render :json => "1".to_json 
 	end
+
+  private
+
+  def add_recurrence_meta()
+    if params[:recurrence].present? && params[:recurrence].to_i > 0
+      if params[:recurrence].to_i == FutureAction::DAILY
+        @invoice.create_future_action(:invoice_creation => true, :duration_type => params[:recurrence])
+      elsif params[:recurrence].to_i == FutureAction::WEEKLY
+        @invoice.create_future_action(:invoice_creation => true, :duration_type => params[:recurrence], :starting_week_day => params[:starting_day])
+      elsif params[:recurrence].to_i == FutureAction::MONTHLY
+        @invoice.create_future_action(:invoice_creation => true, :duration_type => params[:recurrence], :starting_day => params[:starting_day])
+      end
+    end
+  end
+
+   def get_invoice_activities(_company_users_id, _invoice_action_id_array)
+	    _activities = PublicActivity::Activity.order('created_at desc').where(owner_id: _company_users_id)
+	    @invoice_activities = []
+	    _activities.each do |act|
+            ok = 0
+            _type = act.trackable_type
+            _id = act.trackable_id
+#             if _type == "Customer" && _id == @customer.id
+#                 ok = 1
+#             end
+            if _type == "Invoice" && _id == @invoice.id
+                ok = 1
+            end
+            if _type == "Action" && _invoice_action_id_array.include?(_id)
+                ok = 1
+            end
+            if ok == 1
+                @invoice_activities.append(act)
+            end
+	    end
+   end
 
 end

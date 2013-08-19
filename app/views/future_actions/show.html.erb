@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Invoice:</strong>
+  <%= @future_action.invoice_id %>
+</p>
+
+<p>
+  <strong>Sms notification:</strong>
+  <%= @future_action.sms_notification %>
+</p>
+
+<p>
+  <strong>Email notification:</strong>
+  <%= @future_action.email_notification %>
+</p>
+
+<p>
+  <strong>Duration type:</strong>
+  <%= @future_action.duration_type %>
+</p>
+
+<p>
+  <strong>Starting day:</strong>
+  <%= @future_action.starting_day %>
+</p>
+
+<p>
+  <strong>Starting week day:</strong>
+  <%= @future_action.starting_week_day %>
+</p>
+
+<%= link_to 'Edit', edit_future_action_path(@future_action) %> |
+<%= link_to 'Back', future_actions_path %>

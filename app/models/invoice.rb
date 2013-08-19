@@ -1,25 +1,28 @@
 require 'date'
 class Invoice < ActiveRecord::Base
   include PublicActivity::Model
+  #tracked except: [:destroy],  owner: ->(controller,model) {controller && controller.current_user}
+  #has_paper_trail
+  #attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state, :future_action_id
   tracked except: [:destroy],  owner: ->(controller,model) {controller && controller.current_user}, # :params => {:pre_version_id => this.trackable.versions.last.id}
 #           pre_version_id: ->(controller,model) {controller && controller.pre_version}
             pre_version_id: :trackable
-    has_paper_trail
-    attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state
+  has_paper_trail
+  attr_accessible :date, :due_date, :amount, :number, :customer_id, :company_id, :user_id, :status, :state, :paid_amount
 
   belongs_to :company
   belongs_to :customer
 
   has_one :recurring_invoice
 
-# completari many to many  
   has_many :transactions
   has_many :actions
   has_many :invoice_has_services
   has_many :services, through: :invoice_has_services 
 
+  belongs_to :future_actions
+
   accepts_nested_attributes_for :invoice_has_services
-# sfarsit completari many to many  
 
    validates :date, :due_date, :amount, :number, :customer_id, :company_id, :presence => true
 #   validates_uniqueness_of :number
@@ -83,11 +86,19 @@ class Invoice < ActiveRecord::Base
     end
 
     event :paid do
-      transition :overdue => :paid, :due => :paid, :current => :paid
+      transition :overdue => :paid, :due => :paid, :current => :paid, :draft => :paid
     end
 
     event :next_status do
       transition :draft => :sent, :sent => :current, :current => :paid, :due => :paid, :overdue => :paid
+    end
+
+    event :undo_payment do
+      transition :paid => :due
+    end
+
+    event :partial do
+      transition :draft => :partial, :sent => :partial, :viewed => :partial, :current => :partial, :due => :partial, :overdue => :partial
     end
 
     state :draft
@@ -98,7 +109,12 @@ class Invoice < ActiveRecord::Base
     state :overdue
     state :collection
     state :paid
+    state :partial
     state :promised_to_pay
+  end
+
+  def mark_draft!
+    self.update_attributes(:state => :draft)
   end
 
   def next_status_based_on_current()
@@ -110,6 +126,34 @@ class Invoice < ActiveRecord::Base
       "paid"
     elsif state == "current"
       "paid"
+    end
+  end
+
+  def get_recurring_data
+    self.future_actions.where(:invoice_creation => true).first
+  end
+
+  def calc_next_date
+    future_action_meta = get_recurring_data()
+
+    if future_action_meta.present?
+      if future_action_meta.duration_type == FutureAction::DAILY
+        (DateTime.now + 1.day)
+      elsif future_action_meta.duration_type == FutureAction::WEEKLY
+        if future_action_meta.starting_week_day > DateTime.now.wday
+          DateTime.now.next_week + future_action_meta.starting_week_day.days
+        else
+          DateTime.now + (future_action.starting_week_day - DateTime.now.wday).days
+        end
+      elsif future_action_meta.duration_type == FutureAction::MONTHLY
+        if future_action_meta.starting_day > DateTime.now.mday
+          DateTime.new(DateTime.now.year, DateTime.now.month, future_action_meta.starting_day)
+        else
+          DateTime.new(DateTime.now.year, DateTime.now.month, future_action_meta.starting_day) + 1.month
+        end
+      else
+        nil
+      end
     end
   end
 

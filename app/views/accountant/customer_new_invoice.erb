@@ -1,0 +1,159 @@
+<div class="row"> 
+ 	<div class="span6">
+			<h4>Create Invoice #0094</h4>
+		<!--<h4>Edit Invoice #0094</h4>-->
+	</div>
+	<!-- First State -->
+	<div class="span6"><button type="button" id="invoice_submit" class="btn btn-success pull-right" type="button">Save &nbsp;<i class="icon-circle-arrow-right icon-white"></i></button>  
+ 	</div> 
+	<!-- Second State 	
+	<div class="span4"> 
+		<button type="button" id="invoice_submit" class="btn pull-right" type="button">Save</button>  
+ 	</div>
+	<div class="span2">
+		<button type="button" id="invoice_submit" class="btn btn-success btn-block pull-right" type="button">Send &nbsp;<i class="icon-circle-arrow-right icon-white"></i></button>  
+	</div>	
+	-->	
+	<div class="span12">
+		<legend></legend>
+	</div> 
+</div> 
+<br> 
+ 
+<form accept-charset="UTF-8" id="new_invoice" action=<%= customer_create_invoice_path(@customer) %> method="post">
+<!-- 
+<div class="row">
+	<div class="span4">
+	<img src="http://upload.wikimedia.org/wikipedia/en/9/95/Stack_Overflow_website_logo.png" class="img-polaroid pull-right">
+	</div> 
+</div>
+--> 
+ 
+<div class ="row">
+	<div class ="span3 well-white">
+ 	    <h4>Invoice To</h4>  
+		<p>[Company Name here]</p>
+		<p><%= @customer.first_name + ' ' + @customer.last_name %></p>
+		<p><%= @customer.address1 %> <%= @customer.zip_code %></p>
+		<p><%= @customer.city + ' ' + @customer.state %></p>
+		<div id="ajax_response">
+	</div> 
+</div>	 
+ 	<div class ="span3 well-white">
+		<h4>Invoice From</h4>
+		<p><%= @company.name %></p>
+ 		<p><%= @company.address %>, <%= @company.zip_code %></p>
+		<p><%= @company.city + ', ' + @company.country %></p>
+	</div>
+  
+<div class="span4 well-white pull-right">
+ 	<h4>Invoice details</h4>  
+	<fieldset>
+	<div class="control-group">
+	<%= fields_for :invoice do |i| %>
+		<!--<%= i.label :due_date, :class => "control-label" %> -->
+		<div class="controls">
+      <input type="text" class="input-medium datepicker" value="<%= DateTime.now.strftime("%m/%d/%Y") %>" placeholder="Issued Date" ><br> 
+			<input type="text" class="input-mini"  value="[Net 30]" placeholder="Net 30" >&nbsp;
+			<%= i.text_field :due_date, :class => "datepicker input-small", :placeholder => "Due date" %>
+			<%= i.hidden_field :amount %>
+			<%= i.hidden_field :number_of_services, :value => 0 %>  
+			<input type="text" class="input-medium" placeholder="PO Number" >
+ 			
+   		</div>
+	<% end %>	
+
+  <%#= check_box_tag :recurrent_invoice, true, false %>
+  <h4>Recurrent Invoice</h4>
+  <%= select_tag :recurrence, options_for_select([["None", 0], ["Daily", FutureAction::DAILY], ["Weekly", FutureAction::WEEKLY], ["Monthly", FutureAction::MONTHLY]]) %>
+  <br />
+  <%= label_tag :starting_day %>
+  <%= text_field_tag :starting_day %>
+
+	</div>
+	
+	<%= fields_for :customer do |c| %>
+	<%= c.hidden_field :id, :value => @customer.id %>
+		<%= c.hidden_field :email, :value => @customer.email %>
+		<%= c.hidden_field :name, :value => @customer.first_name + ' ' + @customer.last_name  %>
+	  
+	<% end %>
+	<!-- Text input-->
+	</fieldset><br><br>
+</div>
+
+
+<div class="span12">
+<table class="table table-striped" id="services_table">
+  <tr>
+  <th>&nbsp;</th>
+  <th>Service</th>
+  <th>Quantity</th>
+  <th>Unit Cost</th>
+  <th></th>
+  <th><span class="pull-right">&nbsp;</span></th> 
+    </tr>
+  
+  <tr>
+  <%= fields_for :service do |f| %>
+  			<td></td>
+			<td class="vcenter"><%= f.text_field :name, :class => "span2", :placeholder => "Service name" %>
+			</td>
+			<td class="vcenter">
+			<%= f.number_field :qty, :class => "span2", :placeholder => "0" %>
+			</td>
+			<td class="vcenter">
+			<%= f.text_field :value, :class => "span2", :placeholder => "0" %>
+			</td>
+			<td class="vcenter">
+			<button class="btn" type="button" id="add_service_button"><i class="icon-plus icon-white"></i> Add</button>
+			</td>
+			<td>
+				
+			</td>
+  <% end %>
+  </tr>
+ 
+  <tr>
+	  <td colspan="5"></td>
+	  <td>
+	  	<span class="amount_info">Total amount:</span>
+	  	<span class="total_due_amount">$0</span>
+	  </td>
+  </tr>
+</table>
+</div> 
+ <!--
+<div class = "span12">
+		<h4>Company</h4>
+		<p><%= @company.name %></p>
+		<p><%= @company.address %>, <%= @company.zip_code %></p>
+		<p><%= @company.city + ', ' + @company.country %></p>
+	</div>
+
+<button class="modalButton btn btn-info btn-large span2" id="1"> Preview </button>
+  <div class="btn-group pull-right">
+  <button type="button" id="invoice_save_draft" name="draft" class="btn span2 btn-large">Save draft</button>
+  <button type="button" id="invoice_submit" class="btn btn-success btn-large span3">Submit Invoice <i class="icon-circle-arrow-right icon-white"></i></button>
+  </div>
+  </form>  -->	
+</div>  
+  
+<div class="row">
+	<div class="control-group span5">
+		<label class="control-label" for="textarea">[Invoice note for Customer:]</label>
+		<div class="controls">
+	    <textarea class="input-xlarge span12" id="textarea" placeholder="[This text is going to be found on the invoice.]" rows="4"></textarea>
+		</div>
+	</div>
+</div>
+			<!--
+	  <div class="span6 pull-right well-white">
+		  	<label class="control-label ">Attachments</label>
+		    <button class="btn btn-small" type="submit">Add File</button> <small class="muted">Maximum size: 25MB</small>
+	  </div>
+	  -->
+ 
+	
+  
+   
