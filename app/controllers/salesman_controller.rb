@@ -1,6 +1,6 @@
 class SalesmanController < ApplicationController
 
-    add_breadcrumb "Customers", :salesman_path
+    #add_breadcrumb "Customers", :salesman_path
     
 	def index
 	    @customer_detail = []
@@ -93,6 +93,7 @@ class SalesmanController < ApplicationController
 	 @customer_id = params[:customer_id]
 	 @customer = Customer.find_by_id(@customer_id)
 	 name = @customer.organization_name != nil ? @customer.organization_name : @customer.first_name + ' ' + @customer.last_name
+	 add_breadcrumb "Customers", :salesman_path
      add_breadcrumb name, @customer.id.to_s
      
 	 @customer_last_invoice = Customer.last_invoice(@customer)
@@ -218,6 +219,8 @@ class SalesmanController < ApplicationController
     	customer_id = params[:customer_id]
 		@customer = Customer.find_by_id(customer_id)
 		name = @customer.organization_name != nil ? @customer.organization_name : @customer.first_name + ' ' + @customer.last_name
+		
+		add_breadcrumb "Customers", :salesman_path
 		add_breadcrumb name, customer_details_path(@customer.id)
 		add_breadcrumb "New Invoice"
 		@company = Company.find_by_id(current_user.company_id)

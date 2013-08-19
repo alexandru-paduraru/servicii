@@ -1,6 +1,6 @@
 <div class="row"> 
  	<div class="span6">
-			<h4>Create Invoice #0094</h4>
+			<h4>Create Invoice</h4>
 		<!--<h4>Edit Invoice #0094</h4>-->
 	</div>
 	<!-- First State -->
@@ -32,7 +32,7 @@
 <div class ="row">
 	<div class ="span3 well-white">
  	    <h4>Invoice To</h4>  
-		<p>[Company Name here]</p>
+		<p><%= @customer.organization_name %></p>
 		<p><%= @customer.first_name + ' ' + @customer.last_name %></p>
 		<p><%= @customer.address1 %> <%= @customer.zip_code %></p>
 		<p><%= @customer.city + ' ' + @customer.state %></p>
@@ -49,16 +49,19 @@
 <div class="span4 well-white pull-right">
  	<h4>Invoice details</h4>  
 	<fieldset>
-	<div class="control-group">
 	<%= fields_for :invoice do |i| %>
-		<!--<%= i.label :due_date, :class => "control-label" %> -->
-		<div class="controls">
- 			<input type="text" class="input-medium" value="[current date]" placeholder="Issued Date" ><br> 
-			<input type="text" class="input-mini"  value="[Net 30]" placeholder="Net 30" >&nbsp; 
-			<%= i.text_field :due_date, :class => "datepicker input-small", :placeholder => "Due date" %>
+		<label>Issue Date:</label>
+ 			<input type="text" class="issue-datepicker" name="invoice[issue_date]"> 
+			<label>Due Date:</label>
+			<%= i.text_field :due_date, :class => "due-datepicker", :placeholder => "Due date" %>
 			<%= i.hidden_field :amount %>
 			<%= i.hidden_field :number_of_services, :value => 0 %>  
-			<input type="text" class="input-medium" placeholder="PO Number" >
+			<label>Net</label>
+			<select class="input-small" id="invoice_net">
+			     <option>15</option>
+			     <option>30</option>
+			 </select>
+			<input type="text" class="input-small" placeholder="PO Number" >
  			
    		</div>
 	<% end %>	

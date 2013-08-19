@@ -238,7 +238,21 @@ $(document).ready(function() {
     });
     
 	$('.datepicker').datepicker();
+/* Datepicker for invoices  */
+	var date = new Date();
+	var due_date = new Date();
+	due_date.setDate(due_date.getDate()+15);
 	
+	$('.issue-datepicker').datepicker("setDate", new Date());
+	$('.due-datepicker').datepicker("setDate",due_date);
+	
+	$('#invoice_net').on('change',function(){
+        newDueDate = new Date();
+        daysNumber = parseInt($(this).val());
+        newDueDate.setDate(newDueDate.getDate() + daysNumber);
+        $('.due-datepicker').datepicker("setDate",newDueDate);
+        
+	});
 	//rich-text-editor
 	$('#some-textarea').wysihtml5();
 	
@@ -431,12 +445,16 @@ $(document).ready(function() {
     	data: serializedData,
         success: function(data){
 		      $('#main-span').prepend('<div class="alert alert-success">' + close_button + data + '</div>');
-		       $('#editCustomerForm').fadeOut('fast',function(){
+		      /*
+ $('#editCustomerForm').fadeOut('fast',function(){
     		       $('#editCustomerButton').show();
     		   $('#detailsCustomerForm').fadeIn();   
     		   });
+*/
+               $('#editCustomerForm button').fadeOut();
     		   response.html('');
     		   response.hide();
+    		   window.location = '/customer_details/' + $('#customerId').val();
   		},
   		error: function(xhr){
   		    var errors = $.parseJSON(xhr.responseText)
