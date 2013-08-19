@@ -115,37 +115,21 @@
   
  <!-- end row   --> 
   <%= render :partial => "salesman/open_invoices" %>
-
-<!-- V4 Static Example of Table -->
-
-<br /><br />
-
+ 
+<!-- Not for V1 
 <%= render :partial => "recurring_invoices" %>
-
-<br /><br /><br />
+-->
 
 <div class="row">
  	<div class="span5 well-white">
-    <!-- Static Example Activity Feed -->
-    <!---- am modificat activity feed de la span5 la span6, deoarece altfel dau erori render-urile de partiale pe actiunile implicite de activity feed; daca ne vom hotari ca este necesar sa fie span5, voi rezolva conflictele de afisare -->
+     <!-- am modificat activity feed de la span5 la span6, deoarece altfel dau erori render-urile de partiale pe actiunile implicite de activity feed; daca ne vom hotari ca este necesar sa fie span5, voi rezolva conflictele de afisare -->
     <div class="row">
-          <div class="span3">
-         <h5 class="muted">Activity Feed</h5>
-        </div>
-        <!-- Activity Feed Calendar Filter -->
-
-      <div class="span2">
-          <div class="pull-right">
-            <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                <input class="span2" size="16" type="text" value="20/07/2013">
-                <span class="add-on"><i class="icon-calendar"></i></span>
-            </div>
-          </div>
-        </div>
+    	<div class="span3">
+         	<h5 class="muted">Activity Feed</h5>
+     	</div> 
        <div class="span5"> 
           <legend></legend>
        </div>
-       <!-- end Activity Feed Calendar Filter --> 
     </div>
 
     <% if @customer_activities.any? %>
